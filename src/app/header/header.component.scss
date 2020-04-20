@@ -1,0 +1,42 @@
+.header-image {    
+    background-size: cover;
+}
+.avatar-card{
+    border-radius: 0 !important;
+    width: 100%;
+    margin-top: auto;
+    text-align: center;
+}
+.example-icon {
+    padding: 0 14px;
+  }
+  
+.example-spacer {
+    flex: 1 1 auto;
+}
+.spacer{
+    padding: 10px;
+}
+.mat-bg-warn {
+    background-color: #f44336;
+    color: #fff;
+}
+.notification-number {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 20px;
+    color: #fff;
+    text-align: center;
+    border-radius: 50%;
+}
+.btn-notification{
+    margin-right: 10px;
+}
+.btn-avatar{
+    margin-right: 10px;
+}

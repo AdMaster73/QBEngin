@@ -1,0 +1,25 @@
+<h3 class="center slategray">Nous rejoindre ?</h3>
+<h5 class="center darkcyan">Avec plaisir</h5>
+<form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="signup-form">
+  <!--  Content of login inputs-->
+  <p>
+    <mat-form-field appearance="outline">
+      <mat-label for="email">Adresse mail</mat-label>      
+      <input matInput type="text" id="email" formControlName="email">
+      <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+      <mat-icon matSuffix>account_box</mat-icon>
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="outline">
+      <mat-label>Entrer votre mot de passe</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" id="password" formControlName="password">
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+  </p>
+  <p class="text-danger">{{ errorMessage }}</p>
+  <p><button mat-button type="submit" [disabled]="signupForm.invalid">Créer mon compte</button></p>
+</form>

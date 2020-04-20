@@ -1,0 +1,65 @@
+.grid-container {
+  margin: 20px 20px 20px 80px;
+}
+
+.dashboard-card {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+}
+
+.more-button {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
+
+.dashboard-card-content {
+  text-align: center;
+}
+.mat-h2{
+  font-family: 'Oxanium', 'arial', sans-serif !important;
+  color: #929292;
+}
+.text-muted{
+  color: rgba(0,0,0,.54) !important;
+}
+h3{
+  margin: auto;
+}
+
+.header-image {    
+  background-size: cover;
+}
+.avatar-card{
+  border-radius: 0 !important;
+  width: 100%;
+  margin-top: auto;
+  text-align: center;
+}
+.example-icon {
+  padding: 0 14px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+.mat-bg-warn {
+  background-color: #f44336;
+  color: #fff;
+}
+.notification-number {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 20px;
+  color: #fff;
+  text-align: center;
+  border-radius: 50%;
+}

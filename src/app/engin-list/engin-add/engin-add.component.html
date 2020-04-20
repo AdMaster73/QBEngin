@@ -1,0 +1,112 @@
+<!-- Title group  -->
+<div class="title-group">
+    <h1 class="mat-h1">Ajouter Engin</h1>
+    <mat-divider fxFlex="1 0"></mat-divider>
+  </div>
+ 
+  <!-- Engin form -->
+  <div class="example-container">
+    <form [formGroup]="EnginForm" (ngSubmit)="submitEnginForm()"> <!-- #resetEnginForm="ngForm"-->
+      <!-- Left block -->
+      <mat-card>
+          <!-- Engin code -->
+          <mat-form-field class="example-full-width" appearance="outline">
+            <input matInput placeholder="Code" formControlName="code">
+            <mat-error *ngIf="handleError('code', 'required')">
+              Vous devez Entrer le <strong>Code engin</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Engin designation -->
+          <mat-form-field class="example-full-width" appearance="outline">
+            <input matInput placeholder="Désignation" formControlName="designation">
+            <mat-error *ngIf="handleError('designation', 'required')">
+              Vous devez Entrer la <strong>Désignation</strong>
+            </mat-error>
+          </mat-form-field>   
+
+          <!-- Add categorie -->
+          <mat-form-field class="example-full-width" appearance="outline">            
+            <input matInput #searchInput
+            formControlName="categorie"
+            placeholder="Catégorie"
+            aria-label="Catégorie"
+            (keyup)="search(searchInput.value)"
+            [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)='getCategories($event.option.value)'>
+              <mat-option *ngFor="let categorie of (results$ | async)" [value]="categorie?.name">                                         
+                <span>{{categorie?.name}}</span>                                
+              </mat-option> 
+            </mat-autocomplete> 
+            <mat-error *ngIf="handleError('categorie', 'required')">
+              Vous devez Entrer la <strong>Catégorie</strong>
+            </mat-error>                  
+          </mat-form-field>
+            <input matInput class="invisible" formControlName="categoriehd">
+
+          <!-- Add fornisseur -->
+          <mat-form-field class="example-full-width" appearance="outline">            
+            <input matInput #searchInput_f
+            formControlName="fournisseur"
+            placeholder="Fournisseur"
+            aria-label="Fournisseur"
+            (keyup)="search(searchInput_f.value)"
+            [matAutocomplete]="auto_f">
+            <mat-autocomplete #auto_f="matAutocomplete" (optionSelected)='getFournisseur($event.option.value)'>
+              <mat-option *ngFor="let fournisseur of (results_f$ | async)" [value]="fournisseur?.name">                                         
+                <span>{{fournisseur?.name}}</span>                                
+              </mat-option> 
+            </mat-autocomplete> 
+            <mat-error *ngIf="handleError('fournisseur', 'required')">
+              Vous devez Entrer Un <strong>Fournisseur</strong>
+            </mat-error>                  
+          </mat-form-field>
+            <input matInput class="invisible" formControlName="fournisseurhd">  
+
+            <!--DATE ACHAT-->
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Entrer la date d'achat</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="date_achat">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker touchUi #picker></mat-datepicker>
+            </mat-form-field>   
+            <!-- VALEUR ACHAT -->
+            <mat-form-field class="example-full-width" appearance="outline">
+              <input matInput placeholder="Valeur Achat" formControlName="value_chat">
+            </mat-form-field> 
+       
+            <!-- MARQUE MOTEUR -->
+            <mat-form-field class="example-full-width" appearance="outline">
+              <input matInput placeholder="Marque Moteur" formControlName="marque_moteur">
+            </mat-form-field> 
+
+            <!-- SERIE MOTEUR -->
+            <mat-form-field class="example-full-width" appearance="outline">
+              <input matInput placeholder="Serie Moteur" formControlName="serie_moteur">
+            </mat-form-field>
+
+            <!-- NUMERO SERIE -->
+            <mat-form-field class="example-full-width" appearance="outline">
+              <input matInput placeholder="Numéro de serie" formControlName="numero_serie">
+            </mat-form-field> 
+
+          <mat-card-actions>
+            <button mat-fab color="primary">
+              <mat-icon aria-label="Example icon-button with a heart icon">done_outline</mat-icon>
+            </button>
+            <button mat-fab color="accent" (click)="closeForm()">
+              <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
+            </button>
+          </mat-card-actions>             
+      </mat-card>
+ 
+      <!-- Submit & Reset -->
+      <!--mat-card>
+        <div class="full-wrapper button-wrapper">
+          <div class="button-wrapper">
+            
+          </div>
+        </div>
+      </mat-card-->
+    </form>
+  </div>

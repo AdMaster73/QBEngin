@@ -1,0 +1,334 @@
+[
+    {
+        "id": 1,
+        "fournisseur": "Tractafric"
+    },
+    {
+        "id": 2,
+        "fournisseur": "BITUMA"
+    },
+    {
+        "id": 3,
+        "fournisseur": "BERENGER"
+    },
+    {
+        "id": 4,
+        "fournisseur": "DEM MAROC"
+    },
+    {
+        "id": 5,
+        "fournisseur": "MARCOTEC"
+    },
+    {
+        "id": 6,
+        "fournisseur": "AIC"
+    },
+    {
+        "id": 7,
+        "fournisseur": "BEAUTECHNIK"
+    },
+    {
+        "id": 8,
+        "fournisseur": "La ligne Blanche"
+    },
+    {
+        "id": 9,
+        "fournisseur": "VOLVO MAROC"
+    },
+    {
+        "id": 10,
+        "fournisseur": "MAT OCCAZ"
+    },
+    {
+        "id": 11,
+        "fournisseur": "SRM"
+    },
+    {
+        "id": 12,
+        "fournisseur": "HYDRAU MAROC"
+    },
+    {
+        "id": 13,
+        "fournisseur": "HYDRAU MAC"
+    },
+    {
+        "id": 14,
+        "fournisseur": "STOCKVIS"
+    },
+    {
+        "id": 15,
+        "fournisseur": "SMDM"
+    },
+    {
+        "id": 16,
+        "fournisseur": "STE AZIBRAMO"
+    },
+    {
+        "id": 17,
+        "fournisseur": "SOCOPIM"
+    },
+    {
+        "id": 18,
+        "fournisseur": "SOGETRAMA"
+    },
+    {
+        "id": 19,
+        "fournisseur": "SMAC"
+    },
+    {
+        "id": 20,
+        "fournisseur": "CATERPILLAR"
+    },
+    {
+        "id": 21,
+        "fournisseur": "BMCI LEASING"
+    },
+    {
+        "id": 22,
+        "fournisseur": "VOGELE"
+    },
+    {
+        "id": 23,
+        "fournisseur": "MACROPAVER"
+    },
+    {
+        "id": 24,
+        "fournisseur": "STRABEQ"
+    },
+    {
+        "id": 25,
+        "fournisseur": "WIRTGEN"
+    },
+    {
+        "id": 26,
+        "fournisseur": "ZIGMA INDUSTRIE"
+    },
+    {
+        "id": 27,
+        "fournisseur": "ALFABELT"
+    },
+    {
+        "id": 28,
+        "fournisseur": "HORIZON ROUTIER"
+    },
+    {
+        "id": 29,
+        "fournisseur": "LEASBACK"
+    },
+    {
+        "id": 30,
+        "fournisseur": "LTA"
+    },
+    {
+        "id": 31,
+        "fournisseur": "SKEMEC"
+    },
+    {
+        "id": 32,
+        "fournisseur": "PRM"
+    },
+    {
+        "id": 33,
+        "fournisseur": "GENA"
+    },
+    {
+        "id": 34,
+        "fournisseur": "PR INDUSTRIE"
+    },
+    {
+        "id": 35,
+        "fournisseur": "FENIE BROSSET"
+    },
+    {
+        "id": 36,
+        "fournisseur": "PESAGE VIAL"
+    },
+    {
+        "id": 37,
+        "fournisseur": "SINPEC"
+    },
+    {
+        "id": 38,
+        "fournisseur": "PESAGE PROMOTION"
+    },
+    {
+        "id": 39,
+        "fournisseur": "SOTRAMEG"
+    },
+    {
+        "id": 40,
+        "fournisseur": "DELTA MOTORS"
+    },
+    {
+        "id": 41,
+        "fournisseur": "AUTO NEJMA"
+    },
+    {
+        "id": 42,
+        "fournisseur": "\"GARAGE EL MASSIRA MOUNIR"
+    },
+    {
+        "id": 43,
+        "fournisseur": "GOURDON"
+    },
+    {
+        "id": 44,
+        "fournisseur": "LGTC"
+    },
+    {
+        "id": 45,
+        "fournisseur": "REBEL"
+    },
+    {
+        "id": 46,
+        "fournisseur": "REM EQUI"
+    },
+    {
+        "id": 47,
+        "fournisseur": "ESPACE METAL"
+    },
+    {
+        "id": 48,
+        "fournisseur": "TRACOMAR"
+    },
+    {
+        "id": 49,
+        "fournisseur": "OXAIR"
+    },
+    {
+        "id": 50,
+        "fournisseur": "SCORE AUTO"
+    },
+    {
+        "id": 51,
+        "fournisseur": "SGA"
+    },
+    {
+        "id": 52,
+        "fournisseur": "BERLIET MAROC"
+    },
+    {
+        "id": 53,
+        "fournisseur": "ELHARRATI"
+    },
+    {
+        "id": 54,
+        "fournisseur": "SOPRIAM"
+    },
+    {
+        "id": 55,
+        "fournisseur": "TOP AUTO"
+    },
+    {
+        "id": 56,
+        "fournisseur": "JNANE AUTO"
+    },
+    {
+        "id": 57,
+        "fournisseur": "IDOSCAR AUTO"
+    },
+    {
+        "id": 58,
+        "fournisseur": "AUTO HALL"
+    },
+    {
+        "id": 59,
+        "fournisseur": "AIC METALLURGIE"
+    },
+    {
+        "id": 60,
+        "fournisseur": "HYUNDAI GE"
+    },
+    {
+        "id": 61,
+        "fournisseur": "RENAULT MAROC"
+    },
+    {
+        "id": 62,
+        "fournisseur": "UMAG"
+    },
+    {
+        "id": 63,
+        "fournisseur": "HYDROMECA METAL"
+    },
+    {
+        "id": 64,
+        "fournisseur": "SEDITEC"
+    },
+    {
+        "id": 65,
+        "fournisseur": "ATLAS COPCO"
+    },
+    {
+        "id": 66,
+        "fournisseur": "NCCIC"
+    },
+    {
+        "id": 67,
+        "fournisseur": "Atelier Fertat"
+    },
+    {
+        "id": 68,
+        "fournisseur": "NOTESER"
+    },
+    {
+        "id": 69,
+        "fournisseur": "HALADJIAN MAROC"
+    },
+    {
+        "id": 70,
+        "fournisseur": "ATELIET FERTAT"
+    },
+    {
+        "id": 71,
+        "fournisseur": "PHILEAS"
+    },
+    {
+        "id": 72,
+        "fournisseur": "TOUAX"
+    },
+    {
+        "id": 73,
+        "fournisseur": "MUSTANG"
+    },
+    {
+        "id": 74,
+        "fournisseur": "MAROC CONTENER"
+    },
+    {
+        "id": 75,
+        "fournisseur": "MAGI-TECH"
+    },
+    {
+        "id": 76,
+        "fournisseur": "CONTROLAB"
+    },
+    {
+        "id": 77,
+        "fournisseur": "COFMAT"
+    },
+    {
+        "id": 78,
+        "fournisseur": "NLC"
+    },
+    {
+        "id": 79,
+        "fournisseur": "AGT"
+    },
+    {
+        "id": 80,
+        "fournisseur": "SYMBIO"
+    },
+    {
+        "id": 81,
+        "fournisseur": "INFRASOLUTION"
+    },
+    {
+        "id": 82,
+        "fournisseur": "GERIS"
+    },
+    {
+        "id": 83,
+        "fournisseur": "Sans Fournisseur"
+    }
+]

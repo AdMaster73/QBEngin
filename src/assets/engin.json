@@ -1,0 +1,2163 @@
+[
+    {
+        "id": 1,
+        "code": "105207",
+        "name": "Niveleuse CAT 12H",
+        "date_achat": "01/04/2002",
+        "valeur_achat": "1750000",
+        "n_serie": "CAT0012HH42R00830",
+        "marque_moteur": "CAT3306",
+        "serie_moteur": "6NC26276 ARR110576",
+        "fournisseur" :{
+            "id": 1,
+            "name": "Tractafric"
+            },
+        "categorie":{
+            "id": 1,
+            "name": "Niveleuses"
+        }
+    },
+    {
+        "id": 2,
+        "code": "105208",
+        "name": "Niveleuse CAT 12H",
+        "date_achat": "01/06/2002",
+        "valeur_achat": "1750000",
+        "n_serie": "4ER00832",
+        "marque_moteur": "CAT3306",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 1,
+            "name": "Tractafric"            
+        },     
+        "categorie":{
+            "id": 1,
+            "name": "Niveleuses"
+        }        
+    },
+    {
+        "id": 3,
+        "code": "105211",
+        "name": "Niveleuse CAT 12H",
+        "date_achat": "01/09/2007",
+        "valeur_achat": "1900000",
+        "n_serie": "9MM04743",
+        "marque_moteur": "CAT 3306",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 1,
+            "name": "Tractafric"
+        },
+        "categorie":{
+            "id": 1,
+            "name": "Niveleuses"
+        }        
+    },
+    {
+        "id": 4,
+        "code": "105-305201",
+        "name": "Niveleuse CAT 12H",
+        "date_achat": "31/03/2010",
+        "valeur_achat": "600000",
+        "n_serie": "40012HVUER00726",
+        "marque_moteur": "CAT3306",
+        "serie_moteur": "6NC26056",        
+        "fournisseur": {
+            "id": 2,
+            "name":"BITUMA"
+        },        
+        "categorie": {
+            "id": 1,
+            "name":"Niveleuses"
+        }
+    },
+    {
+        "id": 5,
+        "code": "105212",
+        "name": "Niveleuse JOHN DEERE 670 G",
+        "date_achat": "01/11/2010",
+        "valeur_achat": "1580000",
+        "n_serie": "DW670GX627295",
+        "marque_moteur": "JOHN DEERE",
+        "serie_moteur": "PE6068H775390",
+        
+        "fournisseur":{
+            "id": 3,
+            "name": "BERENGER"
+        },
+        "categorie": {
+            "id": 1,
+            "name": "Niveleuses"            
+        }
+    },
+    {
+        "id": 6,
+        "code": "105213",
+        "name": "Niveleuse JOHN DEERE 670 G",
+        "date_achat": "01/08/2014",
+        "valeur_achat": "1650000",
+        "n_serie": "",
+        "marque_moteur": "JOHN DEERE",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 4,
+            "name": "DEM MAROC"
+        },
+        "categorie":{
+            "id": 1,
+            "name": "Niveleuses"            
+        }
+    },
+    {
+        "id": 7,
+        "code": "105214",
+        "name": "Niveleuse JOHN DEERE 670 G",
+        "date_achat": "25/04/2016",
+        "valeur_achat": "1800000",
+        "n_serie": "1DW670GXCFC668536",
+        "marque_moteur": "JOHN DEERE",
+        "serie_moteur": "",
+        "fournisseur": {
+            "id": 4,
+            "name": "DEM MAROC"            
+        },
+        "categorie":{
+            "id": 1,
+            "name": "Niveleuses"            
+        }
+    },
+    {
+        "id": 8,
+        "code": "105214",
+        "name": "Système de guidage GPS Leica sur NIVELEUSE 105214",
+        "date_achat": "01/01/2017",
+        "valeur_achat": "819792.59",
+        "n_serie": "ICP42",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 5,
+            "name": "MARCOTEC"            
+        },
+        "categorie":{
+            "id": 1,
+            "name": "Niveleuses"            
+        }
+    },
+    {
+        "id": 9,
+        "code": "105215",
+        "name": "Niveleuse JOHN DEERE 670 G",
+        "date_achat": "01/03/2017",
+        "valeur_achat": "1900000",
+        "n_serie": "1DW670GXEFC668978",
+        "marque_moteur": "JOHN DEERE",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 4,
+            "name": "DEM MAROC"            
+        },
+        "categorie":{
+            "id": 1,
+            "name": "Niveleuses"            
+        }
+    },
+    {
+        "id": 10,
+        "code": "105216",
+        "name": "Niveleuse JOHN DEERE 670 G",
+        "date_achat": "26/12/2017",
+        "valeur_achat": "1800000",
+        "n_serie": "1DW670GXCHC680150",
+        "marque_moteur": "JOHN DEERE",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 4,
+            "name": "DEM MAROC"            
+        },
+        "categorie":{
+            "id": 1,
+            "name": "Niveleuses"            
+        }
+    },
+    {
+        "id": 11,
+        "code": "105217",
+        "name": "Niveleuse JOHN DEERE 670 G",
+        "date_achat": "31/03/2019",
+        "valeur_achat": "1910000",
+        "n_serie": "1DW670GXJJC693413",
+        "marque_moteur": "JOHN DEERE",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 4,
+            "name": "DEM MAROC"            
+        },
+        "categorie":{
+            "id": 4,
+            "name": "Niveleuses"            
+        }
+    },
+    {
+        "id": 12,
+        "code": "102204",
+        "name": "Pelle hydraulique Leihber 924",
+        "date_achat": "01/12/2006",
+        "valeur_achat": "500000",
+        "n_serie": "761-12826",
+        "marque_moteur": "LEIBHER D924",
+        "serie_moteur": "2003 01 4580",
+        "fournisseur":{
+            "id": 6,
+            "name": "AIC"            
+        },
+        "categorie":{
+            "id": 2,
+            "name": "Pelles sur Chenilles"            
+        }
+    },
+    {
+        "id": 13,
+        "code": "102-502202",
+        "name": "Pelle hydraulique FIAT KOBELCO 355",
+        "date_achat": "31/01/2013",
+        "valeur_achat": "220000",
+        "n_serie": "356ML0216",
+        "marque_moteur": "ISUZU 6HK1XABEA",
+        "serie_moteur": "503833",
+        "fournisseur":{
+            "id": "6",
+            "name": "AIC"            
+        },
+        "categorie":{
+            "id": "2",
+            "name": "Pelles sur Chenilles"            
+        }
+    },
+    {
+        "id": 14,
+        "code": "102501",
+        "name": "Pelle sur pneus CAT M315D",
+        "date_achat": "01/03/2013",
+        "valeur_achat": "1480000",
+        "n_serie": "J5B00454",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 83,
+            "name": "Sans Fournisseur"            
+        },
+        "categorie":{
+            "id": 3,
+            "name": "Pelles hydrauliques"            
+        }
+    },
+    {
+        "id": 15,
+        "code": "122301",
+        "name": "Godet cribleur hydraulique BV R15E",
+        "date_achat": "01/06/2016",
+        "valeur_achat": "190000",
+        "n_serie": "Z0657",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 7,
+            "name": "BEAUTECHNIK"            
+        },
+        "categorie":{
+            "id": 5,
+            "name": "Godet cribleur pour Pelle hydraulique"            
+        }
+    },
+    {
+        "id": 16,
+        "code": "103-303103",
+        "name": "Chargeuse 914 G",
+        "date_achat": "30/06/2013",
+        "valeur_achat": "140000",
+        "n_serie": "",
+        "marque_moteur": "",
+        "serie_moteur": "CATERPILLAR",
+        "fournisseur":{
+            "id": 2,
+            "name": "BITUMA"            
+        },
+        "categorie":{
+            "id": 6,
+            "name": "Chargeuses"            
+        }
+    },
+    {
+        "id": 17,
+        "code": "103204",
+        "name": "Chargeuse 938 G",
+        "date_achat": "01/01/2002",
+        "valeur_achat": "1100000",
+        "n_serie": "6WS03162",
+        "marque_moteur": "CAT3126DIT",
+        "serie_moteur": "BMA04425 ARR1985914",
+        "fournisseur":{
+            "id": 1,
+            "name": "Tractafric"            
+        },
+        "categorie":{
+            "id": 6,
+            "name": "Chargeuses"            
+        }
+    },
+    {
+        "id": 18,
+        "code": "103206",
+        "name": "Chargeuse 938 G",
+        "date_achat": "01/06/2003",
+        "valeur_achat": "1150000",
+        "n_serie": "PHN00430",
+        "marque_moteur": "CAT3126DIT",
+        "serie_moteur": "BMA04425 ARR1985914",
+        "fournisseur":{
+            "id": 1,
+            "name": "Tractafric"            
+        },
+        "categorie":{
+            "id": 6,
+            "name": "Chargeuses"            
+        }
+    },
+    {
+        "id": 19,
+        "code": "103208",
+        "name": "Chargeuse 938 G",
+        "date_achat": "01/07/2003",
+        "valeur_achat": "1150000",
+        "n_serie": "PHN00436",
+        "marque_moteur": "CAT3126DIT",
+        "serie_moteur": "10341791",
+        "fournisseur":{
+            "id": 1,
+            "name": "Tractafric"            
+        },
+        "categorie":{
+            "id": 6,
+            "name": "Chargeuses"            
+        }
+    },
+    {
+        "id": 20,
+        "code": "103209",
+        "name": "Chargeuse Volvo L70 F",
+        "date_achat": "06/06/2007",
+        "valeur_achat": "1060000",
+        "n_serie": "L70FV24124",
+        "marque_moteur": "",
+        "serie_moteur": "D6ELBE3",
+        "fournisseur":{
+            "id": 83,
+            "name": "Sans Fournisseur"            
+        },
+        "categorie":{
+            "id": 6,
+            "name": "Chargeuses"            
+        }
+    },
+    {
+        "id": 21,
+        "code": "103210",
+        "name": "Chargeuse Volvo L70 E",
+        "date_achat": "01/12/2007",
+        "valeur_achat": "1000000",
+        "n_serie": "L70FV24120",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 8,
+            "name": "La ligne Blanche"            
+        },
+        "categorie":{
+            "id": 6,
+            "name": "Chargeuses"            
+        }
+    },
+    {
+        "id": 22,
+        "code": "103211",
+        "name": "Chargeuse Volvo L70 F",
+        "date_achat": "01/11/2014",
+        "valeur_achat": "1230000",
+        "n_serie": "",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 9,
+            "name": "VOLVO MAROC"            
+        },
+        "categorie":{
+            "id": 6,
+            "name": "Chargeuses"            
+        }
+    },
+    {
+        "id": 23,
+        "code": "103212",
+        "name": "Chargeuse Volvo L70 F",
+        "date_achat": "01/06/2015",
+        "valeur_achat": "1230000",
+        "n_serie": "VCEOL70FAF0026960",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 9,
+            "name": "VOLVO MAROC"            
+        },
+        "categorie":{
+            "id": 6,
+            "name": "Chargeuses"            
+        }
+    },
+    {
+        "id": 24,
+        "code": "103213",
+        "name": "Chargeuse Volvo L70 F",
+        "date_achat": "01/07/2015",
+        "valeur_achat": "1230000",
+        "n_serie": "UCEOL70FEF0026963",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 9,
+            "name": "VOLVO MAROC"            
+        },
+        "categorie":{
+            "id": 6,
+            "name": "Chargeuses"            
+        }
+    },
+    {
+        "id": 25,
+        "code": "108901",
+        "name": "BALAYEUSE AUTOMOTRICE SCARAB SUR PORTEUR MAN",
+        "date_achat": "24/05/2017",
+        "valeur_achat": "744441.03",
+        "n_serie": "WMAN18ZZ8Y213108",
+        "marque_moteur": "TGM15240",
+        "serie_moteur": "SANS IMMATRICULATION",
+        "fournisseur":{
+            "id": 10,
+            "name": "MAT OCCAZ"            
+        },
+        "categorie":{
+            "id": 7,
+            "name": "Balayeuse sur porteur"            
+        }
+    },
+    {
+        "id": 26,
+        "code": "",
+        "name": "Balayeuse Bobcat 112906",
+        "date_achat": "01/10/2008",
+        "valeur_achat": "0",
+        "n_serie": "",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 11,
+            "name": "SRM"      
+        },
+        "categorie":{
+            "id": 8,
+            "name": "Balayeuse pour chargeur et Bobcat"            
+        }
+    },
+    {
+        "id": 27,
+        "code": "",
+        "name": "Balayeuse Bobcat 112908",
+        "date_achat": "01/06/2014",
+        "valeur_achat": "0",
+        "n_serie": "BOBCAT",
+        "marque_moteur": "SWEEPER 60 152CM",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 12,
+            "name": "HYDRAU MAROC"            
+        },
+        "categorie":{
+            "id": 8,
+            "name": "Balayeuse pour chargeur et Bobcat"            
+        }
+    },
+    {
+        "id": 28,
+        "code": "112909",
+        "name": "Balayeuse Rabeaud Multinet 2100",
+        "date_achat": "30/09/2016",
+        "valeur_achat": "138369.36",
+        "n_serie": "R7628",
+        "marque_moteur": "2100",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 83,
+            "name": "Sans Fournisseur"            
+        },
+        "categorie":{
+            "id": 8,
+            "name": "Balayeuse pour chargeur et Bobcat"            
+        }
+    },
+    {
+        "id": 29,
+        "code": "",
+        "name": "Balayeuse Bobcat 112910",
+        "date_achat": "11/04/2017",
+        "valeur_achat": "0",
+        "n_serie": "MANTA1550STD",
+        "marque_moteur": "Avec ATTACHE UNIVERSEL",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 83,
+            "name": "Sans Fournisseur"            
+        },
+        "categorie":{
+            "id": 8,
+            "name": "Balayeuse pour chargeur et Bobcat"            
+        }
+    },
+    {
+        "id": 30,
+        "code": "112906",
+        "name": "BOBCAT S130 avec Balayeuse et GODET",
+        "date_achat": "01/10/2008",
+        "valeur_achat": "335000",
+        "n_serie": "A1Z713250",
+        "marque_moteur": "KUBOTA V2203",
+        "serie_moteur": "08A3196",
+        "fournisseur":{
+            "id": 11,
+            "name": "SRM"            
+        },
+        "categorie":{
+            "id": 9,
+            "name": "Mini-chargeuses"            
+        }
+    },
+    {
+        "id": 31,
+        "code": "112907",
+        "name": "BOBCAT S130B avec GODET 157CM",
+        "date_achat": "01/08/2013",
+        "valeur_achat": "281000",
+        "n_serie": "TYPE V2203-M-DI-EU2",
+        "marque_moteur": "3KBXL02-2ECD",
+        "serie_moteur": "F1*97/68DA*2006",
+        "fournisseur":{
+            "id": 12,
+            "name": "HYDRAU MAROC"            
+        },
+        "categorie":{
+            "id": 9,
+            "name": "Mini-chargeuses"            
+        }
+    },
+    {
+        "id": 32,
+        "code": "112908",
+        "name": "BOBCAT S130 avec BALAYEUSE",
+        "date_achat": "01/06/2014",
+        "valeur_achat": "282000",
+        "n_serie": "BOBCAT",
+        "marque_moteur": "S130B",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 12,
+            "name": "HYDRAU MAROC"            
+        },
+        "categorie":{
+            "id": 9,
+            "name": "Mini-chargeuses"            
+        }
+    },
+    {
+        "id": 33,
+        "code": "112910",
+        "name": "JOHN DEERE 313D avec GODET",
+        "date_achat": "11/04/2017",
+        "valeur_achat": "230000",
+        "n_serie": "1T0313XAHA0191633",
+        "marque_moteur": "313D",
+        "serie_moteur": "JOHN DEER",
+        "fournisseur":{
+            "id": 4,
+            "name": "DEM MAROC"            
+        },
+        "categorie":{
+            "id": 9,
+            "name": "Mini-chargeuses"            
+        }
+    },
+    {
+        "id": 34,
+        "code": "112911",
+        "name": "BOBCAT avec Fraiseuse et Balayeuse",
+        "date_achat": "13/12/2018",
+        "valeur_achat": "304580",
+        "n_serie": "",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 13,
+            "name": "HYDRAU MAC"            
+        },
+        "categorie":{
+            "id": 9,
+            "name": "Mini-chargeuses"            
+        }
+    },
+    {
+        "id": 35,
+        "code": "112912",
+        "name": "BOBCAT S450B avec Balayeuse et Syst�me d'arrosage",
+        "date_achat": "01/01/2019",
+        "valeur_achat": "326890",
+        "n_serie": "BCTB1E6DTJDA19652",
+        "marque_moteur": "S450B",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 13,
+            "name": "HYDRAU MAC"            
+        },
+        "categorie":{
+            "id": 9,
+            "name": "Mini-chargeuses"            
+        }
+    },
+    {
+        "id": 36,
+        "code": "114703",
+        "name": "Raboteuse sur Bobcat S130B",
+        "date_achat": "01/12/2014",
+        "valeur_achat": "91000",
+        "n_serie": "AKS302100",
+        "marque_moteur": "PLN14",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 12,
+            "name": "HYDRAU MAROC"            
+        },
+        "categorie":{
+            "id": 10,
+            "name": "Raboteuse pour mini chargeuse"            
+        }
+    },
+    {
+        "id": 37,
+        "code": "114704",
+        "name": "Raboteuse sur Bobcat S130B",
+        "date_achat": "01/12/2014",
+        "valeur_achat": "91000",
+        "n_serie": "AKS302101",
+        "marque_moteur": "PLN14",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 12,
+            "name": "HYDRAU MAROC"            
+        },
+        "categorie":{
+            "id": 10,
+            "name": "Raboteuse pour mini chargeuse"            
+        }
+    },
+    {
+        "id": 38,
+        "code": "",
+        "name": "Raboteuse sur Bobcat S450B",
+        "date_achat": "13/12/2018",
+        "valeur_achat": "104760",
+        "n_serie": "",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 13,
+            "name": "HYDRAU MAC"            
+        },
+        "categorie":{
+            "id": 10,
+            "name": "Raboteuse pour mini chargeuse"            
+        }
+    },
+    {
+        "id": 39,
+        "code": "104103",
+        "name": "Tracto-pelle CAT 428D",
+        "date_achat": "01/12/2004",
+        "valeur_achat": "570000",
+        "n_serie": "EDSX00502",
+        "marque_moteur": "CAT",
+        "serie_moteur": "CRS14328 ARR 2343059",
+        "fournisseur":{
+            "id": 1,
+            "name": "Tractafric"            
+        },
+        "categorie":{
+            "id": 11,
+            "name": "Tracto-Pelles"            
+        }
+    },
+    {
+        "id": 40,
+        "code": "104104",
+        "name": "Tracto-pelle CAT 428D",
+        "date_achat": "01/11/2004",
+        "valeur_achat": "570000",
+        "n_serie": "CAT0428DCDSX00503",
+        "marque_moteur": "CAT",
+        "serie_moteur": "CRS14769 ARR2343059",
+        "fournisseur":{
+            "id": 1,
+            "name": "Tractafric"            
+        },
+        "categorie":{
+            "id": 11,
+            "name": "Tracto-Pelles"            
+        }
+    },
+    {
+        "id": 41,
+        "code": "104105",
+        "name": "Tracto-pelle CAT 428F",
+        "date_achat": "01/04/2013",
+        "valeur_achat": "680000",
+        "n_serie": "LHB01749",
+        "marque_moteur": "CAT",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 1,
+            "name": "Tractafric"            
+        },
+        "categorie":{
+            "id": 11,
+            "name": "Tracto-Pelles"            
+        }
+    },
+    {
+        "id": 42,
+        "code": "104106",
+        "name": "Tracto-pelle CAT 428F",
+        "date_achat": "01/02/2016",
+        "valeur_achat": "720000",
+        "n_serie": "F2E16054",
+        "marque_moteur": "CAT",
+        "serie_moteur": "0428FHLBH05183",
+        "fournisseur":{
+            "id": 83,
+            "name": "Sans Fournisseur"            
+        },
+        "categorie":{
+            "id": 11,
+            "name": "Tracto-Pelles"            
+        }
+    },
+    {
+        "id": 43,
+        "code": "106103",
+        "name": "Compacteur mixte CAT CS 563",
+        "date_achat": "01/07/1992",
+        "valeur_achat": "800000",
+        "n_serie": "7GG00166",
+        "marque_moteur": "CAT2116",
+        "serie_moteur": "2WG02129",
+        "fournisseur":{
+            "id": 1,
+            "name": "Tractafric"            
+        },
+        "categorie":{
+            "id": 12,
+            "name": "Compacteurs mixtes"            
+        }
+    },
+    {
+        "id": 44,
+        "code": "106202",
+        "name": "Compacteur vibrant mixte CA 512D",
+        "date_achat": "01/01/2003",
+        "valeur_achat": "750000",
+        "n_serie": "70220850",
+        "marque_moteur": "cummins",
+        "serie_moteur": "17T",
+        "fournisseur":{
+            "id": 14,
+            "name": "STOCKVIS"            
+        },
+        "categorie":{
+            "id": 12,
+            "name": "Compacteurs mixtes"            
+        }
+    },
+    {
+        "id": 45,
+        "code": "106203",
+        "name": "Compacteur vibrant mixte CA 512D",
+        "date_achat": "01/01/2003",
+        "valeur_achat": "750000",
+        "n_serie": "70220851",
+        "marque_moteur": "cummins",
+        "serie_moteur": "215399947",
+        "fournisseur":{
+            "id": 14,
+            "name": "STOCKVIS"            
+        },
+        "categorie":{
+            "id": 12,
+            "name": "Compacteurs mixtes"            
+        }
+    },
+    {
+        "id": 46,
+        "code": "106204",
+        "name": "Compacteur vibrant mixte CA 512D",
+        "date_achat": "01/01/2003",
+        "valeur_achat": "750000",
+        "n_serie": "70220852",
+        "marque_moteur": "cummins",
+        "serie_moteur": "cat512",
+        "fournisseur":{
+            "id": 14,
+            "name": "STOCKVIS"            
+        },
+        "categorie":{
+            "id": 12,
+            "name": "Compacteurs mixtes"            
+        }
+    },
+    {
+        "id": 47,
+        "code": "106205",
+        "name": "Compacteur vibrant mixte CA 512D",
+        "date_achat": "01/01/2003",
+        "valeur_achat": "750000",
+        "n_serie": "70220853",
+        "marque_moteur": "cummins",
+        "serie_moteur": "21543164",
+        "fournisseur":{
+            "id": 14,
+            "name": "STOCKVIS"            
+        },
+        "categorie":{
+            "id": 12,
+            "name": "Compacteurs mixtes"            
+        }
+    },
+    {
+        "id": 48,
+        "code": "106206",
+        "name": "Compacteur mixte HAMM 3411",
+        "date_achat": "06/12/2012",
+        "valeur_achat": "725000",
+        "n_serie": "H2060990",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 15,
+            "name": "SMDM"            
+        },
+        "categorie":{
+            "id": 12,
+            "name": "Compacteurs mixtes"            
+        }
+    },
+    {
+        "id": 49,
+        "code": "106207",
+        "name": "Compacteur MonoCylindre HAMM 3520",
+        "date_achat": "01/05/2017",
+        "valeur_achat": "680000",
+        "n_serie": "2180392",
+        "marque_moteur": "HAMM",
+        "serie_moteur": "22T",
+        "fournisseur":{
+            "id": 16,
+            "name": "STE AZIBRAMO"            
+        },
+        "categorie":{
+            "id": 12,
+            "name": "Compacteurs mixtes"            
+        }
+    },
+    {
+        "id": 50,
+        "code": "106406",
+        "name": "Compacteur à Rouleaux BOMAG BW 161 AD-2",
+        "date_achat": "01/07/2002",
+        "valeur_achat": "600000",
+        "n_serie": "1",
+        "marque_moteur": "01641E+11",
+        "serie_moteur": "Deutz BF4L913",
+        "fournisseur":{
+            "id": 17,
+            "name": "SOCOPIM"            
+        },
+        "categorie":{
+            "id": 13,
+            "name": "Compacteurs tandems >2t"            
+        }
+    },
+    {
+        "id": 51,
+        "code": "106407",
+        "name": "Compacteur à Rouleaux HAMM HD 90",
+        "date_achat": "01/10/2007",
+        "valeur_achat": "800000",
+        "n_serie": "H1810238",
+        "marque_moteur": "Deutz 7DZXL04-1080",
+        "serie_moteur": "10393227",
+        "fournisseur":{
+            "id": 3,
+            "name": "BERENGER"            
+        },
+        "categorie":{
+            "id": 13,
+            "name": "Compacteurs tandems >2t"            
+        }
+    },
+    {
+        "id": 52,
+        "code": "106408",
+        "name": "Compacteur à Rouleaux HAMM HD 90",
+        "date_achat": "01/10/2007",
+        "valeur_achat": "800000",
+        "n_serie": "H1810239",
+        "marque_moteur": "Deutz 7DZXL04-1080",
+        "serie_moteur": "10388162",
+        "fournisseur":{
+            "id": 3,
+            "name": "BERENGER"            
+        },
+        "categorie":{
+            "id": 13,
+            "name": "Compacteurs tandems >2t"            
+        }
+    },
+    {
+        "id": 53,
+        "code": "106-306401",
+        "name": "Compacteur à Rouleaux BOMAG BW 161 AD-2",
+        "date_achat": "24/12/2007",
+        "valeur_achat": "50000",
+        "n_serie": "1",
+        "marque_moteur": "02E+11",
+        "serie_moteur": "Deutz BF4L913",
+        "fournisseur":{
+            "id": 2,
+            "name": "BITMA"            
+        },
+        "categorie":{
+            "id": 13,
+            "name": "Compacteurs tandems >2t"            
+        }
+    },
+    {
+        "id": 54,
+        "code": "106409",
+        "name": "Compacteur � Rouleaux HAMM HD110",
+        "date_achat": "01/06/2014",
+        "valeur_achat": "740000",
+        "n_serie": "H1812850",
+        "marque_moteur": "11T",
+        "serie_moteur": "HD110",
+        "fournisseur":{
+            "id": 15,
+            "name": "SMDM"            
+        },
+        "categorie":{
+            "id": 13,
+            "name": "Compacteurs tandems >2t"            
+        }
+    },
+    {
+        "id": 55,
+        "code": "106410",
+        "name": "Compacteur HAMM HD140",
+        "date_achat": "01/09/2016",
+        "valeur_achat": "874000",
+        "n_serie": "H1841374",
+        "marque_moteur": "DEUTZ",
+        "serie_moteur": "HD140",
+        "fournisseur":{
+            "id": 15,
+            "name": "SMDM"            
+        },
+        "categorie":{
+            "id": 13,
+            "name": "Compacteurs tandems >2t"            
+        }
+    },
+    {
+        "id": 56,
+        "code": "106411",
+        "name": "Compacteur HAMM HD140",
+        "date_achat": "01/09/2016",
+        "valeur_achat": "874000",
+        "n_serie": "H1841375",
+        "marque_moteur": "DEUTZ",
+        "serie_moteur": "HD140",
+        "fournisseur":{
+            "id": 15,
+            "name": "SMDM"            
+        },
+        "categorie":{
+            "id": 13,
+            "name": "Compacteurs tandems >2t"            
+        }
+    },
+    {
+        "id": 57,
+        "code": "106412",
+        "name": "Compacteur HAMM HD140",
+        "date_achat": "01/07/2017",
+        "valeur_achat": "874800",
+        "n_serie": "H1841486",
+        "marque_moteur": "DEUTZ",
+        "serie_moteur": "HD140",
+        "fournisseur":{
+            "id": 15,
+            "name": "SMDM"            
+        },
+        "categorie":{
+            "id": 13,
+            "name": "Compacteurs tandems >2t"            
+        }
+    },
+    {
+        "id": 58,
+        "code": "106309",
+        "name": "Compacteur à Rouleaux BOMAG BW 120AD",
+        "date_achat": "01/02/2008",
+        "valeur_achat": "271000",
+        "n_serie": "1",
+        "marque_moteur": "02E+15",
+        "serie_moteur": "Kubota D1703MDI",
+        "fournisseur":{
+            "id": 11,
+            "name": "SRM"            
+        },
+        "categorie":{
+            "id": 14,
+            "name": "Compacteurs tandems <2t"            
+        }
+    },
+    {
+        "id": 59,
+        "code": "106310",
+        "name": "Compacteur à Rouleaux BOMAG BW 120AD",
+        "date_achat": "01/03/2008",
+        "valeur_achat": "271000",
+        "n_serie": "1",
+        "marque_moteur": "0188E+11",
+        "serie_moteur": "Kubota D1703MDI",
+        "fournisseur":{
+            "id": "11",
+            "name": "SRM"            
+        },
+        "categorie":{
+            "id": "14",
+            "name": "Compacteurs tandems <2t"            
+        }
+    },
+    {
+        "id": 60,
+        "code": "106312",
+        "name": "Compacteur à Rouleaux HAMM HD12 VV2 CYLINDRES",
+        "date_achat": "01/12/2012",
+        "valeur_achat": "235000",
+        "n_serie": "H2002715",
+        "marque_moteur": "Kubota D1503-M-EU33",
+        "serie_moteur": "YKBXL02-2FCD",
+        "fournisseur":{
+            "id": 15,
+            "name": "SMDM"            
+        },
+        "categorie":{
+            "id": 14,
+            "name": "Compacteurs tandems <2t"            
+        }
+    },
+    {
+        "id": 61,
+        "code": "106313",
+        "name": "Compacteur à Rouleaux HAMM HD10",
+        "date_achat": "01/06/2014",
+        "valeur_achat": "250000",
+        "n_serie": "H2003721",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 15,
+            "name": "SMDM"            
+        },
+        "categorie":{
+            "id": 14,
+            "name": "Compacteurs tandems <2t"            
+        }
+    },
+    {
+        "id": 62,
+        "code": "106314",
+        "name": "Compacteur à Rouleaux HAMM HD10W",
+        "date_achat": "01/08/2015",
+        "valeur_achat": "255000",
+        "n_serie": "H2006212",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 15,
+            "name": "SMDM"            
+        },
+        "categorie":{
+            "id": 14,
+            "name": "Compacteurs tandems <2t"            
+        }
+    },
+    {
+        "id": 63,
+        "code": "106315",
+        "name": "Compacteur à Rouleaux HAMM HD10W",
+        "date_achat": "01/06/2016",
+        "valeur_achat": "255000",
+        "n_serie": "H2007374",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 15,
+            "name": "SMDM"            
+        },
+        "categorie":{
+            "id": 14,
+            "name": "Compacteurs tandems <2t"            
+        }
+    },
+    {
+        "id": 64,
+        "code": "106316",
+        "name": "Compacteur à Rouleaux HAMM HD10VV",
+        "date_achat": "01/03/2017",
+        "valeur_achat": "255000",
+        "n_serie": "D1503-M-E3B",
+        "marque_moteur": "KUBOTA",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 15,
+            "name": "SMDM"            
+        },
+        "categorie":{
+            "id": 14,
+            "name": "Compacteurs tandems <2t"            
+        }
+    },
+    {
+        "id": 65,
+        "code": "106606",
+        "name": "Compacteur à pneus CAT PF300B",
+        "date_achat": "01/08/2002",
+        "valeur_achat": "690000",
+        "n_serie": "6HM00437",
+        "marque_moteur": "PERKINS",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 1,
+            "name": "Tractafric"            
+        },
+        "categorie":{
+            "id": 15,
+            "name": "Compacteurs à pneus"            
+        }
+    },
+    {
+        "id": 66,
+        "code": "106607",
+        "name": "Compacteur à pneus CAT PF300B",
+        "date_achat": "01/09/2002",
+        "valeur_achat": "690000",
+        "n_serie": "6HM00438",
+        "marque_moteur": "PERKINS",
+        "serie_moteur": "176-3171",
+        "fournisseur":{
+            "id": 1,
+            "name": "Tractafric"            
+        },
+        "categorie":{
+            "id": 15,
+            "name": "Compacteurs à pneus"            
+        }
+    },
+    {
+        "id": 67,
+        "code": "106608",
+        "name": "Compacteur à pneus CAT PF300B",
+        "date_achat": "01/06/2003",
+        "valeur_achat": "720000",
+        "n_serie": "6HM00454",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 1,
+            "name": "Tractafric"            
+        },
+        "categorie":{
+            "id": 15,
+            "name": "Compacteurs à pneus"            
+        }
+    },
+    {
+        "id": 68,
+        "code": "106609",
+        "name": "Compacteur à pneus CAT PF300B",
+        "date_achat": "01/06/2003",
+        "valeur_achat": "720000",
+        "n_serie": "6HM00453",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 1,
+            "name": "Tractafric"            
+        },
+        "categorie":{
+            "id": 15,
+            "name": "Compacteurs à pneus"            
+        }
+    },
+    {
+        "id": 69,
+        "code": "106601",
+        "name": "Compacteur à pneus CAT PF300",
+        "date_achat": "01/12/2004",
+        "valeur_achat": "30000",
+        "n_serie": "7WD00148",
+        "marque_moteur": "DEUTZ F6L 912",
+        "serie_moteur": "8208847",
+        "fournisseur":{
+            "id": 18,
+            "name": "SOGETRAMA"            
+        },
+        "categorie":{
+            "id": 15,
+            "name": "Compacteurs à pneus"            
+        }
+    },
+    {
+        "id": 70,
+        "code": "106610",
+        "name": "Compacteur à pneus CAT PF300C",
+        "date_achat": "01/09/2008",
+        "valeur_achat": "875000",
+        "n_serie": "PFB00327",
+        "marque_moteur": "CAT-2166/2200",
+        "serie_moteur": "3181A081",
+        "fournisseur":{
+            "id": 1,
+            "name": "Tractafric"            
+        },
+        "categorie":{
+            "id": 15,
+            "name": "Compacteurs à pneus"            
+        }
+    },
+    {
+        "id": 71,
+        "code": "106611",
+        "name": "Compacteur à pneus CAT PF300C",
+        "date_achat": "01/12/2008",
+        "valeur_achat": "875000",
+        "n_serie": "PFB00335",
+        "marque_moteur": "CAT-2166/2200",
+        "serie_moteur": "CRS57961",
+        "fournisseur":{
+            "id": 1,
+            "name": "Tractafric"
+        },
+        "categorie":{
+            "id": 15,
+            "name": "Compacteurs à pneus"            
+        }
+    },
+    {
+        "id": 72,
+        "code": "106-306602",
+        "name": "Compacteur à pneus CAT PF300B",
+        "date_achat": "30/03/2010",
+        "valeur_achat": "300000",
+        "n_serie": "6HM00436",
+        "marque_moteur": "PERKINS 3054",
+        "serie_moteur": "7BJ72139",
+        "fournisseur":{
+            "id": 2,
+            "name": "BITUMA"            
+        },
+        "categorie":{
+            "id": 15,
+            "name": "Compacteurs à pneus"            
+        }
+    },
+    {
+        "id": 73,
+        "code": "106612",
+        "name": "Compacteur à pneus CAT PS300B",
+        "date_achat": "01/05/2017",
+        "valeur_achat": "330000",
+        "n_serie": "5HK68705",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 16,
+            "name": "STE AZIBRAMO"            
+        },
+        "categorie":{
+            "id": 15,
+            "name": "Compacteurs à pneus"            
+        }
+    },
+    {
+        "id": 74,
+        "code": "112404",
+        "name": "Finisseur ABG Titan 423 TABLE TYPE VIBRO DUOTAMP CDT 121",
+        "date_achat": "01/10/2002",
+        "valeur_achat": "2800000",
+        "n_serie": "42313647",
+        "marque_moteur": "DEUTZ 129.5KW",
+        "serie_moteur": "734240",
+        "fournisseur":{
+            "id": 19,
+            "name": "SMAC"            
+        },
+        "categorie":{
+            "id": 16,
+            "name": "Finisseurs"            
+        }
+    },
+    {
+        "id": 75,
+        "code": "112402",
+        "name": "Finisseur MARINI C252",
+        "date_achat": "24/11/2005",
+        "valeur_achat": "90000",
+        "n_serie": "C252/0247",
+        "marque_moteur": "DEUTZ F6 L912",
+        "serie_moteur": "8385027",
+        "fournisseur":{
+            "id": 18,
+            "name": "SOGETRAMA"            
+        },
+        "categorie":{
+            "id": 16,
+            "name": "Finisseurs"            
+        }
+    },
+    {
+        "id": 76,
+        "code": "112407",
+        "name": "Finisseur CAT AP600 sur Pneus",
+        "date_achat": "01/10/2007",
+        "valeur_achat": "1980000",
+        "n_serie": "B2S00167",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 20,
+            "name": "CATERPILLAR"            
+        },
+        "categorie":{
+            "id": 16,
+            "name": "Finisseurs"            
+        }
+    },
+    {
+        "id": 77,
+        "code": "112410",
+        "name": "Finisseur VOGELE 1800-2 sur chenilles",
+        "date_achat": "30/06/2017",
+        "valeur_achat": "1400000",
+        "n_serie": "11822860",
+        "marque_moteur": "PERKINS",
+        "serie_moteur": "15AB0465",
+        "fournisseur":{
+            "id": 21,
+            "name": "BMCI LEASING"            
+        },
+        "categorie":{
+            "id": 16,
+            "name": "Finisseurs"            
+        }
+    },
+    {
+        "id": 78,
+        "code": "",
+        "name": "Table de pose fixe Vogele type BS250",
+        "date_achat": "05/10/2013",
+        "valeur_achat": "995000",
+        "n_serie": "SB250",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 15,
+            "name": "SMDM"            
+        },
+        "categorie":{
+            "id": 16,
+            "name": "Finisseurs"            
+        }
+    },
+    {
+        "id": 79,
+        "code": "112412",
+        "name": "Finisseur sur pneus VOGELE super 1600-3 Table de pose AB500-3TV (6.5m)",
+        "date_achat": "30/09/2015",
+        "valeur_achat": "2495000",
+        "n_serie": "",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 15,
+            "name": "SMDM"            
+        },
+        "categorie":{
+            "id": 16,
+            "name": "Finisseurs"            
+        }
+    },
+    {
+        "id": 80,
+        "code": "112413",
+        "name": "Finisseur VOGELE 1800-3 sur chenilles Table de pose Hydrolique",
+        "date_achat": "01/02/2016",
+        "valeur_achat": "3000000",
+        "n_serie": "14820440",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 15,
+            "name": "SMDM"            
+        },
+        "categorie":{
+            "id": 16,
+            "name": "Finisseurs"            
+        }
+    },
+    {
+        "id": 81,
+        "code": "112413",
+        "name": "2 Poutre de nivellement G+D pour finisseurs VOGELE",
+        "date_achat": "01/01/2017",
+        "valeur_achat": "867603.83",
+        "n_serie": "3 palpeurs /poutre",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 15,
+            "name": "SMDM"            
+        },
+        "categorie":{
+            "id": 16,
+            "name": "Finisseurs"            
+        }
+    },
+    {
+        "id": 82,
+        "code": "112415",
+        "name": "Finisseur de route sur chenilles type super 2100-3 Table de pose AB600-3 (9.5m)",
+        "date_achat": "28/03/2017",
+        "valeur_achat": "3795000",
+        "n_serie": "8191275",
+        "marque_moteur": "Cummins",
+        "serie_moteur": "HAMMALLEMAGNE",
+        "fournisseur":{
+            "id": 15,
+            "name": "SMDM"            
+        },
+        "categorie":{
+            "id": 16,
+            "name": "Finisseurs"            
+        }
+    },
+    {
+        "id": 83,
+        "code": "112415",
+        "name": "2 Poutre de nivellement G+D pour finisseurs VOGELE",
+        "date_achat": "28/03/2017",
+        "valeur_achat": "400000",
+        "n_serie": "3 palpeurs /poutre",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 15,
+            "name": "SMDM"            
+        },
+        "categorie":{
+            "id": 16,
+            "name": "Finisseurs"            
+        }
+    },
+    {
+        "id": 84,
+        "code": "112408",
+        "name": "Alimentateur VOGELE MT 1000-1",
+        "date_achat": "01/09/2008",
+        "valeur_achat": "2668447.65",
+        "n_serie": "01MT0058",
+        "marque_moteur": "Deutz BF4M 1013C",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 22,
+            "name": "VOGELE"            
+        },
+        "categorie":{
+            "id": 17,
+            "name": "Alimentateurs"            
+        }
+    },
+    {
+        "id": 85,
+        "code": "112414",
+        "name": "ALIMENTATEUR BREINNING",
+        "date_achat": "01/02/2017",
+        "valeur_achat": "1136387.44",
+        "n_serie": "",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 23,
+            "name": "MACROPAVER"            
+        },
+        "categorie":{
+            "id": 17,
+            "name": "Alimentateurs"            
+        }
+    },
+    {
+        "id": 86,
+        "code": "112416",
+        "name": "Alimentateur DYNAPAC MF300C",
+        "date_achat": "30/09/2018",
+        "valeur_achat": "1381663.9",
+        "n_serie": "",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 24,
+            "name": "STRABEQ"            
+        },
+        "categorie":{
+            "id": 17,
+            "name": "Alimentateurs"            
+        }
+    },
+    {
+        "id": 87,
+        "code": "112502",
+        "name": "Fraisseuse WIRTGEN 2200CR",
+        "date_achat": "31/03/2010",
+        "valeur_achat": "3500000",
+        "n_serie": "821100220170043",
+        "marque_moteur": "CAT 3412",
+        "serie_moteur": "BDT00152",
+        "fournisseur":{
+            "id": 2,
+            "name": "BITUMA"            
+        },
+        "categorie":{
+            "id": 18,
+            "name": "Fraiseuses"            
+        }
+    },
+    {
+        "id": 88,
+        "code": "",
+        "name": "SYSTEME DE GUIDAGE POUR FRAISSEUSE 112502",
+        "date_achat": "27/07/2017",
+        "valeur_achat": "196814",
+        "n_serie": "",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 5,
+            "name": "MARCOTEC"            
+        },
+        "categorie":{
+            "id": 18,
+            "name": "Fraiseuses"            
+        }
+    },
+    {
+        "id": 89,
+        "code": "",
+        "name": "Poutre de nivellement multiplex WIRTGEN",
+        "date_achat": "30/04/2016",
+        "valeur_achat": "211813.2",
+        "n_serie": "1 poutre",
+        "marque_moteur": "7 points",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 25,
+            "name": "WIRTGEN"            
+        },
+        "categorie":{
+            "id": 18,
+            "name": "Fraiseuses"            
+        }
+    },
+    {
+        "id": 90,
+        "code": "",
+        "name": "Bande de convoyeur",
+        "date_achat": "14/12/2016",
+        "valeur_achat": "97980.89",
+        "n_serie": "116578",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 15,
+            "name": "SMDM"            
+        },
+        "categorie":{
+            "id": 18,
+            "name": "Fraiseuses"            
+        }
+    },
+    {
+        "id": 91,
+        "code": "112503",
+        "name": "Fraisseuse WIRTGEN W120 F",
+        "date_achat": "26/04/2011",
+        "valeur_achat": "2550000",
+        "n_serie": "8101020",
+        "marque_moteur": "Cummins QSL8.3",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 25,
+            "name": "WIRTGEN"            
+        },
+        "categorie":{
+            "id": 18,
+            "name": "Fraiseuses"            
+        }
+    },
+    {
+        "id": 92,
+        "code": "",
+        "name": "Fraiseuse Thermique Type BMP 215 BLASTRAC avec tambour",
+        "date_achat": "09/07/2013",
+        "valeur_achat": "29000",
+        "n_serie": "",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 26,
+            "name": "ZIGMA INDUSTRIE"            
+        },
+        "categorie":{
+            "id": 19,
+            "name": "Fraiseuses thermiques"            
+        }
+    },
+    {
+        "id": 93,
+        "code": "",
+        "name": "Fraiseuse Thermique Type BMP 215 BLASTRAC avec tambour",
+        "date_achat": "09/07/2013",
+        "valeur_achat": "29000",
+        "n_serie": "",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 26,
+            "name": "ZIGMA INDUSTRIE"            
+        },
+        "categorie":{
+            "id": 19,
+            "name": "Fraiseuses thermiques"            
+        }
+    },
+    {
+        "id": 94,
+        "code": "109806",
+        "name": "Machine ECF Breinning SH 10 000",
+        "date_achat": "31/03/2016",
+        "valeur_achat": "200000",
+        "n_serie": "TP410041",
+        "marque_moteur": "43-02",
+        "serie_moteur": "10000 SE",
+        "fournisseur":{
+            "id": 2,
+            "name": "BITUMA"            
+        },
+        "categorie":{
+            "id": 20,
+            "name": "MACHINES ECF"            
+        }
+    },
+    {
+        "id": 95,
+        "code": "",
+        "name": "BANDE TRANPORTEUSE SUR 109806",
+        "date_achat": "31/12/2016",
+        "valeur_achat": "104169.03",
+        "n_serie": "XE250L650A",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 27,
+            "name": "ALFABELT"            
+        },
+        "categorie":{
+            "id": 20,
+            "name": "MACHINES ECF"            
+        }
+    },
+    {
+        "id": 96,
+        "code": "109807",
+        "name": "Machine ECF Breinning SP 12 000",
+        "date_achat": "01/01/2017",
+        "valeur_achat": "4000000",
+        "n_serie": "",
+        "marque_moteur": "",
+        "serie_moteur": "12000",
+        "fournisseur":{
+            "id": 3,
+            "name": "BERENGER"            
+        },
+        "categorie":{
+            "id": 20,
+            "name": "MACHINES ECF"            
+        }
+    },
+    {
+        "id": 97,
+        "code": "121302",
+        "name": "Reprofileur lat�ral BLAW KNOX RW 100",
+        "date_achat": "01/01/1999",
+        "valeur_achat": "600000",
+        "n_serie": "1001320",
+        "marque_moteur": "RW100",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 83,
+            "name": "Sans Fournisseur"            
+        },
+        "categorie":{
+            "id": 21,
+            "name": "REPROFILEURS"            
+        }
+    },
+    {
+        "id": 98,
+        "code": "121303",
+        "name": "Reprofileur latéral BLAW KNOX RW 100",
+        "date_achat": "13/03/2016",
+        "valeur_achat": "470000",
+        "n_serie": "100-10-18",
+        "marque_moteur": "RW100",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 28,
+            "name": "HORIZON ROUTIER"          
+        },
+        "categorie":{
+            "id": 21,
+            "name": "REPROFILEURS"            
+        }
+    },
+    {
+        "id": 99,
+        "code": "112801",
+        "name": "POSTE M121",
+        "date_achat": "30/11/2005",
+        "valeur_achat": "100000",
+        "n_serie": "MARINI",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 29,
+            "name": "LEASBACK"            
+        },
+        "categorie":{
+            "id": 22,
+            "name": "Poste d'enrobée"            
+        }
+    },
+    {
+        "id": 100,
+        "code": "112803",
+        "name": "POSTE EM220",
+        "date_achat": "19/03/1999",
+        "valeur_achat": "2250000",
+        "n_serie": "MARINI",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 83,
+            "name": "Sans Fournisseur"            
+        },
+        "categorie":{
+            "id": 22,
+            "name": "Poste d'enrobée"            
+        }
+    },
+    {
+        "id": 101,
+        "code": "112805",
+        "name": "POSTE RS1500",
+        "date_achat": "20/06/2002",
+        "valeur_achat": "8500000",
+        "n_serie": "MARINI",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 83,
+            "name": "Sans Fournisseur"            
+        },
+        "categorie":{
+            "id": 22,
+            "name": "Poste d'enrobée"            
+        }
+    },
+    {
+        "id": 102,
+        "code": "112806",
+        "name": "POSTE RM120",
+        "date_achat": "31/01/2016",
+        "valeur_achat": "3500000",
+        "n_serie": "ERMONT",
+        "marque_moteur": "MKSA1063",
+        "serie_moteur": "2005",
+        "fournisseur":{
+            "id": 29,
+            "name": "LEASBACK"            
+        },
+        "categorie":{
+            "id": 22,
+            "name": "Poste d'enrobée"            
+        }
+    },
+    {
+        "id": 103,
+        "code": "112810",
+        "name": "POSTE TSM17-1",
+        "date_achat": "31/01/2017",
+        "valeur_achat": "5500000",
+        "n_serie": "ERMONT",
+        "marque_moteur": "TSM17 MAJOR-M",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 29,
+            "name": "LEASBACK"            
+        },
+        "categorie":{
+            "id": 22,
+            "name": "Poste d'enrobée"            
+        }
+    },
+    {
+        "id": 104,
+        "code": "112812",
+        "name": "POSTE TSM17-2",
+        "date_achat": "28/02/2017",
+        "valeur_achat": "15800000",
+        "n_serie": "MARINI",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 83,
+            "name": "Sans Fournisseur"            
+        },
+        "categorie":{
+            "id": 22,
+            "name": "Poste d'enrobée"            
+        }
+    },
+    {
+        "id": 105,
+        "code": "112809",
+        "name": "POSTE ROHER POUR ASPHALTE COULE",
+        "date_achat": "01/12/2008",
+        "valeur_achat": "1231159.52",
+        "n_serie": "",
+        "marque_moteur": "",
+        "serie_moteur": "BENNINGHOVEN",
+        "fournisseur":{
+            "id": 83,
+            "name": "Sans Fournisseur"            
+        },
+        "categorie":{
+            "id": 23,
+            "name": "Poste d'asphalte"            
+        }
+    },
+    {
+        "id": 106,
+        "code": "",
+        "name": "CABINET DE CONTROLE TSM17-2",
+        "date_achat": "28/02/2017",
+        "valeur_achat": "0",
+        "n_serie": "11337",
+        "marque_moteur": "TYPE:BC7025",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 29,
+            "name": "LEASBACK"            
+        },
+        "categorie":{
+            "id": 24,
+            "name": "CABINET DE CONTROLE"            
+        }
+    },
+    {
+        "id": 107,
+        "code": "112801-4/5",
+        "name": "CABINET DE CONTROLE M121",
+        "date_achat": "30/11/2005",
+        "valeur_achat": "0",
+        "n_serie": "",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 83,
+            "name": "Sans Fournisseur"            
+        },
+        "categorie":{
+            "id": 24,
+            "name": "CABINET DE CONTROLE"            
+        }
+    },
+    {
+        "id": 108,
+        "code": "119121",
+        "name": "CABINET DE CONTROLE EM220",
+        "date_achat": "19/03/1999",
+        "valeur_achat": "0",
+        "n_serie": "",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 83,
+            "name": "Sans Fournisseur"            
+        },
+        "categorie":{
+            "id": 24,
+            "name": "CABINET DE CONTROLE"            
+        }
+    },
+    {
+        "id": 109,
+        "code": "",
+        "name": "CABINET DE CONTROLE RS1500",
+        "date_achat": "20/06/2002",
+        "valeur_achat": "0",
+        "n_serie": "",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 83,
+            "name": "Sans Fournisseur"            
+        },
+        "categorie":{
+            "id": 24,
+            "name": "CABINET DE CONTROLE"            
+        }
+    },
+    {
+        "id": 110,
+        "code": "",
+        "name": "CABINET DE CONTROLE ROHER",
+        "date_achat": "",
+        "valeur_achat": "0",
+        "n_serie": "",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 83,
+            "name": "Sans Fournisseur"            
+        },
+        "categorie":{
+            "id": 24,
+            "name": "CABINET DE CONTROLE"            
+        }
+    },
+    {
+        "id": 111,
+        "code": "",
+        "name": "CABINET DE CONTROLE TSM17-1",
+        "date_achat": "31/01/2017",
+        "valeur_achat": "0",
+        "n_serie": "MP 16511",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 29,
+            "name": "LEASBACK"            
+        },
+        "categorie":{
+            "id": 24,
+            "name": "CABINET DE CONTROLE"            
+        }
+    },
+    {
+        "id": 112,
+        "code": "112805-3",
+        "name": "MALAXEUR RS1500",
+        "date_achat": "20/06/2002",
+        "valeur_achat": "0",
+        "n_serie": "",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 83,
+            "name": "Sans Fournisseur"            
+        },
+        "categorie":{
+            "id": 25,
+            "name": "MALAXEUR"            
+        }
+    },
+    {
+        "id": 113,
+        "code": "112806",
+        "name": "MALAXEUR RM120",
+        "date_achat": "30/06/2002",
+        "valeur_achat": "0",
+        "n_serie": "",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 83,
+            "name": "Sans Fournisseur"            
+        },
+        "categorie":{
+            "id": 25,
+            "name": "MALAXEUR"            
+        }
+    },
+    {
+        "id": 114,
+        "code": "112807",
+        "name": "MALAXEUR D'ASPHALTE GTK 13W",
+        "date_achat": "01/01/2007",
+        "valeur_achat": "1127032.4",
+        "n_serie": "2007026",
+        "marque_moteur": "5500 litres",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 30,
+            "name": "LTA"            
+        },
+        "categorie":{
+            "id": 25,
+            "name": "MALAXEUR"            
+        }
+    },
+    {
+        "id": 115,
+        "code": "112808",
+        "name": "MALAXEUR D'ASPHALTE GTK 13W",
+        "date_achat": "01/11/2007",
+        "valeur_achat": "1085707.46",
+        "n_serie": "2006091",
+        "marque_moteur": "5500 litres",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 30,
+            "name": "LTA"            
+        },
+        "categorie":{
+            "id": 25,
+            "name": "MALAXEUR"            
+        }
+    },
+    {
+        "id": 116,
+        "code": "112811",
+        "name": "MALAXEUR STABYL 300 AL2 ROHER",
+        "date_achat": "01/06/2016",
+        "valeur_achat": "1022541.34",
+        "n_serie": "BENNINGHOVEN",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 24,
+            "name": "STRABEQ"            
+        },
+        "categorie":{
+            "id": 25,
+            "name": "MALAXEUR"            
+        }
+    },
+    {
+        "id": 117,
+        "code": "",
+        "name": "MALAXEUR TSM17-1",
+        "date_achat": "30/01/2017",
+        "valeur_achat": "0",
+        "n_serie": "",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 83,
+            "name": "Sans Fournisseur"            
+        },
+        "categorie":{
+            "id": 25,
+            "name": "MALAXEUR"            
+        }
+    },
+    {
+        "id": 118,
+        "code": "",
+        "name": "MALAXEUR TSM17-2",
+        "date_achat": "28/02/2017",
+        "valeur_achat": "0",
+        "n_serie": "",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 83,
+            "name": "Sans Fournisseur"            
+        },
+        "categorie":{
+            "id": 25,
+            "name": "MALAXEUR"            
+        }
+    },
+    {
+        "id": 119,
+        "code": "112809-5",
+        "name": "CHAUDIERE ROHER CENTRAL BRULEUR",
+        "date_achat": "24/12/2007",
+        "valeur_achat": "0",
+        "n_serie": "",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 83,
+            "name": "Sans Fournisseur"            
+        },
+        "categorie":{
+            "id": 26,
+            "name": "CHAUDIERES"            
+        }
+    },
+    {
+        "id": 120,
+        "code": "112801-6",
+        "name": "CHAUDIERE POSTE MARINI M121. SKEMEC",
+        "date_achat": "10/05/2011",
+        "valeur_achat": "130272.5",
+        "n_serie": "",
+        "marque_moteur": "",
+        "serie_moteur": "",
+        "fournisseur":{
+            "id": 31,
+            "name": "SKEMEC"            
+        },
+        "categorie":{
+            "id": 26,
+            "name": "CHAUDIERES"            
+        }
+    }
+  ]

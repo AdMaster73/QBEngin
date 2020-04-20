@@ -1,0 +1,53 @@
+<div class="circle-1"></div>
+<div class="circle-2"></div>
+<div class="circle-3"></div>
+<mat-card class="card" [class.mat-elevation-z2]="true">
+  <mat-card-content>
+    <mat-tab-group headerPosition="below">
+      <mat-tab label="Connexion">
+        <h3 class="center slategray">Bienvenu !</h3>
+        <h5 class="center darkcyan">se connecter à votre compte</h5>
+        <form [formGroup]="signinForm" (ngSubmit)="onSubmit()" class="signin-form">
+          <!--  Content of login inputs-->
+          <p>
+            <mat-form-field appearance="outline">
+              <mat-label for="email">Adresse mail</mat-label>
+              <input matInput type="text" id="email" formControlName="email">
+              <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+              <mat-icon matSuffix>
+                account_box
+              </mat-icon>
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field appearance="outline">
+              <mat-label>Entrer votre mot de passe</mat-label>
+              <input matInput [type]="hide ? 'password' : 'text'" id="password" formControlName="password">
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+            </mat-form-field>
+          </p>
+          <p class="text-danger">{{ errorMessage }}</p>
+          <!--p class="">
+            <mat-checkbox></mat-checkbox>
+          </p-->         
+              <section class="remember-Me">
+                <mat-slide-toggle
+                    color="accent">
+                    Se souvenir de moi
+                </mat-slide-toggle>
+              </section>
+          <p class="signin-form-buttom">
+            <button mat-button type="submit" class="gauche" [disabled]="signinForm.invalid">Se Connecter</button>
+            <button mat-button type="submit" class="droite">Mot de passe oubliée</button>
+          </p>
+        </form>
+      </mat-tab>
+      <mat-tab label="Créer un compte">
+        <app-signup></app-signup>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card-content>
+</mat-card>
