@@ -69,7 +69,7 @@
             <!--DATE ACHAT-->
             <mat-form-field class="example-full-width" appearance="outline">
               <mat-label>Entrer la date d'achat</mat-label>
-              <input matInput [matDatepicker]="picker" formControlName="date_achat" [value]="date.value">
+              <input matInput [matDatepicker]="picker" formControlName="date_achat" [formControl]="date">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker touchUi #picker></mat-datepicker>
             </mat-form-field>   
