@@ -37,34 +37,54 @@ export class EnginFormComponent implements OnInit {
       private _adapter: DateAdapter<any>,
       public dialogRef: MatDialogRef<EnginListComponent>,
       @Inject(MAT_DIALOG_DATA) public data: any
-    ) {}
+    ) {
+      this._adapter.setLocale('fr');  
+      this.EnginFormEdit = fb.group({
+        code: new FormControl(),
+        name: new FormControl(),                
+        fournisseur: new FormControl(),   
+        id_fournisseur: new FormControl(),   
+        categorie:new FormControl(),
+        id_categorie: new FormControl(),
+        valeur_achat: new FormControl(),
+        date_achat: new FormControl(new Date()),       
+        marque_moteur:new FormControl(),
+        serie_moteur:new FormControl(),
+        numero_serie:new FormControl()
+      })   
+    }
 
-  ngOnInit() {
-    this._adapter.setLocale('fr');  
-    this.EnginFormEdit = this.fb.group({
-      id: [],
-      code: [],
-      designation: [],
-      categorie: [],
-      fournisseur: [],
-      categoriehd:[],
-      fournisseurhd:[],
-      valeur_achat: [],
-      date_achat: [],
-      value_chat:[],
-      marque_moteur:[],
-      serie_moteur:[],
-      numero_serie:[]
-    })        
+  ngOnInit() {        
     this.results$ = this.enginService.searchCategory(this.startAt,"categorie"); 
     this.results_f$ = this.enginService.searchCategory(this.startAt,"fourisseur");
   }
+  editEngin(engin){
+    /*var icategorie : Categorie = {
+      id:this.EnginForm.controls['categoriehd'].value,
+      name:this.EnginForm.controls['categorie'].value
+    };
+    var ifournisseur : Fournisseur = {
+      id:this.EnginForm.controls['fournisseurhd'].value,
+      name:this.EnginForm.controls['fournisseur'].value
+    };    
+    let enginReq: Engin = { 
+          id: this.EnginLastRecord,
+          code: this.EnginForm.controls['code'].value,
+          name: this.EnginForm.controls['designation'].value,
+          date_achat:this.EnginForm.controls['date_achat'].value,
+          valeur_achat: this.EnginForm.controls['value_chat'].value,
+          n_serie: this.EnginForm.controls['numero_serie'].value,
+          marque_moteur: this.EnginForm.controls['marque_moteur'].value,
+          serie_moteur: this.EnginForm.controls['serie_moteur'].value,
+          categorie:icategorie,
+          fournisseur:ifournisseur
+    } ;    */
+    this.enginService.UpdateEngin(this.data.id,engin)
+  }
   /* Reactive book form */
-  submitEnginForm() {
-    if (this.EnginFormEdit.invalid) {
-      return;
-    }
-    var icategorie : Categorie = {
+  onSubmit(engin) {
+          
+    /*var icategorie : Categorie = {
       id:this.EnginFormEdit.controls['categoriehd'].value,
       name:this.EnginFormEdit.controls['categorie'].value
     };
@@ -83,8 +103,7 @@ export class EnginFormComponent implements OnInit {
           serie_moteur: this.EnginFormEdit.controls['serie_moteur'].value,
           categorie:icategorie,
           fournisseur:ifournisseur
-    } ;
-    this.enginService.UpdateEngin(engin.id,engin)      
+    } ;*/    
   }
   /* Get errors */
   public handleError = (controlName: string, errorName: string) => {
@@ -97,13 +116,13 @@ export class EnginFormComponent implements OnInit {
   /*Avoir le id pour le stocker dans une zone de texte afin de l'ituliser à l'ajout*/
   getCategories(categorie){
     this.enginService.GetIdCategorie(categorie).subscribe((value) => { 
-      this.EnginFormEdit.controls['categoriehd'].setValue(value[0].id) 
+      this.EnginFormEdit.controls['id_categorie'].setValue(value[0].id) 
      })      
   } 
   
   getFournisseur(fournisseur){
     this.enginService.GetIDFourisseur(fournisseur).subscribe((value) => { 
-      this.EnginFormEdit.controls['fournisseurhd'].setValue(value[0].id) 
+      this.EnginFormEdit.controls['id_fournisseur'].setValue(value[0].id) 
      })
   }
 
