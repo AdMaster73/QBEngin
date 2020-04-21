@@ -139,7 +139,7 @@ export class EnginService {
 						{
 							code: engin.code,
 							name: engin.name,
-							date_achat: engin.date_achat,
+							date_achat: new Date(engin.date_achat),
 							valeur_achat: engin.valeur_achat,
 							n_serie: engin.n_serie,
 							marque_moteur: engin.marque_moteur,
