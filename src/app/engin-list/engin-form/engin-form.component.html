@@ -16,7 +16,8 @@
               Vous devez Entrer le <strong>Code engin</strong>
             </mat-error>
           </mat-form-field>          
-          
+          <input matInput class="invisible" formControlName="id" [(ngModel)]="data.id">
+
           <!-- Engin designation -->
           <mat-form-field class="example-full-width" appearance="outline">
             <input matInput placeholder="Désignation" formControlName="name" [(ngModel)]="data.name">
