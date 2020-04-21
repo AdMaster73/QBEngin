@@ -80,7 +80,7 @@ export class EnginListComponent implements OnInit{
     this.enginService.GetEnginById(index).subscribe((value)=>{  
       const dialogConfig = new MatDialogConfig();            
       dialogConfig.disableClose = true
-      dialogConfig.autoFocus = true    
+      dialogConfig.autoFocus = true 
       dialogConfig.data = {
                   id:value[0]['id'],
                   code:value[0]['code'],
