@@ -62,7 +62,7 @@ export class EnginService {
 	}	
 	/* Get engin list */
 	GetEnginList() {		
-		return this.afs.collection<any>('engin',ref=> ref.orderBy('id'));
+		return this.afs.collection<any>('engin',ref=> ref.orderBy('id'));		
 	}
 
 	// Reactive search query  "CATEGORIE"
@@ -124,13 +124,40 @@ export class EnginService {
 	GetEnginLastRecord(){		
 	  return this.afs.collection('engin', ref => ref
 		.limit(1)
-		.orderBy('id', 'desc')
+		.orderBy('id', 'asc')
 	  )				
 	}
 	
 	/* Update engin */
-	UpdateEngin(id, engin: Engin) {
-		this.enginRef = this.db.object('/engin/' + 'pwSGcINwaINrTHv4Wj6i');
+	UpdateEngin(id, engin) {				                      		
+		this.afs.collectionGroup('engin',ref=> 
+			ref.where('id','==',id)).snapshotChanges()
+			.forEach( user => {
+				user.forEach( userData =>{				  
+					let ID = userData.payload.doc.id;
+					this.afs.doc('engin/'+ID).update(
+						{
+							code: engin.code,
+							name: engin.name,
+							date_achat: engin.date_achat,
+							valeur_achat: engin.valeur_achat,
+							n_serie: engin.n_serie,
+							marque_moteur: engin.marque_moteur,
+							serie_moteur: engin.serie_moteur,			
+							categorie:{
+								id:engin.id_categorie,
+								name:engin.categorie
+							},
+							fournisseur:{
+								id:engin.id_fournisseur,
+								name:engin.fournisseur
+							}			
+						}
+					)	
+
+					});
+				});															
+		/*this.enginRef = this.db.object('/engin/' + 'pwSGcINwaINrTHv4Wj6i');
 		this.enginRef.update({
 				code: engin.code,
 				name: engin.name,
@@ -146,7 +173,7 @@ export class EnginService {
 		})
 		.catch(error => {			
 			this.errorMgmt(error);
-		})				
+		})*/				
 
 	}  
   
