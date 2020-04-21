@@ -29,6 +29,11 @@ export class EnginListComponent implements OnInit{
   fournisseur : any = [];
   EnginData: any = [];
   constructor(private enginService : EnginService, public dialog: MatDialog) {}
+  displayedColumns: string[] = ['numero', 'code', 'designation', 'categorie','fournisseur','action'];
+  dataSource : MatTableDataSource<Engin>;
+
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static : true}) sort: MatSort;  
   ngOnInit(): void {
     this.enginService.GetEnginList()
     .valueChanges().subscribe(data => {
@@ -55,12 +60,6 @@ export class EnginListComponent implements OnInit{
         }, 0);
     })*/
   }
-  
-  displayedColumns: string[] = ['numero', 'code', 'designation', 'categorie','fournisseur','action'];
-  dataSource : MatTableDataSource<Engin>;
-
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static : true}) sort: MatSort;
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -76,28 +75,25 @@ export class EnginListComponent implements OnInit{
     const dialogRef = this.dialog.open(EnginAddComponent);
   }
   /**Modifier Engin */
-  editEngin(index:number, e){     
-    this.enginService.GetEnginById(index).subscribe((value)=>{  
-      const dialogConfig = new MatDialogConfig();            
-      dialogConfig.disableClose = true
-      dialogConfig.autoFocus = true 
-      dialogConfig.data = {
-                  id:value[0]['id'],
-                  code:value[0]['code'],
-                  name:value[0]['name'],
-                  date_achat:value[0]['date_achat'],
-                  marque_moteur:value[0]['marque_moteur'],
-                  n_serie:value[0]['n_serie'],
-                  serie_moteur:value[0]['serie_moteur'],
-                  valeur_achat:value[0]['valeur_achat'],
-                  id_fournisseur:value[0]['fournisseur'].id,
-                  fournisseur:value[0]['fournisseur'].name,
-                  id_categorie:value[0]['categorie'].id,
-                  categorie:value[0]['categorie'].name
-      } 
-      this.dialog.open(EnginFormComponent,dialogConfig)                        
-    })
-    
+  editEngin(index:number, element){   
+    const dialogConfig = new MatDialogConfig();            
+    dialogConfig.disableClose = true
+    dialogConfig.autoFocus = true 
+    dialogConfig.data = {
+                id:element.id,
+                code:element.code,
+                name:element.name,
+                date_achat:element.date_achat,
+                marque_moteur:element.marque_moteur,
+                n_serie:element.n_serie,
+                serie_moteur:element.serie_moteur,
+                valeur_achat:element.valeur_achat,
+                id_fournisseur:element.fournisseur.id,
+                fournisseur:element.fournisseur.name,
+                id_categorie:element.categorie.id,
+                categorie:element.categorie.name
+    } 
+    this.dialog.open(EnginFormComponent,dialogConfig)                            
   }
   /* Delete */
   deleteEngin(index: number, e){
