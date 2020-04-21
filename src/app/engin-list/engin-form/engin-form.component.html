@@ -6,7 +6,7 @@
  
   <!-- Engin form -->
   <div class="example-container">
-    <form [formGroup]="EnginFormEdit" (ngSubmit)="submitEnginForm()"> <!--#resetEnginForm="ngForm"-->
+    <form [formGroup]="EnginFormEdit" (ngSubmit)="onSubmit(EnginFormEdit.value)"> <!--#resetEnginForm="ngForm"-->
       <!-- Left block -->
       <mat-card>
           <!-- Engin code -->
@@ -15,13 +15,12 @@
             <mat-error *ngIf="handleError('code', 'required')">
               Vous devez Entrer le <strong>Code engin</strong>
             </mat-error>
-          </mat-form-field>
-          <input matInput class="invisible" formControlName="id" [(ngModel)]="data.id">
+          </mat-form-field>          
           
           <!-- Engin designation -->
           <mat-form-field class="example-full-width" appearance="outline">
-            <input matInput placeholder="Désignation" formControlName="designation" [(ngModel)]="data.name">
-            <mat-error *ngIf="handleError('designation', 'required')">
+            <input matInput placeholder="Désignation" formControlName="name" [(ngModel)]="data.name">
+            <mat-error *ngIf="handleError('name', 'required')">
               Vous devez Entrer la <strong>Désignation</strong>
             </mat-error>
           </mat-form-field>   
@@ -44,11 +43,11 @@
               Vous devez Entrer la <strong>Catégorie</strong>
             </mat-error>                  
           </mat-form-field>
-            <input matInput class="invisible" formControlName="categoriehd" [(ngModel)]="data.id_categorie">
+            <input matInput class="invisible" formControlName="id_categorie" [(ngModel)]="data.id_categorie">
 
           <!-- Add fornisseur -->
           <mat-form-field class="example-full-width" appearance="outline">            
-            <input matInput #searchInput_f
+            <input matInput #searchInput_f          
             formControlName="fournisseur"
             placeholder="Fournisseur"
             aria-label="Fournisseur"
@@ -64,7 +63,7 @@
               Vous devez Entrer Un <strong>Fournisseur</strong>
             </mat-error>                  
           </mat-form-field>
-            <input matInput class="invisible" formControlName="fournisseurhd" [(ngModel)]="data.id_fournisseur">  
+            <input matInput class="invisible" formControlName="id_fournisseur" [(ngModel)]="data.id_fournisseur">  
 
             <!--DATE ACHAT-->
             <mat-form-field class="example-full-width" appearance="outline">
@@ -75,7 +74,7 @@
             </mat-form-field>   
             <!-- VALEUR ACHAT -->
             <mat-form-field class="example-full-width" appearance="outline">
-              <input matInput placeholder="Valeur Achat" formControlName="valeur_achat" [(ngModel)]=data.valeur_achat>
+              <input matInput placeholder="Valeur Achat" formControlName="valeur_achat" [(ngModel)]="data.valeur_achat">
             </mat-form-field> 
        
             <!-- MARQUE MOTEUR -->
@@ -94,7 +93,7 @@
             </mat-form-field> 
 
           <mat-card-actions>
-            <button mat-fab color="primary">
+            <button mat-fab color="primary" (click)="editEngin(data)">
               <mat-icon aria-label="Example icon-button with a heart icon">edit</mat-icon>
             </button>
             <button mat-fab color="accent" (click)="closeForm()">
