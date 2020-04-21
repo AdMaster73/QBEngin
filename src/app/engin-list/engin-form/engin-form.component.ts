@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs';
 import { DateAdapter} from '@angular/material/core';
 import { EnginListComponent } from '../engin-list.component';
+import {firestore} from 'firebase'
 @Component({
   selector: 'app-engin-form',
   templateUrl: './engin-form.component.html',
@@ -29,7 +30,7 @@ export class EnginFormComponent implements OnInit {
   results_f$: Observable<any[]>;
   startAt: BehaviorSubject<string | null> = new BehaviorSubject('');   
   @ViewChild('resetEnginForm',{static: true}) myNgForm : NgForm;
-  EnginFormEdit: FormGroup;
+  EnginFormEdit: FormGroup;  
   date = new FormControl(new Date(this.data.date_achat));
   constructor(      
       public fb: FormBuilder ,
@@ -38,8 +39,11 @@ export class EnginFormComponent implements OnInit {
       public dialogRef: MatDialogRef<EnginListComponent>,
       @Inject(MAT_DIALOG_DATA) public data: any
     ) {
-      this._adapter.setLocale('fr');  
+
+      console.log(this.date)    
+      //this._adapter.setLocale('fr');  
       this.EnginFormEdit = fb.group({
+        id : new FormBuilder(),
         code: new FormControl(),
         name: new FormControl(),                
         fournisseur: new FormControl(),   
@@ -47,7 +51,7 @@ export class EnginFormComponent implements OnInit {
         categorie:new FormControl(),
         id_categorie: new FormControl(),
         valeur_achat: new FormControl(),
-        date_achat: new FormControl(new Date()),       
+        date_achat: new FormControl(),       
         marque_moteur:new FormControl(),
         serie_moteur:new FormControl(),
         numero_serie:new FormControl()
