@@ -129,8 +129,8 @@ export class EnginAddComponent implements OnInit {
           serie_moteur: this.EnginForm.controls['serie_moteur'].value,
           categorie:icategorie,
           fournisseur:ifournisseur
-    } ;
-    this.enginService.AddEngin(engin).then(
+    } ;    
+    /*this.enginService.AddEngin(engin).then(
       res => {
         this.dialogRef.close();
       }
@@ -138,7 +138,7 @@ export class EnginAddComponent implements OnInit {
       err=>{
         alert('Vous avez mal tappez les champs !')
       }
-    )       
+    )*/       
   }
   /* Get errors */
   public handleError = (controlName: string, errorName: string) => {
