@@ -5,7 +5,8 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireDatabase, AngularFireList, AngularFireObject } from '@angular/fire/database';
 import { switchMap, debounceTime, map, distinctUntilChanged } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs'; 
+import { BehaviorSubject } from 'rxjs';
+import { firestore } from 'firebase';
 
 
 @Injectable({
@@ -25,7 +26,7 @@ export class EnginService {
 			this.item = this.enginRef.valueChanges();
 		 }
 	/* Create engin */
-	AddEngin(engin: Engin){			
+	AddEngin(engin: Engin){		
 		return this.afs.collection('engin').add(engin)
 	}
 	/** Rcherche Engin par ID */
@@ -124,12 +125,14 @@ export class EnginService {
 	GetEnginLastRecord(){		
 	  return this.afs.collection('engin', ref => ref
 		.limit(1)
-		.orderBy('id', 'asc')
+		.orderBy('id', 'desc')
 	  )				
 	}
 	
 	/* Update engin */
-	UpdateEngin(id, engin) {				                      		
+	UpdateEngin(id, engin) {  
+		return false
+		//var date_achat  = typeof engin.date_achat === 'string' ? date_achat = new Date(engin.date_achat) : date_achat = new Date((engin.date_achat).toDate());
 		this.afs.collectionGroup('engin',ref=> 
 			ref.where('id','==',id)).snapshotChanges()
 			.forEach( user => {
@@ -139,7 +142,7 @@ export class EnginService {
 						{
 							code: engin.code,
 							name: engin.name,
-							date_achat: new Date(engin.date_achat),
+							date_achat: (engin.date_achat).toDate(),//firestore.Timestamp.fromDate(new Date('01/01/2019'))
 							valeur_achat: engin.valeur_achat,
 							n_serie: engin.n_serie,
 							marque_moteur: engin.marque_moteur,
