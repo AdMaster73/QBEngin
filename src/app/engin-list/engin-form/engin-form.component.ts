@@ -5,13 +5,18 @@ import { EnginService } from './../../services/engin.service';
 import { Engin, Categorie,Fournisseur } from './../../models/engin.model';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs';
-import { DateAdapter} from '@angular/material/core';
+import { DateAdapter, MAT_DATE_LOCALE} from '@angular/material/core';
 import { EnginListComponent } from '../engin-list.component';
 import {firestore} from 'firebase'
+import localeFr from '@angular/common/locales/fr';
+import { formatDate, registerLocaleData } from '@angular/common';
 @Component({
   selector: 'app-engin-form',
   templateUrl: './engin-form.component.html',
-  styleUrls: ['./engin-form.component.scss']
+  styleUrls: ['./engin-form.component.scss'],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'fr-FR'},
+  ]
 })
 export class EnginFormComponent implements OnInit {
   id: number;
@@ -28,41 +33,44 @@ export class EnginFormComponent implements OnInit {
   fournisseur_name : string;
   results$ : Observable<any[]>;
   results_f$: Observable<any[]>;
-  startAt: BehaviorSubject<string | null> = new BehaviorSubject('');   
+  startAt: BehaviorSubject<string | null> = new BehaviorSubject(''); 
+  date: any  
+  EnginFormEdit: FormGroup  
   @ViewChild('resetEnginForm',{static: true}) myNgForm : NgForm;
-  EnginFormEdit: FormGroup;  
-  date = new FormControl(new Date(this.data.date_achat));
+       
   constructor(      
       public fb: FormBuilder ,
       private enginService : EnginService,
       private _adapter: DateAdapter<any>,
       public dialogRef: MatDialogRef<EnginListComponent>,
       @Inject(MAT_DIALOG_DATA) public data: any
-    ) {
-
-      console.log(this.date)    
-      //this._adapter.setLocale('fr');  
-      this.EnginFormEdit = fb.group({
-        id : new FormBuilder(),
-        code: new FormControl(),
-        name: new FormControl(),                
-        fournisseur: new FormControl(),   
-        id_fournisseur: new FormControl(),   
-        categorie:new FormControl(),
-        id_categorie: new FormControl(),
-        valeur_achat: new FormControl(),
-        date_achat: new FormControl(),       
-        marque_moteur:new FormControl(),
-        serie_moteur:new FormControl(),
-        numero_serie:new FormControl()
-      })   
+    ) {      
+      this._adapter.setLocale('fr'); 
+      registerLocaleData(localeFr, 'fr');     
+      var pattern = /(\d{2})\/(\d{2})\/(\d{4})/;
+      this.date = typeof this.data.date_achat === 'string' ? this.date = new FormControl(new Date(this.data.date_achat.replace(pattern,'$3/$2/$1'))) : this.date = new FormControl(new Date((this.data.date_achat).toDate()));      
+         
     }
 
-  ngOnInit() {        
+  ngOnInit() {     
+    this.EnginFormEdit= this.fb.group({
+      id : new FormControl(),
+      code: ['', Validators.required],
+      name: ['', Validators.required],      
+      fournisseur: ['', Validators.required],
+      id_fournisseur:['', Validators.required],
+      categorie:['', Validators.required],
+      id_categorie: ['', Validators.required],
+      valeur_achat: new FormControl(),
+      date_achat:new FormControl(),
+      marque_moteur:new FormControl(),
+      serie_moteur:new FormControl(),
+      numero_serie:new FormControl()    
+});       
     this.results$ = this.enginService.searchCategory(this.startAt,"categorie"); 
     this.results_f$ = this.enginService.searchCategory(this.startAt,"fourisseur");
   }
-  editEngin(engin){
+  editEngin(engin){  
     /*var icategorie : Categorie = {
       id:this.EnginForm.controls['categoriehd'].value,
       name:this.EnginForm.controls['categorie'].value
@@ -87,7 +95,7 @@ export class EnginFormComponent implements OnInit {
   }
   /* Reactive book form */
   onSubmit(engin) {
-          
+    console.log(engin)
     /*var icategorie : Categorie = {
       id:this.EnginFormEdit.controls['categoriehd'].value,
       name:this.EnginFormEdit.controls['categorie'].value
