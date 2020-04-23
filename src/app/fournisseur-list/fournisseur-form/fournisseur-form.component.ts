@@ -1,7 +1,7 @@
 import { Component, OnInit,Inject, ViewChild} from '@angular/core';
 import { MAT_DIALOG_DATA,MatDialogRef} from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators, FormControl, NgForm } from "@angular/forms";
-import { FournisseurService } from './../../services/Fournisseur.service';
+import { FournisseurService } from './../../services/fournisseur.service';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs';
 import { DateAdapter} from '@angular/material/core';
