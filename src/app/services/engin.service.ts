@@ -27,7 +27,24 @@ export class EnginService {
 		 }
 	/* Create engin */
 	AddEngin(engin: Engin){		
-		return this.afs.collection('engin').add(engin)
+		return this.afs.collection('engin').doc(engin.id.toString()).set({
+			createdAt: firestore.FieldValue.serverTimestamp(),       
+			code: engin.code,
+			name: engin.name,
+			date_achat:engin.date_achat,
+			valeur_achat: engin.valeur_achat,
+			n_serie: engin.n_serie,
+			marque_moteur: engin.marque_moteur,
+			serie_moteur: engin.serie_moteur,
+			categorie:{
+				id :engin.categorie.id,
+				name:engin.categorie.name
+			},
+			fournisseur:{
+				id :engin.fournisseur.id,
+				name:engin.fournisseur.name
+			}			
+		})
 	}
 	/** Rcherche Engin par ID */
     GetEnginById(index:number){		
@@ -45,12 +62,22 @@ export class EnginService {
 			);
 	}
 	/* Delete engin */
-	DeleteEngin(id: string) {
-		this.enginRef = this.db.object('/engin/' + id);
-		this.enginRef.remove()
-		.catch(error => {
-		  this.errorMgmt(error);
-		})
+	async DeleteEngin(id) {
+		/*const qry: firebase.firestore.QuerySnapshot = await this.afs.collection('engin',ref=> ref.where('id','==',id) ).ref.get();
+	
+		// You can use the QuerySnapshot above like in the example i linked
+		qry.forEach(doc => {
+		  doc.ref.delete();
+		});*/
+
+		this.afs.collectionGroup('engin',ref=> 
+			ref.where('id','==',id)).snapshotChanges()
+			.forEach( user => {
+				user.forEach( userData =>{				  
+					let ID = userData.payload.doc.id;
+					this.afs.doc('engin/'+ID).delete()	
+					});
+				});	
 	  }
 
 	// Error management
@@ -63,7 +90,15 @@ export class EnginService {
 	}	
 	/* Get engin list */
 	GetEnginList() {		
-		return this.afs.collection<any>('engin',ref=> ref.orderBy('id'));		
+		return this.afs.collection<Engin>('engin',ref=> ref.orderBy('createdAt','asc')).snapshotChanges().pipe(
+			map(actions => {
+			return actions.map(a => {
+				const data = a.payload.doc.data() as Engin;
+				const id = a.payload.doc.id;
+				return { id, ...data };
+			});
+			})
+		);	
 	}
 
 	// Reactive search query  "CATEGORIE"
@@ -125,14 +160,12 @@ export class EnginService {
 	GetEnginLastRecord(){		
 	  return this.afs.collection('engin', ref => ref
 		.limit(1)
-		.orderBy('id', 'desc')
+		.orderBy('createdAt','desc')
 	  )				
 	}
 	
 	/* Update engin */
-	UpdateEngin(id, engin) {  
-		return false
-		//var date_achat  = typeof engin.date_achat === 'string' ? date_achat = new Date(engin.date_achat) : date_achat = new Date((engin.date_achat).toDate());
+	UpdateEngin(id, engin) {  		
 		this.afs.collectionGroup('engin',ref=> 
 			ref.where('id','==',id)).snapshotChanges()
 			.forEach( user => {
@@ -142,7 +175,7 @@ export class EnginService {
 						{
 							code: engin.code,
 							name: engin.name,
-							date_achat: (engin.date_achat).toDate(),//firestore.Timestamp.fromDate(new Date('01/01/2019'))
+							date_achat: engin.date_achat,
 							valeur_achat: engin.valeur_achat,
 							n_serie: engin.n_serie,
 							marque_moteur: engin.marque_moteur,
@@ -160,24 +193,6 @@ export class EnginService {
 
 					});
 				});															
-		/*this.enginRef = this.db.object('/engin/' + 'pwSGcINwaINrTHv4Wj6i');
-		this.enginRef.update({
-				code: engin.code,
-				name: engin.name,
-				date_achat: engin.date_achat,
-				valeur_achat: engin.valeur_achat,
-				n_serie: engin.n_serie,
-				marque_moteur: engin.marque_moteur,
-				serie_moteur: engin.serie_moteur,			
-				categorie:engin.categorie[name],
-				fournisseur:engin.fournisseur[name]
-		}).then(()=>{
-			this.confirmMgmt("modif confirmée")
-		})
-		.catch(error => {			
-			this.errorMgmt(error);
-		})*/				
-
 	}  
   
 }
