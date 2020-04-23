@@ -18,12 +18,12 @@ export class FournisseurService {
 	constructor(
     private db: AngularFireDatabase,
 		 private afs: AngularFirestore) {
-			this.FournisseurRef = db.object('Fournisseur');
+			this.FournisseurRef = db.object('fournisseur');
 			this.item = this.FournisseurRef.valueChanges();
 		 }
 	/* Create Fournisseur */
 	AddFournisseur(Fournisseur: Fournisseur){		
-		return this.afs.collection('Fournisseur').doc(Fournisseur.id.toString()).set({
+		return this.afs.collection('fournisseur').doc(Fournisseur.id.toString()).set({
 			createdAt: firestore.FieldValue.serverTimestamp(),       
 			name: Fournisseur.name		
 		})
@@ -31,12 +31,12 @@ export class FournisseurService {
 	
 	/* Delete Fournisseur */
 	async DeleteFournisseur(id) {
-		this.afs.doc('Fournisseur/'+id).delete()
+		this.afs.doc('fournisseur/'+id).delete()
 	}
 
 	/* Get engin list */
 	GetFournisseurList() {		
-		return this.afs.collection<Fournisseur>('Fournisseur',ref=> ref.orderBy('createdAt','asc')).snapshotChanges().pipe(
+		return this.afs.collection<Fournisseur>('fournisseur',ref=> ref.orderBy('createdAt','asc')).snapshotChanges().pipe(
 			map(actions => {
 			return actions.map(a => {
 				const data = a.payload.doc.data() as Fournisseur;
@@ -49,7 +49,7 @@ export class FournisseurService {
 	
 	//get the last record from Fournisseur for incemanting
 	GetFournisseurLastRecord(){		
-	  return this.afs.collection('Fournisseur', ref => ref
+	  return this.afs.collection('fournisseur', ref => ref
 		.limit(1)
 		.orderBy('createdAt','desc')
 	  )				
@@ -57,6 +57,6 @@ export class FournisseurService {
 	
 	/* Update Fournisseur */
 	UpdateFournisseur(id, Fournisseur) {  		
-		this.afs.doc('Fournisseur/'+id).update({name: Fournisseur.name})														
+		this.afs.doc('fournisseur/'+id).update({name: Fournisseur.name})														
 	} 
 }
