@@ -32,7 +32,7 @@
             formControlName="categorie"
             placeholder="Catégorie"
             aria-label="Catégorie"
-            [(ngModel)]="data.categorie"
+            [(ngModel)]="data.categorie.name"
             (keyup)="search(searchInput.value)"
             [matAutocomplete]="auto">
             <mat-autocomplete #auto="matAutocomplete" (optionSelected)='getCategories($event.option.value)'>
@@ -44,7 +44,7 @@
               Vous devez Entrer la <strong>Catégorie</strong>
             </mat-error>                  
           </mat-form-field>
-            <input matInput class="invisible" formControlName="id_categorie" [(ngModel)]="data.id_categorie">
+            <input matInput class="invisible" formControlName="id_categorie" [(ngModel)]="data.categorie.id">
 
           <!-- Add fornisseur -->
           <mat-form-field class="example-full-width" appearance="outline">            
@@ -52,7 +52,7 @@
             formControlName="fournisseur"
             placeholder="Fournisseur"
             aria-label="Fournisseur"
-            [(ngModel)]="data.fournisseur"
+            [(ngModel)]="data.fournisseur.name"
             (keyup)="search(searchInput_f.value)"
             [matAutocomplete]="auto_f">
             <mat-autocomplete #auto_f="matAutocomplete" (optionSelected)='getFournisseur($event.option.value)'>
@@ -64,7 +64,7 @@
               Vous devez Entrer Un <strong>Fournisseur</strong>
             </mat-error>                  
           </mat-form-field>
-            <input matInput class="invisible" formControlName="id_fournisseur" [(ngModel)]="data.id_fournisseur">  
+            <input matInput class="invisible" formControlName="id_fournisseur" [(ngModel)]="data.fournisseur.id">  
 
             <!--DATE ACHAT-->
             <mat-form-field class="example-full-width" appearance="outline">
