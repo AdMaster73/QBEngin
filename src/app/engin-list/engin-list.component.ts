@@ -20,7 +20,7 @@ export class EnginListComponent implements OnInit{
   id: number;
   code: string;
   name:string;
-  date_achat:Date;
+  date_achat:string;
   valeur_achat: string;
   n_serie: string;
   marque_moteur: string;
@@ -35,17 +35,19 @@ export class EnginListComponent implements OnInit{
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static : true}) sort: MatSort;  
   ngOnInit(): void {
-    this.enginService.GetEnginList()
-    .valueChanges().subscribe(data => {
-      this.dataSource = new MatTableDataSource(data);  
-      this.dataSource.paginator = this.paginator;        
-      this.dataSource.sort = this.sort;
-      this.paginator._intl.itemsPerPageLabel = 'Affichage par page.';
-      this.paginator._intl.firstPageLabel = 'Page Premier';
-      this.paginator._intl.nextPageLabel = 'Page Suivant';
-      this.paginator._intl.previousPageLabel = 'Page Précédante';
-      this.paginator._intl.lastPageLabel = 'Dérnier Page';
-    })
+    this.enginService.GetEnginList().subscribe(
+      data => {
+        this.dataSource = new MatTableDataSource(data);  
+        this.dataSource.paginator = this.paginator;        
+        this.dataSource.sort = this.sort;
+        this.paginator._intl.itemsPerPageLabel = 'Affichage par page.';
+        this.paginator._intl.firstPageLabel = 'Page Premier';
+        this.paginator._intl.nextPageLabel = 'Page Suivant';
+        this.paginator._intl.previousPageLabel = 'Page Précédante';
+        this.paginator._intl.lastPageLabel = 'Dérnier Page';
+      }
+    )
+    //.valueChanges().subscribe()
     /*subscribe(engins => {      
         engins.map(item => {          
           let a = item.payload.toJSON();
@@ -101,7 +103,7 @@ export class EnginListComponent implements OnInit{
       const data = this.dataSource.data;
       data.splice((this.paginator.pageIndex * this.paginator.pageSize) + index, 1);
       this.dataSource.data = data;
-      this.enginService.DeleteEngin(e.$key)
+      this.enginService.DeleteEngin(index)
     }
   }
   /*ngAfterViewInit() {
