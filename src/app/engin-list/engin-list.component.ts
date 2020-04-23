@@ -1,13 +1,10 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import {MatTableDataSource, MatSort, MatDialog, MatDialogConfig} from '@angular/material';
 import {MatPaginator} from '@angular/material/paginator';
-import { Subscription } from 'rxjs/Subscription';
-import {DataSource} from '@angular/cdk/collections';
 import { EnginService } from '../services/engin.service';
 import { Engin } from './../models/engin.model';
 import { EnginAddComponent } from './engin-add/engin-add.component';
 import { EnginFormComponent } from "./engin-form/engin-form.component";
-import { filter } from 'rxjs/operators';
 
 
 @Component({
@@ -17,16 +14,6 @@ import { filter } from 'rxjs/operators';
 })
 export class EnginListComponent implements OnInit{
   
-  id: number;
-  code: string;
-  name:string;
-  date_achat:string;
-  valeur_achat: string;
-  n_serie: string;
-  marque_moteur: string;
-  serie_moteur: string;
-  categorie : any = [];
-  fournisseur : any = [];
   EnginData: any = [];
   constructor(private enginService : EnginService, public dialog: MatDialog) {}
   displayedColumns: string[] = ['numero', 'code', 'designation', 'categorie','fournisseur','action'];
@@ -47,20 +34,6 @@ export class EnginListComponent implements OnInit{
         this.paginator._intl.lastPageLabel = 'Dérnier Page';
       }
     )
-    //.valueChanges().subscribe()
-    /*subscribe(engins => {      
-        engins.map(item => {          
-          let a = item.payload.toJSON();
-          a['$key'] = item.key;        
-          this.EnginData.push(a as Engin)
-        })
-        /* Data table 
-        this.dataSource = new MatTableDataSource(this.EnginData);        
-        /* Pagination 
-        setTimeout(() => {
-          this.dataSource.paginator = this.paginator;
-        }, 0);
-    })*/
   }
 
   applyFilter(event: Event) {
@@ -81,24 +54,11 @@ export class EnginListComponent implements OnInit{
     const dialogConfig = new MatDialogConfig();            
     dialogConfig.disableClose = true
     dialogConfig.autoFocus = true 
-    dialogConfig.data = {
-                id:element.id,
-                code:element.code,
-                name:element.name,
-                date_achat:element.date_achat,
-                marque_moteur:element.marque_moteur,
-                n_serie:element.n_serie,
-                serie_moteur:element.serie_moteur,
-                valeur_achat:element.valeur_achat,
-                id_fournisseur:element.fournisseur.id,
-                fournisseur:element.fournisseur.name,
-                id_categorie:element.categorie.id,
-                categorie:element.categorie.name
-    } 
+    dialogConfig.data = element
     this.dialog.open(EnginFormComponent,dialogConfig)                            
   }
   /* Delete */
-  deleteEngin(index: number, e){
+  deleteEngin(index: number){    
     if(window.confirm('Are you sure?')) {
       const data = this.dataSource.data;
       data.splice((this.paginator.pageIndex * this.paginator.pageSize) + index, 1);
