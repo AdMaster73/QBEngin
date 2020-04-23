@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatTableDataSource, MatSort, MatDialog, MatDialogConfig} from '@angular/material';
 import { MatPaginator} from '@angular/material/paginator';
-import { FournisseurService } from '../services/Fournisseur.service';
+import { FournisseurService } from '../services/fournisseur.service';
 import { Fournisseur } from './../models/engin.model';
-import { FournisseurAddComponent } from './Fournisseur-add/Fournisseur-add.component';
-import { FournisseurFormComponent } from "./Fournisseur-form/Fournisseur-form.component";
+import { FournisseurAddComponent } from './fournisseur-add/fournisseur-add.component';
+import { FournisseurFormComponent } from "./fournisseur-form/fournisseur-form.component";
 import { AngularFirestore } from 'angularfire2/firestore';
 import { firestore } from 'firebase';
 
