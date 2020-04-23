@@ -1,0 +1,32 @@
+<!-- Title group  -->
+<div class="title-group">
+    <h1 class="mat-h1">Modifier Categorie</h1>
+    <mat-divider fxFlex="1 0"></mat-divider>
+  </div>
+ 
+  <!-- Categorie form -->
+  <div class="example-container">
+    <form [formGroup]="CategorieFormEdit" (ngSubmit)="onSubmit(CategorieFormEdit.value)">
+      <!-- Left block -->
+      <mat-card>         
+          <input matInput class="invisible" formControlName="id" [(ngModel)]="data.id">
+
+          <!-- Categorie designation -->
+          <mat-form-field class="example-full-width" appearance="outline">
+            <input matInput placeholder="Désignation" formControlName="name" [(ngModel)]="data.name">
+            <mat-error *ngIf="handleError('name', 'required')">
+              Vous devez Entrer la <strong>Désignation</strong>
+            </mat-error>
+          </mat-form-field>   
+
+          <mat-card-actions>
+            <button mat-fab color="primary">
+              <mat-icon aria-label="Example icon-button with a heart icon">edit</mat-icon>
+            </button>
+            <button mat-fab color="accent" (click)="closeForm()">
+              <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
+            </button>
+          </mat-card-actions>             
+      </mat-card>
+    </form>
+  </div>
