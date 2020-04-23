@@ -8,6 +8,8 @@ import { BehaviorSubject } from 'rxjs';
 import {MatDialogRef} from '@angular/material/dialog';
 import {DateAdapter} from '@angular/material/core';
 import { EnginListComponent } from '../engin-list.component';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { firestore } from 'firebase';
 
 @Component({
   selector: 'app-engin-add',
@@ -28,20 +30,25 @@ export class EnginAddComponent implements OnInit {
   results$ : Observable<any[]>;
   results_f$: Observable<any[]>;
   startAt: BehaviorSubject<string | null> = new BehaviorSubject('');   
-  
+
+
   @ViewChild('resetEnginForm',{static: true}) myNgForm : NgForm;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   selectedBindingType: string;
   EnginForm: FormGroup;  
-
   constructor(
+      public db : AngularFirestore,
       public fb: FormBuilder ,
       private enginService : EnginService,      
       private _adapter: DateAdapter<any>,
       public dialogRef: MatDialogRef<EnginListComponent>) { 
-    /*categorie.forEach(function(obj) {
-      afs.collection("engin").add({
-          id: obj.id,
+      /*var categorie =
+      [] 
+    var i = 0        
+    categorie.forEach(function(obj) {  
+      i+=1          
+      db.collection("engin").doc(i.toString()).set({
+          createdAt: firestore.FieldValue.serverTimestamp(),
           code: obj.code,
           name:obj.name,
           date_achat : obj.date_achat,
@@ -57,8 +64,8 @@ export class EnginAddComponent implements OnInit {
             id: obj["categorie"].id,
             name: obj["categorie"].name
           }
-      }).then(function(docRef) {
-          console.log("Document written with ID: ", docRef.id);
+      }, {merge: true}).then(function(docRef) {
+          console.log("Document written with ID: ", docRef);
       })
       .catch(function(error) {
           console.error("Error adding document: ", error);
@@ -68,11 +75,11 @@ export class EnginAddComponent implements OnInit {
 
   ngOnInit() {  
     this._adapter.setLocale('fr');  
-    this.enginService.GetEnginLastRecord().valueChanges().subscribe(data => {
-      this.EnginLastRecord = eval(data[0]['id'])+1;                
+    this.enginService.GetEnginLastRecord().snapshotChanges().forEach(data => {
+      data.forEach(user=>{
+        this.EnginLastRecord = eval(user.payload.doc.id)+1
+      })              
     })
-    //this.submitEnginForm();
-    //this.EnginForm = this.fb.group({numero: [this.EnginLastRecord]})
     this.EnginForm = this.fb.group({
       code: ['', Validators.required],
       designation: ['', Validators.required],
@@ -119,7 +126,7 @@ export class EnginAddComponent implements OnInit {
       name:this.EnginForm.controls['fournisseur'].value
     };    
     let engin: Engin = { 
-          id: this.EnginLastRecord,
+          id: this.EnginLastRecord,          
           code: this.EnginForm.controls['code'].value,
           name: this.EnginForm.controls['designation'].value,
           date_achat:this.EnginForm.controls['date_achat'].value,
@@ -130,7 +137,7 @@ export class EnginAddComponent implements OnInit {
           categorie:icategorie,
           fournisseur:ifournisseur
     } ;    
-    /*this.enginService.AddEngin(engin).then(
+    this.enginService.AddEngin(engin).then(
       res => {
         this.dialogRef.close();
       }
@@ -138,7 +145,7 @@ export class EnginAddComponent implements OnInit {
       err=>{
         alert('Vous avez mal tappez les champs !')
       }
-    )*/       
+    )      
   }
   /* Get errors */
   public handleError = (controlName: string, errorName: string) => {
