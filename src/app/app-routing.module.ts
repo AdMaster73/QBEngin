@@ -9,7 +9,8 @@ import { AuthComponent } from './auth/auth.component';
 import {MainDashoardComponent} from './main-dashoard/main-dashoard.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { EnginListComponent } from './engin-list/engin-list.component';
-import { EnginFormComponent } from './engin-list/engin-form/engin-form.component';
+import { CategorieListComponent } from './categorie-list/categorie-list.component';
+import { FournisseurListComponent } from './fournisseur-list/fournisseur-list.component';
 
 
 const routes: Routes = [
@@ -20,10 +21,12 @@ const routes: Routes = [
           pathMatch: 'full', redirectTo: 'home'
         },
         { path: 'home', component: MainDashoardComponent },
-        { path: 'engin', canActivate: [AuthGuardService], component: EnginListComponent },
-        { path: 'engin/add', canActivate: [AuthGuardService], component: EnginFormComponent },
+        { path: 'engin', canActivate: [AuthGuardService], component: EnginListComponent },        
         { path: 'users', component: UserListComponent },
         { path: 'users/new', component: NewUserComponent },
+        { path: 'categorie', canActivate: [AuthGuardService], component: CategorieListComponent },
+        { path: 'fournisseur', canActivate: [AuthGuardService], component: FournisseurListComponent }
+
         ]},
   { path: 'auth', component: AuthComponent },
   { path: '', canActivate: [AuthGuardService], pathMatch: 'full', redirectTo: 'sidenav'},
