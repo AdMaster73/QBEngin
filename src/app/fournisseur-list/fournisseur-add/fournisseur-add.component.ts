@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs';
 import { MatDialogRef} from '@angular/material/dialog';
 import { DateAdapter} from '@angular/material/core';
-import { FournisseurListComponent } from '../Fournisseur-list.component';
+import { FournisseurListComponent } from '../fournisseur-list.component';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { firestore } from 'firebase';
 import { Fournisseur } from 'src/app/models/engin.model';
