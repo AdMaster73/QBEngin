@@ -4,12 +4,13 @@ import { FormGroup, FormBuilder, Validators, FormControl, NgForm } from "@angula
 import { EnginService } from './../../services/engin.service';
 import { Engin, Categorie,Fournisseur } from './../../models/engin.model';
 import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, from } from 'rxjs';
 import { DateAdapter, MAT_DATE_LOCALE} from '@angular/material/core';
 import { EnginListComponent } from '../engin-list.component';
 import {firestore} from 'firebase'
 import localeFr from '@angular/common/locales/fr';
 import { formatDate, registerLocaleData } from '@angular/common';
+import * as moment from 'moment'
 @Component({
   selector: 'app-engin-form',
   templateUrl: './engin-form.component.html',
@@ -22,7 +23,7 @@ export class EnginFormComponent implements OnInit {
   id: number;
   code: string;
   name:string;
-  date_achat:Date;
+  date_achat:string;
   valeur_achat: string;
   n_serie: string;
   marque_moteur: string;
@@ -48,8 +49,7 @@ export class EnginFormComponent implements OnInit {
       this._adapter.setLocale('fr'); 
       registerLocaleData(localeFr, 'fr');     
       var pattern = /(\d{2})\/(\d{2})\/(\d{4})/;
-      this.date = typeof this.data.date_achat === 'string' ? this.date = new FormControl(new Date(this.data.date_achat.replace(pattern,'$3/$2/$1'))) : this.date = new FormControl(new Date((this.data.date_achat).toDate()));      
-         
+      this.date = typeof this.data.date_achat === 'string' ? this.date = new Date(this.data.date_achat.replace(pattern,'$3/$2/$1')) : this.date = new Date((this.data.date_achat).toDate());      
     }
 
   ngOnInit() {     
@@ -62,10 +62,10 @@ export class EnginFormComponent implements OnInit {
       categorie:['', Validators.required],
       id_categorie: ['', Validators.required],
       valeur_achat: new FormControl(),
-      date_achat:new FormControl(),
+      date_achat:new FormControl(this.date, Validators.required),
       marque_moteur:new FormControl(),
       serie_moteur:new FormControl(),
-      numero_serie:new FormControl()    
+      n_serie:new FormControl()    
     });      
     this.results$ = this.enginService.searchCategory(this.startAt,"categorie"); 
     this.results_f$ = this.enginService.searchCategory(this.startAt,"fourisseur");
@@ -91,32 +91,11 @@ export class EnginFormComponent implements OnInit {
           categorie:icategorie,
           fournisseur:ifournisseur
     } ;    */
-    this.enginService.UpdateEngin(this.data.id,engin)
+    //this.enginService.UpdateEngin(this.data.id,engin)
   }
   /* Reactive book form */
   onSubmit(engin) {
-    console.log(this.EnginFormEdit.controls)
-    console.log(engin)
-    /*var icategorie : Categorie = {
-      id:this.EnginFormEdit.controls['categoriehd'].value,
-      name:this.EnginFormEdit.controls['categorie'].value
-    };
-    var ifournisseur : Fournisseur = {
-      id:this.EnginFormEdit.controls['fournisseurhd'].value,
-      name:this.EnginFormEdit.controls['fournisseur'].value
-    };    
-    let engin: Engin = { 
-          id: this.EnginFormEdit.controls['id'].value,
-          code: this.EnginFormEdit.controls['code'].value,
-          name: this.EnginFormEdit.controls['designation'].value,
-          date_achat:this.EnginFormEdit.controls['date_achat'].value,
-          valeur_achat: this.EnginFormEdit.controls['valeur_achat'].value,
-          n_serie: this.EnginFormEdit.controls['numero_serie'].value,
-          marque_moteur: this.EnginFormEdit.controls['marque_moteur'].value,
-          serie_moteur: this.EnginFormEdit.controls['serie_moteur'].value,
-          categorie:icategorie,
-          fournisseur:ifournisseur
-    } ;*/    
+    this.enginService.UpdateEngin(this.data.id,engin)   
   }
   /* Get errors */
   public handleError = (controlName: string, errorName: string) => {
@@ -142,5 +121,6 @@ export class EnginFormComponent implements OnInit {
   /* Reset form */
   closeForm() {        
     this.dialogRef.close(); 
+    return false
   }
 }
