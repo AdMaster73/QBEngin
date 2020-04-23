@@ -63,22 +63,8 @@ export class EnginService {
 	}
 	/* Delete engin */
 	async DeleteEngin(id) {
-		/*const qry: firebase.firestore.QuerySnapshot = await this.afs.collection('engin',ref=> ref.where('id','==',id) ).ref.get();
-	
-		// You can use the QuerySnapshot above like in the example i linked
-		qry.forEach(doc => {
-		  doc.ref.delete();
-		});*/
-
-		this.afs.collectionGroup('engin',ref=> 
-			ref.where('id','==',id)).snapshotChanges()
-			.forEach( user => {
-				user.forEach( userData =>{				  
-					let ID = userData.payload.doc.id;
-					this.afs.doc('engin/'+ID).delete()	
-					});
-				});	
-	  }
+		this.afs.doc('engin/'+id).delete()
+	}
 
 	// Error management
 	private errorMgmt(error) {
@@ -166,33 +152,25 @@ export class EnginService {
 	
 	/* Update engin */
 	UpdateEngin(id, engin) {  		
-		this.afs.collectionGroup('engin',ref=> 
-			ref.where('id','==',id)).snapshotChanges()
-			.forEach( user => {
-				user.forEach( userData =>{				  
-					let ID = userData.payload.doc.id;
-					this.afs.doc('engin/'+ID).update(
-						{
-							code: engin.code,
-							name: engin.name,
-							date_achat: engin.date_achat,
-							valeur_achat: engin.valeur_achat,
-							n_serie: engin.n_serie,
-							marque_moteur: engin.marque_moteur,
-							serie_moteur: engin.serie_moteur,			
-							categorie:{
-								id:engin.id_categorie,
-								name:engin.categorie
-							},
-							fournisseur:{
-								id:engin.id_fournisseur,
-								name:engin.fournisseur
-							}			
-						}
-					)	
-
-					});
-				});															
+		this.afs.doc('engin/'+id).update(
+			{
+				code: engin.code,
+				name: engin.name,
+				date_achat: engin.date_achat,
+				valeur_achat: engin.valeur_achat,
+				n_serie: engin.n_serie,
+				marque_moteur: engin.marque_moteur,
+				serie_moteur: engin.serie_moteur,			
+				categorie:{
+					id:engin.id_categorie,
+					name:engin.categorie
+				},
+				fournisseur:{
+					id:engin.id_fournisseur,
+					name:engin.fournisseur
+				}			
+			}
+		)														
 	}  
   
 }
