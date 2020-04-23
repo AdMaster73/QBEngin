@@ -57,6 +57,12 @@ import { environment } from '../environments/environment';
 import { ListNfraisNpayedComponent } from './list-nfrais-npayed/list-nfrais-npayed.component';
 import { ListNfraisPayedComponent } from './list-nfrais-payed/list-nfrais-payed.component';
 import { ListNfraisTableComponent } from './list-nfrais-table/list-nfrais-table.component';
+import { CategorieListComponent } from './categorie-list/categorie-list.component';
+import { CategorieAddComponent } from './categorie-list/categorie-add/categorie-add.component';
+import { CategorieFormComponent } from './categorie-list/categorie-form/categorie-form.component';
+import { FournisseurListComponent } from './fournisseur-list/fournisseur-list.component';
+import { FournisseurAddComponent } from './fournisseur-list/fournisseur-add/fournisseur-add.component';
+import { FournisseurFormComponent } from './fournisseur-list/fournisseur-form/fournisseur-form.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -75,12 +81,22 @@ import { ListNfraisTableComponent } from './list-nfrais-table/list-nfrais-table.
 	EnginAddComponent,
 	ListNfraisNpayedComponent,
 	ListNfraisPayedComponent,
-	ListNfraisTableComponent
+	ListNfraisTableComponent,
+	CategorieListComponent,
+	CategorieAddComponent,
+	CategorieFormComponent,
+	FournisseurListComponent,
+	FournisseurAddComponent,
+	FournisseurFormComponent
   ],
   entryComponents: [
 	BottomSheetOverviewExampleSheet,
 	EnginAddComponent,
-	EnginFormComponent
+	EnginFormComponent,
+	CategorieAddComponent,
+	CategorieFormComponent,
+	FournisseurAddComponent,
+	FournisseurFormComponent
   ],
   imports: [
     BrowserModule,	
