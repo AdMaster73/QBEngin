@@ -6,7 +6,7 @@
  
   <!-- Engin form -->
   <div class="example-container">
-    <form [formGroup]="EnginFormEdit" (ngSubmit)="onSubmit(EnginFormEdit.value)"> <!--#resetEnginForm="ngForm"-->
+    <form [formGroup]="EnginFormEdit" (ngSubmit)="onSubmit(EnginFormEdit.value)">
       <!-- Left block -->
       <mat-card>
           <!-- Engin code -->
@@ -69,7 +69,7 @@
             <!--DATE ACHAT-->
             <mat-form-field class="example-full-width" appearance="outline">
               <mat-label>Entrer la date d'achat</mat-label>
-              <input matInput [matDatepicker]="picker" formControlName="date_achat" name="date_achat" [formControl]="date"><!-- [formControl]="date"-->
+              <input matInput [matDatepicker]="picker" formControlName="date_achat">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker touchUi #picker></mat-datepicker>
             </mat-form-field>   
@@ -90,11 +90,11 @@
 
             <!-- NUMERO SERIE -->
             <mat-form-field class="example-full-width" appearance="outline">
-              <input matInput placeholder="Numéro de serie" formControlName="numero_serie" [(ngModel)]="data.n_serie">
+              <input matInput placeholder="Numéro de serie" formControlName="n_serie" [(ngModel)]="data.n_serie">
             </mat-form-field> 
 
           <mat-card-actions>
-            <button mat-fab color="primary"><!-- (click)="editEngin(EnginFormEdit.value)"-->
+            <button mat-fab color="primary">
               <mat-icon aria-label="Example icon-button with a heart icon">edit</mat-icon>
             </button>
             <button mat-fab color="accent" (click)="closeForm()">
