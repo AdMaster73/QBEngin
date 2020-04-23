@@ -2,15 +2,13 @@ import { Component, OnInit,Inject, ViewChild} from '@angular/core';
 import { MAT_DIALOG_DATA,MatDialogRef} from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators, FormControl, NgForm } from "@angular/forms";
 import { EnginService } from './../../services/engin.service';
-import { Engin, Categorie,Fournisseur } from './../../models/engin.model';
 import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject, from } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { DateAdapter, MAT_DATE_LOCALE} from '@angular/material/core';
 import { EnginListComponent } from '../engin-list.component';
-import {firestore} from 'firebase'
-import localeFr from '@angular/common/locales/fr';
-import { formatDate, registerLocaleData } from '@angular/common';
-import * as moment from 'moment'
+import   localeFr from '@angular/common/locales/fr';
+import { registerLocaleData } from '@angular/common';
+
 @Component({
   selector: 'app-engin-form',
   templateUrl: './engin-form.component.html',
@@ -20,18 +18,7 @@ import * as moment from 'moment'
   ]
 })
 export class EnginFormComponent implements OnInit {
-  id: number;
-  code: string;
-  name:string;
-  date_achat:string;
-  valeur_achat: string;
-  n_serie: string;
-  marque_moteur: string;
-  serie_moteur: string;
-  id_categorie : number;
-  categorie_name : string;
-  id_fournisseur : number;
-  fournisseur_name : string;
+
   results$ : Observable<any[]>;
   results_f$: Observable<any[]>;
   startAt: BehaviorSubject<string | null> = new BehaviorSubject(''); 
@@ -70,32 +57,11 @@ export class EnginFormComponent implements OnInit {
     this.results$ = this.enginService.searchCategory(this.startAt,"categorie"); 
     this.results_f$ = this.enginService.searchCategory(this.startAt,"fourisseur");
   }
-  editEngin(engin){      
-    /*var icategorie : Categorie = {
-      id:this.EnginForm.controls['categoriehd'].value,
-      name:this.EnginForm.controls['categorie'].value
-    };
-    var ifournisseur : Fournisseur = {
-      id:this.EnginForm.controls['fournisseurhd'].value,
-      name:this.EnginForm.controls['fournisseur'].value
-    };    
-    let enginReq: Engin = { 
-          id: this.EnginLastRecord,
-          code: this.EnginForm.controls['code'].value,
-          name: this.EnginForm.controls['designation'].value,
-          date_achat:this.EnginForm.controls['date_achat'].value,
-          valeur_achat: this.EnginForm.controls['value_chat'].value,
-          n_serie: this.EnginForm.controls['numero_serie'].value,
-          marque_moteur: this.EnginForm.controls['marque_moteur'].value,
-          serie_moteur: this.EnginForm.controls['serie_moteur'].value,
-          categorie:icategorie,
-          fournisseur:ifournisseur
-    } ;    */
-    //this.enginService.UpdateEngin(this.data.id,engin)
-  }
+  
   /* Reactive book form */
   onSubmit(engin) {
-    this.enginService.UpdateEngin(this.data.id,engin)   
+    this.enginService.UpdateEngin(this.data.id,engin)
+    this.dialogRef.close();   
   }
   /* Get errors */
   public handleError = (controlName: string, errorName: string) => {
