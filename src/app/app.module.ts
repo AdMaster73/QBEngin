@@ -39,6 +39,9 @@ import { AuthService } from './services/auth.service';
 import { AuthGuardService } from './services/auth-guard.service';
 import { UserService } from './services/user.service';
 import { EnginService } from './services/engin.service';
+import { CategorieService } from './services/categorie.service';
+import { FournisseurService } from './services/fournisseur.service'
+
 /* Components */
 import { AppComponent } from './app.component';
 import { AuthComponent } from './auth/auth.component';
@@ -63,6 +66,7 @@ import { CategorieFormComponent } from './categorie-list/categorie-form/categori
 import { FournisseurListComponent } from './fournisseur-list/fournisseur-list.component';
 import { FournisseurAddComponent } from './fournisseur-list/fournisseur-add/fournisseur-add.component';
 import { FournisseurFormComponent } from './fournisseur-list/fournisseur-form/fournisseur-form.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -141,6 +145,8 @@ import { FournisseurFormComponent } from './fournisseur-list/fournisseur-form/fo
 	UserService,
 	AngularFireAuth,
 	EnginService,
+	CategorieService,
+	FournisseurService,
 	AngularFirestore,
 	AngularFireDatabase],
   bootstrap: [AppComponent]
