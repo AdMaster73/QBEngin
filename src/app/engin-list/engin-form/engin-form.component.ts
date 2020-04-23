@@ -66,11 +66,11 @@ export class EnginFormComponent implements OnInit {
       marque_moteur:new FormControl(),
       serie_moteur:new FormControl(),
       numero_serie:new FormControl()    
-});       
+    });      
     this.results$ = this.enginService.searchCategory(this.startAt,"categorie"); 
     this.results_f$ = this.enginService.searchCategory(this.startAt,"fourisseur");
   }
-  editEngin(engin){  
+  editEngin(engin){      
     /*var icategorie : Categorie = {
       id:this.EnginForm.controls['categoriehd'].value,
       name:this.EnginForm.controls['categorie'].value
@@ -95,6 +95,7 @@ export class EnginFormComponent implements OnInit {
   }
   /* Reactive book form */
   onSubmit(engin) {
+    console.log(this.EnginFormEdit.controls)
     console.log(engin)
     /*var icategorie : Categorie = {
       id:this.EnginFormEdit.controls['categoriehd'].value,
