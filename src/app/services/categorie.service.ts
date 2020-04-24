@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
 import { Categorie } from '../models/engin.model';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { AngularFireObject, AngularFireDatabase } from '@angular/fire/database';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs/Observable';
 import { firestore } from 'firebase';
 
 @Injectable({
@@ -12,16 +9,8 @@ import { firestore } from 'firebase';
 })
 export class CategorieService {
 		
-	categorieRef: AngularFireObject<any>;
-	item: Observable<any>;
-	offset = new Subject<string>();		
-	constructor(
-    private db: AngularFireDatabase,
-		 private afs: AngularFirestore) {
-			this.categorieRef = db.object('categorie');
-			this.item = this.categorieRef.valueChanges();
-		 }
-	/* Create Categorie */
+	constructor(private afs: AngularFirestore) {}
+	/* Créer une nouvelle Categorie */
 	AddCategorie(categorie: Categorie){		
 		return this.afs.collection('categorie').doc(categorie.id.toString()).set({
 			createdAt: firestore.FieldValue.serverTimestamp(),       
@@ -29,12 +18,12 @@ export class CategorieService {
 		})
 	}
 	
-	/* Delete categorie */
+	/* Supprimer la categorie */
 	async DeleteCategorie(id) {
 		this.afs.doc('categorie/'+id).delete()
 	}
 
-	/* Get engin list */
+	/* Retourn une liste des categories */
 	GetCategorieList() {		
 		return this.afs.collection<Categorie>('categorie',ref=> ref.orderBy('createdAt','asc')).snapshotChanges().pipe(
 			map(actions => {
@@ -47,7 +36,7 @@ export class CategorieService {
 		);	
 	}
 	
-	//get the last record from categorie for incemanting
+	//Retourne le ID du dernier enregistrement
 	GetCategorieLastRecord(){		
 	  return this.afs.collection('categorie', ref => ref
 		.limit(1)
@@ -55,7 +44,7 @@ export class CategorieService {
 	  )				
 	}
 	
-	/* Update categorie */
+	/* Modifier la categorie */
 	UpdateCategorie(id, categorie) {  		
 		this.afs.doc('categorie/'+id).update({name: categorie.name})														
 	} 
