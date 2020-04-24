@@ -107,7 +107,9 @@ import { ChantierFormComponent } from './chantier-list/chantier-form/chantier-fo
 	CategorieAddComponent,
 	CategorieFormComponent,
 	FournisseurAddComponent,
-	FournisseurFormComponent
+	FournisseurFormComponent,
+	ChantierAddComponent,
+	ChantierFormComponent
   ],
   imports: [
     BrowserModule,	
