@@ -9,8 +9,10 @@ import { ChantierListComponent } from '../chantier-list.component';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Chantier } from 'src/app/models/engin.model';
 import { ChantierService } from 'src/app/services/chantier.service';
-import { firestore } from 'firebase';
-import  *  as  data  from  './../../../assets/data.json';
+import 'rxjs/add/operator/map';
+/*import { firestore } from 'firebase';
+import chantiers  from  './../../../assets/data.json';
+import { HttpClient } from '@angular/common/http';*/
 
 @Component({
   selector: 'app-chantier-add',
@@ -34,24 +36,22 @@ export class ChantierAddComponent implements OnInit {
       public fb: FormBuilder ,
       private chantierService : ChantierService,      
       private _adapter: DateAdapter<any>,
-      public dialogRef: MatDialogRef<ChantierListComponent>) {
-
-    var i = 0        
-    data.forEach(function(obj) {  
-      i+=1          
-      db.collection("chantier").doc(i.toString()).set({
-          createdAt: firestore.FieldValue.serverTimestamp(),
-          name:obj.name,
-          compte : obj.compte,
-          archive : obj.archive
-      }, {merge: true}).then(function(docRef) {
-          console.log("Document written with ID: ", docRef);
-      })
-      .catch(function(error) {
-          console.error("Error adding document: ", error);
-      });
-    });        
-      }
+      //private http: HttpClient,
+      public dialogRef: MatDialogRef<ChantierListComponent>) {        
+        /*for (var counter:number = 1; counter<=chantiers.length; counter++) {
+          db.collection("chantier").doc(counter.toString()).set({
+            createdAt: firestore.FieldValue.serverTimestamp(),
+            name:chantiers[counter-1].name,
+            compte : chantiers[counter-1].compte,
+            archive : chantiers[counter-1].archive
+          }, {merge: true}).then(function(docRef) {
+              console.log("Document written with ID: ", docRef);
+          })
+          .catch(function(error) {
+              console.error("Error adding document: ", error);
+          });
+        }*/
+       }        
 
   ngOnInit() {  
     this._adapter.setLocale('fr');  
