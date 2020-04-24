@@ -11,6 +11,7 @@ import { MainNavComponent } from './main-nav/main-nav.component';
 import { EnginListComponent } from './engin-list/engin-list.component';
 import { CategorieListComponent } from './categorie-list/categorie-list.component';
 import { FournisseurListComponent } from './fournisseur-list/fournisseur-list.component';
+import { ChantierListComponent } from './chantier-list/chantier-list.component';
 
 
 const routes: Routes = [
@@ -25,7 +26,8 @@ const routes: Routes = [
         { path: 'users', component: UserListComponent },
         { path: 'users/new', component: NewUserComponent },
         { path: 'categorie', canActivate: [AuthGuardService], component: CategorieListComponent },
-        { path: 'fournisseur', canActivate: [AuthGuardService], component: FournisseurListComponent }
+        { path: 'fournisseur', canActivate: [AuthGuardService], component: FournisseurListComponent },
+        { path: 'chantier', canActivate: [AuthGuardService], component: ChantierListComponent }
 
         ]},
   { path: 'auth', component: AuthComponent },
