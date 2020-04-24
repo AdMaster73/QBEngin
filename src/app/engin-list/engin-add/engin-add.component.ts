@@ -10,7 +10,6 @@ import {MatDialogRef} from '@angular/material/dialog';
 import {DateAdapter} from '@angular/material/core';
 import { EnginListComponent } from '../engin-list.component';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { firestore } from 'firebase';
 import { FournisseurService } from 'src/app/services/fournisseur.service';
 
 @Component({
@@ -45,36 +44,7 @@ export class EnginAddComponent implements OnInit {
       public serviceFournisseur : FournisseurService, 
       public serviceCategorie : CategorieService, 
       private _adapter: DateAdapter<any>,
-      public dialogRef: MatDialogRef<EnginListComponent>) { 
-      /*var categorie =
-      [] 
-    var i = 0        
-    categorie.forEach(function(obj) {  
-      i+=1          
-      db.collection("engin").doc(i.toString()).set({
-          createdAt: firestore.FieldValue.serverTimestamp(),
-          code: obj.code,
-          name:obj.name,
-          date_achat : obj.date_achat,
-          valeur_achat : obj.valeur_achat,
-          n_serie : obj.n_serie,
-          marque_moteur:obj.marque_moteur,
-          serie_moteur : obj.serie_moteur,
-          fournisseur : {
-            id: obj["fournisseur"].id,
-            name: obj["fournisseur"].name
-          },
-          categorie:{
-            id: obj["categorie"].id,
-            name: obj["categorie"].name
-          }
-      }, {merge: true}).then(function(docRef) {
-          console.log("Document written with ID: ", docRef);
-      })
-      .catch(function(error) {
-          console.error("Error adding document: ", error);
-      });
-    });*/       
+      public dialogRef: MatDialogRef<EnginListComponent>) {     
   }
 
   ngOnInit() {  
@@ -89,8 +59,8 @@ export class EnginAddComponent implements OnInit {
       designation: ['', Validators.required],
       categorie: ['', Validators.required],
       fournisseur: ['', Validators.required],
-      categoriehd:['', Validators.required],
-      fournisseurhd:['', Validators.required],
+      id_categorie:['', Validators.required],
+      id_fournisseur:['', Validators.required],
       date_achat: [],
       value_chat:[],
       marque_moteur:[],
@@ -104,17 +74,10 @@ export class EnginAddComponent implements OnInit {
     this.startAt.next(searchText);
   }  
   /*Avoir le id pour le stocker dans une zone de texte afin de l'ituliser à l'ajout*/
-  getCategories(categorie){
-    this.enginService.GetIdCategorie(categorie).subscribe((value) => { 
-      this.EnginForm.controls['categoriehd'].setValue(value[0].key) 
-     })      
+  getControls(event$,model:string){     
+    this.EnginForm.controls[model].setValue(event$.option.value.name) 
+    this.EnginForm.controls['id_'+model].setValue(event$.option.value.id)
   } 
-  
-  getFournisseur(fournisseur){
-    this.enginService.GetIDFourisseur(fournisseur).subscribe(value => {       
-      this.EnginForm.controls['fournisseurhd'].setValue(value[0].key) 
-     })
-  }
   /* Reactive book form */
   submitEnginForm() {
     this.submitted = true;
@@ -122,11 +85,11 @@ export class EnginAddComponent implements OnInit {
       return;
     }
     var icategorie : Categorie = {
-      id:this.EnginForm.controls['categoriehd'].value,
+      id:this.EnginForm.controls['id_categorie'].value,
       name:this.EnginForm.controls['categorie'].value
     };
     var ifournisseur : Fournisseur = {
-      id:this.EnginForm.controls['fournisseurhd'].value,
+      id:this.EnginForm.controls['id_fournisseur'].value,
       name:this.EnginForm.controls['fournisseur'].value
     };    
     let engin: Engin = { 
