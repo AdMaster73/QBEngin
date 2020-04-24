@@ -35,8 +35,8 @@
             [(ngModel)]="data.categorie.name"
             (keyup)="search(searchInput.value)"
             [matAutocomplete]="auto">
-            <mat-autocomplete #auto="matAutocomplete" (optionSelected)='getCategories($event.option.value)'>
-              <mat-option *ngFor="let categorie of (results$ | async)" [value]="categorie?.name">                                         
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)='getControls($event,"categorie")'>
+              <mat-option *ngFor="let categorie of (results$ | async)" [value]="categorie">                                         
                 <span>{{categorie?.name}}</span>                                
               </mat-option> 
             </mat-autocomplete> 
@@ -55,8 +55,8 @@
             [(ngModel)]="data.fournisseur.name"
             (keyup)="search(searchInput_f.value)"
             [matAutocomplete]="auto_f">
-            <mat-autocomplete #auto_f="matAutocomplete" (optionSelected)='getFournisseur($event.option.value)'>
-              <mat-option *ngFor="let fournisseur of (results_f$ | async)" [value]="fournisseur?.name">                                         
+            <mat-autocomplete #auto_f="matAutocomplete" (optionSelected)='getControls($event,"fournisseur")'>
+              <mat-option *ngFor="let fournisseur of (results_f$ | async)" [value]="fournisseur">                                         
                 <span>{{fournisseur?.name}}</span>                                
               </mat-option> 
             </mat-autocomplete> 
