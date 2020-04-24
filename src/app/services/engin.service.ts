@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-import { Engin } from '../models/engin.model';
+import { Engin, Fournisseur } from '../models/engin.model';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireDatabase, AngularFireList, AngularFireObject } from '@angular/fire/database';
 import { switchMap, debounceTime, map, distinctUntilChanged } from 'rxjs/operators';
@@ -121,14 +121,16 @@ export class EnginService {
 				distinctUntilChanged(),
 				map(changes => {
 					return changes.map(c => {
-						return { key: c.payload.doc.id, ...c.payload.doc.data() as any};
+						const data = c.payload.doc.data() as Fournisseur;
+						const id = c.payload.doc.id;
+						return { id, ...data };
 					});
 				})
 			);		
 	}
 	//
 	GetIDFourisseur(fournisseur){
-		return this.afs.collection('fourisseur',ref=> 
+		return this.afs.collection('fournisseur',ref=> 
 		ref.where('name','==',fournisseur))
 		.snapshotChanges()
 			.pipe(
