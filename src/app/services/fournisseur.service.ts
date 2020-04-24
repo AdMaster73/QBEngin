@@ -12,16 +12,9 @@ import { firestore } from 'firebase';
 })
 export class FournisseurService {
 
-	FournisseurRef: AngularFireObject<any>;
-	item: Observable<any>;
-	offset = new Subject<string>();		
-	constructor(
-    private db: AngularFireDatabase,
-		 private afs: AngularFirestore) {
-			this.FournisseurRef = db.object('fournisseur');
-			this.item = this.FournisseurRef.valueChanges();
-		 }
-	/* Create Fournisseur */
+	constructor(private afs: AngularFirestore) {}
+
+	/* Cérer un Fournisseur */
 	AddFournisseur(Fournisseur: Fournisseur){		
 		return this.afs.collection('fournisseur').doc(Fournisseur.id.toString()).set({
 			createdAt: firestore.FieldValue.serverTimestamp(),       
@@ -29,12 +22,12 @@ export class FournisseurService {
 		})
 	}
 	
-	/* Delete Fournisseur */
+	/* Supprimer un Fournisseur */
 	async DeleteFournisseur(id) {
 		this.afs.doc('fournisseur/'+id).delete()
 	}
 
-	/* Get engin list */
+	/* Retourne une liste des fournisseurs */
 	GetFournisseurList() {		
 		return this.afs.collection<Fournisseur>('fournisseur',ref=> ref.orderBy('createdAt','asc')).snapshotChanges().pipe(
 			map(actions => {
@@ -47,7 +40,7 @@ export class FournisseurService {
 		);	
 	}
 	
-	//get the last record from Fournisseur for incemanting
+	//Avoir le ID du dernier enregesitrement
 	GetFournisseurLastRecord(){		
 	  return this.afs.collection('fournisseur', ref => ref
 		.limit(1)
@@ -55,7 +48,7 @@ export class FournisseurService {
 	  )				
 	}
 	
-	/* Update Fournisseur */
+	/* Modifier un Fournisseur */
 	UpdateFournisseur(id, Fournisseur) {  		
 		this.afs.doc('fournisseur/'+id).update({name: Fournisseur.name})														
 	} 
