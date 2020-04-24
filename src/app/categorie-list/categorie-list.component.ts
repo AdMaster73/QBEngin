@@ -1,12 +1,11 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import {MatTableDataSource, MatSort, MatDialog, MatDialogConfig} from '@angular/material';
-import {MatPaginator} from '@angular/material/paginator';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource, MatSort, MatDialog, MatDialogConfig} from '@angular/material';
+import { MatPaginator} from '@angular/material/paginator';
 import { CategorieService } from '../services/categorie.service';
-import { Engin, Categorie } from './../models/engin.model';
+import { Categorie } from './../models/engin.model';
 import { CategorieAddComponent } from './categorie-add/categorie-add.component';
 import { CategorieFormComponent } from "./categorie-form/categorie-form.component";
 import { AngularFirestore } from 'angularfire2/firestore';
-import { firestore } from 'firebase';
 
 @Component({
   selector: 'app-categorie-list',
