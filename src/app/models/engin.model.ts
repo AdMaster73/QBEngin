@@ -12,11 +12,23 @@ export interface Engin {
     fournisseur:Fournisseur  
   }
   export interface Categorie{
-    id:number;
-    name:string;
+    id:number,
+    name:string,
   }
   export interface Fournisseur{
-    id:number;
-    name:string;
+    id:number,
+    name:string,
   }  
+  export interface Chantier{
+    id:number,
+    name:string,
+    compte:string,
+    archive:number,
+  }
+  export interface User{
+    id:number,
+    nice_name:string,
+    email:string,
+    login:string,    
+  }
 
