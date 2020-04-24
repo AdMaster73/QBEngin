@@ -9,7 +9,7 @@ import { FournisseurListComponent } from '../fournisseur-list.component';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { firestore } from 'firebase';
 import { Fournisseur } from 'src/app/models/engin.model';
-import { FournisseurService } from 'src/app/services/Fournisseur.service';
+import { FournisseurService } from 'src/app/services/fournisseur.service';
 
 @Component({
   selector: 'app-fournisseur-add',
@@ -40,8 +40,7 @@ export class FournisseurAddComponent implements OnInit {
       public fb: FormBuilder ,
       private FournisseurService : FournisseurService,      
       private _adapter: DateAdapter<any>,
-      public dialogRef: MatDialogRef<FournisseurListComponent>) {     
-  }
+      public dialogRef: MatDialogRef<FournisseurListComponent>) {}
 
   ngOnInit() {  
     this._adapter.setLocale('fr');  
