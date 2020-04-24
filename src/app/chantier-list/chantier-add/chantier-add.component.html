@@ -1,0 +1,31 @@
+<!-- Title group  -->
+<div class="title-group">
+    <h1 class="mat-h1">Ajouter Chantier</h1>
+    <mat-divider fxFlex="1 0"></mat-divider>
+  </div>
+ 
+  <!-- Chantier form -->
+  <div class="example-container">
+    <form [formGroup]="ChantierForm" (ngSubmit)="submitChantierForm()">
+      <!-- Left block -->
+      <mat-card>
+
+          <!-- Chantier designation -->
+          <mat-form-field class="example-full-width" appearance="outline">
+            <input matInput placeholder="Désignation" formControlName="name">
+            <mat-error *ngIf="handleError('name', 'required')">
+              Vous devez Entrer la <strong>Désignation</strong>
+            </mat-error>
+          </mat-form-field>   
+
+          <mat-card-actions>
+            <button mat-fab color="primary">
+              <mat-icon aria-label="Example icon-button with a heart icon">done_outline</mat-icon>
+            </button>
+            <button mat-fab color="accent" (click)="closeForm()">
+              <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
+            </button>
+          </mat-card-actions>             
+      </mat-card>
+    </form>
+  </div>
