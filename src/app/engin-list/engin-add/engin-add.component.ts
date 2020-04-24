@@ -2,6 +2,7 @@ import { Component, OnInit,ViewChild  } from '@angular/core';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { FormGroup, FormBuilder, Validators, NgForm } from "@angular/forms";
 import { EnginService } from './../../services/engin.service';
+import { CategorieService } from './../../services/categorie.service'
 import { Engin, Categorie,Fournisseur } from './../../models/engin.model';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs';
@@ -42,6 +43,7 @@ export class EnginAddComponent implements OnInit {
       public fb: FormBuilder ,
       private enginService : EnginService,     
       public serviceFournisseur : FournisseurService, 
+      public serviceCategorie : CategorieService, 
       private _adapter: DateAdapter<any>,
       public dialogRef: MatDialogRef<EnginListComponent>) { 
       /*var categorie =
@@ -95,7 +97,7 @@ export class EnginAddComponent implements OnInit {
       serie_moteur:[],
       numero_serie:[]
     })
-    this.results$ = this.enginService.searchCategory(this.startAt,"categorie"); 
+    this.results$ = this.serviceCategorie.GetCategorieList(); 
     this.results_f$ = this.serviceFournisseur.GetFournisseurList(); 
   }
   search(searchText){
@@ -104,7 +106,7 @@ export class EnginAddComponent implements OnInit {
   /*Avoir le id pour le stocker dans une zone de texte afin de l'ituliser à l'ajout*/
   getCategories(categorie){
     this.enginService.GetIdCategorie(categorie).subscribe((value) => { 
-      this.EnginForm.controls['categoriehd'].setValue(value[0].id) 
+      this.EnginForm.controls['categoriehd'].setValue(value[0].key) 
      })      
   } 
   
