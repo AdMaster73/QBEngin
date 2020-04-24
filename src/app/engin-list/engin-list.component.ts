@@ -52,7 +52,6 @@ export class EnginListComponent implements OnInit{
   /**Modifier Engin */
   editEngin(index:number, element){   
     const dialogConfig = new MatDialogConfig();            
-    dialogConfig.disableClose = true
     dialogConfig.autoFocus = true 
     dialogConfig.data = element
     this.dialog.open(EnginFormComponent,dialogConfig)                            
@@ -66,20 +65,4 @@ export class EnginListComponent implements OnInit{
       this.enginService.DeleteEngin(index)
     }
   }
-  /*ngAfterViewInit() {
-    this.afs.collection<any>('engin').valueChanges().subscribe(data => {
-      this.dataSource = new MatTableDataSource(data); 
-      this.dataSource.paginator = this.paginator;     
-    })    
-  }*/
-
-
-/***
- * this.dataSource.paginator = this.paginator;
-        this.paginator._intl.itemsPerPageLabel = 'Affichage par page.';
-        this.paginator._intl.firstPageLabel = 'Page Premier';
-        this.paginator._intl.nextPageLabel = 'Page Suivant';
-        this.paginator._intl.previousPageLabel = 'Page Précédante';
-        this.paginator._intl.lastPageLabel = 'Dérnier Page'; 
-*/
 }
