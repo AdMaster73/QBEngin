@@ -7,7 +7,6 @@ import { MatDialogRef} from '@angular/material/dialog';
 import { DateAdapter} from '@angular/material/core';
 import { CategorieListComponent } from '../categorie-list.component';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { firestore } from 'firebase';
 import { Categorie } from 'src/app/models/engin.model';
 import { CategorieService } from 'src/app/services/categorie.service';
 
@@ -18,20 +17,11 @@ import { CategorieService } from 'src/app/services/categorie.service';
 })
 export class CategorieAddComponent implements OnInit {
 
-
-  submitted = false;
-  visible = true;
-  selectable = true;
-  removable = true;
-  addOnBlur = true;
-  EnginLastRecord: number;
-  categories: Categorie[];
-  EnginCategorieHD: Observable<any[]>;
-  EnginFournisseurHD: Observable<any[]>;
+  submitted = false;      
+  EnginLastRecord: number;  
   results$ : Observable<any[]>;
   results_f$: Observable<any[]>;
   startAt: BehaviorSubject<string | null> = new BehaviorSubject('');   
-
 
   @ViewChild('resetCategorieForm',{static: true}) myNgForm : NgForm;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
