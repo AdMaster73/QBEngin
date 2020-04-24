@@ -10,6 +10,7 @@ import {DateAdapter} from '@angular/material/core';
 import { EnginListComponent } from '../engin-list.component';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { firestore } from 'firebase';
+import { FournisseurService } from 'src/app/services/fournisseur.service';
 
 @Component({
   selector: 'app-engin-add',
@@ -35,11 +36,12 @@ export class EnginAddComponent implements OnInit {
   @ViewChild('resetEnginForm',{static: true}) myNgForm : NgForm;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   selectedBindingType: string;
-  EnginForm: FormGroup;  
+  EnginForm: FormGroup;   
   constructor(
       public db : AngularFirestore,
       public fb: FormBuilder ,
-      private enginService : EnginService,      
+      private enginService : EnginService,     
+      public serviceFournisseur : FournisseurService, 
       private _adapter: DateAdapter<any>,
       public dialogRef: MatDialogRef<EnginListComponent>) { 
       /*var categorie =
@@ -70,7 +72,7 @@ export class EnginAddComponent implements OnInit {
       .catch(function(error) {
           console.error("Error adding document: ", error);
       });
-    });*/
+    });*/       
   }
 
   ngOnInit() {  
@@ -94,7 +96,7 @@ export class EnginAddComponent implements OnInit {
       numero_serie:[]
     })
     this.results$ = this.enginService.searchCategory(this.startAt,"categorie"); 
-    this.results_f$ = this.enginService.searchCategory(this.startAt,"fourisseur");    
+    this.results_f$ = this.serviceFournisseur.GetFournisseurList(); 
   }
   search(searchText){
     this.startAt.next(searchText);
@@ -107,8 +109,8 @@ export class EnginAddComponent implements OnInit {
   } 
   
   getFournisseur(fournisseur){
-    this.enginService.GetIDFourisseur(fournisseur).subscribe((value) => { 
-      this.EnginForm.controls['fournisseurhd'].setValue(value[0].id) 
+    this.enginService.GetIDFourisseur(fournisseur).subscribe(value => {       
+      this.EnginForm.controls['fournisseurhd'].setValue(value[0].key) 
      })
   }
   /* Reactive book form */
