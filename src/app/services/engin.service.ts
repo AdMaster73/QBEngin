@@ -121,9 +121,7 @@ export class EnginService {
 				distinctUntilChanged(),
 				map(changes => {
 					return changes.map(c => {
-						const data = c.payload.doc.data() as Fournisseur;
-						const id = c.payload.doc.id;
-						return { id, ...data };
+						return { key: c.payload.doc.id, ...c.payload.doc.data() as any};
 					});
 				})
 			);		
