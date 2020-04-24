@@ -9,6 +9,7 @@ import { DateAdapter, MAT_DATE_LOCALE} from '@angular/material/core';
 import { EnginListComponent } from '../engin-list.component';
 import   localeFr from '@angular/common/locales/fr';
 import { registerLocaleData } from '@angular/common';
+import { CategorieService } from 'src/app/services/categorie.service';
 
 @Component({
   selector: 'app-engin-form',
@@ -25,12 +26,14 @@ export class EnginFormComponent implements OnInit {
   startAt: BehaviorSubject<string | null> = new BehaviorSubject(''); 
   date: any  
   EnginFormEdit: FormGroup  
+  myFournisseur = new FormControl();
   @ViewChild('resetEnginForm',{static: true}) myNgForm : NgForm;
        
   constructor(      
       public fb: FormBuilder ,
       private enginService : EnginService,
       public serviceFournisseur : FournisseurService,
+      public serviceCategorie : CategorieService,
       private _adapter: DateAdapter<any>,
       public dialogRef: MatDialogRef<EnginListComponent>,
       @Inject(MAT_DIALOG_DATA) public data: any
@@ -56,8 +59,8 @@ export class EnginFormComponent implements OnInit {
       serie_moteur:new FormControl(),
       n_serie:new FormControl()    
     });      
-    this.results$ = this.enginService.searchCategory(this.startAt,"categorie"); 
-    this.results_f$ = this.enginService.searchCategory(this.startAt,"fournisseur");
+    this.results$ = this.serviceCategorie.GetCategorieList(); 
+    this.results_f$ = this.serviceFournisseur.GetFournisseurList();
   }
   
   /* Reactive book form */
@@ -73,18 +76,11 @@ export class EnginFormComponent implements OnInit {
   search(searchText){
     this.startAt.next(searchText);
   }  
-  /*Avoir le id pour le stocker dans une zone de texte afin de l'ituliser à l'ajout*/
-  getCategories(categorie){
-    this.enginService.GetIdCategorie(categorie).subscribe((value) => { 
-      this.EnginFormEdit.controls['id_categorie'].setValue(value[0].id) 
-     })      
-  } 
-  
-  getFournisseur(fournisseur){
-    this.enginService.GetIDFourisseur(fournisseur).subscribe((value) => { 
-      this.EnginFormEdit.controls['id_fournisseur'].setValue(value[0].id) 
-     })
-  }
+/** */
+  getControls(event$,model:string){     
+    this.EnginFormEdit.controls[model].setValue(event$.option.value.name) 
+    this.EnginFormEdit.controls['id_'+model].setValue(event$.option.value.id)
+  }  
 
   /* Reset form */
   closeForm() {        
