@@ -1,31 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
-import { Engin, Fournisseur } from '../models/engin.model';
+import { Engin } from '../models/engin.model';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { AngularFireDatabase, AngularFireList, AngularFireObject } from '@angular/fire/database';
-import { switchMap, debounceTime, map, distinctUntilChanged } from 'rxjs/operators';
-import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { firestore } from 'firebase';
-
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class EnginService {
-	
-	enginsRef: AngularFireList<any>;
-	enginRef: AngularFireObject<any>;
-	item: Observable<any>;
-	offset = new Subject<string>();		
-	constructor(
-		 private db: AngularFireDatabase,
-		 private afs: AngularFirestore) {
-			this.enginRef = db.object('engin');
-			this.item = this.enginRef.valueChanges();
-		 }
-	/* Create engin */
+		
+	constructor(private afs: AngularFirestore) {}
+		 
+	/* Créer un nouveau engin */
 	AddEngin(engin: Engin){		
 		return this.afs.collection('engin').doc(engin.id.toString()).set({
 			createdAt: firestore.FieldValue.serverTimestamp(),       
@@ -46,35 +33,13 @@ export class EnginService {
 			}			
 		})
 	}
-	/** Rcherche Engin par ID */
-    GetEnginById(index:number){		
-		return this.afs.collection('engin',ref=> 
-		ref.where('id','==',index))
-		.snapshotChanges()
-			.pipe(
-				debounceTime(1),
-				distinctUntilChanged(),
-				map(changes => {
-					return changes.map(c => {
-						return { key: c.payload.doc.id, ...c.payload.doc.data() as any};
-					});
-				})
-			);
-	}
-	/* Delete engin */
+
+	/* Supprier un engin */
 	async DeleteEngin(id) {
 		this.afs.doc('engin/'+id).delete()
 	}
-
-	// Error management
-	private errorMgmt(error) {
-		console.log(error)
-	}
-	// Confirm management
-	private confirmMgmt(confirm) {
-		console.log(confirm)
-	}	
-	/* Get engin list */
+	
+	/*Retourner une liste des engin */
 	GetEnginList() {		
 		return this.afs.collection<Engin>('engin',ref=> ref.orderBy('createdAt','asc')).snapshotChanges().pipe(
 			map(actions => {
@@ -86,63 +51,8 @@ export class EnginService {
 			})
 		);	
 	}
-
-	// Reactive search query  "CATEGORIE"
-	searchCategory(start: BehaviorSubject<string>,collection:string):Observable<any[]> {
-		return start.pipe(
-			switchMap(startText => {
-				const endText = startText + '\uf8ff';
-				return this.afs.collection(collection,ref => ref
-				.orderBy('name')
-				.limit(100)
-				.startAt(startText)
-				.endAt(endText)
-				)
-			.snapshotChanges()
-			.pipe(
-				debounceTime(200),
-				distinctUntilChanged(),
-				map(changes => {
-					return changes.map(c => {
-						return { key: c.payload.doc.id, ...c.payload.doc.data() as any};
-					});
-				})
-			);	
-		  })
-		);
-	}
-	//Search Categorie by fiels id
-	GetIdCategorie(categorie){
-		return this.afs.collection('categorie',ref=> 
-		ref.where('name','==',categorie))
-		.snapshotChanges()
-			.pipe(
-				debounceTime(200),
-				distinctUntilChanged(),
-				map(changes => {
-					return changes.map(c => {
-						return { key: c.payload.doc.id, ...c.payload.doc.data() as any};
-					});
-				})
-			);		
-	}
-	//
-	GetIDFourisseur(fournisseur){
-		return this.afs.collection('fournisseur',ref=> 
-		ref.where('name','==',fournisseur))
-		.snapshotChanges()
-			.pipe(
-				debounceTime(200),
-				distinctUntilChanged(),
-				map(changes => {
-					return changes.map(c => {
-						return { key: c.payload.doc.id, ...c.payload.doc.data() as any};
-					});
-				})
-			);
-	}
 	
-	//get the last record from engin for incemanting
+	//Avoir le ID du dernier enregesitrement
 	GetEnginLastRecord(){		
 	  return this.afs.collection('engin', ref => ref
 		.limit(1)
@@ -150,7 +60,7 @@ export class EnginService {
 	  )				
 	}
 	
-	/* Update engin */
+	/* Modifier un engin */
 	UpdateEngin(id, engin) {  		
 		this.afs.doc('engin/'+id).update(
 			{
@@ -171,6 +81,5 @@ export class EnginService {
 				}			
 			}
 		)														
-	}  
-  
+	}    
 }
