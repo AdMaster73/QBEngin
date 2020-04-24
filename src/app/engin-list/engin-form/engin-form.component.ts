@@ -2,6 +2,7 @@ import { Component, OnInit,Inject, ViewChild} from '@angular/core';
 import { MAT_DIALOG_DATA,MatDialogRef} from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators, FormControl, NgForm } from "@angular/forms";
 import { EnginService } from './../../services/engin.service';
+import { FournisseurService} from './../../services/fournisseur.service'
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs';
 import { DateAdapter, MAT_DATE_LOCALE} from '@angular/material/core';
@@ -29,6 +30,7 @@ export class EnginFormComponent implements OnInit {
   constructor(      
       public fb: FormBuilder ,
       private enginService : EnginService,
+      public serviceFournisseur : FournisseurService,
       private _adapter: DateAdapter<any>,
       public dialogRef: MatDialogRef<EnginListComponent>,
       @Inject(MAT_DIALOG_DATA) public data: any
@@ -55,7 +57,7 @@ export class EnginFormComponent implements OnInit {
       n_serie:new FormControl()    
     });      
     this.results$ = this.enginService.searchCategory(this.startAt,"categorie"); 
-    this.results_f$ = this.enginService.searchCategory(this.startAt,"fourisseur");
+    this.results_f$ = this.enginService.searchCategory(this.startAt,"fournisseur");
   }
   
   /* Reactive book form */
