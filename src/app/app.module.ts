@@ -41,6 +41,7 @@ import { UserService } from './services/user.service';
 import { EnginService } from './services/engin.service';
 import { CategorieService } from './services/categorie.service';
 import { FournisseurService } from './services/fournisseur.service'
+import { ChantierService} from './services/chantier.service'
 
 /* Components */
 import { AppComponent } from './app.component';
@@ -66,6 +67,9 @@ import { CategorieFormComponent } from './categorie-list/categorie-form/categori
 import { FournisseurListComponent } from './fournisseur-list/fournisseur-list.component';
 import { FournisseurAddComponent } from './fournisseur-list/fournisseur-add/fournisseur-add.component';
 import { FournisseurFormComponent } from './fournisseur-list/fournisseur-form/fournisseur-form.component';
+import { ChantierListComponent } from './chantier-list/chantier-list.component';
+import { ChantierAddComponent } from './chantier-list/chantier-add/chantier-add.component';
+import { ChantierFormComponent } from './chantier-list/chantier-form/chantier-form.component';
 
 @NgModule({
   declarations: [
@@ -91,7 +95,10 @@ import { FournisseurFormComponent } from './fournisseur-list/fournisseur-form/fo
 	CategorieFormComponent,
 	FournisseurListComponent,
 	FournisseurAddComponent,
-	FournisseurFormComponent
+	FournisseurFormComponent,
+	ChantierListComponent,
+	ChantierAddComponent,
+	ChantierFormComponent
   ],
   entryComponents: [
 	BottomSheetOverviewExampleSheet,
@@ -147,6 +154,7 @@ import { FournisseurFormComponent } from './fournisseur-list/fournisseur-form/fo
 	EnginService,
 	CategorieService,
 	FournisseurService,
+	ChantierService,
 	AngularFirestore,
 	AngularFireDatabase],
   bootstrap: [AppComponent]
