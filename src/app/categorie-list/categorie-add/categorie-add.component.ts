@@ -42,8 +42,7 @@ export class CategorieAddComponent implements OnInit {
       public fb: FormBuilder ,
       private categorieService : CategorieService,      
       private _adapter: DateAdapter<any>,
-      public dialogRef: MatDialogRef<CategorieListComponent>) {     
-  }
+      public dialogRef: MatDialogRef<CategorieListComponent>) {}
 
   ngOnInit() {  
     this._adapter.setLocale('fr');  
