@@ -33,8 +33,8 @@
             aria-label="Catégorie"
             (keyup)="search(searchInput.value)"
             [matAutocomplete]="auto">
-            <mat-autocomplete #auto="matAutocomplete" (optionSelected)='getCategories($event.option.value)'>
-              <mat-option *ngFor="let categorie of (results$ | async)" [value]="categorie?.name">                                         
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)='getControls($event,"categorie")'>
+              <mat-option *ngFor="let categorie of (results$ | async)" [value]="categorie">                                         
                 <span>{{categorie?.name}}</span>                                
               </mat-option> 
             </mat-autocomplete> 
@@ -42,7 +42,7 @@
               Vous devez Entrer la <strong>Catégorie</strong>
             </mat-error>                  
           </mat-form-field>
-            <input matInput class="invisible" formControlName="categoriehd">
+            <input matInput class="invisible" formControlName="id_categorie">
 
           <!-- Add fornisseur -->
           <mat-form-field class="example-full-width" appearance="outline">            
@@ -52,8 +52,8 @@
             aria-label="Fournisseur"
             (keyup)="search(searchInput_f.value)"
             [matAutocomplete]="auto_f">
-            <mat-autocomplete #auto_f="matAutocomplete" (optionSelected)='getFournisseur($event.option.value)'>
-              <mat-option *ngFor="let fournisseur of (results_f$ | async)" [value]="fournisseur?.name">                                         
+            <mat-autocomplete #auto_f="matAutocomplete" (optionSelected)='getControls($event,"fournisseur")'>
+              <mat-option *ngFor="let fournisseur of (results_f$ | async)" [value]="fournisseur">                                         
                 <span>{{fournisseur?.name}}</span>                                
               </mat-option> 
             </mat-autocomplete> 
@@ -61,7 +61,7 @@
               Vous devez Entrer Un <strong>Fournisseur</strong>
             </mat-error>                  
           </mat-form-field>
-            <input matInput class="invisible" formControlName="fournisseurhd">  
+            <input matInput class="invisible" formControlName="id_fournisseur">  
 
             <!--DATE ACHAT-->
             <mat-form-field class="example-full-width" appearance="outline">
