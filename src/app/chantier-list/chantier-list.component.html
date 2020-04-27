@@ -28,7 +28,11 @@
     <!-- archive Column -->
     <ng-container matColumnDef="archive">
         <th mat-header-cell *matHeaderCellDef> Archivée </th>
-        <td mat-cell *matCellDef="let element"> {{element.archive}} </td>
+        <td mat-cell *matCellDef="let element">
+          <mat-checkbox          
+          [(ngModel)]="element.archive">
+          </mat-checkbox>          
+        </td>
       </ng-container>      
 
     <ng-container matColumnDef="action">
