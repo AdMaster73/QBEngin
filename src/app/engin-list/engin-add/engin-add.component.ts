@@ -86,11 +86,13 @@ export class EnginAddComponent implements OnInit {
     }
     var icategorie : Categorie = {
       id:this.EnginForm.controls['id_categorie'].value,
-      name:this.EnginForm.controls['categorie'].value
+      name:this.EnginForm.controls['categorie'].value,
+      compte:''
     };
     var ifournisseur : Fournisseur = {
       id:this.EnginForm.controls['id_fournisseur'].value,
-      name:this.EnginForm.controls['fournisseur'].value
+      name:this.EnginForm.controls['fournisseur'].value,
+      compte:''
     };    
     let engin: Engin = { 
           id: this.EnginLastRecord,          
