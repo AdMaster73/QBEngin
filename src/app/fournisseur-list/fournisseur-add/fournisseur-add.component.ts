@@ -65,7 +65,8 @@ export class FournisseurAddComponent implements OnInit {
     }
     var iFournisseur : Fournisseur = {
       id:this.FournisseurLastRecord,
-      name:this.FournisseurForm.controls['name'].value
+      name:this.FournisseurForm.controls['name'].value,
+      compte:''
     }    
   
     this.FournisseurService.AddFournisseur(iFournisseur).then(
