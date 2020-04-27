@@ -19,7 +19,7 @@ export class CategorieListComponent implements OnInit {
     public db : AngularFirestore,
     private categorieService : CategorieService, 
     public dialog: MatDialog) {}
-  displayedColumns: string[] = ['numero', 'designation','action'];
+  displayedColumns: string[] = ['numero', 'designation','compte','action'];
   dataSource : MatTableDataSource<Categorie>;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static : true}) sort: MatSort;  
