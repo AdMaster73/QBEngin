@@ -14,10 +14,12 @@ export interface Engin {
   export interface Categorie{
     id:number,
     name:string,
+    compte:string,
   }
   export interface Fournisseur{
     id:number,
     name:string,
+    compte:string
   }  
   export interface Chantier{
     id:number,
@@ -27,7 +29,8 @@ export interface Engin {
   }
   export interface User{
     id:number,
-    nice_name:string,
+    fname:string,
+    lname: string,
     email:string,
     login:string,    
   }
