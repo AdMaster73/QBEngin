@@ -1,1 +1,46 @@
-<p>chantier-form works!</p>
+<!-- Title group  -->
+<div class="title-group">
+    <h1 class="mat-h1">Modifier Chantier</h1>
+    <mat-divider fxFlex="1 0"></mat-divider>
+  </div>
+ 
+  <!-- Chantier form -->
+  <div class="example-container">
+    <form [formGroup]="ChantierFormEdit" (ngSubmit)="onSubmit(ChantierFormEdit.value)">
+      <!-- Left block -->
+      <mat-card>         
+          <input matInput class="invisible" formControlName="id" [(ngModel)]="data.id">
+
+          <!-- Chantier designation -->
+          <mat-form-field class="example-full-width" appearance="outline">
+            <input matInput placeholder="Désignation" formControlName="name" [(ngModel)]="data.name">
+            <mat-error *ngIf="handleError('name', 'required')">
+              Vous devez Entrer la <strong>Désignation</strong>
+            </mat-error>
+          </mat-form-field>  
+
+          <!-- compte designation -->
+          <mat-form-field class="example-full-width" appearance="outline">
+            <input matInput placeholder="Compte" formControlName="compte" [(ngModel)]="data.compte">
+            <mat-error *ngIf="handleError('compte', 'required')">
+              Vous devez Entrer le <strong>Compte tière</strong>
+            </mat-error>
+          </mat-form-field>           
+
+
+          <mat-checkbox          
+          [(ngModel)]="data.archive" formControlName="archive">
+          Chantier Archivée
+          </mat-checkbox>          
+
+          <mat-card-actions>
+            <button mat-fab color="primary">
+              <mat-icon aria-label="Example icon-button with a heart icon">edit</mat-icon>
+            </button>
+            <button mat-fab color="accent" (click)="closeForm()">
+              <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
+            </button>
+          </mat-card-actions>             
+      </mat-card>
+    </form>
+  </div>
