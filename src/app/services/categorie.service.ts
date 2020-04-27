@@ -46,7 +46,10 @@ export class CategorieService {
 	
 	/* Modifier la categorie */
 	UpdateCategorie(id, categorie) {  		
-		this.afs.doc('categorie/'+id).update({name: categorie.name})														
+		this.afs.doc('categorie/'+id).update({
+			name: categorie.name.toUpperCase(),
+			compte: categorie.compte.toUpperCase()
+		})														
 	} 
 
 }
