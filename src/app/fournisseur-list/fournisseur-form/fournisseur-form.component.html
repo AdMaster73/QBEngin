@@ -17,7 +17,15 @@
             <mat-error *ngIf="handleError('name', 'required')">
               Vous devez Entrer la <strong>Désignation</strong>
             </mat-error>
-          </mat-form-field>   
+          </mat-form-field>  
+          
+          <!-- Fournisseur compte -->
+          <mat-form-field class="example-full-width" appearance="outline">
+            <input matInput placeholder="Compte" formControlName="compte" [(ngModel)]="data.compte">
+            <mat-error *ngIf="handleError('compte', 'required')">
+              Vous devez Entrer la <strong>Compte</strong>
+            </mat-error>
+          </mat-form-field>           
 
           <mat-card-actions>
             <button mat-fab color="primary">
