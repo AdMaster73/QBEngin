@@ -27,7 +27,8 @@ const routes: Routes = [
         { path: 'users/new', component: NewUserComponent },
         { path: 'categorie', canActivate: [AuthGuardService], component: CategorieListComponent },
         { path: 'fournisseur', canActivate: [AuthGuardService], component: FournisseurListComponent },
-        { path: 'chantier', canActivate: [AuthGuardService], component: ChantierListComponent }
+        { path: 'chantier', canActivate: [AuthGuardService], component: ChantierListComponent },
+        { path: 'user', canActivate: [AuthGuardService], component: UserListComponent }
 
         ]},
   { path: 'auth', component: AuthComponent },
