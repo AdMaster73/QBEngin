@@ -57,7 +57,8 @@ export class CategorieAddComponent implements OnInit {
     }
     var icategorie : Categorie = {
       id:this.EnginLastRecord,
-      name:this.CategorieForm.controls['name'].value
+      name:this.CategorieForm.controls['name'].value,
+      compte:''
     }    
   
     this.categorieService.AddCategorie(icategorie).then(
