@@ -49,7 +49,10 @@ export class FournisseurService {
 	}
 	
 	/* Modifier un Fournisseur */
-	UpdateFournisseur(id, Fournisseur) {  		
-		this.afs.doc('fournisseur/'+id).update({name: Fournisseur.name})														
+	UpdateFournisseur(id, fournisseur) {  		
+		this.afs.doc('fournisseur/'+id).update({
+			name: fournisseur.name.toUpperCase(),
+			compte: fournisseur.compte.toUpperCase()
+		})														
 	} 
 }
