@@ -30,7 +30,8 @@ export class CategorieFormComponent implements OnInit {
   ngOnInit() {
     this.CategorieFormEdit= this.fb.group({
       id : new FormControl(),
-      name: ['', Validators.required]
+      name: ['', Validators.required],
+      compte:[]
     });    
   }
 
