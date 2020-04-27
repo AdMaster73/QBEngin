@@ -9,7 +9,6 @@ import { ChantierListComponent } from '../chantier-list.component';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Chantier } from 'src/app/models/engin.model';
 import { ChantierService } from 'src/app/services/chantier.service';
-import 'rxjs/add/operator/map';
 /*import { firestore } from 'firebase';
 import chantiers  from  './../../../assets/data.json';
 import { HttpClient } from '@angular/common/http';*/
@@ -77,8 +76,8 @@ export class ChantierAddComponent implements OnInit {
     var ichantier : Chantier = {
       id:this.ChantierLastRecord,
       name:this.ChantierForm.controls['name'].value,
-      compte:this.ChantierForm.controls['name'].value,
-      archive:this.ChantierForm.controls['archive'].value
+      compte:'',
+      archive:0
     }    
   
     this.chantierService.AddChantier(ichantier).then(
