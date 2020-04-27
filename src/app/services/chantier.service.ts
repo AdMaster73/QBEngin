@@ -51,9 +51,9 @@ export class ChantierService {
 	UpdateChantier(id, chantier) {  		
 		this.afs.doc('chantier/'+id).update(
 			{
-        name: chantier.name,
-        compte:chantier.compte,
-        archive:chantier.archive,				
+			name: chantier.name.toUpperCase(),
+			compte:chantier.compte.toUpperCase(),
+			archive:chantier.archive,				
 			}
 		)														
 	}  
