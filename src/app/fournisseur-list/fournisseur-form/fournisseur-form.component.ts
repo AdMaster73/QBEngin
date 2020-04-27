@@ -30,13 +30,14 @@ export class FournisseurFormComponent implements OnInit {
   ngOnInit() {
     this.FournisseurFormEdit= this.fb.group({
       id : new FormControl(),
-      name: ['', Validators.required]
+      name: ['', Validators.required],
+      compte:[]
     });    
   }
 
   /* Reactive book form */
-  onSubmit(Fournisseur) {
-    this.FournisseurService.UpdateFournisseur(this.data.id,Fournisseur)
+  onSubmit(fournisseur) {
+    this.FournisseurService.UpdateFournisseur(this.data.id,fournisseur)
     this.dialogRef.close();   
   }  
 
