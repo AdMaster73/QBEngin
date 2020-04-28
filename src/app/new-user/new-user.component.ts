@@ -40,7 +40,7 @@ export class NewUserComponent implements OnInit {
       formValue['drinkPreference'],
 	  formValue['hobies'] ? formValue['hobbies']: []
     );
-    this.userService.addUser(newUser);
+    //this.userService.addUser(newUser);
     this.router.navigate(['/users']);
   }
   getHobbies(): FormArray{
