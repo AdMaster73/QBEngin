@@ -70,6 +70,8 @@ import { FournisseurFormComponent } from './fournisseur-list/fournisseur-form/fo
 import { ChantierListComponent } from './chantier-list/chantier-list.component';
 import { ChantierAddComponent } from './chantier-list/chantier-add/chantier-add.component';
 import { ChantierFormComponent } from './chantier-list/chantier-form/chantier-form.component';
+import { UserAddComponent } from './user-list/user-add/user-add.component';
+import { UserFormComponent } from './user-list/user-form/user-form.component';
 
 @NgModule({
   declarations: [
@@ -98,7 +100,9 @@ import { ChantierFormComponent } from './chantier-list/chantier-form/chantier-fo
 	FournisseurFormComponent,
 	ChantierListComponent,
 	ChantierAddComponent,
-	ChantierFormComponent
+	ChantierFormComponent,
+	UserAddComponent,
+	UserFormComponent
   ],
   entryComponents: [
 	BottomSheetOverviewExampleSheet,
