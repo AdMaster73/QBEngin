@@ -9,9 +9,6 @@ import { ChantierListComponent } from '../chantier-list.component';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Chantier } from 'src/app/models/engin.model';
 import { ChantierService } from 'src/app/services/chantier.service';
-/*import { firestore } from 'firebase';
-import chantiers  from  './../../../assets/data.json';
-import { HttpClient } from '@angular/common/http';*/
 
 @Component({
   selector: 'app-chantier-add',
