@@ -29,8 +29,7 @@ export interface Engin {
   }
   export interface User{
     id:number,
-    fname:string,
-    lname: string,
+    display_name:string,
     email:string,
     login:string,    
   }
