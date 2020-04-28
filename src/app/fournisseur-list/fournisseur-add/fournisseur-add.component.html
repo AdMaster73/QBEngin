@@ -10,13 +10,29 @@
       <!-- Left block -->
       <mat-card>
 
-          <!-- Fournisseur designation -->
+          <!-- User display name -->
           <mat-form-field class="example-full-width" appearance="outline">
-            <input matInput placeholder="Désignation" formControlName="name">
-            <mat-error *ngIf="handleError('name', 'required')">
-              Vous devez Entrer la <strong>Désignation</strong>
+            <input matInput placeholder="Nom complet" formControlName="display_name">
+            <mat-error *ngIf="handleError('display_name', 'required')">
+              Vous devez Entrer le <strong>Nom complet</strong>
             </mat-error>
           </mat-form-field>   
+
+          <!-- user email -->
+          <mat-form-field class="example-full-width" appearance="outline">
+            <input matInput placeholder="Nom complet" formControlName="email">
+            <mat-error *ngIf="handleError('email', 'required')">
+              Vous devez Entrer l' <strong>Email</strong>
+            </mat-error>
+          </mat-form-field>          
+
+          <!-- user login -->
+          <mat-form-field class="example-full-width" appearance="outline">
+            <input matInput placeholder="Login" formControlName="login">
+            <mat-error *ngIf="handleError('login', 'required')">
+              Vous devez Entrer le <strong>Nlogin</strong>
+            </mat-error>
+          </mat-form-field>
 
           <mat-card-actions>
             <button mat-fab color="primary">
