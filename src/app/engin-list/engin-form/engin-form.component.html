@@ -94,10 +94,10 @@
             </mat-form-field> 
 
           <mat-card-actions>
-            <button mat-fab color="primary">
+            <button mat-fab color="primary" [disabled]="EnginFormEdit.invalid" [mat-dialog-close]="data">
               <mat-icon aria-label="Example icon-button with a heart icon">edit</mat-icon>
             </button>
-            <button mat-fab color="accent" (click)="closeForm()">
+            <button mat-fab color="accent" mat-dialog-close>
               <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
             </button>
           </mat-card-actions>             
