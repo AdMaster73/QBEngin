@@ -21,17 +21,16 @@ import { CategorieService } from 'src/app/services/categorie.service';
 })
 export class EnginFormComponent implements OnInit {
 
-  results$ : Observable<any[]>;
-  results_f$: Observable<any[]>;
-  startAt: BehaviorSubject<string | null> = new BehaviorSubject(''); 
   date: any  
   EnginFormEdit: FormGroup  
   myFournisseur = new FormControl();
+  results$ : Observable<any[]>;
+  results_f$: Observable<any[]>;  
+  startAt: BehaviorSubject<string | null> = new BehaviorSubject(''); 
   @ViewChild('resetEnginForm',{static: true}) myNgForm : NgForm;
        
   constructor(      
       public fb: FormBuilder ,
-      private enginService : EnginService,
       public serviceFournisseur : FournisseurService,
       public serviceCategorie : CategorieService,
       private _adapter: DateAdapter<any>,
@@ -60,14 +59,9 @@ export class EnginFormComponent implements OnInit {
       n_serie:new FormControl()    
     });      
     this.results$ = this.serviceCategorie.GetCategorieList(); 
-    this.results_f$ = this.serviceFournisseur.GetFournisseurList();
+    this.results_f$ = this.serviceFournisseur.GetFournisseurList();     
   }
-  
-  /* Reactive book form */
-  onSubmit(engin) {
-    this.enginService.UpdateEngin(this.data.id,engin)
-    this.dialogRef.close();   
-  }
+
   /* Get errors */
   public handleError = (controlName: string, errorName: string) => {
     return this.EnginFormEdit.controls[controlName].hasError(errorName);
@@ -75,16 +69,12 @@ export class EnginFormComponent implements OnInit {
 
   search(searchText){
     this.startAt.next(searchText);
-  }  
+  }    
+
 /** */
   getControls(event$,model:string){     
     this.EnginFormEdit.controls[model].setValue(event$.option.value.name) 
     this.EnginFormEdit.controls['id_'+model].setValue(event$.option.value.id)
   }  
 
-  /* Reset form */
-  closeForm() {        
-    this.dialogRef.close(); 
-    return false
-  }
 }
