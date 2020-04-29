@@ -26,8 +26,6 @@ export class EnginAddComponent implements OnInit {
   addOnBlur = true;
   EnginLastRecord: number;
   engins: Engin[];
-  EnginCategorieHD: Observable<any[]>;
-  EnginFournisseurHD: Observable<any[]>;
   results$ : Observable<any[]>;
   results_f$: Observable<any[]>;
   startAt: BehaviorSubject<string | null> = new BehaviorSubject('');   
