@@ -113,7 +113,9 @@ import { UserFormComponent } from './user-list/user-form/user-form.component';
 	FournisseurAddComponent,
 	FournisseurFormComponent,
 	ChantierAddComponent,
-	ChantierFormComponent
+	ChantierFormComponent,
+	UserAddComponent,
+	UserFormComponent
   ],
   imports: [
     BrowserModule,	
