@@ -3,6 +3,8 @@ import { Engin } from '../models/engin.model';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { map } from 'rxjs/operators';
 import { firestore } from 'firebase';
+import { AngularFireAuth } from 'angularfire2/auth';
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,12 +12,13 @@ import { firestore } from 'firebase';
 
 export class EnginService {
 		
-	constructor(private afs: AngularFirestore) {}
-		 
+	constructor(private afs: AngularFirestore,private firebaseAuth: AngularFireAuth) {	
+	}	 
 	/* Créer un nouveau engin */
 	AddEngin(engin: Engin){		
 		return this.afs.collection('engin').doc(engin.id.toString()).set({
-			createdAt: firestore.FieldValue.serverTimestamp(),       
+			createdBy: this.firebaseAuth.auth.currentUser.uid,
+			createdAt: firestore.FieldValue.serverTimestamp(),      
 			code: engin.code,
 			name: engin.name,
 			date_achat:engin.date_achat,
@@ -61,24 +64,26 @@ export class EnginService {
 	}
 	
 	/* Modifier un engin */
-	UpdateEngin(id, engin) {  		
-		this.afs.doc('engin/'+id).update(
+	UpdateEngin(engin) {  	
+		this.afs.doc('engin/'+engin.id).update(
 			{
+				updatedBy: this.firebaseAuth.auth.currentUser.uid,
+				updatedAt: firestore.FieldValue.serverTimestamp(),	     				
 				code: engin.code,
 				name: engin.name,
 				date_achat: engin.date_achat,
 				valeur_achat: engin.valeur_achat,
 				n_serie: engin.n_serie,
 				marque_moteur: engin.marque_moteur,
-				serie_moteur: engin.serie_moteur,			
+				serie_moteur: engin.serie_moteur,
 				categorie:{
-					id:engin.id_categorie,
-					name:engin.categorie
-				},
+					id:engin.categorie.id,
+					name:engin.categorie.name
+				},		
 				fournisseur:{
-					id:engin.id_fournisseur,
-					name:engin.fournisseur
-				}			
+					id:engin.fournisseur.id,
+					name:engin.fournisseur.name
+				}	
 			}
 		)														
 	}    
