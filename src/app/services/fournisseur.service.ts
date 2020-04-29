@@ -4,20 +4,21 @@ import { Fournisseur } from '../models/engin.model';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireObject, AngularFireDatabase } from '@angular/fire/database';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs/Observable';
 import { firestore } from 'firebase';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FournisseurService {
 
-	constructor(private afs: AngularFirestore) {}
+	constructor(private afs: AngularFirestore,private firebaseAuth: AngularFireAuth) {}
 
 	/* Cérer un Fournisseur */
 	AddFournisseur(Fournisseur: Fournisseur){		
 		return this.afs.collection('fournisseur').doc(Fournisseur.id.toString()).set({
-			createdAt: firestore.FieldValue.serverTimestamp(),       
+			createdBy: this.firebaseAuth.auth.currentUser.uid,
+			createdAt: firestore.FieldValue.serverTimestamp(),  
 			name: Fournisseur.name		
 		})
 	}
@@ -49,10 +50,12 @@ export class FournisseurService {
 	}
 	
 	/* Modifier un Fournisseur */
-	UpdateFournisseur(id, fournisseur) {  		
-		this.afs.doc('fournisseur/'+id).update({
+	UpdateFournisseur(fournisseur) {  		
+		this.afs.doc('fournisseur/'+fournisseur.id).update({
+			updatedBy: this.firebaseAuth.auth.currentUser.uid,
+			updatedAt: firestore.FieldValue.serverTimestamp(),	
 			name: fournisseur.name.toUpperCase(),
-			compte: fournisseur.compte.toUpperCase()
+			compte: fournisseur.compte
 		})														
 	} 
 }
