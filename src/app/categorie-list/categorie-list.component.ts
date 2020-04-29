@@ -54,9 +54,15 @@ export class CategorieListComponent implements OnInit {
   /**Modifier Categorie */
   editCategorie(index:number, element){   
     const dialogConfig = new MatDialogConfig();            
-    dialogConfig.autoFocus = true 
-    dialogConfig.data = element
-    this.dialog.open(CategorieFormComponent,dialogConfig)                            
+    this.dialog.open(CategorieFormComponent,{data:{
+      id:element.id,
+      name:element.name,
+      compte:element.compte
+    }}).afterClosed().subscribe(result => {
+      if (result){
+        this.categorieService.UpdateCategorie(result)
+      } 
+    });                           
   }
   /* Delete */
   deleteCategorie(index: number){    
