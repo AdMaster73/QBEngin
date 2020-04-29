@@ -53,11 +53,18 @@ export class ChantierListComponent implements OnInit {
     const dialogRef = this.dialog.open(ChantierAddComponent);
   }
   /**Modifier Chantier */
-  editChantier(index:number, element){   
+  editChantier(element){   
     const dialogConfig = new MatDialogConfig();            
-    dialogConfig.autoFocus = true 
-    dialogConfig.data = element
-    this.dialog.open(ChantierFormComponent,dialogConfig)                            
+    this.dialog.open(ChantierFormComponent,{data:{
+      id:element.id,
+      name:element.name,
+      compte:element.compte,
+      archive:element.archive
+    }}).afterClosed().subscribe(result => {
+      if (result){
+        this.chantierService.UpdateChantier(result)
+      } 
+    });                              
   }
   /* Delete */
   deleteChantier(index: number){    
