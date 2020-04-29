@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import {MatTableDataSource, MatSort, MatDialog, MatDialogConfig} from '@angular/material';
+import {MatTableDataSource, MatSort, MatDialog} from '@angular/material';
 import {MatPaginator} from '@angular/material/paginator';
 import { EnginService } from '../services/engin.service';
 import { Engin } from './../models/engin.model';
@@ -15,7 +15,8 @@ import { EnginFormComponent } from "./engin-form/engin-form.component";
 export class EnginListComponent implements OnInit{
   
   EnginData: any = [];
-  constructor(private enginService : EnginService, public dialog: MatDialog) {}
+  constructor(private enginService : EnginService, public dialog: MatDialog) {    
+  }
   displayedColumns: string[] = ['numero', 'code', 'designation', 'categorie','fournisseur','action'];
   dataSource : MatTableDataSource<Engin>;
 
@@ -50,11 +51,29 @@ export class EnginListComponent implements OnInit{
     const dialogRef = this.dialog.open(EnginAddComponent);
   }
   /**Modifier Engin */
-  editEngin(index:number, element){   
-    const dialogConfig = new MatDialogConfig();            
-    dialogConfig.autoFocus = true 
-    dialogConfig.data = element
-    this.dialog.open(EnginFormComponent,dialogConfig)                            
+  editEngin(element){            
+    this.dialog.open(EnginFormComponent,{data:{
+      id:element.id,
+      code: element.code,
+      name: element.name,
+      date_achat: element.date_achat,
+      valeur_achat: element.valeur_achat,
+      n_serie: element.n_serie,
+      marque_moteur: element.marque_moteur,
+      serie_moteur: element.serie_moteur,			
+      categorie:{
+        id:element.categorie.id,
+        name:element.categorie.name
+      },
+      fournisseur:{
+        id:element.fournisseur.id,
+        name:element.fournisseur.name
+      }
+    }}).afterClosed().subscribe(result => {
+      if (result){        
+        this.enginService.UpdateEngin(result)
+      } 
+    });                           
   }
   /* Delete */
   deleteEngin(index: number){    
