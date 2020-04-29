@@ -17,14 +17,14 @@ export class FournisseurListComponent implements OnInit {
       
     constructor(
       public db : AngularFirestore,
-      private FournisseurService : FournisseurService, 
+      private fournisseurServices : FournisseurService, 
       public dialog: MatDialog) {}
     displayedColumns: string[] = ['numero', 'designation','compte','action'];
     dataSource : MatTableDataSource<Fournisseur>;
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
     @ViewChild(MatSort, {static : true}) sort: MatSort;  
     ngOnInit(): void {
-      this.FournisseurService.GetFournisseurList().subscribe(
+      this.fournisseurServices.GetFournisseurList().subscribe(
         data => {
           this.dataSource = new MatTableDataSource(data);  
           this.dataSource.paginator = this.paginator;        
@@ -54,9 +54,15 @@ export class FournisseurListComponent implements OnInit {
     /**Modifier Fournisseur */
     editFournisseur(index:number, element){   
       const dialogConfig = new MatDialogConfig();            
-      dialogConfig.autoFocus = true 
-      dialogConfig.data = element
-      this.dialog.open(FournisseurFormComponent,dialogConfig)                            
+      this.dialog.open(FournisseurFormComponent,{data:{
+        id:element.id,
+        name:element.name,
+        compte:element.compte
+      }}).afterClosed().subscribe(result => {
+        if (result){
+          this.fournisseurServices.UpdateFournisseur(result)
+        } 
+      });                      
     }
     /* Delete */
     deleteFournisseur(index: number){    
@@ -64,7 +70,7 @@ export class FournisseurListComponent implements OnInit {
         const data = this.dataSource.data;
         data.splice((this.paginator.pageIndex * this.paginator.pageSize) + index, 1);
         this.dataSource.data = data;
-        this.FournisseurService.DeleteFournisseur(index)
+        this.fournisseurServices.DeleteFournisseur(index)
       }
     }
   
