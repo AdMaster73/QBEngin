@@ -3,17 +3,19 @@ import { Categorie } from '../models/engin.model';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { map } from 'rxjs/operators';
 import { firestore } from 'firebase';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategorieService {
 		
-	constructor(private afs: AngularFirestore) {}
+	constructor(private afs: AngularFirestore,private firebaseAuth: AngularFireAuth) {}
 	/* Créer une nouvelle Categorie */
 	AddCategorie(categorie: Categorie){		
 		return this.afs.collection('categorie').doc(categorie.id.toString()).set({
-			createdAt: firestore.FieldValue.serverTimestamp(),       
+			createdBy: this.firebaseAuth.auth.currentUser.uid,
+			createdAt: firestore.FieldValue.serverTimestamp(),  			     
 			name: categorie.name		
 		})
 	}
@@ -45,10 +47,12 @@ export class CategorieService {
 	}
 	
 	/* Modifier la categorie */
-	UpdateCategorie(id, categorie) {  		
-		this.afs.doc('categorie/'+id).update({
+	UpdateCategorie(categorie) { 
+		this.afs.doc('categorie/'+categorie.id).update({
+			updatedBy: this.firebaseAuth.auth.currentUser.uid,
+			updatedAt: firestore.FieldValue.serverTimestamp(),	
 			name: categorie.name.toUpperCase(),
-			compte: categorie.compte.toUpperCase()
+			compte: categorie.compte			
 		})														
 	} 
 
