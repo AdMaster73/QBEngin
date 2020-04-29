@@ -51,7 +51,7 @@
       <th mat-header-cell *matHeaderCellDef>Action</th>
       <td mat-cell *matCellDef="let element; let i = index;">
         <button mat-icon-button color="primary"
-        (click)="editUser(i, element)">
+        (click)="editUser(element)">
           <mat-icon>edit</mat-icon>        
       </button>
         <button mat-icon-button color="warn" (click)="deleteUser(element.id)">
