@@ -3,21 +3,23 @@ import { Chantier } from '../models/engin.model';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { map } from 'rxjs/operators';
 import { firestore } from 'firebase';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChantierService {
 
-	constructor(private afs: AngularFirestore) {}
+	constructor(private afs: AngularFirestore,private firebaseAuth: AngularFireAuth) {}
 		 
 	/* Créer un nouveau chantier */
 	AddChantier(chantier: Chantier){		
 		return this.afs.collection('chantier').doc(chantier.id.toString()).set({      
-      createdAt: firestore.FieldValue.serverTimestamp(),       
-      name: chantier.name,
-      compte:chantier.compte,
-      archive:chantier.archive,		
+			updatedBy: this.firebaseAuth.auth.currentUser.uid,
+			updatedAt: firestore.FieldValue.serverTimestamp(),	    
+			name: chantier.name,
+			compte:chantier.compte,
+			archive:chantier.archive,		
 		})
 	}
 
@@ -48,11 +50,13 @@ export class ChantierService {
 	}
 	
 	/* Modifier un chantier */
-	UpdateChantier(id, chantier) {  		
-		this.afs.doc('chantier/'+id).update(
+	UpdateChantier(chantier) {  		
+		this.afs.doc('chantier/'+chantier.id).update(
 			{
+			createdBy: this.firebaseAuth.auth.currentUser.uid,
+			createdAt: firestore.FieldValue.serverTimestamp(), 
 			name: chantier.name.toUpperCase(),
-			compte:chantier.compte.toUpperCase(),
+			compte:chantier.compte,
 			archive:chantier.archive,				
 			}
 		)														
