@@ -23,7 +23,7 @@ export class UserListComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static : true}) sort: MatSort; 
   ngOnInit() {
-      this.userService.GetUserList().subscribe(
+      this.userService.GetUserList()/*.subscribe(
         data => {
           this.dataSource = new MatTableDataSource(data);  
           this.dataSource.paginator = this.paginator;        
@@ -34,7 +34,7 @@ export class UserListComponent implements OnInit {
           this.paginator._intl.previousPageLabel = 'Page Précédante';
           this.paginator._intl.lastPageLabel = 'Dérnier Page';
         }
-      )
+      )*/
     }
     applyFilter(event: Event) {
       const filterValue = (event.target as HTMLInputElement).value;
@@ -50,11 +50,18 @@ export class UserListComponent implements OnInit {
       const dialogRef = this.dialog.open(UserAddComponent);
     }
     /**Modifier Fournisseur */
-    editUser(index:number, element){   
+    editUser(element){        
       const dialogConfig = new MatDialogConfig();            
-      dialogConfig.autoFocus = true 
-      dialogConfig.data = element
-      this.dialog.open(UserFormComponent,dialogConfig)                            
+      this.dialog.open(UserFormComponent,{data:{
+        id:element.id,
+        display_name:element.display_name,
+        email:element.email,
+        login: element.login
+      }}).afterClosed().subscribe(result => {
+        if (result){
+          this.userService.UpdateUser(result)
+        } 
+      });                   
     }
     /* Delete */
     deleteUser(index: number){    
