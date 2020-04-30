@@ -1,5 +1,9 @@
 console.log('custom webpack config');
+var nodeExternals = require('webpack-node-externals');
+
 module.exports = {
-  plugins: [
-  ]
+
+    target: 'node', 
+    externals: [nodeExternals()], 
+
 };
