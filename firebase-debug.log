@@ -1,0 +1,41 @@
+[debug] [2020-04-30T12:42:05.184Z] ----------------------------------------------------------------------
+[debug] [2020-04-30T12:42:05.186Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\DAF\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2020-04-30T12:42:05.187Z] CLI Version:   8.2.0
+[debug] [2020-04-30T12:42:05.187Z] Platform:      win32
+[debug] [2020-04-30T12:42:05.187Z] Node Version:  v12.16.1
+[debug] [2020-04-30T12:42:05.188Z] Time:          Thu Apr 30 2020 12:42:05 GMT+0000 (GMT)
+[debug] [2020-04-30T12:42:05.188Z] ----------------------------------------------------------------------
+[debug] [2020-04-30T12:42:05.188Z] 
+[debug] [2020-04-30T12:42:05.197Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-04-30T12:42:05.197Z] > authorizing via signed-in user
+[debug] [2020-04-30T12:42:05.198Z] [iam] checking project admater-a06e8 for permissions ["firebase.projects.get"]
+[debug] [2020-04-30T12:42:05.201Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/admater-a06e8:testIamPermissions  
+ {"permissions":["firebase.projects.get"]}
+[debug] [2020-04-30T12:42:06.301Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Thu, 30 Apr 2020 12:42:07 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=740","alt-svc":"quic=\":443\"; ma=2592000; v=\"46,43\",h3-Q050=\":443\"; ma=2592000,h3-Q049=\":443\"; ma=2592000,h3-Q048=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-04-30T12:42:06.303Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/admater-a06e8  
+ 
+[debug] [2020-04-30T12:42:06.686Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Thu, 30 Apr 2020 12:42:07 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-Q050=\":443\"; ma=2592000,h3-Q049=\":443\"; ma=2592000,h3-Q048=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] 
+[info] === Serving from 'C:\Users\DAF\Documents\GitHub\QBEngin'...
+[info] 
+[debug] [2020-04-30T12:42:06.708Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/admater-a06e8/webApps/-/config  
+ 
+[debug] [2020-04-30T12:42:06.932Z] TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string. Received undefined
+    at validateString (internal/validators.js:117:11)
+    at Object.join (path.js:375:7)
+    at Object.<anonymous> (C:\Users\DAF\AppData\Roaming\npm\node_modules\firebase-tools\lib\serve\functions.js:21:39)
+    at Generator.next (<anonymous>)
+    at C:\Users\DAF\AppData\Roaming\npm\node_modules\firebase-tools\lib\serve\functions.js:8:71
+    at new Promise (<anonymous>)
+    at __awaiter (C:\Users\DAF\AppData\Roaming\npm\node_modules\firebase-tools\lib\serve\functions.js:4:12)
+    at Object.start (C:\Users\DAF\AppData\Roaming\npm\node_modules\firebase-tools\lib\serve\functions.js:19:16)
+    at C:\Users\DAF\AppData\Roaming\npm\node_modules\firebase-tools\lib\serve\index.js:23:40
+    at arrayMap (C:\Users\DAF\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\lodash\lodash.js:639:23)
+    at Function.map (C:\Users\DAF\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\lodash\lodash.js:9554:14)
+    at C:\Users\DAF\AppData\Roaming\npm\node_modules\firebase-tools\lib\serve\index.js:22:29
+    at Generator.next (<anonymous>)
+    at C:\Users\DAF\AppData\Roaming\npm\node_modules\firebase-tools\lib\serve\index.js:8:71
+    at new Promise (<anonymous>)
+    at __awaiter (C:\Users\DAF\AppData\Roaming\npm\node_modules\firebase-tools\lib\serve\index.js:4:12)
+[error] 
+[error] Error: An unexpected error has occurred.
