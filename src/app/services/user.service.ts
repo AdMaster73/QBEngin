@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
 import { User } from '../models/engin.model';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { map } from 'rxjs/operators';
@@ -11,7 +10,8 @@ import { AngularFireAuth } from 'angularfire2/auth';
   })
 export class UserService {
 
-	constructor(private afs: AngularFirestore,private firebaseAuth: AngularFireAuth){
+	constructor(private afs: AngularFirestore,
+		private firebaseAuth: AngularFireAuth){;			
 	}	
 
 	/* Cérer un Fournisseur */
@@ -33,17 +33,6 @@ export class UserService {
 	 * Récupérer l'ensamble du liste des utilisateur
 	 */
 	GetUserList(){
-		var admin = require('firebase-admin');
-		var app = admin.initializeApp();
-		admin.auth().getUser(this.firebaseAuth.auth.currentUser.uid)
-		.then(function(userRecord) {
-			// See the UserRecord reference doc for the contents of userRecord.
-			console.log('Successfully fetched user data:', userRecord.toJSON());
-		})
-		.catch(function(error) {
-			console.log('Error fetching user data:', error);
-		});
-		/*this.firebaseAuth.auth
 		return this.afs.collection<User>('user',ref=> ref.orderBy('createdAt','asc')).snapshotChanges().pipe(
 			map(actions => {
 			return actions.map(a => {
@@ -52,7 +41,7 @@ export class UserService {
 				return { id, ...data };
 			});
 			})
-		);*/		
+		);	
 	}
 	//Avoir le ID du dernier enregesitrement
 	GetUserLastRecord(){		
