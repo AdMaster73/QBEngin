@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray} from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
-import { User } from '../models/User.model';
+import { User } from '../models/engin.model';
 
 @Component({
   selector: 'app-new-user',
@@ -32,7 +32,7 @@ export class NewUserComponent implements OnInit {
 	}
 
   onSubmitForm() {
-    const formValue = this.userForm.value;
+    /*const formValue = this.userForm.value;
     const newUser = new User(
       formValue['firstName'],
       formValue['lastName'],
@@ -41,7 +41,7 @@ export class NewUserComponent implements OnInit {
 	  formValue['hobies'] ? formValue['hobbies']: []
     );
     //this.userService.addUser(newUser);
-    this.router.navigate(['/users']);
+    this.router.navigate(['/users']);*/
   }
   getHobbies(): FormArray{
   		return this.userForm.get('hobbies') as FormArray;  
