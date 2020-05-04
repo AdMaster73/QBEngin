@@ -10,26 +10,31 @@ import { Router } from '@angular/router'
 export class AuthComponent implements OnInit {
 
   authStatus: boolean;
-
-  constructor(private authService: AuthService, private router:Router) { }
+  isAdmin: boolean;
+  constructor(private authService: AuthService, private router:Router) {
+    
+  }
 
   ngOnInit() {
-    this.authStatus = this.authService.isAuth;
+    this.authStatus = this.authService.isAuth;    
   }
 
   onSignIn() {
     this.authService.signIn().then(
-      () => {
-        console.log('Sign in successful!');
+      () => {        
         this.authStatus = this.authService.isAuth;
 		    this.router.navigate(['sidenav'], { replaceUrl: true })
       }
     );
-  }
+  }  
 
   onSignOut() {
     this.authService.signOut();
     this.authStatus = this.authService.isAuth;
+  }
+
+  onCreateUser(){
+
   }
 
 }
