@@ -5,6 +5,10 @@ import {MatBottomSheet, MatBottomSheetRef} from '@angular/material/bottom-sheet'
 import {MatSidenav} from '@angular/material';
 import { SidenavService } from './../services/sidenavService';
 import { Router } from '@angular/router';
+import { promise } from 'protractor';
+import { Observable } from 'rxjs';
+import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { User } from '../models/User.model';
 
 @Component({
   selector: 'app-header',
@@ -14,6 +18,7 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {  
   isAuth: boolean;
+  isAdmin: boolean;
   photoUrl = "";
   name ="";
   email = "";
@@ -30,8 +35,17 @@ export class HeaderComponent implements OnInit {
   };
   
   constructor(private authService: AuthService,private router : Router,
-    private _bottomSheet: MatBottomSheet,
-    private sidenavService: SidenavService) { }
+    private _bottomSheet: MatBottomSheet,private afs: AngularFirestore,
+    private sidenavService: SidenavService) { 
+      const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${firebase.auth().currentUser.uid}`)
+      userRef.snapshotChanges().subscribe(actions =>{
+        if(actions.payload.data().roles.admin){      
+          this.isAdmin = true  
+        }else{
+          this.isAdmin = false      
+        }                   
+      })             
+    }
 
   toggleRightSidenav() {
       this.sidenavService.toggle();
@@ -39,7 +53,7 @@ export class HeaderComponent implements OnInit {
   openBottomSheet(): void {
     this._bottomSheet.open(BottomSheetOverviewExampleSheet);
   }
-  ngOnInit() {    
+  ngOnInit() {      
     firebase.auth().onAuthStateChanged(
       (user) => {        
         if(user) {        
