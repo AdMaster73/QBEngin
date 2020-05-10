@@ -76,6 +76,10 @@ export class HeaderComponent implements OnInit {
     this.authService.signOutUser();
     this.router.navigate(['/auth','signin']);
   }
+
+  onSignUp(){
+    this.router.navigate(['/sidenav','signUp']);
+  }
   avatarClicked(event: any) {
     alert('click on avatar fetched from ' + event.sourceType);
   }
