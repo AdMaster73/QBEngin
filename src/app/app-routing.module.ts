@@ -28,7 +28,8 @@ const routes: Routes = [
         { path: 'categorie', canActivate: [AuthGuardService], component: CategorieListComponent },
         { path: 'fournisseur', canActivate: [AuthGuardService], component: FournisseurListComponent },
         { path: 'chantier', canActivate: [AuthGuardService], component: ChantierListComponent },
-        { path: 'user', canActivate: [AuthGuardService], component: UserListComponent }
+        { path: 'user', canActivate: [AuthGuardService], component: UserListComponent },
+        { path: 'signUp',canActivate:[AuthGuardService],component:SignupComponent}
 
         ]},
   { path: 'auth', component: AuthComponent },
