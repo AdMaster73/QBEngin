@@ -22,5 +22,10 @@ export interface User {
 	photoURL?: string;
 	displayName?: string;
 	myCustomData?: string;
-	roles: Roles;
+	role?: Role;
+}
+export enum Role {
+    Editor = 'Editor',
+	Admin = 'Admin',
+	Subscriber = 'Subsrciber'
 }
