@@ -1,0 +1,48 @@
+<div class="example-action-buttons">
+    <button type="button"
+        class="close"
+        aria-describedby="modal-title"
+        mat-dialog-close>
+        <span aria-hidden="true">&times;</span>
+    </button>   
+    <p>Information sur les Rôles affectés au </p>
+</div>
+<mat-accordion class="example-headers-align" multi>
+<mat-expansion-panel>
+    <mat-expansion-panel-header>
+    <mat-panel-title>
+        Menu :
+    </mat-panel-title>
+    <mat-panel-description>
+        {{data.name}}        
+    </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <!-- User Chantier -->
+    <mat-form-field class="example-chip-list">
+    <mat-chip-list #chipList aria-label="Fruit selection">
+        <mat-chip *ngFor="let role of roles"
+                [selectable]="selectable"
+                [removable]="removable" 
+                (removed)="remove(role)">
+                ({{role.name}})
+        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+        <input placeholder="Nouvau rôle..."
+                #roleInput
+                [formControl]="roleCtrl"
+                [matAutocomplete]="auto"              
+                [matChipInputFor]="chipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                (matChipInputTokenEnd)="add($event)">
+    </mat-chip-list>
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+        <mat-option *ngFor="let role of (filteredRoles | async)" [value]="role">
+        {{role.name}}
+        </mat-option>
+    </mat-autocomplete>
+    </mat-form-field>
+
+</mat-expansion-panel>
+</mat-accordion>
+  
