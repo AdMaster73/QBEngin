@@ -1,5 +1,5 @@
 <h3>Liste des Categories</h3>
-<button mat-fab color="primary" (click)="addCategorie()" class="addEngin"> <i class="material-icons">add</i> </button>
+<button mat-fab *ngIf="collectionPermAdd" color="primary" matTooltip="Nouvelle élement" (click)="addCategorie()" class="addEngin"> <i class="material-icons">add</i> </button>
 <mat-form-field>
     <mat-label>Recherche par Categorie</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Cate">
@@ -28,13 +28,19 @@
     <ng-container matColumnDef="action">
       <th mat-header-cell *matHeaderCellDef>Action</th>
       <td mat-cell *matCellDef="let element; let i = index;">
-        <button mat-icon-button color="primary"
-        (click)="editCategorie(i, element)">
-          <mat-icon>edit</mat-icon>        
-      </button>
-        <button mat-icon-button color="warn" (click)="deleteCategorie(element.id)">
-          <mat-icon>delete</mat-icon>          
+        <button mat-icon-button *ngIf="collectionMenuToggel" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
         </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item *ngIf="collectionPermDelete" (click)="deleteCategorie(element.id)">
+              <mat-icon>delete</mat-icon>
+              <span>Supprimer</span>
+            </button>
+            <button mat-menu-item *ngIf="collectionPermUpdate" (click)="editCategorie(i,element)">
+              <mat-icon>edit</mat-icon>
+              <span>Modifier</span>
+            </button>
+          </mat-menu>
       </td>
     </ng-container>
 
