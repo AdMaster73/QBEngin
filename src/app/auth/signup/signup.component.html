@@ -1,5 +1,6 @@
 <h3 class="center slategray">Nous rejoindre ?</h3>
 <h5 class="center darkcyan">Avec plaisir</h5>
+<div class="mat-elevation-z8">
 <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="signup-form">
   <!--  Content of login inputs-->
   <p>
@@ -14,6 +15,7 @@
     <mat-form-field appearance="outline">
       <mat-label>Entrer votre mot de passe</mat-label>
       <input matInput [type]="hide ? 'password' : 'text'" id="password" formControlName="password">
+      <mat-error *ngIf="password.invalid">{{getErrorMessagePW()}}</mat-error>
       <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
         [attr.aria-pressed]="hide">
         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -22,8 +24,9 @@
   </p>
   <p>
     <mat-form-field appearance="outline">
-      <mat-label>Entrer à nouveau votre mot de passe</mat-label>
-      <input matInput [type]="hide ? 'password' : 'text'" id="password_valid" formControlName="password_valid">
+      <mat-label>Confirmer votre mot de passe</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" formControlName="confirmPassword">
+      <mat-error *ngIf="confirmPassword.invalid">{{getErrorMessagePWC()}}</mat-error>
       <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
         [attr.aria-pressed]="hide">
         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -33,3 +36,4 @@
   <p class="text-danger">{{ errorMessage }}</p>
   <button mat-fab color="primary" [disabled]="signupForm.invalid" class="addEngin"> <i class="material-icons">add</i> </button>
 </form>
+</div>
