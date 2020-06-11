@@ -41,34 +41,55 @@
       mode="side"
       opened="false">
     <mat-toolbar>
-      <button mat-icon-button class="menu-button" type="button" aria-label="Toggle sidenav" (tap)="drawer.toggle()" fxLayoutAlign="center">
+      <button mat-icon-button class="menu-button" type="button" aria-label="Toggle sidenav"
+        matTooltip="Acceuil"
+       (tap)="drawer.toggle()" fxLayoutAlign="center">
         <i class="material-icons">menu</i>
       </button>
     </mat-toolbar>
     <mat-nav-list class="navigation-list" (mouseleave)="drawer.close()">
       <mat-divider class="navigation-divider"></mat-divider>
-      <a class="navigation-item" mat-list-item routerLink="/sidenav/engin" routerLinkActive="active">
-        <!--mat-icon class="material-icons">create</mat-icon-->
-        <img src="https://img.icons8.com/color/24/000000/container-truck.png"/>
-        <span class="navigation-item-label">Engins</span>
-      </a> 
+      <ng-container *ngFor="let collection of collections$ | async">
+        <a class="navigation-item" mat-list-item routerLink="/sidenav/{{collection.name}}" matTooltip="{{collection.toolTipe}}" routerLinkActive="active">          
+          <mat-icon class="material-icons">{{collection.icon}}</mat-icon> 
+          <span class="navigation-item-label">{{collection.intitule}}</span>
+        </a>
+      </ng-container>
+      <!-- <img src="https://img.icons8.com/color/24/000000/container-truck.png"/> -->
 
-      <a class="navigation-item" mat-list-item routerLink="/sidenav/categorie" routerLinkActive="active">
-        <mat-icon class="material-icons">tune</mat-icon>        
+ <!--      <a class="navigation-item" mat-list-item routerLink="/sidenav/categorie" matTooltip="Catégorie" routerLinkActive="active">
+        <mat-icon class="material-icons">reorder</mat-icon>        
         <span class="navigation-item-label">Cat&eacute;gorie</span>
       </a> 
-      <a class="navigation-item" mat-list-item routerLink="/sidenav/fournisseur" routerLinkActive="active">
-        <mat-icon class="material-icons">tune</mat-icon>        
+      <a class="navigation-item" mat-list-item routerLink="/sidenav/fournisseur" matTooltip="Fournisseur" routerLinkActive="active">
+        <mat-icon class="material-icons">apartment</mat-icon>        
         <span class="navigation-item-label">Fournisseur</span>
       </a>        
-      <a class="navigation-item" mat-list-item routerLink="/sidenav/chantier" routerLinkActive="active">
+      <a class="navigation-item" mat-list-item routerLink="/sidenav/chantier" matTooltip="Chantier" routerLinkActive="active">
         <mat-icon class="material-icons">place</mat-icon>        
         <span class="navigation-item-label">Place</span>
       </a> 
-      <a class="navigation-item" mat-list-item routerLink="/sidenav/user" routerLinkActive="active">
-        <mat-icon class="material-icons">account_circle</mat-icon>        
-        <span class="navigation-item-label">User</span>
+      <a class="navigation-item" mat-list-item routerLink="/sidenav/pointage" matTooltip="Pointage" routerLinkActive="active">
+        <mat-icon class="material-icons">my_location</mat-icon>        
+        <span class="navigation-item-label">Pointage</span>
+      </a> 
+      <a class="navigation-item" mat-list-item routerLink="/sidenav/transfert" matTooltip="Transfert" routerLinkActive="active">
+        <mat-icon class="material-icons">compare_arrows</mat-icon>        
+        <span class="navigation-item-label">Trnasfert</span>
       </a>       
+
+      <ng-container *ngIf="user$ | async; let user">
+        <a class="navigation-item"  *ngIf="user.role==='admin'" mat-list-item routerLink="/sidenav/user" 
+        matTooltip="Utilisateur" routerLinkActive="active">
+          <mat-icon class="material-icons">account_circle</mat-icon>        
+          <span class="navigation-item-label">Utilisateur</span>
+        </a> 
+        <a class="navigation-item"  *ngIf="user.role==='admin'" mat-list-item routerLink="/sidenav/settings"
+        matTooltip="Les accées" routerLinkActive="active">
+          <mat-icon class="material-icons">settings</mat-icon>        
+          <span class="navigation-item-label">Paramêtrage</span>
+        </a>
+      </ng-container>  -->     
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content class="sidenav-content">
