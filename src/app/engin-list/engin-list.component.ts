@@ -1,11 +1,14 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {MatTableDataSource, MatSort, MatDialog} from '@angular/material';
 import {MatPaginator} from '@angular/material/paginator';
 import { EnginService } from '../services/engin.service';
+import { CollectionsService } from '../services/collections.service'
 import { Engin } from './../models/engin.model';
 import { EnginAddComponent } from './engin-add/engin-add.component';
 import { EnginFormComponent } from "./engin-form/engin-form.component";
-
+import * as firebase from 'firebase';
+import { RolesService } from '../services/roles.service';
+import { AngularFirestore } from 'angularfire2/firestore';
 
 @Component({
   selector: 'app-engin-list',
@@ -14,10 +17,54 @@ import { EnginFormComponent } from "./engin-form/engin-form.component";
 })
 export class EnginListComponent implements OnInit{
   
+  collectionPermAdd: boolean
+  collectionPermUpdate: boolean
+  collectionPermDelete: boolean  
+  collectionMenuToggel:boolean 
   EnginData: any = [];
-  constructor(private enginService : EnginService, public dialog: MatDialog) {    
+  constructor(
+    private enginService : EnginService,
+    private rolesService:RolesService,    
+    private collectionService: CollectionsService,
+    public dialog: MatDialog) {  
+    (async () => {
+      let roleCurrentUser = await (await firebase.auth().currentUser.getIdTokenResult()).claims.role
+      let collectionId :number
+      this.collectionService.GetCollectionsByName('engin').subscribe(collections=>{
+        collections.map(collection=>{
+          collectionId = collection.id
+        })
+      })
+      this.rolesService.getRolesByNameAndType(roleCurrentUser).subscribe(roles=>{
+        roles.forEach(item=>{
+              this.collectionPermAdd = item.add.includes(collectionId.toString())
+              this.collectionPermUpdate = item.update.includes(collectionId.toString())
+              this.collectionPermDelete = item.delete.includes(collectionId.toString())
+              !this.collectionPermUpdate && !this.collectionPermDelete ? this.collectionMenuToggel = false : this.collectionMenuToggel = true
+        })
+      })       
+  })();       
   }
-  displayedColumns: string[] = ['numero', 'code', 'designation', 'categorie','fournisseur','action'];
+  displayedColumnsObj = [
+    {"value":'action',"show": true},
+    {"value":'numero',"show": false}, 
+    {"value":'code',"show": true}, 
+    {"value":'designation',"show": true}, 
+    {"value":'categorie',"show": true},
+    {"value":'fournisseur',"show": true},
+    {"value":'b_code',"show": true},
+    {"value":'etat_f',"show": false}
+  ];
+  get displayedColumns(): string[]{
+    return this.displayedColumnsObj.filter(
+      (element) => {
+        return element.show == true
+      }).map(
+        (element) => 
+        {
+          return element.value
+        });
+  }
   dataSource : MatTableDataSource<Engin>;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -60,7 +107,8 @@ export class EnginListComponent implements OnInit{
       valeur_achat: element.valeur_achat,
       n_serie: element.n_serie,
       marque_moteur: element.marque_moteur,
-      serie_moteur: element.serie_moteur,			
+      serie_moteur: element.serie_moteur,		
+      b_code:element.b_code,	
       categorie:{
         id:element.categorie.id,
         name:element.categorie.name
