@@ -1,0 +1,45 @@
+<!-- Title group  -->
+<div class="title-group">
+    <h1 class="mat-h1">Modifier Rôles</h1>
+    <mat-divider fxFlex="1 0"></mat-divider>
+  </div>
+ 
+  <!-- Roles form -->
+  <div class="example-container">
+    <form [formGroup]="RolesFormEdit" (ngSubmit)="onSubmit(RolesFormEdit.value)">
+      <!-- Left block -->
+      <mat-card>         
+          <input matInput class="invisible" formControlName="id" [(ngModel)]="data.id">
+
+          <!-- Roles designation -->
+          <mat-form-field class="example-full-width" appearance="outline">
+            <input matInput placeholder="Désignation" formControlName="name" [(ngModel)]="data.name">
+            <mat-error *ngIf="handleError('name', 'required')">
+              Vous devez Entrer la <strong>Désignation</strong>
+            </mat-error>
+          </mat-form-field>  
+          
+          <!-- Roles intitule -->
+          <mat-form-field class="example-full-width" appearance="outline">
+            <input matInput placeholder="Intitulé" formControlName="intitule" [(ngModel)]="data.intitule">
+            <mat-error *ngIf="handleError('intitule', 'required')">
+              Vous devez Entrer la <strong>Intitulé</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-checkbox          
+          [(ngModel)]="data.listerChantier" formControlName="listerChantier">
+          Lister les Chantiers
+          </mat-checkbox>
+
+          <mat-card-actions>
+            <button mat-fab color="primary" [disabled]="RolesFormEdit.invalid" [mat-dialog-close]="data">
+              <mat-icon aria-label="Example icon-button with a heart icon">edit</mat-icon>
+            </button>
+            <button mat-fab color="accent" mat-dialog-close>
+              <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
+            </button>
+          </mat-card-actions>             
+      </mat-card>
+    </form>
+  </div>
