@@ -1,0 +1,36 @@
+<mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image">
+        <ngx-avatar 
+        gravatarId="{{data.email}}" 
+        name="{{data.displayName}}"
+        src="./assets/img/avatar.svg"
+        [style]="customStyle" matBadge="V" 
+        [matBadgeOverlap]="data.emailVerified" 
+        matBadgePosition="above after">
+        </ngx-avatar>          
+      </div>
+      <mat-card-title>{{data.email}}</mat-card-title>
+      <mat-card-subtitle>{{data.displayName}}</mat-card-subtitle>
+    </mat-card-header>    
+    <mat-card-content>
+      <img mat-card-image src="{{data.photoURL !==''? data.photoURL:'./assets/img/avatar.svg'}}" alt="Photo de {{data.displayName}}">      
+    <form [formGroup]="form"><input matInput class="invisible" formControlName="uid"></form>
+      <p>
+        l'utilisateur {{data.displayName}} est membre dans notre organisme depuis le {{data.creationTime | date:'dd/MM/yyyy'}} autant que 
+        <mat-chip-list aria-label="Fish selection">
+            <mat-chip>{{data.role}}</mat-chip>
+        </mat-chip-list>
+        et sa dérnière session étais le {{data.lastSignInTime | date:'dd/MM/yyyy'}}
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-fab color="warn" [mat-dialog-close]="data">
+            <mat-icon aria-label="Example icon-button with a heart icon">delete</mat-icon>
+        </button>    
+        <button mat-fab mat-dialog-close color="primary">
+            <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
+        </button>
+    </mat-card-actions>
+  </mat-card>
+  
