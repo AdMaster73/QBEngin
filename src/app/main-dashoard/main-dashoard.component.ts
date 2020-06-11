@@ -11,7 +11,7 @@ export class MainDashoardComponent {
   /** Based on the screen size, switch from standard to one column per row */
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
-      if (matches) {
+      /* if (matches) {
         return [
           { title: 'DP',libel:'34247.18',purcent:10,trending:'up',color:'primary', cols: 1, rows: 1,notification:true,numberCols:1,date:'01/12/2020' },
           { title: 'DS',libel:'26500',purcent:30,trending:'up',color:'accent', cols: 1, rows: 1,notification:true,numberCols:2,date:'01/12/2020' },
@@ -21,7 +21,7 @@ export class MainDashoardComponent {
           { title: '',libel:'',purcent:40,trending:'',color:'', cols: 2, rows: 2,notification:false,numberCols:2,date:'01/12/2020' },
           { title: '',libel:'',purcent:40,trending:'up',color:'primary', cols: 4, rows: 3,notification:false,numberCols:1,date:'01/12/2020' },          
         ];
-      }
+      } */
 
       return [
           { title: 'DP',libel:'34247.18',purcent:10,trending:'up',color:'primary', cols: 1, rows: 1,notification:true,numberCols:1,date:'01/12/2020' },
