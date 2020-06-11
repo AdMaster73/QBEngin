@@ -1,16 +1,25 @@
-import { Component, OnInit,ViewChild  } from '@angular/core';
+import { Component, OnInit,ViewChild, Inject  } from '@angular/core';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { FormGroup, FormBuilder, Validators, NgForm } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators, NgForm, FormControl } from "@angular/forms";
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs';
-import { MatDialogRef} from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { DateAdapter} from '@angular/material/core';
 import { UserListComponent } from '../user-list.component';
 import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { firestore } from 'firebase';
-import { User } from 'src/app/models/engin.model';
-import { UserService } from 'src/app/services/user.service';
+import { User } from 'firebase';
+import { RolesService } from 'src/app/services/roles.service';
+import { UserFormService } from 'src/app/services/userFormService';
+import { tap } from 'rxjs/operators';
+import { AuthService,CreateUserRequest } from 'src/app/services/auth.service';
+import { Roles } from 'src/app/models/engin.model';
 
+interface Role {
+  value: string;
+  viewValue: string;
+}
 @Component({
   selector: 'app-user-add',
   templateUrl: './user-add.component.html',
@@ -23,36 +32,41 @@ export class UserAddComponent implements OnInit {
   selectable = true;
   removable = true;
   addOnBlur = true;
+  hide = true;
   UserLastRecord: number;
   Users: User[];
   results$ : Observable<any[]>;
   results_f$: Observable<any[]>;
   startAt: BehaviorSubject<string | null> = new BehaviorSubject('');   
-
+  roles: Roles[]
 
   @ViewChild('resetUserForm',{static: true}) myNgForm : NgForm;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   selectedBindingType: string;
-  UserForm: FormGroup;  
+  UserForm = new FormGroup({
+    uid: new FormControl(''),
+    email: new FormControl(''),
+    displayName: new FormControl(''),
+    password: new FormControl(''),
+    role: new FormControl(''),
+  });
+  title$: Observable<string>;
+  user$: Observable<{}>; 
   constructor(
+    public afs : AngularFireAuth,
       public db : AngularFirestore,
-      public fb: FormBuilder ,
-      private UserService : UserService,      
-      private _adapter: DateAdapter<any>,
+      public fb: FormBuilder,
+      private userForm: UserFormService,
+      public authService : AuthService,      
+      private rolesService: RolesService,
+      @Inject(MAT_DIALOG_DATA) public data: User,
       public dialogRef: MatDialogRef<UserListComponent>) {}
 
   ngOnInit() {  
-    this._adapter.setLocale('fr');  
-    this.UserService.GetUserLastRecord().snapshotChanges().forEach(data => {
-      data.forEach(user=>{
-        this.UserLastRecord = eval(user.payload.doc.id)+1
-      })              
-    })    
-    this.UserForm = this.fb.group({
-      display_name: ['', Validators.required],
-      email: ['', [Validators.required,Validators.email]],
-      login: ['', Validators.required]      
-    })   
+    this.rolesService.GetRolesList().subscribe(role=>{
+      this.roles = role
+    })
+    this.title$ = this.userForm.title$;        
   }
   search(searchText){
     this.startAt.next(searchText);
@@ -64,22 +78,13 @@ export class UserAddComponent implements OnInit {
     if (this.UserForm.invalid) {
       return;
     }
-    var iUser : User = {
-      id:this.UserLastRecord,
-      display_name:this.UserForm.controls['display_name'].value,
-      email:this.UserForm.controls['email'].value,
-      login : this.UserForm.controls['login'].value
-    }    
+    const { displayName, email, role, password }:CreateUserRequest = this.UserForm.value;       
   
-    this.UserService.AddUser(iUser).then(
+    this.authService.create({ displayName, email, role, password }).subscribe(
       res => {
         this.dialogRef.close();
       }
-    ).catch(
-      err=>{
-        alert('Vous avez mal tappez les champs !')
-      }
-    )      
+    )          
   }
   /* Get errors */
   public handleError = (controlName: string, errorName: string) => {
