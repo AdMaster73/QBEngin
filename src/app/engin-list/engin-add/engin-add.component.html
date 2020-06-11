@@ -91,22 +91,13 @@
             </mat-form-field> 
 
           <mat-card-actions>
-            <button mat-fab color="primary" [disabled]="EnginForm.invalid">
+            <button mat-fab color="primary" [disabled]="EnginForm.invalid" matTooltip="Nouvelle élement">
               <mat-icon aria-label="Example icon-button with a heart icon">done_outline</mat-icon>
             </button>
-            <button mat-fab color="accent" (click)="closeForm()">
+            <button mat-fab color="accent" (click)="closeForm()" matTooltip="Annuler">
               <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
             </button>
           </mat-card-actions>             
       </mat-card>
- 
-      <!-- Submit & Reset -->
-      <!--mat-card>
-        <div class="full-wrapper button-wrapper">
-          <div class="button-wrapper">
-            
-          </div>
-        </div>
-      </mat-card-->
     </form>
   </div>
