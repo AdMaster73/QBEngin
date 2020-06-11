@@ -15,8 +15,8 @@ export class ChantierService {
 	/* Créer un nouveau chantier */
 	AddChantier(chantier: Chantier){		
 		return this.afs.collection('chantier').doc(chantier.id.toString()).set({      
-			updatedBy: this.firebaseAuth.auth.currentUser.uid,
-			updatedAt: firestore.FieldValue.serverTimestamp(),	    
+			createdBy: this.firebaseAuth.auth.currentUser.uid,
+			createdAt: firestore.FieldValue.serverTimestamp(),	    
 			name: chantier.name,
 			compte:chantier.compte,
 			archive:chantier.archive,		
@@ -50,14 +50,20 @@ export class ChantierService {
 	}
 	
 	/* Modifier un chantier */
-	UpdateChantier(chantier) {  		
+	UpdateChantier(chantier) {  
+		let archive:number
+		if(typeof(chantier.archive)==='number'){
+			archive = chantier.archive
+		}else{
+			!!chantier.archive ? archive = 1 : archive = 0			
+		}
 		this.afs.doc('chantier/'+chantier.id).update(
 			{
-			createdBy: this.firebaseAuth.auth.currentUser.uid,
-			createdAt: firestore.FieldValue.serverTimestamp(), 
+			uodatedBy: this.firebaseAuth.auth.currentUser.uid,
+			updatedAt: firestore.FieldValue.serverTimestamp(), 
 			name: chantier.name.toUpperCase(),
 			compte:chantier.compte,
-			archive:chantier.archive,				
+			archive:archive,				
 			}
 		)														
 	}  
