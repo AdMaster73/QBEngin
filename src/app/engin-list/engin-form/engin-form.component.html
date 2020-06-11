@@ -92,6 +92,10 @@
             <mat-form-field class="example-full-width" appearance="outline">
               <input matInput placeholder="Numéro de serie" formControlName="n_serie" [(ngModel)]="data.n_serie">
             </mat-form-field> 
+            <!-- BARE CODE -->
+            <mat-form-field class="example-full-width" appearance="outline">
+              <input matInput placeholder="Bare code" formControlName="b_code" [(ngModel)]="data.b_code">
+            </mat-form-field> 
 
           <mat-card-actions>
             <button mat-fab color="primary" [disabled]="EnginFormEdit.invalid" [mat-dialog-close]="data">
