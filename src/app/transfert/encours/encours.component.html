@@ -1,0 +1,95 @@
+<h3>Liste des engins en cours de transfert</h3>
+<button mat-fab *ngIf="collectionPermAdd" 
+color="primary" matTooltip="Nouvelle élement" 
+(click)="addCategorie()" class="addEngin"> <i class="material-icons">add</i> </button>
+<mat-form-field>
+    <mat-label>Recherche par engin</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. engin">
+  </mat-form-field>
+  <div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource">
+  
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef>Action</th>
+      <td mat-cell *matCellDef="let element; let i = index;">
+        <button mat-icon-button *ngIf="collectionMenuToggel" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item *ngIf="collectionPermDelete" (click)="deleteCategorie(element.id)">
+              <mat-icon>delete</mat-icon>
+              <span>Supprimer</span>
+            </button>
+            <button mat-menu-item *ngIf="collectionPermUpdate" (click)="editCategorie(i,element)">
+              <mat-icon>edit</mat-icon>
+              <span>Modifier</span>
+            </button>
+          </mat-menu>
+      </td>
+    </ng-container>
+    <!-- Numero Column -->
+    <ng-container matColumnDef="numero">
+      <th mat-header-cell *matHeaderCellDef> No. </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+
+    <!-- chantier Column -->
+    <ng-container matColumnDef="chantier">
+        <th mat-header-cell *matHeaderCellDef> Chantier </th>
+        <td mat-cell *matCellDef="let element"> {{element.compte}} </td>
+    </ng-container>
+
+    <!-- date Column -->
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef> Date </th>
+      <td mat-cell *matCellDef="let element"> {{element.compte}} </td>
+    </ng-container>
+        
+    <!-- Name Column -->
+    <ng-container matColumnDef="designation">
+      <th mat-header-cell *matHeaderCellDef> D&eacute;signation </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <!-- Provenance Column -->
+    <ng-container matColumnDef="provenance">
+        <th mat-header-cell *matHeaderCellDef> Provenance </th>
+        <td mat-cell *matCellDef="let element"> {{element.compte}} </td>
+    </ng-container>
+    
+    <!-- Destination Column -->
+    <ng-container matColumnDef="destination">
+        <th mat-header-cell *matHeaderCellDef> Destination </th>
+        <td mat-cell *matCellDef="let element"> {{element.compte}} </td>
+    </ng-container>
+
+    <!-- Porte Char Column -->
+    <ng-container matColumnDef="porteChar">
+        <th mat-header-cell *matHeaderCellDef> Porte Char </th>
+        <td mat-cell *matCellDef="let element"> {{element.compte}} </td>
+    </ng-container>
+
+    <!-- Propriétaire Porte Char Column -->
+    <ng-container matColumnDef="proprietairePorteChar">
+        <th mat-header-cell *matHeaderCellDef> Pr. Porte Char </th>
+        <td mat-cell *matCellDef="let element"> {{element.compte}} </td>
+    </ng-container>
+
+    <!-- Niveau Gasoil Column -->
+    <ng-container matColumnDef="niveauGasoil">
+        <th mat-header-cell *matHeaderCellDef> Niveau Gasoil </th>
+        <td mat-cell *matCellDef="let element"> {{element.compte}} </td>
+    </ng-container>
+
+    <!-- Etat d'Engin Column -->
+    <ng-container matColumnDef="etatEngin">
+        <th mat-header-cell *matHeaderCellDef> Etat Engin </th>
+        <td mat-cell *matCellDef="let element"> {{element.compte}} </td>
+    </ng-container>
+    
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
+  </div>
