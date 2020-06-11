@@ -1,13 +1,19 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule} from '@angular/material/form-field';
-import { MatIconModule} from '@angular/material/icon';
+import { MatIconModule, MatIconRegistry} from '@angular/material/icon';
 import { MatCardModule} from '@angular/material/card';
-import { MatButtonModule, MatChipsModule, MatExpansionModule,MatDialogModule, MatNativeDateModule} from '@angular/material';
+import { MatButtonModule, 
+	MatChipsModule, 
+	MatExpansionModule,
+	MatDialogModule, 
+	MatNativeDateModule, 
+	MatSelectModule
+	} from '@angular/material';
 import { MatTabsModule} from '@angular/material/tabs';
 import { MatRadioModule} from '@angular/material/radio';
 import { MatCheckboxModule} from '@angular/material/checkbox';
@@ -20,7 +26,6 @@ import { AvatarModule } from 'ngx-avatar';
 import { MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import { MatMenuModule} from '@angular/material/menu';
 import { MatBadgeModule} from '@angular/material/badge';
-import { MainDashoardComponent } from './main-dashoard/main-dashoard.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -30,7 +35,10 @@ import { AngularFirestoreModule, AngularFirestore } from 'angularfire2/firestore
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatDatepickerModule} from '@angular/material/datepicker';
+import { MatTooltipModule} from '@angular/material/tooltip';
+import { MatStepperModule } from '@angular/material/stepper';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 /* routing */
 import { AppRoutingModule } from './app-routing.module';
@@ -44,6 +52,7 @@ import { FournisseurService } from './services/fournisseur.service'
 import { ChantierService} from './services/chantier.service'
 
 /* Components */
+import { MainDashoardComponent } from './main-dashoard/main-dashoard.component';
 import { AppComponent } from './app.component';
 import { AuthComponent } from './auth/auth.component';
 import { UserListComponent } from './user-list/user-list.component';
@@ -72,6 +81,40 @@ import { ChantierAddComponent } from './chantier-list/chantier-add/chantier-add.
 import { ChantierFormComponent } from './chantier-list/chantier-form/chantier-form.component';
 import { UserAddComponent } from './user-list/user-add/user-add.component';
 import { UserFormComponent } from './user-list/user-form/user-form.component';
+import { PointageListComponent } from './pointage-list/pointage-list.component';
+import { UserFormComponentP } from './pointage-list/user-Form/userFormComponent'
+import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
+import * as firebase from 'firebase';
+import { NotFoundComponent } from './not-found/not-found-component';
+import { DetailsUsersComponent } from './details-users/details-users.component';
+import { AuthTokenHttpInterceptorProvider } from './services/auth-token.interceptor';
+import { UserDeleteComponent } from './user-list/user-delete/user-delete.component';
+import { ChantierDeleteComponent } from './chantier-list/chantier-delete/chantier-delete.component';
+import { ChantierUserComponent } from './chantier-list/chantier-user/chantier-user.component';
+import { PermissionsComponent } from './settings/permissions/permissions.component';
+import { SettingsComponent } from './settings/settings.component';
+import { RolesComponent } from './settings/roles/roles.component';
+import { RolesAddComponent } from './settings/roles/roles-add/roles-add.component';
+import { RolesFormComponent } from './settings/roles/roles-form/roles-form.component';
+import { RolesDeleteComponent } from './settings/roles/roles-delete/roles-delete.component';
+import { PermissionsAddComponent } from './settings/permissions/permissions-add/permissions-add.component';
+import { PermissionsFormComponent } from './settings/permissions/permissions-form/permissions-form.component';
+import { PermissionsDeleteComponent } from './settings/permissions/permissions-delete/permissions-delete.component';
+import { CollectionsComponent } from './settings/collections/collections.component';
+import { CollectionsAddComponent } from './settings/collections/collections-add/collections-add.component';
+import { CollectionsFormComponent } from './settings/collections/collections-form/collections-form.component';
+import { CollectionsDeleteComponent } from './settings/collections/collections-delete/collections-delete.component';
+import { PointageChantierListComponent } from './pointage-list/pointage-chantier-list/pointage-chantier-list.component';
+import { PointageLocationComponent } from './pointage-list/pointage-location/pointage-location.component';
+import { PointageEnginComponent } from './pointage-list/pointage-engin/pointage-engin.component';
+import { TransfertComponent } from './transfert/transfert.component';
+import { EncoursComponent } from './transfert/encours/encours.component';
+import { HistoriqueComponent } from './transfert/historique/historique.component';
+import { EncoursAddComponent } from './transfert/encours-add/encours-add.component';
+import { EncoursFormComponent } from './transfert/encours-form/encours-form.component';
+import { EncoursDeleteComponent } from './transfert/encours-delete/encours-delete.component';
+
+firebase.initializeApp(environment.firebase);
 
 @NgModule({
   declarations: [
@@ -102,7 +145,36 @@ import { UserFormComponent } from './user-list/user-form/user-form.component';
 	ChantierAddComponent,
 	ChantierFormComponent,
 	UserAddComponent,
-	UserFormComponent
+	UserFormComponent,
+	UserFormComponentP,
+	PointageListComponent,
+	NotFoundComponent,
+	DetailsUsersComponent,
+	UserDeleteComponent,
+	ChantierDeleteComponent,
+	ChantierUserComponent,
+	PermissionsComponent,
+	SettingsComponent,
+	RolesComponent,
+	RolesAddComponent,
+	RolesFormComponent,
+	RolesDeleteComponent,
+	PermissionsAddComponent,
+	PermissionsFormComponent,
+	PermissionsDeleteComponent,
+	CollectionsComponent,
+	CollectionsAddComponent,
+	CollectionsFormComponent,
+	CollectionsDeleteComponent,
+	PointageChantierListComponent,
+	PointageLocationComponent,
+	PointageEnginComponent,
+	TransfertComponent,
+	EncoursComponent,
+	HistoriqueComponent,
+	EncoursAddComponent,
+	EncoursFormComponent,
+	EncoursDeleteComponent
   ],
   entryComponents: [
 	BottomSheetOverviewExampleSheet,
@@ -115,11 +187,27 @@ import { UserFormComponent } from './user-list/user-form/user-form.component';
 	ChantierAddComponent,
 	ChantierFormComponent,
 	UserAddComponent,
-	UserFormComponent
+	UserFormComponent,
+	UserFormComponentP,
+	UserDeleteComponent,
+	ChantierDeleteComponent,
+	ChantierUserComponent,
+	RolesAddComponent,
+	RolesDeleteComponent,
+	RolesFormComponent,
+	CollectionsAddComponent,
+	CollectionsFormComponent,
+	CollectionsDeleteComponent,
+	PermissionsAddComponent,
+	PermissionsFormComponent,
+	PermissionsDeleteComponent,
+	EncoursFormComponent,
+	EncoursDeleteComponent
   ],
   imports: [
     BrowserModule,	
-    AppRoutingModule,	
+	AppRoutingModule,	
+	MatIconModule,
 	FormsModule,	
 	ReactiveFormsModule,
 	HttpClientModule,
@@ -142,7 +230,7 @@ import { UserFormComponent } from './user-list/user-form/user-form.component';
 	MatMenuModule,
 	MatBadgeModule,
 	MatGridListModule,
-	MatTableModule,
+	MatTableModule,	
 	MatPaginatorModule,
 	MatSortModule,
 	MatChipsModule,
@@ -151,11 +239,15 @@ import { UserFormComponent } from './user-list/user-form/user-form.component';
 	MatAutocompleteModule,
 	MatDatepickerModule,
 	MatNativeDateModule,
+	MatSelectModule,
+	MatTooltipModule,
+	MatStepperModule,
+	DragDropModule,
 	AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule.enablePersistence()
   ],
   providers: [
-	AuthService,
+	AuthService,	
 	AuthGuardService,
 	UserService,
 	AngularFireAuth,
@@ -164,7 +256,9 @@ import { UserFormComponent } from './user-list/user-form/user-form.component';
 	FournisseurService,
 	ChantierService,
 	AngularFirestore,
-	AngularFireDatabase],
+	AngularFireAuthGuard,
+	AuthTokenHttpInterceptorProvider,
+	AngularFireDatabase],	
   bootstrap: [AppComponent]
 })
 export class AppModule { }
