@@ -1,0 +1,29 @@
+<h3>Pointage journalier des engins</h3>
+<div class="mat-elevation-z8">
+  <mat-tab-group mat-align-tabs="end">
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="example-tab-icon">place</mat-icon>
+        Chantier
+      </ng-template>
+      <app-pointage-chantier-list></app-pointage-chantier-list>
+    </mat-tab>
+  
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="example-tab-icon">commute</mat-icon>
+        Engin
+      </ng-template>
+      <app-pointage-engin></app-pointage-engin>
+    </mat-tab>
+  
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="example-tab-icon">my_location</mat-icon>
+        Position
+      </ng-template>
+      <app-pointage-location></app-pointage-location>      
+    </mat-tab>
+  </mat-tab-group>
+  
+</div>
