@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Engin } from '../models/engin.model';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { map } from 'rxjs/operators';
-import { firestore } from 'firebase';
+import { firestore, User } from 'firebase';
 import { AngularFireAuth } from 'angularfire2/auth';
 
 
@@ -13,7 +13,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 export class EnginService {
 		
 	constructor(private afs: AngularFirestore,private firebaseAuth: AngularFireAuth) {	
-	}	 
+	}	
 	/* Créer un nouveau engin */
 	AddEngin(engin: Engin){		
 		return this.afs.collection('engin').doc(engin.id.toString()).set({
@@ -76,6 +76,7 @@ export class EnginService {
 				n_serie: engin.n_serie,
 				marque_moteur: engin.marque_moteur,
 				serie_moteur: engin.serie_moteur,
+				b_code: engin.b_code,
 				categorie:{
 					id:engin.categorie.id,
 					name:engin.categorie.name
