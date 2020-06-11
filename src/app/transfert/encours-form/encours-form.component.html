@@ -1,0 +1,46 @@
+<section class="example-section">
+    <label class="example-margin">Transfert par:</label>
+    <mat-radio-group [(ngModel)]="typeOfTransfert">
+      <mat-radio-button class="example-margin" value="engin">
+        Engin
+      </mat-radio-button>
+      <mat-radio-button class="example-margin" value="chantier">
+        Chantier
+      </mat-radio-button>
+    </mat-radio-group>
+</section>
+<mat-form-field class="example-full-width" appearance="outline" *ngIf="typeOfTransfert == 'engin'">    
+    <mat-label>Engin</mat-label>        
+    <input matInput
+    [formControl]="myControl"
+    placeholder="Engin"
+    aria-label="Engin"    
+    [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let engin of filteredEngins | async" [value]="engin">                                         
+        <span>{{engin}}</span>                                
+      </mat-option> 
+    </mat-autocomplete> 
+    <mat-icon matSuffix>commute</mat-icon>                           
+</mat-form-field>
+<mat-form-field class="example-full-width" appearance="outline" *ngIf="typeOfTransfert == 'chantier'">    
+    <mat-label>Chantier de provenanace</mat-label>        
+    <input matInput
+    [formControl]="myControlC"
+    placeholder="Chantier de provenance"
+    aria-label="Chantier de provenanace"    
+    [matAutocomplete]="autoC">
+    <mat-autocomplete #autoC="matAutocomplete">
+      <mat-option *ngFor="let chantier of filteredChantiers | async" [value]="chantier">                                         
+        <span>{{chantier}}</span>                                
+      </mat-option> 
+    </mat-autocomplete> 
+    <mat-icon matSuffix>place</mat-icon>                           
+</mat-form-field>
+
+<button mat-fab color="primary" [disabled]="!typeOfTransfert" [mat-dialog-close]="data">
+    <mat-icon aria-label="Example icon-button with a heart icon">edit</mat-icon>
+</button>
+<button mat-fab color="accent" mat-dialog-close>
+    <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+</button>
