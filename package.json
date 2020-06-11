@@ -22,10 +22,13 @@
     "@angular/platform-browser": "~8.2.14",
     "@angular/platform-browser-dynamic": "~8.2.14",
     "@angular/router": "~8.2.14",
+    "@auth0/angular-jwt": "^4.0.0",
     "@material-ui/core": "^4.9.4",
     "angularfire2": "^5.4.2",
     "bootstrap": "^4.0.0",
-    "firebase": "^7.13.0",
+    "buffer": "^5.6.0",
+    "firebase": "^7.14.5",
+    "firebase-admin": "^8.12.1",
     "hammerjs": "^2.0.8",
     "jquery": ">=3.4.0",
     "materialize-css": "^1.0.0-rc.2",
@@ -43,7 +46,7 @@
     "@angular/language-service": "~8.2.14",
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
-    "@types/node": "~8.9.4",
+    "@types/node": "^8.9.5",
     "codelyzer": "^5.0.0",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
@@ -57,5 +60,17 @@
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
     "typescript": "~3.5.3"
-  }
+  },
+  "description": "This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.19.",
+  "main": "custom-webpack.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdMaster73/QBEngin.git"
+  },
+  "author": "ihnich adil",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AdMaster73/QBEngin/issues"
+  },
+  "homepage": "https://github.com/AdMaster73/QBEngin#readme"
 }
