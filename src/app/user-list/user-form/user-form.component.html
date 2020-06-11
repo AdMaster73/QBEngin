@@ -8,13 +8,11 @@
   <div class="example-container">
     <form [formGroup]="UserFormEdit">
       <!-- Left block -->
-      <mat-card>         
-        <input matInput class="invisible" formControlName="id" [(ngModel)]="data.id">
-
+      <mat-card>                
           <!-- User nom complet -->
           <mat-form-field class="example-full-width" appearance="outline">
-            <input matInput placeholder="Nom Complet" formControlName="display_name" [(ngModel)]="data.display_name">
-            <mat-error *ngIf="handleError('display_name', 'required')">
+            <input matInput placeholder="Nom Complet" formControlName="displayName" [(ngModel)]="data.displayName">
+            <mat-error *ngIf="handleError('displayName', 'required')">
               Vous devez Entrer le <strong>Nom complet</strong>
             </mat-error>
           </mat-form-field>  
@@ -25,15 +23,27 @@
             <mat-error *ngIf="handleError('email', 'required')">
               Vous devez Entrer l'<strong>E-mail</strong>
             </mat-error>
-          </mat-form-field> 
+          </mat-form-field>  
+
+          <!-- User password -->
+          <mat-form-field appearance="outline">
+            <mat-label>Entrer le nouveau mot de passe</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" id="password" formControlName="password" [(ngModel)]="data.password">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
           
-          <!-- User login -->
-          <mat-form-field class="example-full-width" appearance="outline">
-            <input matInput placeholder="Login" formControlName="login" [(ngModel)]="data.login">
-            <mat-error *ngIf="handleError('login', 'required')">
-              Vous devez Entrer le <strong>Login</strong>
-            </mat-error>
-          </mat-form-field>           
+          <!-- User rôle -->
+          <mat-form-field>
+            <mat-label>Rôle</mat-label>
+            <mat-select [(ngModel)]="data.role" name="role" formControlName="role">
+              <mat-option *ngFor="let role of roles" [value]="role.name">
+                {{role.intitule}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>          
 
           <mat-card-actions>
             <button mat-fab color="primary" [disabled]="UserFormEdit.invalid" [mat-dialog-close]="data">
