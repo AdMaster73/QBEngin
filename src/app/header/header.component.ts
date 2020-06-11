@@ -1,14 +1,14 @@
-import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import * as firebase from 'firebase';
-import {MatBottomSheet, MatBottomSheetRef} from '@angular/material/bottom-sheet';
-import {MatSidenav} from '@angular/material';
+import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { SidenavService } from './../services/sidenavService';
 import { Router } from '@angular/router';
-import { promise } from 'protractor';
-import { Observable } from 'rxjs';
-import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
-import { User } from '../models/User.model';
+import { Observable, Observer } from 'rxjs';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { UserService } from '../services/user.service'
+import { filter, switchMap } from 'rxjs/operators';
+import { Roles } from '../models/engin.model';
 
 @Component({
   selector: 'app-header',
@@ -17,34 +17,23 @@ import { User } from '../models/User.model';
   outputs:['navToggle']
 })
 export class HeaderComponent implements OnInit {  
-  isAuth: boolean;
-  isAdmin: boolean;
-  photoUrl = "";
-  name ="";
-  email = "";
-  uid = "";
+
   title = "GCR Materiel";
   emailVerified : boolean;
+  user$: Observable<{}>;
+  roles$: Observable<Roles>
 
   customStyle = {
-    backgroundColor: '#27ae60',
+    backgroundColor: '#F4F4F4',
     //border: '1px solid #bdc3c7',
     borderRadius: '50%',
     color: 'white',
     cursor: 'pointer'
   };
   
-  constructor(private authService: AuthService,private router : Router,
-    private _bottomSheet: MatBottomSheet,private afs: AngularFirestore,
-    private sidenavService: SidenavService) { 
-      const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${firebase.auth().currentUser.uid}`)
-      userRef.snapshotChanges().subscribe(actions =>{
-        if(actions.payload.data().roles.admin){      
-          this.isAdmin = true  
-        }else{
-          this.isAdmin = false      
-        }                   
-      })             
+  constructor(public authService: AuthService,private router : Router,
+    private _bottomSheet: MatBottomSheet,private afs: AngularFirestore,public userService: UserService,
+    private sidenavService: SidenavService,private firebaseAuth: AngularFireAuth) { 
     }
 
   toggleRightSidenav() {
@@ -53,32 +42,20 @@ export class HeaderComponent implements OnInit {
   openBottomSheet(): void {
     this._bottomSheet.open(BottomSheetOverviewExampleSheet);
   }
-  ngOnInit() {      
-    firebase.auth().onAuthStateChanged(
-      (user) => {        
-        if(user) {        
-          var user = firebase.auth().currentUser;
-          this.isAuth = true;
-          this.name = user.displayName;
-          this.email = user.email;
-          this.photoUrl = user.photoURL;
-          this.emailVerified = user.emailVerified;
-          this.uid = user.uid;          
-        } else {
-          this.isAuth = false;
-          this.router.navigate(['/auth','signin']);
-        }
-      }
-    );
+  ngOnInit() {                 
+    this.user$ = this.firebaseAuth.user.pipe(
+      filter(user => !!user),
+      switchMap(user => this.authService.user$(user.uid))
+    )    
   }
 
   onSignOut() {
     this.authService.signOutUser();
-    this.router.navigate(['/auth','signin']);
+    this.router.navigate(['/auth','signin'])
   }
 
   onSignUp(){
-    this.router.navigate(['/sidenav','signUp']);
+    this.router.navigate(['/sidenav','user']);
   }
   avatarClicked(event: any) {
     alert('click on avatar fetched from ' + event.sourceType);
@@ -95,20 +72,16 @@ export class BottomSheetOverviewExampleSheet {
   name ="";
   email = "";
   uid = "";
-  emailVerified = "";  
-  constructor(private _bottomSheetRef: MatBottomSheetRef<BottomSheetOverviewExampleSheet>) {}
-  ngOnInit() {    
-    firebase.auth().onAuthStateChanged(
-      (user) => {        
-        if(user) {        
-          var user = firebase.auth().currentUser;
-          this.name = user.displayName;
-          this.email = user.email;
-          this.photoUrl = user.photoURL;
-          this.uid = user.uid;          
-        }
-      }
-    );
+  emailVerified:boolean;  
+  constructor(private _bottomSheetRef: MatBottomSheetRef<BottomSheetOverviewExampleSheet>
+    ,private firebaseAuth: AngularFireAuth) {}
+  ngOnInit() {        
+    var user = this.firebaseAuth.auth.currentUser
+    this.name = user.displayName;
+    this.email = user.email;
+    this.photoUrl = user.photoURL;
+    this.emailVerified = user.emailVerified;
+    this.uid = user.uid;
   }
   openLink(event: MouseEvent): void {
     this._bottomSheetRef.dismiss();
