@@ -1,6 +1,8 @@
 import { Component} from '@angular/core';
 import 'rxjs/add/observable/interval';
 import { Subscription } from 'rxjs';
+import { AuthService } from './services/auth.service'
+
 
 @Component({
   selector: "app-root",  
@@ -12,5 +14,5 @@ export class AppComponent {
 	  counterSubscription: Subscription;
 	  isAuth : number; 
 	  
-	  constructor() {}	 		
+	  constructor(private authService : AuthService) {}	 		
 }
