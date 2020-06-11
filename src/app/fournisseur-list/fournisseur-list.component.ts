@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort, MatDialog, MatDialogConfig} from '@angular/material';
 import { MatPaginator} from '@angular/material/paginator';
 import { FournisseurService } from '../services/fournisseur.service';
@@ -6,7 +6,10 @@ import { Fournisseur } from './../models/engin.model';
 import { FournisseurAddComponent } from './fournisseur-add/fournisseur-add.component';
 import { FournisseurFormComponent } from "./fournisseur-form/fournisseur-form.component";
 import { AngularFirestore } from 'angularfire2/firestore';
-import { firestore } from 'firebase';
+import { CategorieService } from '../services/categorie.service';
+import { CollectionsService } from '../services/collections.service';
+import * as firebase from 'firebase';
+import { RolesService } from '../services/roles.service';
 
 @Component({
   selector: 'app-fournisseur-list',
@@ -15,11 +18,35 @@ import { firestore } from 'firebase';
 })
 export class FournisseurListComponent implements OnInit {
       
+  collectionPermAdd: boolean
+  collectionPermUpdate: boolean
+  collectionPermDelete: boolean  
+  collectionMenuToggel:boolean
     constructor(
       public db : AngularFirestore,
+      private collectionService: CollectionsService,
+      private rolesService:RolesService,
       private fournisseurServices : FournisseurService, 
-      public dialog: MatDialog) {}
-    displayedColumns: string[] = ['numero', 'designation','compte','action'];
+      public dialog: MatDialog) {
+        (async () => {
+          let roleCurrentUser = await (await firebase.auth().currentUser.getIdTokenResult()).claims.role
+          let collectionId :number
+          this.collectionService.GetCollectionsByName('fournisseur').subscribe(collections=>{
+            collections.map(collection=>{
+              collectionId = collection.id
+            })
+          })
+          this.rolesService.getRolesByNameAndType(roleCurrentUser).subscribe(roles=>{
+            roles.forEach(item=>{
+                  this.collectionPermAdd = item.add.includes(collectionId.toString())
+                  this.collectionPermUpdate = item.update.includes(collectionId.toString())
+                  this.collectionPermDelete = item.delete.includes(collectionId.toString())
+                  !this.collectionPermUpdate && !this.collectionPermDelete ? this.collectionMenuToggel = false : this.collectionMenuToggel = true
+            })
+          })       
+      })();        
+      }
+    displayedColumns: string[] = ['action','numero', 'designation','compte'];
     dataSource : MatTableDataSource<Fournisseur>;
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
     @ViewChild(MatSort, {static : true}) sort: MatSort;  
