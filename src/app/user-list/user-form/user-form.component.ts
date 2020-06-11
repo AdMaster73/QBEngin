@@ -1,8 +1,33 @@
-import { Component, OnInit,Inject, ViewChild} from '@angular/core';
+import { Component, OnInit,Inject, ViewChild, ElementRef, NgModule} from '@angular/core';
 import { MAT_DIALOG_DATA,MatDialogRef} from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators, FormControl, NgForm } from "@angular/forms";
 import { UserListComponent } from '../user-list.component';
+import { RolesService } from '../../services/roles.service';
+import { User } from '../../models/User.model'
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {MatChipInputEvent, MAT_CHIPS_DEFAULT_OPTIONS} from '@angular/material/chips';
+import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/autocomplete'
+import { ChantierService } from '../../services/chantier.service';
+import {Observable, pipe, from} from 'rxjs';
+import {map, startWith, tap, filter, switchMap} from 'rxjs/operators';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { AuthService } from 'src/app/services/auth.service';
+import { Roles } from 'src/app/models/engin.model';
 
+interface Role {
+  value: string;
+  viewValue: string;
+}
+@NgModule({
+  providers: [
+    {
+      provide: MAT_CHIPS_DEFAULT_OPTIONS,
+      useValue: {
+        separatorKeyCodes: [ENTER, COMMA]
+      }
+    }
+  ]
+})
 @Component({
   selector: 'app-user-form',
   templateUrl: './user-form.component.html',
@@ -11,25 +36,41 @@ import { UserListComponent } from '../user-list.component';
 
 export class UserFormComponent implements OnInit {
 
+  visible = true;
+  addOnBlur = true;
+  hide = true;
+  
   UserFormEdit: FormGroup    
+  user$: Observable<User>
+  
+  selectedCar: string;
+
+  roles: Roles[];  
+  
   @ViewChild('resetUserForm',{static: true}) myNgForm : NgForm;  
   
   constructor(      
     public fb: FormBuilder ,
-    public dialogRef: MatDialogRef<UserListComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {}
-
+    public dialogRef: MatDialogRef<UserListComponent>,      
+    public chantierService : ChantierService,  
+    private rolesService: RolesService,
+    @Inject(MAT_DIALOG_DATA) public data: User) {}
+    
   ngOnInit() {
+    this.rolesService.GetRolesList().subscribe(role=>{
+      this.roles = role
+    })
     this.UserFormEdit= this.fb.group({
-      id : new FormControl(),
-      display_name: ['', Validators.required],
-      login:['', Validators.required],
-      email: ['', Validators.required]
+      displayName: new FormControl(),
+      email:['',[ Validators.required,Validators.email]],
+      password: new FormControl(),
+      role:new FormControl()
     });    
   }
 
   /* Get errors */
   public handleError = (controlName: string, errorName: string) => {
     return this.UserFormEdit.controls[controlName].hasError(errorName);
-  }   
+  }  
+
 }
