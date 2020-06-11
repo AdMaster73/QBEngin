@@ -32,21 +32,7 @@ export class ChantierAddComponent implements OnInit {
       public fb: FormBuilder ,
       private chantierService : ChantierService,      
       private _adapter: DateAdapter<any>,
-      //private http: HttpClient,
       public dialogRef: MatDialogRef<ChantierListComponent>) {        
-        /*for (var counter:number = 1; counter<=chantiers.length; counter++) {
-          db.collection("chantier").doc(counter.toString()).set({
-            createdAt: firestore.FieldValue.serverTimestamp(),
-            name:chantiers[counter-1].name,
-            compte : chantiers[counter-1].compte,
-            archive : chantiers[counter-1].archive
-          }, {merge: true}).then(function(docRef) {
-              console.log("Document written with ID: ", docRef);
-          })
-          .catch(function(error) {
-              console.error("Error adding document: ", error);
-          });
-        }*/
        }        
 
   ngOnInit() {  
