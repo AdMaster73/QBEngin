@@ -4,7 +4,6 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 
 
-
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
@@ -14,13 +13,16 @@ export class SigninComponent implements OnInit {
 
   signinForm: FormGroup;
   errorMessage: string;
+  isAuth:boolean
   hide = true;
 
   constructor(private formBuilder: FormBuilder,
-              private authService: AuthService,
-              private router: Router) { }
+              public authService: AuthService,
+              private router: Router) {                
+              }
 
-  ngOnInit() {
+  ngOnInit() {   
+    this.authService.isLoggedURL() ? this.router.navigate(['/sidenav','home']) : this.router.navigate(['/auth','signin']);
     this.initForm();
   }
 
@@ -51,5 +53,6 @@ export class SigninComponent implements OnInit {
         this.errorMessage = error;
       }
     );
+    //this.authService.login()
   }
 }
