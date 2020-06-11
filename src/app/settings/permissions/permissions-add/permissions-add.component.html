@@ -1,0 +1,42 @@
+<!-- Title group  -->
+<div class="title-group">
+    <h1 class="mat-h1">Ajouter Permission</h1>
+    <mat-divider fxFlex="1 0"></mat-divider>
+  </div>
+ 
+  <!-- Permissions form -->
+  <div class="example-container">
+    <form [formGroup]="PermissionsForm" (ngSubmit)="submitPermissionsForm()">
+      <!-- Left block -->
+      <mat-card>
+
+          <!-- Add categorie -->
+          <mat-form-field class="example-full-width" appearance="outline">            
+            <input matInput #searchInput
+            formControlName="collections"
+            placeholder="Les Menus"
+            aria-label="Menus"
+            (keyup)="search(searchInput.value)"
+            [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)='getControls($event,"collections")'>
+              <mat-option *ngFor="let collections of (results$ | async)" [value]="collections">                                         
+                <span>{{collections?.name}}</span>                                
+              </mat-option> 
+            </mat-autocomplete> 
+            <mat-error *ngIf="handleError('collections', 'required')">
+              Vous devez Entrer la <strong>Collection</strong>
+            </mat-error>                  
+          </mat-form-field>
+            <input matInput class="invisible" formControlName="id_collections">                    
+
+          <mat-card-actions>
+            <button mat-fab color="primary" [disabled]="PermissionsForm.invalid" matTooltip="Nouvelle élement"> 
+              <mat-icon aria-label="Example icon-button with a heart icon">done_outline</mat-icon>
+            </button>
+            <button mat-fab color="accent" (click)="closeForm()" matTooltip="Annuler">
+              <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
+            </button>
+          </mat-card-actions>             
+      </mat-card>
+    </form>
+  </div>
