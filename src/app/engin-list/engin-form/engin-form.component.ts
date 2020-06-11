@@ -56,7 +56,13 @@ export class EnginFormComponent implements OnInit {
       date_achat:new FormControl(this.date, Validators.required),
       marque_moteur:new FormControl(),
       serie_moteur:new FormControl(),
-      n_serie:new FormControl()    
+      n_serie:new FormControl(),
+      b_code:new FormControl('', [
+        Validators.required,
+        Validators.pattern("^[0-9]*$"),
+        Validators.minLength(6),
+        Validators.maxLength(6)
+      ])   
     });      
     this.results$ = this.serviceCategorie.GetCategorieList(); 
     this.results_f$ = this.serviceFournisseur.GetFournisseurList();     
