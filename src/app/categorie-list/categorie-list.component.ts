@@ -6,6 +6,9 @@ import { Categorie } from './../models/engin.model';
 import { CategorieAddComponent } from './categorie-add/categorie-add.component';
 import { CategorieFormComponent } from "./categorie-form/categorie-form.component";
 import { AngularFirestore } from 'angularfire2/firestore';
+import * as firebase from 'firebase';
+import { CollectionsService } from '../services/collections.service';
+import { RolesService } from '../services/roles.service';
 
 @Component({
   selector: 'app-categorie-list',
@@ -14,12 +17,35 @@ import { AngularFirestore } from 'angularfire2/firestore';
 })
 export class CategorieListComponent implements OnInit {
 
-  EnginData: any = [];
+  collectionPermAdd: boolean
+  collectionPermUpdate: boolean
+  collectionPermDelete: boolean  
+  collectionMenuToggel:boolean   
   constructor(
     public db : AngularFirestore,
+    private rolesService:RolesService,
+    private collectionService: CollectionsService,
     private categorieService : CategorieService, 
-    public dialog: MatDialog) {}
-  displayedColumns: string[] = ['numero', 'designation','compte','action'];
+    public dialog: MatDialog) {
+      (async () => {
+        let roleCurrentUser = await (await firebase.auth().currentUser.getIdTokenResult()).claims.role
+        let collectionId :number
+        this.collectionService.GetCollectionsByName('categorie').subscribe(collections=>{
+          collections.map(collection=>{
+            collectionId = collection.id
+          })
+        })
+        this.rolesService.getRolesByNameAndType(roleCurrentUser).subscribe(roles=>{
+          roles.forEach(item=>{
+                this.collectionPermAdd = item.add.includes(collectionId.toString())
+                this.collectionPermUpdate = item.update.includes(collectionId.toString())
+                this.collectionPermDelete = item.delete.includes(collectionId.toString())
+                !this.collectionPermUpdate && !this.collectionPermDelete ? this.collectionMenuToggel = false : this.collectionMenuToggel = true
+          })
+        })       
+    })();      
+    }
+  displayedColumns: string[] = ['action','numero', 'designation','compte'];
   dataSource : MatTableDataSource<Categorie>;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static : true}) sort: MatSort;  
