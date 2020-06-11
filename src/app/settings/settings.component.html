@@ -1,0 +1,32 @@
+<div class="mat-elevation-z8">
+    <mat-tab-group animationDuration="2000ms" mat-align-tabs="center">
+        <!-- <mat-tab>
+            <ng-template mat-tab-label>
+              <mat-icon class="example-tab-icon">account_circle</mat-icon>
+              Utilisateur
+            </ng-template>
+            <app-user-list></app-user-list>
+        </mat-tab> -->
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon class="example-tab-icon">collections</mat-icon>
+            Menus
+          </ng-template>
+          <app-collections></app-collections>
+      </mat-tab>
+        <mat-tab>
+            <ng-template mat-tab-label>
+              <mat-icon class="example-tab-icon">folder_shared</mat-icon>
+              Rôles
+            </ng-template>
+            <app-roles></app-roles>
+        </mat-tab>
+        <mat-tab>
+            <ng-template mat-tab-label>
+              <mat-icon class="example-tab-icon">access_time</mat-icon>
+              Privilège
+            </ng-template>
+            <app-permissions></app-permissions>
+        </mat-tab>        
+    </mat-tab-group>
+    </div>
