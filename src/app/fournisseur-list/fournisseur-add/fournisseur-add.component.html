@@ -19,10 +19,10 @@
           </mat-form-field>            
 
           <mat-card-actions>
-            <button mat-fab color="primary" [disabled]="FournisseurForm.invalid"> 
+            <button mat-fab color="primary" [disabled]="FournisseurForm.invalid" matTooltip="Nouvelle élement"> 
               <mat-icon aria-label="Example icon-button with a heart icon">done_outline</mat-icon>
             </button>
-            <button mat-fab color="accent" (click)="closeForm()">
+            <button mat-fab color="accent" (click)="closeForm()" matTooltip="Annuler">
               <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
             </button>
           </mat-card-actions>             
