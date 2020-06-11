@@ -7,7 +7,6 @@ import { MatDialogRef} from '@angular/material/dialog';
 import { DateAdapter} from '@angular/material/core';
 import { FournisseurListComponent } from '../fournisseur-list.component';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { firestore } from 'firebase';
 import { Fournisseur } from 'src/app/models/engin.model';
 import { FournisseurService } from 'src/app/services/fournisseur.service';
 
