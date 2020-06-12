@@ -9,10 +9,10 @@
       <section class="example-section">
         <label class="example-margin">Par:</label>
         <mat-radio-group [(ngModel)]="typeOfTransfert" formControlName="typeControl">
-          <mat-radio-button class="example-margin" value="engin">
+          <mat-radio-button class="example-margin" value="engin" (change)="radioChange($event)">
             Engin
           </mat-radio-button>
-          <mat-radio-button class="example-margin" value="chantier">
+          <mat-radio-button class="example-margin" value="chantier" (change)="radioChange($event)">
             Chantier
           </mat-radio-button>
         </mat-radio-group>
@@ -29,7 +29,7 @@
       <mat-form-field class="example-full-width" appearance="outline" *ngIf="typeOfTransfert == 'engin'">    
         <mat-label>Engin</mat-label>        
         <input matInput
-        [formControlName]="myControl"
+        formControlName="myControl"
         placeholder="Engin"
         aria-label="Engin"    
         [matAutocomplete]="auto">
@@ -43,7 +43,7 @@
         <mat-form-field class="example-full-width" appearance="outline" *ngIf="typeOfTransfert == 'chantier'">    
             <mat-label>Chantier de provenanace</mat-label>        
             <input matInput
-            [formControlName]="myControlC"
+            formControlName="myControlC"
             placeholder="Chantier de provenance"
             aria-label="Chantier de provenanace"    
             [matAutocomplete]="autoC">
@@ -57,7 +57,7 @@
         <mat-form-field class="example-full-width" appearance="outline" *ngIf="typeOfTransfert == 'chantier'">    
           <mat-label>Chantier de destination</mat-label>        
           <input matInput
-          [formControlName]="myControlD"
+          formControlName="myControlD"
           placeholder="Chantier de destination"
           aria-label="Chantier de destination"    
           [matAutocomplete]="autoD">
