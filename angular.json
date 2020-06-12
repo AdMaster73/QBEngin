@@ -148,5 +148,8 @@
       }
     }
   },
-  "defaultProject": "mon-projet-angular"
+  "defaultProject": "mon-projet-angular",
+  "cli": {
+    "analytics": "f3a286e2-8a2c-426a-ade9-1317ae5236c9"
+  }
 }
