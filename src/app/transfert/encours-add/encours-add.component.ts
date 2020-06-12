@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { MatRadioChange } from '@angular/material';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -18,17 +19,21 @@ export class EncoursAddComponent implements OnInit {
   optionsD: string[] = []
   filteredEngins: Observable<string[]>;
   filteredChantiers: Observable<string[]>
-  filteredChantiersD: Observable<string[]>    
+  filteredChantiersD: Observable<string[]>  
+  typeOfTransfert:string;  
+  //typeControl = new FormControl('engin')
   provenance :string[]=[];
   destination = [];
   typeFormGroup: FormGroup;
   secondFormGroup: FormGroup
   constructor(private enginService: EnginService,private _formBuilder: FormBuilder,
     private chantierService: ChantierService) {}
-  
+  radioChange(event: MatRadioChange) {
+    this.typeOfTransfert = event.value
+  }
   ngOnInit() {
     this.typeFormGroup = this._formBuilder.group({
-      typeControl : new FormControl('',[Validators.required])
+      typeControl: []
     })
     this.secondFormGroup = this._formBuilder.group({
       myControl : new FormControl('',[Validators.required]),
@@ -51,7 +56,7 @@ export class EncoursAddComponent implements OnInit {
       })
     })
 
-    this.filteredEngins = this.secondFormGroup.get('typeControl').valueChanges
+    this.filteredEngins = this.secondFormGroup.get('myControl').valueChanges
       .pipe(
         startWith(''),
         map(value => this._filter_engin(value))
