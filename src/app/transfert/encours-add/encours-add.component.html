@@ -2,133 +2,128 @@
 <div class="example-container mat-elevation-z8">
   <div class="title-group">
     <h3>Transfert des engins</h3>
-<mat-vertical-stepper linear="true" #stepper>
-  <mat-step [stepControl]="typeFormGroup" [editable]="false">
-    <form [formGroup]="typeFormGroup">
-      <ng-template matStepLabel>Selectionner le type de transfert <small>{{typeOfTransfert}}</small></ng-template>
-      <section class="example-section">
-        <label class="example-margin">Par:</label>
-        <mat-radio-group [(ngModel)]="typeOfTransfert" formControlName="typeControl">
-          <mat-radio-button class="example-margin" value="engin" (change)="radioChange($event)">
-            Engin
-          </mat-radio-button>
-          <mat-radio-button class="example-margin" value="chantier" (change)="radioChange($event)">
-            Chantier
-          </mat-radio-button>
-        </mat-radio-group>
-      </section>
-      <div>
-        <button mat-raised-button matStepperNext>Suivant</button>
-        <button mat-raised-button (click)="stepper.reset()">Rafrichir</button>
-      </div>
-      </form>
-  </mat-step>
-  <mat-step [stepControl]="secondFormGroup"  [editable]="false">
-    <form [formGroup]="secondFormGroup">
-      <ng-template matStepLabel>Autre selection <small>{{typeOfTransfert}}</small></ng-template>
-      <mat-form-field class="example-full-width" appearance="outline" *ngIf="typeOfTransfert == 'engin'">    
-        <mat-label>Engin</mat-label>        
-        <input matInput
-        formControlName="myControl"
-        placeholder="Engin"
-        aria-label="Engin"    
-        [matAutocomplete]="auto">
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let engin of filteredEngins | async" [value]="engin">                                         
-            <span>{{engin}}</span>                                
-          </mat-option> 
-        </mat-autocomplete> 
-        <mat-icon matSuffix>commute</mat-icon>                           
-        </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="outline" *ngIf="typeOfTransfert == 'chantier'">    
-            <mat-label>Chantier de provenanace</mat-label>        
-            <input matInput
-            formControlName="myControlC"
-            placeholder="Chantier de provenance"
-            aria-label="Chantier de provenanace"    
-            [matAutocomplete]="autoC">
-            <mat-autocomplete #autoC="matAutocomplete" (optionSelected)="getControls($event)">
-              <mat-option *ngFor="let chantier of filteredChantiers | async" [value]="chantier">                                         
-                <span>{{chantier}}</span>                                
-              </mat-option> 
-            </mat-autocomplete> 
-            <mat-icon matSuffix>place</mat-icon>                           
-        </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="outline" *ngIf="typeOfTransfert == 'chantier'">    
-          <mat-label>Chantier de destination</mat-label>        
-          <input matInput
-          formControlName="myControlD"
-          placeholder="Chantier de destination"
-          aria-label="Chantier de destination"    
-          [matAutocomplete]="autoD">
-          <mat-autocomplete #autoD="matAutocomplete" (optionSelected)="getControls($event)">
-            <mat-option *ngFor="let chantier of filteredChantiersD | async" [value]="chantier">                                         
-              <span>{{chantier}}</span>                                
-            </mat-option> 
-          </mat-autocomplete> 
-          <mat-icon matSuffix>place</mat-icon>                           
-      </mat-form-field>        
-      <div>
-        <button mat-raised-button matStepperNext>Suivant</button>
-        <button mat-raised-button (click)="stepper.reset()">Rafrichir</button>
-      </div>
-      </form>
-  </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Trancfert</ng-template>
-    <div cdkDropListGroup *ngIf="typeOfTransfert">
-      <div class="example-container">
-        <h2>Provenance</h2>            
-        <div
-          cdkDropList
-          [cdkDropListData]="provenance"
-          class="example-list"
-          (cdkDropListDropped)="drop($event)" *ngFor="let chantier of provenance">
-          <mat-expansion-panel cdkDrag>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                {{chantier}}
-              </mat-panel-title>
-              <mat-panel-description>
-                {{chantier}}
-              </mat-panel-description>
-            </mat-expansion-panel-header>              
-            <p>{{chantier}}</p>                
-          </mat-expansion-panel>
-        </div>
-      </div>  
-      <div class="example-container">
-        <h2>Destination</h2>  
-        <div
-          cdkDropList
-          [cdkDropListData]="destination"
-          class="example-list"
-          (cdkDropListDropped)="drop($event)">
-          <mat-expansion-panel *ngFor="let item of destination" cdkDrag>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                {{item}}
-              </mat-panel-title>
-              <mat-panel-description>
-                {{item}}
-              </mat-panel-description>
-            </mat-expansion-panel-header>              
-            <p>{{item}}</p>                
-          </mat-expansion-panel>                
-        </div>
-      </div>
-    </div>
-    <div>
-      <button mat-raised-button matStepperPrevious>Back</button>
-      <button mat-raised-button (click)="stepper.reset()">Rafrichir</button>
-    </div>
-  </mat-step>
-</mat-vertical-stepper>  
-
-  
-  
-  </div>              
-
-  
-                    
+      <mat-vertical-stepper linear="true" #stepper>
+        <mat-step [stepControl]="typeFormGroup" editable="true">
+          <form [formGroup]="typeFormGroup">
+            <ng-template matStepLabel>Selectionner le type de transfert <small>{{typeOfTransfert}}</small></ng-template>
+            <section class="example-section">
+              <label class="example-margin">Par:</label>
+              <mat-radio-group [(ngModel)]="typeOfTransfert" formControlName="typeControl">
+                <mat-radio-button class="example-margin" value="engin" (change)="radioChange($event)">
+                  Engin
+                </mat-radio-button>
+                <mat-radio-button class="example-margin" value="chantier" (change)="radioChange($event)">
+                  Chantier
+                </mat-radio-button>
+              </mat-radio-group>
+            </section>
+            <div>
+              <button mat-raised-button matStepperNext>Suivant</button>
+              <button mat-raised-button (click)="stepper.reset()">Rafrichir</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup"  editable="true">
+          <form [formGroup]="secondFormGroup">
+              <ng-template matStepLabel>Autre selection <small>{{typeOfTransfert}}</small></ng-template>
+              <mat-form-field class="example-full-width" appearance="outline" *ngIf="typeOfTransfert == 'engin'">
+                <mat-label>Engin</mat-label>
+                <input matInput
+                formControlName="myControl"
+                placeholder="Engin"
+                aria-label="Engin"
+                [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option *ngFor="let engin of filteredEngins | async" [value]="engin">
+                    <span>{{engin}}</span>
+                  </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>commute</mat-icon>
+              </mat-form-field>
+              <mat-form-field class="example-full-width" appearance="outline" *ngIf="typeOfTransfert == 'chantier'">
+                <mat-label>Chantier de provenanace</mat-label>
+                <input matInput
+                formControlName="myControlC"
+                placeholder="Chantier de provenance"
+                aria-label="Chantier de provenanace"
+                [matAutocomplete]="autoC">
+                <mat-autocomplete #autoC="matAutocomplete" (optionSelected)="getControls($event,'chantier')">
+                  <mat-option *ngFor="let chantier of filteredChantiers | async" [value]="chantier">
+                    <span>{{chantier}}</span>
+                  </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>place</mat-icon>
+              </mat-form-field>
+              <mat-form-field class="example-full-width" appearance="outline" *ngIf="typeOfTransfert == 'chantier'">
+                <mat-label>Chantier de destination</mat-label>
+                <input matInput
+                formControlName="myControlD"
+                placeholder="Chantier de destination"
+                aria-label="Chantier de destination"
+                [matAutocomplete]="autoD">
+                <mat-autocomplete #autoD="matAutocomplete" (optionSelected)="getControls($event,'destination')">
+                  <mat-option *ngFor="let chantier of filteredChantiersD | async" [value]="chantier">
+                    <span>{{chantier}}</span>
+                  </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>place</mat-icon>
+              </mat-form-field>
+              <div>
+                <button mat-raised-button matStepperNext>Suivant</button>
+                <button mat-raised-button (click)="stepper.reset()">Rafrichir</button>
+              </div>
+            </form>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Transfert</ng-template>
+          <div cdkDropListGroup *ngIf="typeOfTransfert">
+            <div class="example-container">
+              <h2>Provenance</h2>
+              <div
+                cdkDropList
+                [cdkDropListData]="provenance"
+                class="example-list"
+                (cdkDropListDropped)="drop($event)" *ngFor="let chantier of provenance">
+                <mat-expansion-panel cdkDrag>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      {{chantier}}
+                    </mat-panel-title>
+                    <mat-panel-description>
+                      {{chantier}}
+                    </mat-panel-description>
+                  </mat-expansion-panel-header>
+                  <p>{{chantier}}</p>
+                </mat-expansion-panel>
+              </div>
+            </div>
+            <div class="example-container">
+              <h2>Destination</h2>
+              <div
+                cdkDropList
+                [cdkDropListData]="destination"
+                class="example-list"
+                (cdkDropListDropped)="drop($event)">
+                <mat-expansion-panel *ngFor="let item of destination" cdkDrag>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      {{item}}
+                    </mat-panel-title>
+                    <mat-panel-description>
+                      {{item}}
+                    </mat-panel-description>
+                  </mat-expansion-panel-header>
+                  <p>{{item}}</p>
+                </mat-expansion-panel>
+              </div>
+            </div>
+          </div>
+          <div>
+            <button mat-raised-button matStepperPrevious>Précedent</button>
+            <button mat-raised-button (click)="stepper.reset()">Rafrichir</button>
+            <button mat-raised-button>Envoyer</button>
+          </div>
+        </mat-step>
+      </mat-vertical-stepper>
   </div>
+</div>
