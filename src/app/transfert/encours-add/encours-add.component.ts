@@ -14,13 +14,13 @@ import { ChantierService } from 'src/app/services/chantier.service';
 })
 export class EncoursAddComponent implements OnInit {
 
-  options: string[] = [];  
+  options: string[] = [];
   optionsC: string[] = []
   optionsD: string[] = []
   filteredEngins: Observable<string[]>;
   filteredChantiers: Observable<string[]>
-  filteredChantiersD: Observable<string[]>  
-  typeOfTransfert:string;  
+  filteredChantiersD: Observable<string[]>
+  typeOfTransfert:string;
   //typeControl = new FormControl('engin')
   provenance :string[]=[];
   destination = [];
@@ -36,7 +36,7 @@ export class EncoursAddComponent implements OnInit {
       typeControl: []
     })
     this.secondFormGroup = this._formBuilder.group({
-      myControl : new FormControl('',[Validators.required]),
+      myControl : new FormControl(''),
       myControlC : new FormControl('',[Validators.required]),
       myControlD : new FormControl('',[Validators.required])
     })
@@ -60,7 +60,7 @@ export class EncoursAddComponent implements OnInit {
       .pipe(
         startWith(''),
         map(value => this._filter_engin(value))
-      );  
+      );
     this.filteredChantiers = this.secondFormGroup.get('myControlC').valueChanges
     .pipe(
       startWith(''),
@@ -70,14 +70,14 @@ export class EncoursAddComponent implements OnInit {
     .pipe(
       startWith(''),
       map(value => this._filter_chantierD(value))
-    );   
-  } 
-  
+    );
+  }
+
   private _filter_engin(value: string): string[] {
     if(value === null){
       return
     }
-    const filterValue = value.toLowerCase();    
+    const filterValue = value.toLowerCase();
 
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
@@ -85,29 +85,41 @@ export class EncoursAddComponent implements OnInit {
     if(value === null){
       return
     }
-    const filterValue = value.toLowerCase();    
+    const filterValue = value.toLowerCase();
 
     return this.optionsC.filter(option => option.toLowerCase().includes(filterValue));
-  } 
+  }
   private _filter_chantierD(value: string): string[] {
     if(value === null){
       return
     }
-    const filterValue = value.toLowerCase();    
+    const filterValue = value.toLowerCase();
 
     return this.optionsD.filter(option => option.toLowerCase().includes(filterValue));
   }
-  getControls(event$){   
-    this.chantierService.GetChantierList().subscribe(data=>{
-      data.filter((chantier)=>{
-        return chantier.name == event$.option.value
-      }).map(
-        (element) => 
-        {          
-          this.provenance.push(element.name)
-        })
-    })
-  } 
+  getControls(event$,type:string){
+    if(type === 'chantier'){
+      this.chantierService.GetChantierList().subscribe(data=>{
+        data.filter((chantier)=>{
+          return chantier.name == event$.option.value
+        }).map(
+          (element) =>
+          {
+            this.provenance.push(element.name)
+          })
+      })
+    }else{
+      this.chantierService.GetChantierList().subscribe(data=>{
+        data.filter((chantier)=>{
+          return chantier.name == event$.option.value
+        }).map(
+          (element) =>
+          {
+            this.destination.push(element.name)
+          })
+      })
+    }
+  }
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
@@ -118,6 +130,6 @@ export class EncoursAddComponent implements OnInit {
                         event.previousIndex,
                         event.currentIndex);
     }
-  }  
+  }
 
 }
