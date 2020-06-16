@@ -8,7 +8,6 @@ import { EnginAddComponent } from './engin-add/engin-add.component';
 import { EnginFormComponent } from "./engin-form/engin-form.component";
 import * as firebase from 'firebase';
 import { RolesService } from '../services/roles.service';
-import { AngularFirestore } from 'angularfire2/firestore';
 
 @Component({
   selector: 'app-engin-list',
@@ -16,17 +15,17 @@ import { AngularFirestore } from 'angularfire2/firestore';
   styleUrls: ['./engin-list.component.scss']
 })
 export class EnginListComponent implements OnInit{
-  
+
   collectionPermAdd: boolean
   collectionPermUpdate: boolean
-  collectionPermDelete: boolean  
-  collectionMenuToggel:boolean 
+  collectionPermDelete: boolean
+  collectionMenuToggel:boolean
   EnginData: any = [];
   constructor(
     private enginService : EnginService,
-    private rolesService:RolesService,    
+    private rolesService:RolesService,
     private collectionService: CollectionsService,
-    public dialog: MatDialog) {  
+    public dialog: MatDialog) {
     (async () => {
       let roleCurrentUser = await (await firebase.auth().currentUser.getIdTokenResult()).claims.role
       let collectionId :number
@@ -42,14 +41,14 @@ export class EnginListComponent implements OnInit{
               this.collectionPermDelete = item.delete.includes(collectionId.toString())
               !this.collectionPermUpdate && !this.collectionPermDelete ? this.collectionMenuToggel = false : this.collectionMenuToggel = true
         })
-      })       
-  })();       
+      })
+  })();
   }
   displayedColumnsObj = [
     {"value":'action',"show": true},
-    {"value":'numero',"show": false}, 
-    {"value":'code',"show": true}, 
-    {"value":'designation',"show": true}, 
+    {"value":'numero',"show": false},
+    {"value":'code',"show": true},
+    {"value":'designation',"show": true},
     {"value":'categorie',"show": true},
     {"value":'fournisseur',"show": true},
     {"value":'b_code',"show": true},
@@ -60,7 +59,7 @@ export class EnginListComponent implements OnInit{
       (element) => {
         return element.show == true
       }).map(
-        (element) => 
+        (element) =>
         {
           return element.value
         });
@@ -68,12 +67,12 @@ export class EnginListComponent implements OnInit{
   dataSource : MatTableDataSource<Engin>;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static : true}) sort: MatSort;  
+  @ViewChild(MatSort, {static : true}) sort: MatSort;
   ngOnInit(): void {
     this.enginService.GetEnginList().subscribe(
       data => {
-        this.dataSource = new MatTableDataSource(data);  
-        this.dataSource.paginator = this.paginator;        
+        this.dataSource = new MatTableDataSource(data);
+        this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.paginator._intl.itemsPerPageLabel = 'Affichage par page.';
         this.paginator._intl.firstPageLabel = 'Page Premier';
@@ -98,7 +97,7 @@ export class EnginListComponent implements OnInit{
     const dialogRef = this.dialog.open(EnginAddComponent);
   }
   /**Modifier Engin */
-  editEngin(element){            
+  editEngin(element){
     this.dialog.open(EnginFormComponent,{data:{
       id:element.id,
       code: element.code,
@@ -107,8 +106,8 @@ export class EnginListComponent implements OnInit{
       valeur_achat: element.valeur_achat,
       n_serie: element.n_serie,
       marque_moteur: element.marque_moteur,
-      serie_moteur: element.serie_moteur,		
-      b_code:element.b_code,	
+      serie_moteur: element.serie_moteur,
+      b_code:element.b_code,
       categorie:{
         id:element.categorie.id,
         name:element.categorie.name
@@ -116,20 +115,47 @@ export class EnginListComponent implements OnInit{
       fournisseur:{
         id:element.fournisseur.id,
         name:element.fournisseur.name
-      }
+      },
+      type_v:element.type_v,
+      etat_f:element.etat_f,
+      etat_k:element.etat_k
     }}).afterClosed().subscribe(result => {
-      if (result){        
+      if (result){
         this.enginService.UpdateEngin(result)
-      } 
-    });                           
+      }
+    });
   }
   /* Delete */
-  deleteEngin(index: number){    
+  deleteEngin(index: number){
     if(window.confirm('Are you sure?')) {
       const data = this.dataSource.data;
       data.splice((this.paginator.pageIndex * this.paginator.pageSize) + index, 1);
       this.dataSource.data = data;
       this.enginService.DeleteEngin(index)
+    }
+  }
+
+  /** */
+  getBackgroundColor(etat: string): String {
+    switch (etat) {
+      case 'MARCHE':
+        return ''
+        break;
+      case 'ARRET':
+        return 'green'
+        break;
+      case 'MAD':
+        return 'blue'
+        break;
+      case 'EN ATTENTE':
+        return 'white'
+        break;
+      case 'PANNE':
+        return 'red'
+        break;
+
+      default:
+        break;
     }
   }
 }
