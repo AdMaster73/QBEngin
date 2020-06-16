@@ -1,7 +1,6 @@
 import { Component, OnInit,Inject, ViewChild} from '@angular/core';
 import { MAT_DIALOG_DATA,MatDialogRef} from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators, FormControl, NgForm } from "@angular/forms";
-import { EnginService } from './../../services/engin.service';
 import { FournisseurService} from './../../services/fournisseur.service'
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs';
@@ -21,33 +20,36 @@ import { CategorieService } from 'src/app/services/categorie.service';
 })
 export class EnginFormComponent implements OnInit {
 
-  date: any  
-  EnginFormEdit: FormGroup  
+  date: any
+  EnginFormEdit: FormGroup
   myFournisseur = new FormControl();
   results$ : Observable<any[]>;
-  results_f$: Observable<any[]>;  
-  startAt: BehaviorSubject<string | null> = new BehaviorSubject(''); 
+  results_f$: Observable<any[]>;
+  typeVs:string[]=['HEURE','KILOMETRE'];
+  etatVfs:string[]=['MARCHE','ARRET','MAD','PANNE','EN ATTENTE'];
+  etatVks:string[]=['MARCHE','PANNE','INNEXISTANT'];
+  startAt: BehaviorSubject<string | null> = new BehaviorSubject('');
   @ViewChild('resetEnginForm',{static: true}) myNgForm : NgForm;
-       
-  constructor(      
+
+  constructor(
       public fb: FormBuilder ,
       public serviceFournisseur : FournisseurService,
       public serviceCategorie : CategorieService,
       private _adapter: DateAdapter<any>,
       public dialogRef: MatDialogRef<EnginListComponent>,
       @Inject(MAT_DIALOG_DATA) public data: any
-    ) {      
-      this._adapter.setLocale('fr'); 
-      registerLocaleData(localeFr, 'fr');     
+    ) {
+      this._adapter.setLocale('fr');
+      registerLocaleData(localeFr, 'fr');
       var pattern = /(\d{2})\/(\d{2})\/(\d{4})/;
-      this.date = typeof this.data.date_achat === 'string' ? this.date = new Date(this.data.date_achat.replace(pattern,'$3/$2/$1')) : this.date = new Date((this.data.date_achat).toDate());      
+      this.date = typeof this.data.date_achat === 'string' ? this.date = new Date(this.data.date_achat.replace(pattern,'$3/$2/$1')) : this.date = new Date((this.data.date_achat).toDate());
     }
 
-  ngOnInit() {     
+  ngOnInit() {
     this.EnginFormEdit= this.fb.group({
       id : new FormControl(),
       code: ['', Validators.required],
-      name: ['', Validators.required],      
+      name: ['', Validators.required],
       fournisseur: ['', Validators.required],
       id_fournisseur:['', Validators.required],
       categorie:['', Validators.required],
@@ -62,25 +64,28 @@ export class EnginFormComponent implements OnInit {
         Validators.pattern("^[0-9]*$"),
         Validators.minLength(6),
         Validators.maxLength(6)
-      ])   
-    });      
-    this.results$ = this.serviceCategorie.GetCategorieList(); 
-    this.results_f$ = this.serviceFournisseur.GetFournisseurList();     
+      ]),
+      type_v:new FormControl('',Validators.required),
+      etat_f:new FormControl('',Validators.required),
+      etat_k:new FormControl('',Validators.required)
+    });
+    this.results$ = this.serviceCategorie.GetCategorieList();
+    this.results_f$ = this.serviceFournisseur.GetFournisseurList();
   }
 
   /* Get errors */
   public handleError = (controlName: string, errorName: string) => {
     return this.EnginFormEdit.controls[controlName].hasError(errorName);
-  }  
+  }
 
   search(searchText){
     this.startAt.next(searchText);
-  }    
+  }
 
 /** */
-  getControls(event$,model:string){     
-    this.EnginFormEdit.controls[model].setValue(event$.option.value.name) 
+  getControls(event$,model:string){
+    this.EnginFormEdit.controls[model].setValue(event$.option.value.name)
     this.EnginFormEdit.controls['id_'+model].setValue(event$.option.value.id)
-  }  
+  }
 
 }
