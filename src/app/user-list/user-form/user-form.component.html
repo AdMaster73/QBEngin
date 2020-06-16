@@ -3,27 +3,29 @@
     <h1 class="mat-h1">Modifier Utilisateur</h1>
     <mat-divider fxFlex="1 0"></mat-divider>
   </div>
- 
+
   <!-- User form -->
   <div class="example-container">
     <form [formGroup]="UserFormEdit">
       <!-- Left block -->
-      <mat-card>                
+      <mat-card>
           <!-- User nom complet -->
           <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Nom Complet</mat-label>
             <input matInput placeholder="Nom Complet" formControlName="displayName" [(ngModel)]="data.displayName">
             <mat-error *ngIf="handleError('displayName', 'required')">
               Vous devez Entrer le <strong>Nom complet</strong>
             </mat-error>
-          </mat-form-field>  
-          
+          </mat-form-field>
+
           <!-- User email -->
           <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Email</mat-label>
             <input matInput placeholder="E-mail" formControlName="email" [(ngModel)]="data.email">
             <mat-error *ngIf="handleError('email', 'required')">
               Vous devez Entrer l'<strong>E-mail</strong>
             </mat-error>
-          </mat-form-field>  
+          </mat-form-field>
 
           <!-- User password -->
           <mat-form-field appearance="outline">
@@ -34,7 +36,7 @@
               <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
           </mat-form-field>
-          
+
           <!-- User rôle -->
           <mat-form-field>
             <mat-label>Rôle</mat-label>
@@ -43,7 +45,7 @@
                 {{role.intitule}}
               </mat-option>
             </mat-select>
-          </mat-form-field>          
+          </mat-form-field>
 
           <mat-card-actions>
             <button mat-fab color="primary" [disabled]="UserFormEdit.invalid" [mat-dialog-close]="data">
@@ -52,7 +54,7 @@
             <button mat-fab mat-dialog-close color="accent">
               <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
             </button>
-          </mat-card-actions>             
+          </mat-card-actions>
       </mat-card>
     </form>
   </div>
