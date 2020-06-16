@@ -11,14 +11,14 @@ import { AngularFireAuth } from 'angularfire2/auth';
 })
 
 export class EnginService {
-		
-	constructor(private afs: AngularFirestore,private firebaseAuth: AngularFireAuth) {	
-	}	
+
+	constructor(private afs: AngularFirestore,private firebaseAuth: AngularFireAuth) {
+	}
 	/* Créer un nouveau engin */
-	AddEngin(engin: Engin){		
+	AddEngin(engin: Engin){
 		return this.afs.collection('engin').doc(engin.id.toString()).set({
 			createdBy: this.firebaseAuth.auth.currentUser.uid,
-			createdAt: firestore.FieldValue.serverTimestamp(),      
+			createdAt: firestore.FieldValue.serverTimestamp(),
 			code: engin.code,
 			name: engin.name,
 			date_achat:engin.date_achat,
@@ -33,7 +33,7 @@ export class EnginService {
 			fournisseur:{
 				id :engin.fournisseur.id,
 				name:engin.fournisseur.name
-			}			
+			}
 		})
 	}
 
@@ -41,9 +41,9 @@ export class EnginService {
 	async DeleteEngin(id) {
 		this.afs.doc('engin/'+id).delete()
 	}
-	
+
 	/*Retourner une liste des engin */
-	GetEnginList() {		
+	GetEnginList() {
 		return this.afs.collection<Engin>('engin',ref=> ref.orderBy('createdAt','asc')).snapshotChanges().pipe(
 			map(actions => {
 			return actions.map(a => {
@@ -52,23 +52,23 @@ export class EnginService {
 				return { id, ...data };
 			});
 			})
-		);	
+		);
 	}
-	
+
 	//Avoir le ID du dernier enregesitrement
-	GetEnginLastRecord(){		
+	GetEnginLastRecord(){
 	  return this.afs.collection('engin', ref => ref
 		.limit(1)
 		.orderBy('createdAt','desc')
-	  )				
+	  )
 	}
-	
+
 	/* Modifier un engin */
-	UpdateEngin(engin) {  	
+	UpdateEngin(engin) {
 		this.afs.doc('engin/'+engin.id).update(
 			{
 				updatedBy: this.firebaseAuth.auth.currentUser.uid,
-				updatedAt: firestore.FieldValue.serverTimestamp(),	     				
+				updatedAt: firestore.FieldValue.serverTimestamp(),
 				code: engin.code,
 				name: engin.name,
 				date_achat: engin.date_achat,
@@ -80,12 +80,15 @@ export class EnginService {
 				categorie:{
 					id:engin.categorie.id,
 					name:engin.categorie.name
-				},		
+				},
 				fournisseur:{
 					id:engin.fournisseur.id,
 					name:engin.fournisseur.name
-				}	
+        },
+        type_v:engin.type_v,
+        etat_f:engin.etat_f,
+        etat_k:engin.etat_k,
 			}
-		)														
-	}    
+		)
+	}
 }
