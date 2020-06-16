@@ -1,5 +1,5 @@
 
-export interface Engin {    
+export interface Engin {
     id: number;
     code: string;
     name:string;
@@ -9,7 +9,7 @@ export interface Engin {
     marque_moteur: string;
     serie_moteur: string;
     categorie:Categorie;
-    fournisseur:Fournisseur  
+    fournisseur:Fournisseur
   }
   export interface Categorie{
     id:number,
@@ -20,7 +20,7 @@ export interface Engin {
     id:number,
     name:string,
     compte:string
-  }  
+  }
   export interface Chantier{
     id:number,
     name:string,
@@ -38,11 +38,11 @@ export interface Engin {
     uid:string,
     email:string,
     displayName: string,
-    role?:string   
+    role?:string
   }
   export interface Roles{
     id:number,
-    name:string,  
+    name:string,
     intitule:string,
     list?:string[],
     add?:string[],
@@ -78,5 +78,8 @@ export interface Engin {
     BIEN,MAUVAIS,FERAI
   }
   export enum Etat_engin{
-    MARCHE,ARRET,MAD,ANATTENTE,PANNE
+    MARCHE,ARRET,MAD,ENATTENTE,PANNE
+  }
+  export enum Type_vidange{
+    HEURE,KILOMETRAGE
   }
