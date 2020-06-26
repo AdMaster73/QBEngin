@@ -3,7 +3,7 @@
 </ng-container>
 <mat-tab-group mat-align-tabs="center" backgroundColor="primary" color="accent">
   <mat-tab *ngFor="let tab of asyncTabs | async">
-    <ng-template mat-tab-label><mat-icon class="example-tab-icon">{{tab.icon}}</mat-icon>{{tab.intitule}}</ng-template>    
+    <ng-template mat-tab-label><mat-icon class="example-tab-icon">{{tab.icon}}</mat-icon>{{tab.intitule}}</ng-template>
     <h4>{{tab.intitule}}</h4>
     <!-- <mat-form-field>
       <mat-label>Recherche par {{tab.intitule}}</mat-label>
@@ -17,7 +17,7 @@
       <th mat-header-cell *matHeaderCellDef> Rôles </th>
       <td mat-cell *matCellDef="let element"> {{element.intitule}} </td>
     </ng-container>
-  
+
     <!-- list Column -->
     <ng-container matColumnDef="list">
       <th mat-header-cell *matHeaderCellDef> Affichage </th>
@@ -25,7 +25,7 @@
         <mat-checkbox class="example-margin" [checked]="checkElement(element.list,tab.id)" (change)="checkRoles('list',element.id,tab.id,$event)"></mat-checkbox>
       </td>
     </ng-container>
-   
+
      <!-- add Column  -->
     <ng-container matColumnDef="add">
       <th mat-header-cell *matHeaderCellDef> Ajout </th>
@@ -34,14 +34,14 @@
       </td>
     </ng-container>
 
-     <!-- update Column --> 
+     <!-- update Column -->
     <ng-container matColumnDef="update">
       <th mat-header-cell *matHeaderCellDef> Modification </th>
       <td mat-cell *matCellDef="let element">
         <mat-checkbox class="example-margin" [checked]="checkElement(element.update,tab.id)" (change)="checkRoles('update',element.id,tab.id,$event)"></mat-checkbox>
       </td>
-    </ng-container> 
-    
+    </ng-container>
+
      <!-- delete Column -->
     <ng-container matColumnDef="delete">
         <th mat-header-cell *matHeaderCellDef> Suppression </th>
@@ -50,9 +50,17 @@
         </td>
     </ng-container>
 
+     <!-- accessoirie Column -->
+    <ng-container matColumnDef="accessoire">
+        <th mat-header-cell *matHeaderCellDef> Accessoire </th>
+        <td mat-cell *matCellDef="let element">
+          <mat-checkbox class="example-margin" [checked]="checkElement(element.accessoire,tab.id)" (change)="checkRoles('accessoire',element.id,tab.id,$event)"></mat-checkbox>
+        </td>
+    </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>  
+  </table>
 </div>
 </mat-tab>
 </mat-tab-group>
