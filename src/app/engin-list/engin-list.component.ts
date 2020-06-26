@@ -8,6 +8,7 @@ import { EnginAddComponent } from './engin-add/engin-add.component';
 import { EnginFormComponent } from "./engin-form/engin-form.component";
 import * as firebase from 'firebase';
 import { RolesService } from '../services/roles.service';
+import { EnginAccessoireComponent } from './engin-accessoire/engin-accessoire.component';
 
 @Component({
   selector: 'app-engin-list',
@@ -19,6 +20,7 @@ export class EnginListComponent implements OnInit{
   collectionPermAdd: boolean
   collectionPermUpdate: boolean
   collectionPermDelete: boolean
+  collectionPermAccessoire:boolean
   collectionMenuToggel:boolean
   EnginData: any = [];
   constructor(
@@ -39,6 +41,7 @@ export class EnginListComponent implements OnInit{
               this.collectionPermAdd = item.add.includes(collectionId.toString())
               this.collectionPermUpdate = item.update.includes(collectionId.toString())
               this.collectionPermDelete = item.delete.includes(collectionId.toString())
+              this.collectionPermAccessoire = item.accessoire.includes(collectionId.toString())
               !this.collectionPermUpdate && !this.collectionPermDelete ? this.collectionMenuToggel = false : this.collectionMenuToggel = true
         })
       })
@@ -118,7 +121,8 @@ export class EnginListComponent implements OnInit{
       },
       type_v:element.type_v,
       etat_f:element.etat_f,
-      etat_k:element.etat_k
+      etat_k:element.etat_k,
+      accessoire_v:element.accessoire_v
     }}).afterClosed().subscribe(result => {
       if (result){
         this.enginService.UpdateEngin(result)
@@ -157,5 +161,10 @@ export class EnginListComponent implements OnInit{
       default:
         break;
     }
+  }
+
+  accessoireEngin(engin:Engin){
+    this.dialog.open(EnginAccessoireComponent,{data:engin}).afterClosed().subscribe(_ =>{
+    })
   }
 }
