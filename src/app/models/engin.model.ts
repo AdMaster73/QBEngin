@@ -47,7 +47,8 @@ export interface Engin {
     list?:string[],
     add?:string[],
     update?:string[],
-    delete?:string[]
+    delete?:string[],
+    accessoire?:string[]
   }
   export interface Collections{
     id:number,
