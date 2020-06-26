@@ -137,6 +137,10 @@
               </mat-select>
             </mat-form-field>
 
+            <!---->
+            <mat-slide-toggle [(ngModel)]="data.accessoire_v" formControlName="accessoire_v">Accéssoire</mat-slide-toggle>
+
+
           <mat-card-actions>
             <button mat-fab color="primary" [disabled]="EnginFormEdit.invalid" [mat-dialog-close]="data">
               <mat-icon aria-label="Example icon-button with a heart icon">edit</mat-icon>
