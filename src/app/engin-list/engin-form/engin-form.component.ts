@@ -25,6 +25,7 @@ export class EnginFormComponent implements OnInit {
   myFournisseur = new FormControl();
   results$ : Observable<any[]>;
   results_f$: Observable<any[]>;
+  accessoire_v:boolean
   typeVs:string[]=['HEURE','KILOMETRE'];
   etatVfs:string[]=['MARCHE','ARRET','MAD','PANNE','EN ATTENTE'];
   etatVks:string[]=['MARCHE','PANNE','INNEXISTANT'];
@@ -43,6 +44,7 @@ export class EnginFormComponent implements OnInit {
       registerLocaleData(localeFr, 'fr');
       var pattern = /(\d{2})\/(\d{2})\/(\d{4})/;
       this.date = typeof this.data.date_achat === 'string' ? this.date = new Date(this.data.date_achat.replace(pattern,'$3/$2/$1')) : this.date = new Date((this.data.date_achat).toDate());
+      //data.accessoire_v == 1 ? this.accessoire_v = true : this.accessoire_v = false
     }
 
   ngOnInit() {
@@ -67,7 +69,8 @@ export class EnginFormComponent implements OnInit {
       ]),
       type_v:new FormControl('',Validators.required),
       etat_f:new FormControl('',Validators.required),
-      etat_k:new FormControl('',Validators.required)
+      etat_k:new FormControl('',Validators.required),
+      accessoire_v:new FormControl()
     });
     this.results$ = this.serviceCategorie.GetCategorieList();
     this.results_f$ = this.serviceFournisseur.GetFournisseurList();
