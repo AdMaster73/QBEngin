@@ -13,17 +13,17 @@ import {Observable, Observer} from 'rxjs'
   styleUrls: ['./permissions.component.scss']
 })
 export class PermissionsComponent  implements OnInit  {
-        
-  asyncTabs: Observable<Collections[]>;     
-  displayedColumns: string[] = ['user','list', 'add','update','delete'];
+
+  asyncTabs: Observable<Collections[]>;
+  displayedColumns: string[] = ['user','list', 'add','update','delete','accessoire'];
   dataSource : MatTableDataSource<Roles>;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static : true}) sort: MatSort; 
+  @ViewChild(MatSort, {static : true}) sort: MatSort;
 
   constructor(
     public db : AngularFirestore,
     private collectionsService:CollectionsService,
-    private rolesServices : RolesService, 
+    private rolesServices : RolesService,
     public dialog: MatDialog) {
       this.asyncTabs = new Observable((observer: Observer<Collections[]>) => {
           this.collectionsService.GetCollectionsList().subscribe(result=>{
@@ -35,11 +35,11 @@ export class PermissionsComponent  implements OnInit  {
   ngOnInit(): void {
     this.rolesServices.GetRolesList().subscribe(
       data => {
-        this.dataSource = new MatTableDataSource(data);  
+        this.dataSource = new MatTableDataSource(data);
       }
     )
   }
-  
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -48,7 +48,7 @@ export class PermissionsComponent  implements OnInit  {
       this.dataSource.paginator.firstPage();
       this.dataSource.sort = this.sort;
     }
-  }  
+  }
 
   checkElement(element,id){
     return element ? element.includes(id) : false
@@ -57,11 +57,11 @@ export class PermissionsComponent  implements OnInit  {
     var typeRoles = type
     var rolesId = id
     var collectionId = collId
-    if($event.checked){     
+    if($event.checked){
       this.rolesServices.addRolesCollections(typeRoles,rolesId,collectionId)
     }else{
       this.rolesServices.deleteRolesCollections(typeRoles,rolesId,collectionId)
-    }    
+    }
   }
 
 }
