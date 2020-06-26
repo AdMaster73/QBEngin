@@ -14,22 +14,22 @@ export class RolesService {
 
   constructor(public authService: AuthService,private afs: AngularFirestore,private firebaseAuth: AngularFireAuth) { }
 	/* Cérer un Roles */
-	AddRoles(Roles: Roles){		
+	AddRoles(Roles: Roles){
 		return this.afs.collection('roles').doc(Roles.id.toString()).set({
 			createdBy: this.firebaseAuth.auth.currentUser.uid,
-			createdAt: firestore.FieldValue.serverTimestamp(),  
+			createdAt: firestore.FieldValue.serverTimestamp(),
 			name: Roles.name,
-			intitule: Roles.intitule.toUpperCase()		
+			intitule: Roles.intitule.toUpperCase()
 		})
 	}
-	
+
 	/* Supprimer un Roles */
 	async DeleteRoles(id) {
 		this.afs.doc('roles/'+id).delete()
 	}
 
 	/* Retourne une liste des roless */
-	GetRolesList() {		
+	GetRolesList() {
 		return this.afs.collection<Roles>('roles',ref=> ref.orderBy('createdAt','asc')).snapshotChanges().pipe(
 			map(actions => {
 			return actions.map(a => {
@@ -38,7 +38,7 @@ export class RolesService {
 				return { id, ...data };
 			});
 			})
-		);	
+		);
 	}
 	getRolesByNameAndType(role:string){
 		return this.afs.collection<Roles>('roles',ref=>ref.where('name','==','admin')
@@ -47,86 +47,96 @@ export class RolesService {
 				return actions.map(a=>{
 					const data = a.payload.doc.data() as Roles;
 					const id = a.payload.doc.id;
-					return { id, ...data };	
+					return { id, ...data };
 				})
 			})
 		)
 	}
-	
-	addRolesCollections(typeRoles:string,rolesId:string,collectionId:string){			
+
+	addRolesCollections(typeRoles:string,rolesId:string,collectionId:string){
 		switch (typeRoles) {
 			case 'list':
 				this.afs.doc('/roles/'+rolesId).update({
-					list:firebase.firestore.FieldValue.arrayUnion(collectionId)			
-				})				
+					list:firebase.firestore.FieldValue.arrayUnion(collectionId)
+				})
 				break;
 			case 'add':
 				this.afs.doc('/roles/'+rolesId).update({
-					add:firebase.firestore.FieldValue.arrayUnion(collectionId)			
-				})				
+					add:firebase.firestore.FieldValue.arrayUnion(collectionId)
+				})
 				break;
 			case 'update':
 				this.afs.doc('/roles/'+rolesId).update({
-					update:firebase.firestore.FieldValue.arrayUnion(collectionId)			
-				})			
+					update:firebase.firestore.FieldValue.arrayUnion(collectionId)
+				})
 				break;
 			case 'delete':
 				this.afs.doc('/roles/'+rolesId).update({
-					delete:firebase.firestore.FieldValue.arrayUnion(collectionId)			
-				})				
-				break;											
+					delete:firebase.firestore.FieldValue.arrayUnion(collectionId)
+				})
+				break;
+			case 'accessoire':
+				this.afs.doc('/roles/'+rolesId).update({
+					accessoire:firebase.firestore.FieldValue.arrayUnion(collectionId)
+				})
+				break;
 			default:
 				break;
-		}			
+		}
 	}
 
-	deleteRolesCollections(typeRoles:string,rolesId:string,collectionId:string){			
+	deleteRolesCollections(typeRoles:string,rolesId:string,collectionId:string){
 		switch (typeRoles) {
 			case 'list':
 				this.afs.doc('/roles/'+rolesId).update({
 					list:firebase.firestore.FieldValue.arrayRemove(
-						collectionId		
-					)			
-				})				
+						collectionId
+					)
+				})
 				break;
 			case 'add':
 				this.afs.doc('/roles/'+rolesId).update({
-					add:firebase.firestore.FieldValue.arrayRemove(collectionId)			
-				})				
+					add:firebase.firestore.FieldValue.arrayRemove(collectionId)
+				})
 				break;
 			case 'update':
 				this.afs.doc('/roles/'+rolesId).update({
-					update:firebase.firestore.FieldValue.arrayRemove(collectionId)			
-				})				
+					update:firebase.firestore.FieldValue.arrayRemove(collectionId)
+				})
 				break;
 			case 'delete':
 				this.afs.doc('/roles/'+rolesId).update({
-					delete:firebase.firestore.FieldValue.arrayRemove(collectionId)			
-				})				
-				break;											
+					delete:firebase.firestore.FieldValue.arrayRemove(collectionId)
+				})
+				break;
+			case 'accessoire':
+				this.afs.doc('/roles/'+rolesId).update({
+					accessoire:firebase.firestore.FieldValue.arrayRemove(collectionId)
+				})
+				break;
 			default:
 				break;
-		}			
+		}
 	}
 
 	//Avoir le ID du dernier enregesitrement
-	GetRolesLastRecord(){		
+	GetRolesLastRecord(){
 	  return this.afs.collection('roles', ref => ref
 		.limit(1)
 		.orderBy('createdAt','desc')
-	  )				
+	  )
 	}
-	
+
 	/* Modifier un Roles */
-	UpdateRoles(roles) {  		
+	UpdateRoles(roles) {
 		this.afs.doc('roles/'+roles.id).update({
 			updatedBy: this.firebaseAuth.auth.currentUser.uid,
-			updatedAt: firestore.FieldValue.serverTimestamp(),	
+			updatedAt: firestore.FieldValue.serverTimestamp(),
 			name: roles.name,
 			intitule: roles.intitule.toUpperCase(),
 			listerChantier:roles.listerChantier
-		})														
-	} 
+		})
+	}
 
 	getFilterRoleChantier(){
 		return this.afs.collection<Roles>('roles',ref=>ref.where('listerChantier','==',true)).snapshotChanges().pipe(
@@ -134,10 +144,10 @@ export class RolesService {
 				return actions.map(a=>{
 					const data = a.payload.doc.data() as Roles;
 					const id = a.payload.doc.id;
-					return { id, ...data };	
+					return { id, ...data };
 				})
 			})
 		)
 	}
-  
+
 }
