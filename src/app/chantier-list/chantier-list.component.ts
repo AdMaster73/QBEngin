@@ -25,22 +25,22 @@ export class ChantierListComponent implements OnInit {
 
   collectionPermAdd: boolean
   collectionPermUpdate: boolean
-  collectionPermDelete: boolean  
+  collectionPermDelete: boolean
   collectionMenuToggel:boolean
   EnginData: any = [];
   user$: Observable<{}>;
-  displayedColumns: string[] = ['action','numero', 'designation','compte','archive'];  
+  displayedColumns: string[] = ['action','numero', 'designation','compte','archive'];
   _filter_role_chantier: string[] = []
   is_in_array_chantier:boolean = false
   dataSource : MatTableDataSource<Chantier>;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static : true}) sort: MatSort;   
+  @ViewChild(MatSort, {static : true}) sort: MatSort;
   constructor(
     public db : AngularFirestore,
     public authService: AuthService,
     private rolesService:RolesService,
     private collectionService: CollectionsService,
-    private chantierService : ChantierService, 
+    private chantierService : ChantierService,
     public dialog: MatDialog,private firebaseAuth: AngularFireAuth) {
       (async () => {
         let roleCurrentUser = await (await firebase.auth().currentUser.getIdTokenResult()).claims.role
@@ -57,22 +57,22 @@ export class ChantierListComponent implements OnInit {
                 this.collectionPermDelete = item.delete.includes(collectionId.toString())
                 !this.collectionPermUpdate && !this.collectionPermDelete ? this.collectionMenuToggel = false : this.collectionMenuToggel = true
           })
-        }) 
+        })
         this.rolesService.getFilterRoleChantier().subscribe(roles=>{
           roles.forEach(role=>{
             if(role.name === roleCurrentUser){
               this.is_in_array_chantier = true
             }
           })
-        })     
+        })
     })();
 
-    } 
+    }
   ngOnInit(): void {
     this.chantierService.GetChantierList().subscribe(
       data => {
-        this.dataSource = new MatTableDataSource(data);  
-        this.dataSource.paginator = this.paginator;        
+        this.dataSource = new MatTableDataSource(data);
+        this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.paginator._intl.itemsPerPageLabel = 'Affichage par page.';
         this.paginator._intl.firstPageLabel = 'Page Premier';
@@ -84,8 +84,8 @@ export class ChantierListComponent implements OnInit {
     this.user$ = this.firebaseAuth.user.pipe(
       filter(user => !!user),
       switchMap(user => this.authService.user$(user.uid))
-    )    
-      
+    )
+
   }
 
   applyFilter(event: Event) {
@@ -102,22 +102,22 @@ export class ChantierListComponent implements OnInit {
     const dialogRef = this.dialog.open(ChantierAddComponent);
   }
   /**Modifier Chantier */
-  editChantier(element){       
-    const dialogConfig = new MatDialogConfig();            
+  editChantier(element){
+    const dialogConfig = new MatDialogConfig();
     this.dialog.open(ChantierFormComponent,{data:{
       id:element.id,
       name:element.name,
       compte:element.compte,
       archive:element.archive
     }}).afterClosed().subscribe(result => {
-      if (result){        
+      if (result){
         this.chantierService.UpdateChantier(result)
-      } 
-    });                              
+      }
+    });
   }
   /* Delete */
-  deleteChantier(index:number){   
-    const dialogConfig = new MatDialogConfig();            
+  deleteChantier(index:number){
+    const dialogConfig = new MatDialogConfig();
     this.dialog.open(ChantierDeleteComponent,{data:{
       id:index
     }}).afterClosed().subscribe(result => {
@@ -126,13 +126,12 @@ export class ChantierListComponent implements OnInit {
         data.splice((this.paginator.pageIndex * this.paginator.pageSize) + index, 1);
         this.dataSource.data = data;
         this.chantierService.DeleteChantier(result)
-      } 
-    });                              
+      }
+    });
   }
   /** */
   editUser(chantier:Chantier){
     this.dialog.open(ChantierUserComponent,{data:chantier}).afterClosed().subscribe(_ =>{
-
     })
   }
 }
