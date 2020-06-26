@@ -7,11 +7,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule} from '@angular/material/form-field';
 import { MatIconModule, MatIconRegistry} from '@angular/material/icon';
 import { MatCardModule} from '@angular/material/card';
-import { MatButtonModule, 
-	MatChipsModule, 
+import { MatButtonModule,
+	MatChipsModule,
 	MatExpansionModule,
-	MatDialogModule, 
-	MatNativeDateModule, 
+	MatDialogModule,
+	MatNativeDateModule,
 	MatSelectModule
 	} from '@angular/material';
 import { MatTabsModule} from '@angular/material/tabs';
@@ -63,7 +63,7 @@ import { HeaderComponent, BottomSheetOverviewExampleSheet } from './header/heade
 import { HomeComponent } from './home/home.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { EnginListComponent } from './engin-list/engin-list.component';
-import { EnginFormComponent } from './engin-list/engin-form/engin-form.component'; 
+import { EnginFormComponent } from './engin-list/engin-form/engin-form.component';
 import { EnginAddComponent } from './engin-list/engin-add/engin-add.component';
 
 import { environment } from '../environments/environment';
@@ -113,6 +113,7 @@ import { HistoriqueComponent } from './transfert/historique/historique.component
 import { EncoursAddComponent } from './transfert/encours-add/encours-add.component';
 import { EncoursFormComponent } from './transfert/encours-form/encours-form.component';
 import { EncoursDeleteComponent } from './transfert/encours-delete/encours-delete.component';
+import { EnginAccessoireComponent } from './engin-list/engin-accessoire/engin-accessoire.component';
 
 firebase.initializeApp(environment.firebase);
 
@@ -174,7 +175,8 @@ firebase.initializeApp(environment.firebase);
 	HistoriqueComponent,
 	EncoursAddComponent,
 	EncoursFormComponent,
-	EncoursDeleteComponent
+	EncoursDeleteComponent,
+	EnginAccessoireComponent
   ],
   entryComponents: [
 	BottomSheetOverviewExampleSheet,
@@ -191,7 +193,8 @@ firebase.initializeApp(environment.firebase);
 	UserFormComponentP,
 	UserDeleteComponent,
 	ChantierDeleteComponent,
-	ChantierUserComponent,
+  ChantierUserComponent,
+  EnginAccessoireComponent,
 	RolesAddComponent,
 	RolesDeleteComponent,
 	RolesFormComponent,
@@ -205,10 +208,10 @@ firebase.initializeApp(environment.firebase);
 	EncoursDeleteComponent
   ],
   imports: [
-    BrowserModule,	
-	AppRoutingModule,	
+    BrowserModule,
+	AppRoutingModule,
 	MatIconModule,
-	FormsModule,	
+	FormsModule,
 	ReactiveFormsModule,
 	HttpClientModule,
 	BrowserAnimationsModule,
@@ -230,7 +233,7 @@ firebase.initializeApp(environment.firebase);
 	MatMenuModule,
 	MatBadgeModule,
 	MatGridListModule,
-	MatTableModule,	
+	MatTableModule,
 	MatPaginatorModule,
 	MatSortModule,
 	MatChipsModule,
@@ -247,7 +250,7 @@ firebase.initializeApp(environment.firebase);
     AngularFirestoreModule.enablePersistence()
   ],
   providers: [
-	AuthService,	
+	AuthService,
 	AuthGuardService,
 	UserService,
 	AngularFireAuth,
@@ -258,7 +261,7 @@ firebase.initializeApp(environment.firebase);
 	AngularFirestore,
 	AngularFireAuthGuard,
 	AuthTokenHttpInterceptorProvider,
-	AngularFireDatabase],	
+	AngularFireDatabase],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
