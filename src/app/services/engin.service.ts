@@ -4,6 +4,8 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { map } from 'rxjs/operators';
 import { firestore, User } from 'firebase';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { Observable, combineLatest } from 'rxjs';
+import * as firebase from 'firebase';
 
 
 @Injectable({
@@ -44,7 +46,31 @@ export class EnginService {
 
 	/*Retourner une liste des engin */
 	GetEnginList() {
-		return this.afs.collection<Engin>('engin',ref=> ref.orderBy('createdAt','asc')).snapshotChanges().pipe(
+
+    /* const db = firebase.firestore()
+    db.collection("engin").get().then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
+          doc.ref.update({
+              accessoire_v: 0
+          });
+      });
+    }); */
+
+    return this.afs.collection<Engin>('engin',ref=> ref.orderBy('createdAt','asc'))
+    .snapshotChanges().pipe(
+			map(actions => {
+			return actions.map(a => {
+				const data = a.payload.doc.data() as Engin;
+				const id = a.payload.doc.id;
+				return { id, ...data };
+			})
+			})
+		)
+  }
+	/*Retourner une liste des engin */
+	GetEnginListAccessoire() {
+    return this.afs.collection<Engin>('engin',ref=> ref.where('accessoire_v','==',1))
+    .snapshotChanges().pipe(
 			map(actions => {
 			return actions.map(a => {
 				const data = a.payload.doc.data() as Engin;
@@ -53,6 +79,25 @@ export class EnginService {
 			});
 			})
 		);
+  }
+
+  //
+  addAccessoireEngin(enginId:string,engin:any){
+		this.afs.doc('/engin/'+enginId).update({
+			accessoire:firebase.firestore.FieldValue.arrayUnion(engin.id)
+    })
+    this.afs.doc('/engin/'+enginId).update({
+      accessoire_v:true
+    })
+  }
+  //
+  deleteAccessoireEngin(enginId:string,engin:Engin){
+		const arrayRemove = firebase.firestore.FieldValue.arrayRemove;
+		this.afs.doc('/engin/'+enginId).update({
+			accessoire:arrayRemove(
+				engin.id
+			)
+		})
 	}
 
 	//Avoir le ID du dernier enregesitrement
@@ -61,10 +106,25 @@ export class EnginService {
 		.limit(1)
 		.orderBy('createdAt','desc')
 	  )
+  }
+  //
+
+  listEnginAccessoire(enginID):Observable<Engin[]>{
+		return combineLatest(
+			this.afs.doc('engin/'+enginID).valueChanges(),
+			this.GetEnginList()
+		).pipe(
+			map(([engin,accessoire])=>{
+				if(engin['accessoire'] === undefined){
+					return []
+				}
+				return accessoire.filter(accessoire=>engin['accessoire'].includes(accessoire.id))
+			}))
 	}
 
 	/* Modifier un engin */
 	UpdateEngin(engin) {
+    let accessoire_veh = engin.accessoire_v ? 1 : 0
 		this.afs.doc('engin/'+engin.id).update(
 			{
 				updatedBy: this.firebaseAuth.auth.currentUser.uid,
@@ -88,6 +148,7 @@ export class EnginService {
         type_v:engin.type_v,
         etat_f:engin.etat_f,
         etat_k:engin.etat_k,
+        accessoire_v:accessoire_veh
 			}
 		)
 	}
