@@ -1,0 +1,49 @@
+<div class="example-action-buttons">
+  <button type="button"
+      class="close"
+      aria-describedby="modal-title"
+      mat-dialog-close>
+      <span aria-hidden="true">&times;</span>
+  </button>
+  <p>Informations sur les accéssoires affectés </p>
+  <p><span class="mat-subheading-1">{{data.name}} code : {{data.code}}</span></p>
+</div>
+<mat-accordion class="example-headers-align" multi>
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+  <mat-panel-title>
+      Engin :
+  </mat-panel-title>
+  <mat-panel-description>
+      {{data.name}}
+      <mat-icon>commute</mat-icon>
+  </mat-panel-description>
+  </mat-expansion-panel-header>
+
+  <!-- Engin Accessoire -->
+  <mat-form-field class="example-chip-list">
+  <mat-chip-list #chipList aria-label="Engin selection">
+      <mat-chip *ngFor="let engin of engins"
+              [selectable]="selectable"
+              [removable]="removable"
+              (removed)="remove(engin)">
+              ({{engin.code}}) {{engin.name}}
+      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+      </mat-chip>
+      <input placeholder="Nouvau Accéssoire..."
+              #enginInput
+              [formControl]="enginCtrl"
+              [matAutocomplete]="auto"
+              [matChipInputFor]="chipList"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              (matChipInputTokenEnd)="add($event)">
+  </mat-chip-list>
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+      <mat-option *ngFor="let engin of (filteredEngins | async)" [value]="engin">
+      {{engin.code}} | ({{engin.name}})
+      </mat-option>
+  </mat-autocomplete>
+  </mat-form-field>
+
+</mat-expansion-panel>
+</mat-accordion>
