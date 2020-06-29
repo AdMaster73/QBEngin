@@ -101,7 +101,7 @@ var EnginService = /** @class */ (function () {
         db.collection("engin").get().then(function(querySnapshot) {
           querySnapshot.forEach(function(doc) {
               doc.ref.update({
-                  accessoire_v: 0
+                  compteur: 0
               });
           });
         }); */
@@ -182,7 +182,8 @@ var EnginService = /** @class */ (function () {
             type_v: engin.type_v,
             etat_f: engin.etat_f,
             etat_k: engin.etat_k,
-            accessoire_v: accessoire_veh
+            accessoire_v: accessoire_veh,
+            compteur: engin.compteur
         });
     };
     EnginService = __decorate([
