@@ -137,6 +137,12 @@
               </mat-select>
             </mat-form-field>
 
+            <!-- COMPTEUR -->
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Compteur</mat-label>
+              <input matInput placeholder="Compteur Kilomêtre/Heure" formControlName="compteur" [(ngModel)]="data.compteur" type="number">
+            </mat-form-field>
+
             <!---->
             <mat-slide-toggle [(ngModel)]="data.accessoire_v" formControlName="accessoire_v">Accéssoire</mat-slide-toggle>
 
