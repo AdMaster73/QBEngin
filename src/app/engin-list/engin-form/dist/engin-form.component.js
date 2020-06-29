@@ -61,10 +61,11 @@ var EnginFormComponent = /** @class */ (function () {
                 forms_1.Validators.minLength(6),
                 forms_1.Validators.maxLength(6)
             ]),
-            type_v: new forms_1.FormControl('', forms_1.Validators.required),
-            etat_f: new forms_1.FormControl('', forms_1.Validators.required),
-            etat_k: new forms_1.FormControl('', forms_1.Validators.required),
-            accessoire_v: new forms_1.FormControl()
+            type_v: new forms_1.FormControl(),
+            etat_f: new forms_1.FormControl(),
+            etat_k: new forms_1.FormControl(),
+            accessoire_v: new forms_1.FormControl(),
+            compteur: new forms_1.FormControl()
         });
         this.results$ = this.serviceCategorie.GetCategorieList();
         this.results_f$ = this.serviceFournisseur.GetFournisseurList();
