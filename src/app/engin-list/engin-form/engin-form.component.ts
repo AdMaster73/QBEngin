@@ -67,10 +67,11 @@ export class EnginFormComponent implements OnInit {
         Validators.minLength(6),
         Validators.maxLength(6)
       ]),
-      type_v:new FormControl('',Validators.required),
-      etat_f:new FormControl('',Validators.required),
-      etat_k:new FormControl('',Validators.required),
-      accessoire_v:new FormControl()
+      type_v:new FormControl(),
+      etat_f:new FormControl(),
+      etat_k:new FormControl(),
+      accessoire_v:new FormControl(),
+      compteur:new FormControl()
     });
     this.results$ = this.serviceCategorie.GetCategorieList();
     this.results_f$ = this.serviceFournisseur.GetFournisseurList();
