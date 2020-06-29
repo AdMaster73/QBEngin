@@ -51,7 +51,7 @@ export class EnginService {
     db.collection("engin").get().then(function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
           doc.ref.update({
-              accessoire_v: 0
+              compteur: 0
           });
       });
     }); */
@@ -148,7 +148,8 @@ export class EnginService {
         type_v:engin.type_v,
         etat_f:engin.etat_f,
         etat_k:engin.etat_k,
-        accessoire_v:accessoire_veh
+        accessoire_v:accessoire_veh,
+        compteur:engin.compteur
 			}
 		)
 	}
