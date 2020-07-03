@@ -55,6 +55,15 @@ export class EnginService {
           });
       });
     }); */
+    let maintenant:string = new Date().toLocaleDateString('fr-FR')
+    const db = firebase.firestore()
+    db.collection("engin").where('last_pointage','==',maintenant).get().then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
+          doc.ref.update({
+              compteur: 0
+          });
+      });
+    });
 
     return this.afs.collection<Engin>('engin',ref=> ref.orderBy('createdAt','asc'))
     .snapshotChanges().pipe(
