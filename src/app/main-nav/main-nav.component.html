@@ -1,40 +1,4 @@
 
-<!--mat-sidenav-container class="sidenav-full">
-  <mat-sidenav #sidenavNotification mode="side" position="end" class="sidenav-wv">
-    Notifications
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <mat-sidenav-container class="sidenav-full">
-      <mat-sidenav #sidenav opened mode="'over'" position="start" [attr.role]="'navigation'" class="sidenav-wv" [class.mat-elevation-z8]="true">
-        <div fxLayout="column" class="sidenav-normal">     
-          <div class="branding">
-            <button (click)="sidenav.toggle()" routerLink="/sidenav" mat-button class="color-white" style="padding-left: 0px;">
-              <i class="material-icons">reorder</i>
-              </button>
-          </div>             
-          <a routerLink="/sidenav/books" style="text-align: center;" matTooltip="Info about the action" >
-            <mat-icon class="material-icons" mat-list-icon>add_circle</mat-icon>
-          </a>            
-          <a routerLink="/sidenav/users" style="text-align: center;" mat-list-item ><mat-icon class="material-icons">work</mat-icon></a>
-          <a routerLink="/sidenav/not-found" style="text-align: center;" mat-list-item ><mat-icon class="material-icons">library_books</mat-icon></a>
-          <a routerLink="/sidenav/appareils" style="text-align: center;" mat-list-item ><mat-icon class="material-icons">chat</mat-icon></a>     
-        </div>
-      </mat-sidenav>
-      <mat-sidenav-content style="margin-left: 50px;">
-        <mat-toolbar [class.mat-elevation-z8]="true">
-          <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="sidenav.toggle();toggle()">
-            <mat-icon aria-label="Side nav toggle icon" *ngIf="shouldShow">keyboard_arrow_right</mat-icon>
-            <mat-icon aria-label="Side nav toggle icon" *ngIf="!shouldShow">keyboard_arrow_left</mat-icon>
-          </button>         
-          <app-header class="fill-remaining-space"></app-header>
-        </mat-toolbar>
-      
-        <router-outlet></router-outlet>
-      </mat-sidenav-content>
-    </mat-sidenav-container>
-  </mat-sidenav-content>
-</mat-sidenav-container-->
-
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #drawer class="sidenav" fixedInViewport="false"
       [attr.role]="'navigation'"
@@ -50,55 +14,20 @@
     <mat-nav-list class="navigation-list" (mouseleave)="drawer.close()">
       <mat-divider class="navigation-divider"></mat-divider>
       <ng-container *ngFor="let collection of collections$ | async">
-        <a class="navigation-item" mat-list-item routerLink="/sidenav/{{collection.name}}" matTooltip="{{collection.toolTipe}}" routerLinkActive="active">          
-          <mat-icon class="material-icons">{{collection.icon}}</mat-icon> 
+        <a class="navigation-item" mat-list-item routerLink="/sidenav/{{collection.name}}" matTooltip="{{collection.toolTipe}}" routerLinkActive="active">
+          <mat-icon class="material-icons">{{collection.icon}}</mat-icon>
           <span class="navigation-item-label">{{collection.intitule}}</span>
         </a>
       </ng-container>
-      <!-- <img src="https://img.icons8.com/color/24/000000/container-truck.png"/> -->
-
- <!--      <a class="navigation-item" mat-list-item routerLink="/sidenav/categorie" matTooltip="Catégorie" routerLinkActive="active">
-        <mat-icon class="material-icons">reorder</mat-icon>        
-        <span class="navigation-item-label">Cat&eacute;gorie</span>
-      </a> 
-      <a class="navigation-item" mat-list-item routerLink="/sidenav/fournisseur" matTooltip="Fournisseur" routerLinkActive="active">
-        <mat-icon class="material-icons">apartment</mat-icon>        
-        <span class="navigation-item-label">Fournisseur</span>
-      </a>        
-      <a class="navigation-item" mat-list-item routerLink="/sidenav/chantier" matTooltip="Chantier" routerLinkActive="active">
-        <mat-icon class="material-icons">place</mat-icon>        
-        <span class="navigation-item-label">Place</span>
-      </a> 
-      <a class="navigation-item" mat-list-item routerLink="/sidenav/pointage" matTooltip="Pointage" routerLinkActive="active">
-        <mat-icon class="material-icons">my_location</mat-icon>        
-        <span class="navigation-item-label">Pointage</span>
-      </a> 
-      <a class="navigation-item" mat-list-item routerLink="/sidenav/transfert" matTooltip="Transfert" routerLinkActive="active">
-        <mat-icon class="material-icons">compare_arrows</mat-icon>        
-        <span class="navigation-item-label">Trnasfert</span>
-      </a>       
-
-      <ng-container *ngIf="user$ | async; let user">
-        <a class="navigation-item"  *ngIf="user.role==='admin'" mat-list-item routerLink="/sidenav/user" 
-        matTooltip="Utilisateur" routerLinkActive="active">
-          <mat-icon class="material-icons">account_circle</mat-icon>        
-          <span class="navigation-item-label">Utilisateur</span>
-        </a> 
-        <a class="navigation-item"  *ngIf="user.role==='admin'" mat-list-item routerLink="/sidenav/settings"
-        matTooltip="Les accées" routerLinkActive="active">
-          <mat-icon class="material-icons">settings</mat-icon>        
-          <span class="navigation-item-label">Paramêtrage</span>
-        </a>
-      </ng-container>  -->     
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content class="sidenav-content">
-    <mat-toolbar class="sidenav-content-toolbar" [class.mat-elevation-z8]="true" color="primary">      
+    <mat-toolbar class="sidenav-content-toolbar" [class.mat-elevation-z8]="true" color="primary">
       <span class="filler">
           <!-- You can place a search bar here or anything you like -->
           <app-header class="fill-remaining-space"></app-header>
       </span>
     </mat-toolbar>
-    <router-outlet></router-outlet>    
+    <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
