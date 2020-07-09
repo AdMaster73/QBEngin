@@ -1,3 +1,20 @@
-<li>
-            
-</li>
+<mat-nav-list>
+  <mat-list-item *ngFor="let notification of listNotification | async">
+     <a matLine>Une {{ notification.type.toUpperCase() }} de l'engin {{ notification.engin.code }} - {{notification.engin.name}}
+       du provenance {{notification.provenance.name}} vers <p>{{notification.destination.name}}, est en attente de votre validation notifiée par
+         {{notification.userName}} ({{notification.role}})</p>
+     </a>
+     <button mat-icon-button (click)="archiveInfo(notification)" matTooltip="Archiver">
+        <mat-icon>archive</mat-icon>
+     </button>
+     <button mat-icon-button (click)="deleteInfo(notification)" matTooltip="Refuser">
+        <mat-icon>delete</mat-icon>
+     </button>
+     <button mat-icon-button (click)="waitInfo(notification)" matTooltip="Mettre en attente">
+        <mat-icon>query_builder</mat-icon>
+     </button>
+     <button mat-icon-button (click)="validateInfo(notification)" matTooltip="Valider">
+        <mat-icon>check</mat-icon>
+     </button>
+  </mat-list-item>
+</mat-nav-list>
