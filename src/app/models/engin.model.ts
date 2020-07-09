@@ -84,3 +84,18 @@ export interface Engin {
   export enum Type_vidange{
     HEURE,KILOMETRAGE
   }
+
+  export interface Notification{
+    uid:string,
+    type:string,
+    engin:number,
+    etat:number,
+    destination?:Chantier,
+    provenance?:Chantier,
+    description?:string,
+    message?:string,
+    createdBy?:string,
+    createdAt?:Date,
+    updateBy?:string,
+    updatedAt?:Date
+  }
