@@ -1,22 +1,25 @@
 <ng-container *ngIf="user$ | async; let user">
   <mat-toolbar-row>
     <button routerLink="/sidenav" mat-button>{{title}}</button>
-    <span class="example-spacer"></span>
-    <button mat-icon-button (click)="toggleRightSidenav()" class="btn-notification">
-      <mat-icon aria-hidden="false" class="" aria-label="">notifications        
+    <span class="example-spacer"></span>   <!-- [matMenuTriggerFor]="menul"  -->
+    <button mat-icon-button *ngIf="listNotification | async; let notification" (click)="openBottomSheet()"  class="btn-notification">
+      <mat-icon aria-hidden="false" class="" aria-label="">notifications
       </mat-icon>
-      <span class="notification-number mat-bg-warn">3</span>
+      <span class="notification-number mat-bg-warn" *ngIf="countNot">{{countNot}}</span>
     </button>
+
+
+
     <!---->
     <span class="spacer"></span>
-  <button mat-icon-button [matMenuTriggerFor]="menu" 
-  aria-label="Example icon-button with a menu" 
+  <button mat-icon-button [matMenuTriggerFor]="menu"
+  aria-label="Example icon-button with a menu"
   class="btn-avatar">
-    <ngx-avatar 
-    gravatarId="{{user.email}}" 
-    src="assets/img/avatar.svg" 
+    <ngx-avatar
+    gravatarId="{{user.email}}"
+    src="assets/img/avatar.svg"
     name="{{user.displayName}}"
-     class="myAvatar" 
+     class="myAvatar"
      [style]="customStyle">
     </ngx-avatar>
   </button>
@@ -24,30 +27,30 @@
     <mat-card class="avatar-card">
       <mat-card-header>
         <div mat-card-avatar class="header-image">
-          <ngx-avatar 
-          gravatarId="{{user.email}}" 
+          <ngx-avatar
+          gravatarId="{{user.email}}"
           name="{{user.displayName}}"
           src="assets/img/avatar.svg"
-          [style]="customStyle" 
-          matBadge="V" 
-          [matBadgeOverlap]="user.emailVerified" 
+          [style]="customStyle"
+          matBadge="V"
+          [matBadgeOverlap]="user.emailVerified"
           matBadgePosition="above after"></ngx-avatar>
         </div>
         <mat-card-title>{{user.displayName}}</mat-card-title>
         <mat-card-subtitle>{{user.email}}</mat-card-subtitle>
-      </mat-card-header>              
+      </mat-card-header>
       <mat-card-content>
         <mat-chip-list aria-label="Fish selection">
           <mat-chip>{{user.role}}</mat-chip>
-        </mat-chip-list>        
+        </mat-chip-list>
       </mat-card-content>
-      <mat-card-actions>       
+      <mat-card-actions>
         <button mat-raised-button color="accent" (click)="onSignOut()" matTooltip="Se déconnecter de votre compte">
           <i class="material-icons">power_settings_new</i>
         </button>
         <button mat-raised-button *ngIf="user.role==='admin'" color="primary" (click)="onSignUp()" matTooltip="Ajouter un autre compte">
           <i class="material-icons">person_add</i>
-        </button>        
+        </button>
       </mat-card-actions>
     </mat-card>
   </mat-menu>
