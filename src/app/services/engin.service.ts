@@ -161,5 +161,19 @@ export class EnginService {
         compteur:engin.compteur
 			}
 		)
-	}
+  }
+
+  /**retoure un objet de type engin */
+
+  getEnginById(engin){
+    return this.afs.collection<Engin>('engin',ref=>ref.where(firestore.FieldPath.documentId(),'==',engin.toString())).snapshotChanges().pipe(
+      map(action=>{
+        return action.map(a=>{
+          const data = a.payload.doc.data() as Engin;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        })
+      })
+    )
+  }
 }
