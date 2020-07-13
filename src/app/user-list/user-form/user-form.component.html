@@ -27,6 +27,16 @@
             </mat-error>
           </mat-form-field>
 
+          <!-- User phone number -->
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Téléphone</mat-label>
+            <input matInput type="tel" placeholder="Téléphone" formControlName="phoneNumber" [(ngModel)]="data.phoneNumber">
+            <mat-error *ngIf="handleError('phoneNumber', 'pattern')">
+              Vous devez Entrer le <strong>Téléphone</strong>
+            </mat-error>
+            <small>Format: (-212xxxxxxxxx)</small>
+          </mat-form-field>
+
           <!-- User password -->
           <mat-form-field appearance="outline">
             <mat-label>Entrer le nouveau mot de passe</mat-label>
