@@ -9,18 +9,18 @@ import {  mergeMap, map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { User } from 'firebase';
 
-export type CreateUserRequest = { displayName: string, password: string, email: string, role: string }
+export type CreateUserRequest = { displayName: string, password: string, email: string, role: string, phoneNumber: string }
 export type UpdateUserRequest = { uid: string } & CreateUserRequest
 
 @Injectable({providedIn:'root'})
 export class AuthService{
 
   isAuth = false;
-  user : Observable<User>  
+  user : Observable<User>
   private baseUrl = 'https://us-central1-admater-a06e8.cloudfunctions.net/api/users'
-  
+
  constructor(private afs: AngularFirestore,private db:AngularFireDatabase,
-  private firebaseAuth: AngularFireAuth,private http: HttpClient){} 
+  private firebaseAuth: AngularFireAuth,private http: HttpClient){}
 /**
  */
 /** */
@@ -54,27 +54,27 @@ remove(user: UpdateUserRequest) {
 }
 
  /* */
-  public updateUserData(user) {   
-    var data = user    
+  public updateUserData(user) {
+    var data = user
      const userRef: AngularFirestoreDocument<User> = this.afs
     .doc(`users/${this.firebaseAuth.auth.currentUser.uid}`)
-    userRef.snapshotChanges().subscribe(actions =>{         
-        data = {      
+    userRef.snapshotChanges().subscribe(actions =>{
+        data = {
           updatedBy: this.firebaseAuth.auth.currentUser.uid,
-			    updatedAt: firebase.firestore.FieldValue.serverTimestamp(),     
-          email: user.user.email, 
-          displayName: user.user.displayName,          
-        }                       
-      userRef.set(data, { merge: true })         
-    })   
+			    updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+          email: user.user.email,
+          displayName: user.user.displayName,
+        }
+      userRef.set(data, { merge: true })
+    })
   }
 
 createNewUser(email: string, password: string) {
     return new Promise(
       (resolve, reject) => {
         firebase.auth().createUserWithEmailAndPassword(email, password).then(
-          (user) => {   
-            this.updateUserData(user)                                                                               
+          (user) => {
+            this.updateUserData(user)
             resolve();
           },
           (error) => {
@@ -85,7 +85,7 @@ createNewUser(email: string, password: string) {
     );
 }
 
-getUser(): Observable<any> {  
+getUser(): Observable<any> {
   return this.firebaseAuth.authState.pipe(
     mergeMap(authState => {
       if (authState) {
@@ -104,21 +104,21 @@ return new Promise((resolve,reject)=>{
       resolve (true)
     } else {
       resolve (false)
-    } 
-  }) 
-}) 
+    }
+  })
+})
 }
 
 isSuperAdmin(){
   return new Promise(
     (resolve, reject) => {
       firebase.auth().currentUser.getIdTokenResult().then(
-        (idTokenResult) => {  
+        (idTokenResult) => {
           if(idTokenResult.claims.role === 'admin'){
             resolve(true)
           } else {
             resolve(false)
-          }                                  
+          }
         },
         (error) => {
           reject(error);
@@ -132,9 +132,9 @@ signInUser(email: string, password: string) {
     return new Promise(
       (resolve, reject) => {
         firebase.auth().signInWithEmailAndPassword(email, password).then(
-          (user) => {  
-            this.updateUserData(user) 
-            this.isAuth = true                                   
+          (user) => {
+            this.updateUserData(user)
+            this.isAuth = true
             resolve();
           },
           (error) => {
@@ -144,26 +144,26 @@ signInUser(email: string, password: string) {
         );
       }
     );
-  }	
+  }
   signOutUser() {
       firebase.auth().signOut();
-  }	
-	
+  }
+
 	signIn(){
 		return new Promise(
 		  (resolve, reject) => {
 			setTimeout(
-      (user) => {     
+      (user) => {
         this.updateUserData(user)
-        this.isAuth = true;        
+        this.isAuth = true;
 				resolve(true);
 			  }, 2000
 			);
 		  }
-		);	
+		);
   }
 
 	signOut(){
-    this.isAuth = false;  
+    this.isAuth = false;
   }
 }
