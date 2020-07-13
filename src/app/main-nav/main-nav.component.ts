@@ -21,8 +21,8 @@ export class MainNavComponent  implements AfterViewInit, OnInit{
 
   user$: Observable<{}>;
   collections$ : Observable<Collections[]>;
-  roleUser: string[]=[]; 
-  roleCurrentUser:string; 
+  roleUser: string[]=[];
+  roleCurrentUser:string;
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
@@ -30,16 +30,16 @@ export class MainNavComponent  implements AfterViewInit, OnInit{
     );
     opened: boolean;
     shouldShow = true;
-    toggle() { this.shouldShow = !this.shouldShow; }       
-  @ViewChild('sidenavNotification',{'static':false}) public sidenav: MatSidenav 
+    toggle() { this.shouldShow = !this.shouldShow; }
+  @ViewChild('sidenavNotification',{'static':false}) public sidenav: MatSidenav
   constructor(
     private breakpointObserver: BreakpointObserver,
     private afs: AngularFirestore,
     private rolesService:RolesService,
-    private firebaseAuth: AngularFireAuth,    
+    private firebaseAuth: AngularFireAuth,
     private sidenavService: SidenavService,
     private authService: AuthService,
-    public router: Router) {       
+    public router: Router) {
       (async () => {
           this.roleCurrentUser = await (await firebase.auth().currentUser.getIdTokenResult()).claims.role
           this.collections$ = new Observable((observer: Observer<Collections[]>) => {
@@ -47,23 +47,23 @@ export class MainNavComponent  implements AfterViewInit, OnInit{
             roles.forEach(item=>{
               this.afs
               .collection<Collections>('collections',ref=>ref.where(firebase.firestore.FieldPath.documentId(),'in',item.list)).valueChanges()
-              .subscribe(result=>{              
+              .subscribe(result=>{
                 observer.next(result)
-              })                     
+              })
             })
-          }) 
-        })                             
-      })();         
-    }   
-  ngOnInit(){                
+          })
+        })
+      })();
+    }
+  ngOnInit(){
     this.user$ = this.firebaseAuth.user.pipe(
       filter(user => !!user),
       switchMap(user => this.authService.user$(user.uid))
-    )                              
-		        
+    )
+
   }
     ngAfterViewInit(): void {
-      this.sidenavService.setSidenav(this.sidenav);      
-    }    
+      this.sidenavService.setSidenav(this.sidenav);
+    }
 
 }
