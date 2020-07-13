@@ -87,8 +87,11 @@ export interface Engin {
 
   export interface Notification{
     uid:string,
+    first_validation?:firebase.User[],
+    second_validation?:firebase.User[],
+    dex_dtu?:firebase.User[],
     type:string,
-    engin:number,
+    engin:Engin,
     etat:number,
     destination?:Chantier,
     provenance?:Chantier,
