@@ -60,6 +60,8 @@ export class UserFormComponent implements OnInit {
       displayName: new FormControl(),
       email:['',[ Validators.required,Validators.email]],
       password: new FormControl(),
+      //phoneNumber: new FormControl(),
+      phoneNumber: ['',Validators.pattern("^((\\+212-?)|0)?[0-9]{9}$")],
       role:new FormControl()
     });
   }
