@@ -37,7 +37,7 @@ export class UserAddComponent implements OnInit {
   Users: User[];
   results$ : Observable<any[]>;
   results_f$: Observable<any[]>;
-  startAt: BehaviorSubject<string | null> = new BehaviorSubject('');   
+  startAt: BehaviorSubject<string | null> = new BehaviorSubject('');
   roles: Roles[]
 
   @ViewChild('resetUserForm',{static: true}) myNgForm : NgForm;
@@ -48,29 +48,30 @@ export class UserAddComponent implements OnInit {
     email: new FormControl(''),
     displayName: new FormControl(''),
     password: new FormControl(''),
+    phoneNumber: new FormControl(''),
     role: new FormControl(''),
   });
   title$: Observable<string>;
-  user$: Observable<{}>; 
+  user$: Observable<{}>;
   constructor(
     public afs : AngularFireAuth,
       public db : AngularFirestore,
       public fb: FormBuilder,
       private userForm: UserFormService,
-      public authService : AuthService,      
+      public authService : AuthService,
       private rolesService: RolesService,
       @Inject(MAT_DIALOG_DATA) public data: User,
       public dialogRef: MatDialogRef<UserListComponent>) {}
 
-  ngOnInit() {  
+  ngOnInit() {
     this.rolesService.GetRolesList().subscribe(role=>{
       this.roles = role
     })
-    this.title$ = this.userForm.title$;        
+    this.title$ = this.userForm.title$;
   }
   search(searchText){
     this.startAt.next(searchText);
-  }  
+  }
 
   /* Reactive book form */
   submitUserForm() {
@@ -78,22 +79,22 @@ export class UserAddComponent implements OnInit {
     if (this.UserForm.invalid) {
       return;
     }
-    const { displayName, email, role, password }:CreateUserRequest = this.UserForm.value;       
-  
-    this.authService.create({ displayName, email, role, password }).subscribe(
+    const { displayName, email, role, password, phoneNumber }:CreateUserRequest = this.UserForm.value;
+
+    this.authService.create({ displayName, email, role, password, phoneNumber }).subscribe(
       res => {
         this.dialogRef.close();
       }
-    )          
+    )
   }
   /* Get errors */
   public handleError = (controlName: string, errorName: string) => {
     return this.UserForm.controls[controlName].hasError(errorName);
-  }  
+  }
 
   /* Reset form */
-  closeForm() {        
-    this.dialogRef.close(); 
+  closeForm() {
+    this.dialogRef.close();
   }
 
 }
