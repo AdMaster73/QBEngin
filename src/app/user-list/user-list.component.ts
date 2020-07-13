@@ -44,15 +44,15 @@ export class UserListComponent implements OnInit {
         'thumbs-up',
         sanitizer.bypassSecurityTrustResourceUrl('/assets/icons/person_add-24px.svg')); */
     }
-  displayedColumns: string[] = ['action','nom','email','creationTime','lastSignInTime','role'];
+  displayedColumns: string[] = ['action','nom','email','creationTime','tele','role'];
   dataSource : MatTableDataSource<User>;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static : true}) sort: MatSort; 
-  ngOnInit() {    
+  @ViewChild(MatSort, {static : true}) sort: MatSort;
+  ngOnInit() {
       this.authService.users$.subscribe(
-        data => {        
-          this.dataSource = new MatTableDataSource(data);  
-          this.dataSource.paginator = this.paginator;        
+        data => {
+          this.dataSource = new MatTableDataSource(data);
+          this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
           this.paginator._intl.itemsPerPageLabel = 'Affichage par page.';
           this.paginator._intl.firstPageLabel = 'Page Premier';
@@ -68,14 +68,14 @@ export class UserListComponent implements OnInit {
       )
 
     }
-    setColorRole(color) {      
+    setColorRole(color) {
       return color === 'admin' ? 'primary' : 'undefined'
     }
 
     applyFilter(event: Event) {
       const filterValue = (event.target as HTMLInputElement).value;
       this.dataSource.filter = filterValue.trim().toLowerCase();
-  
+
       if (this.dataSource.paginator) {
         this.dataSource.paginator.firstPage();
         this.dataSource.sort = this.sort;
@@ -83,7 +83,7 @@ export class UserListComponent implements OnInit {
     }
     /** Ajouter nouveau Fournisseur */
     addUser(): void{
-      this.userForm.create();      
+      this.userForm.create();
       this.dialog.open(UserAddComponent).afterClosed().subscribe(_=>{
         this.authService.users$.subscribe(users=>{
           this.dataSource.connect().next(users)
@@ -91,26 +91,27 @@ export class UserListComponent implements OnInit {
       })
     }
     /**Modifier Fournisseur */
-    editUser(element){              
+    editUser(element){
       this.dialog.open(UserFormComponent,{data:{
         uid:element.uid,
         displayName:element.displayName,
         email:element.email,
         password:element.password,
-        role:element.role        
+        phoneNumber:element.phoneNumber,
+        role:element.role
       }}).afterClosed().subscribe(user => {
         if (user){
-          this.authService.edit(user).subscribe(_ =>{            
+          this.authService.edit(user).subscribe(_ =>{
             this.authService.users$.subscribe(users=>{
               this.dataSource.connect().next(users)
             })
           })
-        } 
-      });                   
+        }
+      });
     }
 
     /* Delete */
-    deleteUser(element){  
+    deleteUser(element){
       this.dialog.open(UserDeleteComponent,{data:{
         uid:element.uid,
         displayName:element.displayName,
@@ -120,10 +121,10 @@ export class UserListComponent implements OnInit {
         photoURL:element.photoURL,
         emailVerified:element.emailVerified,
         creationTime:element.creationTime,
-        lastSignInTime:element.lastSignInTime        
+        lastSignInTime:element.lastSignInTime
       }}).afterClosed().subscribe(result =>
         {
-          if(result){                   
+          if(result){
             this.authService.remove(result)
             this.authService.users$.subscribe(users=>{
               this.dataSource.connect().next(users)
