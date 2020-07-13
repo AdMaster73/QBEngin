@@ -6,7 +6,7 @@ export async function create(req: Request, res: Response) {
        const { displayName, password, email, role } = req.body
 
        if (!displayName || !password || !email || !role) {
-           return res.status(400).send({ message: 'Missing fields' })
+           return res.status(400).send({ message: 'des champs manquants au creation !' })
        }
 
        const { uid } = await admin.auth().createUser({
@@ -64,14 +64,15 @@ export async function get(req: Request, res: Response) {
 
 export async function patch(req: Request, res: Response) {
    try {
-       const { id } = req.params
-       const { displayName, password, email, role } = req.body
 
-       if (!id || !displayName || !email || !role) {
-           return res.status(400).send({ message: 'Missing fields' })
+       const { id } = req.params
+       const { displayName, password, email, phoneNumber, role } = req.body
+
+       if (!id || !displayName || !email || !role || !phoneNumber) {
+           return res.status(400).send({ message: 'des champs manquants pour la modification !' })
        }
 
-       await admin.auth().updateUser(id, { displayName, password, email })
+       await admin.auth().updateUser(id, { displayName, password, email, phoneNumber })
        await admin.auth().setCustomUserClaims(id, { role })
        const user = await admin.auth().getUser(id)
 
