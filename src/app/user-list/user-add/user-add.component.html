@@ -4,7 +4,7 @@
     <h1 class="mat-h1">{{ title$ | async}}</h1>
     <mat-divider fxFlex="1 0"></mat-divider>
   </div>
- 
+
   <!-- User form -->
   <div class="example-container">
     <form [formGroup]="UserForm" (ngSubmit)="submitUserForm()">
@@ -17,7 +17,7 @@
             <mat-error *ngIf="handleError('displayName', 'required')">
               Vous devez Entrer le <strong>Nom complet</strong>
             </mat-error>
-          </mat-form-field>   
+          </mat-form-field>
 
           <!-- user email -->
           <mat-form-field class="example-full-width" appearance="outline">
@@ -25,7 +25,15 @@
             <mat-error *ngIf="handleError('email', 'required')">
               Vous devez Entrer l'<strong>Email</strong> Valide
             </mat-error>
-          </mat-form-field>          
+          </mat-form-field>
+
+          <!-- user phone -->
+          <mat-form-field class="example-full-width" appearance="outline">
+            <input matInput placeholder="Téléphone" formControlName="phoneNumber">
+            <mat-error *ngIf="handleError('phoneNumber', 'pattern')">
+              Vous devez Entrer un numéro de <strong>Téléphone</strong> Valide
+            </mat-error>
+          </mat-form-field>
 
           <!-- User password -->
           <mat-form-field appearance="outline">
@@ -36,7 +44,7 @@
               <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
           </mat-form-field>
-          
+
           <!-- User rôle -->
           <mat-form-field>
             <mat-label>Rôle</mat-label>
@@ -45,18 +53,18 @@
                 {{role.intitule}}
               </mat-option>
             </mat-select>
-          </mat-form-field>        
+          </mat-form-field>
 
           <mat-card-actions>
-            <button mat-fab color="primary" 
-            [disabled]="UserForm.invalid" 
+            <button mat-fab color="primary"
+            [disabled]="UserForm.invalid"
             matTooltip="Nouvelle élement">
               <mat-icon aria-label="Example icon-button with a heart icon">person_add</mat-icon>
             </button>
             <button mat-fab color="accent" mat-dialog-close matTooltip="Annuler">
               <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
             </button>
-          </mat-card-actions>             
+          </mat-card-actions>
       </mat-card>
     </form>
   </div>
