@@ -41,7 +41,7 @@ export class RolesService {
 		);
 	}
 	getRolesByNameAndType(role:string){
-		return this.afs.collection<Roles>('roles',ref=>ref.where('name','==','admin')
+		return this.afs.collection<Roles>('roles',ref=>ref.where('name','==',role)
 		/* .where('list','array-contains','1') */).snapshotChanges().pipe(
 			map(actions =>{
 				return actions.map(a=>{
