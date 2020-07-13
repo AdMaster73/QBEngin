@@ -39,6 +39,7 @@ import { MatDatepickerModule} from '@angular/material/datepicker';
 import { MatTooltipModule} from '@angular/material/tooltip';
 import { MatStepperModule } from '@angular/material/stepper';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 /* routing */
 import { AppRoutingModule } from './app-routing.module';
@@ -245,7 +246,8 @@ firebase.initializeApp(environment.firebase);
 	MatSelectModule,
 	MatTooltipModule,
 	MatStepperModule,
-	DragDropModule,
+  DragDropModule,
+  MatSnackBarModule,
 	AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule.enablePersistence()
   ],
