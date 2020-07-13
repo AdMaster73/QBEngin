@@ -6,10 +6,12 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { UserService } from '../services/user.service'
-import { filter, switchMap } from 'rxjs/operators';
+import { filter, switchMap, map } from 'rxjs/operators';
 import { Roles, Notification, Engin } from '../models/engin.model';
 import { async } from '@angular/core/testing';
 import { EnginService } from '../services/engin.service';
+import { MatSnackBar } from '@angular/material';
+import { User } from 'firebase';
 
 @Component({
   selector: 'app-header',
@@ -96,12 +98,20 @@ export class HeaderComponent implements OnInit {
 export class BottomSheetOverviewExampleSheet {
   listNotification : Observable <Notification[]>
   engins: Observable<Engin[]>
+  user$: Observable<{}>;
   constructor(private _bottomSheetRef: MatBottomSheetRef<BottomSheetOverviewExampleSheet>
-    ,private sidenaveService: SidenavService,private enginService:EnginService) {
+    ,private sidenaveService: SidenavService,
+    private firebaseAuth: AngularFireAuth,
+    private enginService:EnginService,
+    public authService: AuthService,
+    private _snackBar: MatSnackBar) {
     }
   ngOnInit() {
     this.listNotification = this.sidenaveService.getNotificationByUser()
-
+    this.user$ = this.firebaseAuth.user.pipe(
+      filter(user => !!user),
+      switchMap(user => this.authService.user$(user.uid))
+    )
   }
 
   getEnginByID(engin){
@@ -111,5 +121,32 @@ export class BottomSheetOverviewExampleSheet {
   openLink(event: MouseEvent): void {
     this._bottomSheetRef.dismiss();
     event.preventDefault();
+  }
+
+  wait(notification: Notification) {
+    this._snackBar.open(notification.type + ' est mise en attente !!!! ', 'Ok', {
+      duration: 5000,
+    });
+  }
+  validate(notification: Notification) {
+    this.firebaseAuth.user.pipe(
+      filter(user => !!user),
+      switchMap(user => this.authService.user$(user.uid))
+    ).subscribe(user=>{
+      this._snackBar.open(notification.type + ' est validée !!!! ', 'Ok', {
+        duration: 5000,
+      });
+      console.log(notification["id"])
+    })
+  }
+  delete(notification: Notification) {
+    this._snackBar.open(notification.type + ' est refusée !!!! ', 'Ok', {
+      duration: 5000,
+    });
+  }
+  archive(notification: Notification) {
+    this._snackBar.open(notification.type + ' est archivée !!!! ', 'Ok', {
+      duration: 5000,
+    });
   }
 }
