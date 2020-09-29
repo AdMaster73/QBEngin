@@ -6,7 +6,7 @@
 
   <!-- Collections form -->
   <div class="example-container">
-    <form [formGroup]="CollectionsFormEdit" (ngSubmit)="onSubmit(CollectionsFormEdit.value)">
+    <form [formGroup]="CollectionsFormEdit">
       <!-- Left block -->
       <mat-card>
           <input matInput class="invisible" formControlName="id" [(ngModel)]="data.id">
