@@ -6,6 +6,7 @@ import * as firebase from 'firebase';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { map } from 'rxjs/operators';
 import { Notification } from '../models/engin.model'
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +14,28 @@ import { Notification } from '../models/engin.model'
 export class SidenavService {
     private sidenav: MatSidenav;
 
-    constructor(public router: Router,private afs: AngularFirestore) { }
+    constructor(public router: Router,private afs: AngularFirestore,private firebaseAuth: AngularFireAuth) { }
 
-    getNotificationByUser(){
+    getNotificationByUser(role){
       return this.afs.collection<Notification>('notification',
-      ref=>ref.where('first_validation','==',firebase.auth().currentUser.uid).where('etat','==',1)
+      ref=>
+      {
+        let query : firebase.firestore.Query = ref
+        if(role.toUpperCase() == 'admin'.toUpperCase()){
+          query = query.where('etat','in',[1,2,3,4])
+        }else if(['dex','dtu'].includes(role)){
+          query = query.where('second_validation','==',this.firebaseAuth.auth.currentUser.uid)
+                       .where('etat','==',2)
+        }else if(role.toUpperCase() == 'glm'.toUpperCase()){
+          query = query.where('etat','in',[3,4])
+        }else if(role.toUpperCase() == 'pointeur'.toUpperCase()){
+          query = query.where('etat','==',5)
+        }else{
+          query = query.where('first_validation','==',this.firebaseAuth.auth.currentUser.uid)
+                       .where('etat','==',1)
+        }
+        return query
+      }
       ).snapshotChanges().pipe(
         map(action=>{
           return action.map(a=>{
