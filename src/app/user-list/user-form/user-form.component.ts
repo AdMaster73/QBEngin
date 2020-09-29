@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA,MatDialogRef} from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators, FormControl, NgForm } from "@angular/forms";
 import { UserListComponent } from '../user-list.component';
 import { RolesService } from '../../services/roles.service';
-import { User } from '../../models/User.model'
+import { User } from '../../models/engin.model'
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { MAT_CHIPS_DEFAULT_OPTIONS} from '@angular/material/chips';
 import { ChantierService } from '../../services/chantier.service';
