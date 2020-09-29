@@ -12,12 +12,13 @@ import { ChantierService } from 'src/app/services/chantier.service';
 })
 export class EncoursFormComponent implements OnInit {
 
-  options: string[] = [];  
+  options: string[] = [];
   optionsC: string[] = []
   filteredEngins: Observable<string[]>;
   filteredChantiers: Observable<string[]>
   myControl = new FormControl()
   myControlC = new FormControl()
+  typeOfTransfert :string =  'engin'
   constructor(
     private enginService: EnginService,
     private chantierService: ChantierService) { }
@@ -39,19 +40,19 @@ export class EncoursFormComponent implements OnInit {
       .pipe(
         startWith(''),
         map(value => this._filter_engin(value))
-      );  
+      );
     this.filteredChantiers = this.myControlC.valueChanges
     .pipe(
       startWith(''),
       map(value => this._filter_chantier(value))
-    );  
+    );
   }
 
   private _filter_engin(value: string): string[] {
     if(value === null){
       return
     }
-    const filterValue = value.toLowerCase();    
+    const filterValue = value.toLowerCase();
 
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
@@ -59,7 +60,7 @@ export class EncoursFormComponent implements OnInit {
     if(value === null){
       return
     }
-    const filterValue = value.toLowerCase();    
+    const filterValue = value.toLowerCase();
 
     return this.optionsC.filter(option => option.toLowerCase().includes(filterValue));
   }
