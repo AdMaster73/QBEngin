@@ -3,12 +3,12 @@
     <h1 class="mat-h1">Modifier Fournisseur</h1>
     <mat-divider fxFlex="1 0"></mat-divider>
   </div>
- 
+
   <!-- Fournisseur form -->
   <div class="example-container">
-    <form [formGroup]="FournisseurFormEdit" (ngSubmit)="onSubmit(FournisseurFormEdit.value)">
+    <form [formGroup]="FournisseurFormEdit">
       <!-- Left block -->
-      <mat-card>         
+      <mat-card>
           <input matInput class="invisible" formControlName="id" [(ngModel)]="data.id">
 
           <!-- Fournisseur designation -->
@@ -17,15 +17,15 @@
             <mat-error *ngIf="handleError('name', 'required')">
               Vous devez Entrer la <strong>Désignation</strong>
             </mat-error>
-          </mat-form-field>  
-          
+          </mat-form-field>
+
           <!-- Fournisseur compte -->
           <mat-form-field class="example-full-width" appearance="outline">
             <input matInput placeholder="Compte" formControlName="compte" [(ngModel)]="data.compte">
             <mat-error *ngIf="handleError('compte', 'required')">
               Vous devez Entrer la <strong>Compte</strong>
             </mat-error>
-          </mat-form-field>           
+          </mat-form-field>
 
           <mat-card-actions>
             <button mat-fab color="primary" [disabled]="FournisseurFormEdit.invalid" [mat-dialog-close]="data">
@@ -34,7 +34,7 @@
             <button mat-fab color="accent" mat-dialog-close>
               <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
             </button>
-          </mat-card-actions>             
+          </mat-card-actions>
       </mat-card>
     </form>
   </div>
