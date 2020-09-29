@@ -1,8 +1,25 @@
 <div class="grid-container">
   <h1 class="mat-h2">Tableau de bord</h1>
-  <mat-grid-list cols="4" rowHeight="200px">
+  <mat-list>
+    <div mat-subheader>Chantiers</div>
+    <mat-list-item *ngFor="let chantier of (chantier$ | async)">
+      <mat-icon mat-list-icon>place</mat-icon>
+      <div mat-line>{{chantier.name}}</div>
+      <span *ngIf="chantier.users">
+        <mat-icon [matBadge]="chantier.users.length" matBadgeOverlap="true">account_circle</mat-icon>
+      </span>
+
+      <span *ngIf="chantier.engins" style="margin-left: 20px;">
+        <mat-icon [matBadge]="chantier.engins.length" matBadgeOverlap="true">commute</mat-icon>
+      </span>
+      <div mat-line> {{chantier.region}} </div>
+      <mat-divider></mat-divider>
+    </mat-list-item>
+  </mat-list>
+
+  <!-- <mat-grid-list cols="4" rowHeight="200px">
     <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
-      <mat-card class="dashboard-card mat-elevation-z8">   
+      <mat-card class="dashboard-card mat-elevation-z8">
 
           <mat-card-title style="display: flex;box-sizing: border-box;flex-direction: row;" *ngIf="card.notification">
             <small style="flex: 1 1 0%;box-sizing: border-box;" class="text-muted">{{card.title}}</small>
@@ -11,9 +28,9 @@
                   <mat-chip color="{{card.color}}" selected>
                     <mat-icon aria-hidden="false" class="" aria-label="Example home icon">trending_{{card.trending}}</mat-icon><span>&nbsp;</span>{{card.purcent}}%
                   </mat-chip>
-                </mat-chip-list>                
+                </mat-chip-list>
           </mat-card-title>
-          
+
           <mat-card-title style="display: flex;box-sizing: border-box;flex-direction: row;" *ngIf="!card.notification">
             <small style="flex: 1 1 0%;box-sizing: border-box;" class="text-muted" *ngIf="card.rows==2 && card.numberCols==1">Note de frais en instance</small>
             <small style="flex: 1 1 0%;box-sizing: border-box;" class="text-muted" *ngIf="card.rows==2 && card.numberCols==2">Note de frais payés</small>
@@ -27,7 +44,7 @@
           <list-nfrais-payed *ngIf="card.rows==2 && card.numberCols==2"></list-nfrais-payed>
           <list-nfrais-table *ngIf="card.rows==3 && card.numberCols==1"></list-nfrais-table>
         </mat-card-content>
-      </mat-card>
+      </mat-card>>
     </mat-grid-tile>
-  </mat-grid-list>
+  </mat-grid-list> -->
 </div>
