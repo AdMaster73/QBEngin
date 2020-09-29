@@ -9,6 +9,7 @@ import { EnginListComponent } from '../engin-list.component';
 import   localeFr from '@angular/common/locales/fr';
 import { registerLocaleData } from '@angular/common';
 import { CategorieService } from 'src/app/services/categorie.service';
+import { RegionService } from 'src/app/services/region.service';
 
 @Component({
   selector: 'app-engin-form',
@@ -25,6 +26,7 @@ export class EnginFormComponent implements OnInit {
   myFournisseur = new FormControl();
   results$ : Observable<any[]>;
   results_f$: Observable<any[]>;
+
   accessoire_v:boolean
   typeVs:string[]=['HEURE','KILOMETRE'];
   etatVfs:string[]=['MARCHE','ARRET','MAD','PANNE','EN ATTENTE'];
@@ -67,14 +69,17 @@ export class EnginFormComponent implements OnInit {
         Validators.minLength(6),
         Validators.maxLength(6)
       ]),
-      type_v:new FormControl(),
+      type_v:[],
       etat_f:new FormControl(),
       etat_k:new FormControl(),
       accessoire_v:new FormControl(),
-      compteur:new FormControl()
+      compteur:new FormControl(),
+      pointed:new FormControl(),
+      porte:new FormControl()
     });
     this.results$ = this.serviceCategorie.GetCategorieList();
     this.results_f$ = this.serviceFournisseur.GetFournisseurList();
+
   }
 
   /* Get errors */
