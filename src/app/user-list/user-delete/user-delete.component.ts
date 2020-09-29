@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { User } from 'firebase';
+import { User } from '../../models/engin.model';
 import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
