@@ -23,37 +23,37 @@ export class CollectionsService {
 
   addCollectionsRoles(id,roles:Roles){
 	this.afs.doc('/collections/'+id).update({
-		list:firebase.firestore.FieldValue.arrayUnion(roles.id)			
+		list:firebase.firestore.FieldValue.arrayUnion(roles.id)
 	})
   }
   deleteCollectionsRoles(id,roles:Roles){
 	const arrayRemove = firebase.firestore.FieldValue.arrayRemove;
 	this.afs.doc('/collections/'+id).update({
 		list:arrayRemove(
-			roles.id				
+			roles.id
 		)
 	})
-  } 
+  }
 	/* Cérer un Collections */
-	AddCollections(Collections: Collections){			
+	AddCollections(Collections: Collections){
 		return this.afs.collection('collections').doc(Collections.id.toString()).set({
 			createdBy: this.firebaseAuth.auth.currentUser.uid,
-			createdAt: firestore.FieldValue.serverTimestamp(),  
-			name: Collections.name,			  		
+			createdAt: firestore.FieldValue.serverTimestamp(),
+			name: Collections.name,
 			intitule:Collections.intitule,
 			toolTipe:Collections.toolTipe,
 			icon:Collections.icon
 		})
 	}
-	
+
 	/* Supprimer un Collections */
 	async DeleteCollections(id) {
 		this.afs.doc('collections/'+id).delete()
 	}
 
 	/* Retourne une liste des collectionss */
-	GetCollectionsList() {		
-		return this.afs.collection<Collections>('collections',ref=> ref.orderBy('createdAt','asc')).snapshotChanges().pipe(
+	GetCollectionsList() {
+		return this.afs.collection<Collections>('collections',ref=> ref.orderBy('order','asc')).snapshotChanges().pipe(
 			map(actions => {
 			return actions.map(a => {
 				const data = a.payload.doc.data() as Collections;
@@ -61,10 +61,10 @@ export class CollectionsService {
 				return { id, ...data };
 			});
 			})
-		);	
+		);
 	}
 /* Retourne une collection par Id */
-GetCollectionsByName(name:string) {		
+GetCollectionsByName(name:string) {
 	return this.afs.collection<Collections>('collections/',ref=>ref.where('name','==',name)).snapshotChanges().pipe(
 		map(actions => {
 		return actions.map(a => {
@@ -73,8 +73,8 @@ GetCollectionsByName(name:string) {
 			return { id, ...data };
 		});
 		})
-	);	
-}	
+	);
+}
 	listCollectionsUser():Observable<any[]>{
 		return combineLatest(
 			this.afs.doc('collections').valueChanges(),
@@ -85,27 +85,28 @@ GetCollectionsByName(name:string) {
 					return []
 				}
 				return users.filter(user=>collection['list'].includes(user.uid))
-			}))		
+			}))
 	}
 
 	//Avoir le ID du dernier enregesitrement
-	GetCollectionsLastRecord(){		
+	GetCollectionsLastRecord(){
 	  return this.afs.collection('collections', ref => ref
 		.limit(1)
 		.orderBy('createdAt','desc')
-	  )				
+	  )
 	}
-	
+
 	/* Modifier un Collections */
-	UpdateCollections(collections) {  		
+	UpdateCollections(collections) {
 		this.afs.doc('collections/'+collections.id).update({
 			updatedBy: this.firebaseAuth.auth.currentUser.uid,
-			updatedAt: firestore.FieldValue.serverTimestamp(),	
+			updatedAt: firestore.FieldValue.serverTimestamp(),
 			name: collections.name,
 			intitule:collections.intitule,
 			toolTipe:collections.toolTipe,
-			icon:collections.icon
-		})														
-	} 
-  
+			icon:collections.icon,
+			order:collections.order
+		})
+	}
+
 }
