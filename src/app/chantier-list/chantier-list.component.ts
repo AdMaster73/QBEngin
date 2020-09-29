@@ -29,7 +29,7 @@ export class ChantierListComponent implements OnInit {
   collectionMenuToggel:boolean
   EnginData: any = [];
   user$: Observable<{}>;
-  displayedColumns: string[] = ['action','numero', 'designation','compte','archive'];
+  displayedColumns: string[] = ['action','numero', 'designation','compte','archive','region','users','engins'];
   _filter_role_chantier: string[] = []
   is_in_array_chantier:boolean = false
   dataSource : MatTableDataSource<Chantier>;
@@ -108,7 +108,8 @@ export class ChantierListComponent implements OnInit {
       id:element.id,
       name:element.name,
       compte:element.compte,
-      archive:element.archive
+      archive:element.archive,
+      region:element.region
     }}).afterClosed().subscribe(result => {
       if (result){
         this.chantierService.UpdateChantier(result)
