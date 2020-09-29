@@ -9,6 +9,7 @@ import { EnginFormComponent } from "./engin-form/engin-form.component";
 import * as firebase from 'firebase';
 import { RolesService } from '../services/roles.service';
 import { EnginAccessoireComponent } from './engin-accessoire/engin-accessoire.component';
+import { EnginPositionComponent } from './engin-position/engin-position.component';
 
 @Component({
   selector: 'app-engin-list',
@@ -48,6 +49,7 @@ export class EnginListComponent implements OnInit{
   })();
   }
   displayedColumnsObj = [
+    {"value":'transfert',"show": true},
     {"value":'action',"show": true},
     {"value":'numero',"show": false},
     {"value":'code',"show": true},
@@ -55,8 +57,9 @@ export class EnginListComponent implements OnInit{
     {"value":'categorie',"show": true},
     {"value":'fournisseur',"show": true},
     {"value":'b_code',"show": true},
-    {"value":'etat_f',"show": false}
-  ];
+    {"value":'etat_f',"show": false},
+    {"value":'position',"show": true}
+    ];
   get displayedColumns(): string[]{
     return this.displayedColumnsObj.filter(
       (element) => {
@@ -105,25 +108,27 @@ export class EnginListComponent implements OnInit{
       id:element.id,
       code: element.code,
       name: element.name,
-      date_achat: element.date_achat,
-      valeur_achat: element.valeur_achat,
-      n_serie: element.n_serie,
-      marque_moteur: element.marque_moteur,
-      serie_moteur: element.serie_moteur,
-      b_code:element.b_code,
+      date_achat: element.date_achat?element.date_achat:'',
+      valeur_achat: element.valeur_achat? element.valeur_achat:'',
+      n_serie: element.n_serie?element.n_serie:'',
+      marque_moteur: element.marque_moteur?element.marque_moteur:'',
+      serie_moteur: element.serie_moteur?element.serie_moteur:'',
+      b_code:element.b_code?element.b_code:'',
       categorie:{
-        id:element.categorie.id,
+        id:eval(element.categorie.id),
         name:element.categorie.name
       },
       fournisseur:{
-        id:element.fournisseur.id,
+        id:eval(element.fournisseur.id),
         name:element.fournisseur.name
       },
-      type_v:element.type_v,
-      etat_f:element.etat_f,
-      etat_k:element.etat_k,
-      accessoire_v:element.accessoire_v,
-      compteur:element.compteur
+      type_v:element.type_v?element.type_v:'',
+      etat_f:element.etat_f?element.etat_f:'',
+      etat_k:element.etat_k?element.etat_k:'',
+      accessoire_v:element.accessoire_v?element.accessoire_v:'',
+      compteur:element.compteur?element.compteur:0,
+      pointed:element.pointed?element.pointed:0,
+      porte:element.porte
     }}).afterClosed().subscribe(result => {
       if (result){
         this.enginService.UpdateEngin(result)
@@ -144,16 +149,16 @@ export class EnginListComponent implements OnInit{
   getBackgroundColor(etat: string): String {
     switch (etat) {
       case 'MARCHE':
-        return ''
-        break;
-      case 'ARRET':
-        return 'green'
-        break;
-      case 'MAD':
         return 'blue'
         break;
+      case 'ARRET':
+        return 'black'
+        break;
+      case 'MAD':
+        return 'rgb(148, 204, 241)'
+        break;
       case 'EN ATTENTE':
-        return 'white'
+        return 'yellow'
         break;
       case 'PANNE':
         return 'red'
@@ -166,6 +171,11 @@ export class EnginListComponent implements OnInit{
 
   accessoireEngin(engin:Engin){
     this.dialog.open(EnginAccessoireComponent,{data:engin}).afterClosed().subscribe(_ =>{
+    })
+  }
+
+  getPosition(engin){
+    this.dialog.open(EnginPositionComponent,{data:engin}).afterClosed().subscribe(_ =>{
     })
   }
 }
