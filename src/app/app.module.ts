@@ -40,6 +40,7 @@ import { MatTooltipModule} from '@angular/material/tooltip';
 import { MatStepperModule } from '@angular/material/stepper';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { AgmCoreModule } from '@agm/core';
 
 /* routing */
 import { AppRoutingModule } from './app-routing.module';
@@ -115,6 +116,10 @@ import { EncoursAddComponent } from './transfert/encours-add/encours-add.compone
 import { EncoursFormComponent } from './transfert/encours-form/encours-form.component';
 import { EncoursDeleteComponent } from './transfert/encours-delete/encours-delete.component';
 import { EnginAccessoireComponent } from './engin-list/engin-accessoire/engin-accessoire.component';
+import { RegionListComponent } from './region-list/region-list.component';
+import { RegionAddComponent } from './region-list/region-add/region-add.component';
+import { RegionFormComponent } from './region-list/region-form/region-form.component';
+import { EnginPositionComponent } from './engin-list/engin-position/engin-position.component';
 
 firebase.initializeApp(environment.firebase);
 
@@ -139,7 +144,9 @@ firebase.initializeApp(environment.firebase);
 	ListNfraisTableComponent,
 	CategorieListComponent,
 	CategorieAddComponent,
-	CategorieFormComponent,
+  CategorieFormComponent,
+  RegionAddComponent,
+  RegionFormComponent,
 	FournisseurListComponent,
 	FournisseurAddComponent,
 	FournisseurFormComponent,
@@ -177,14 +184,19 @@ firebase.initializeApp(environment.firebase);
 	EncoursAddComponent,
 	EncoursFormComponent,
 	EncoursDeleteComponent,
-	EnginAccessoireComponent
+	EnginAccessoireComponent,
+	RegionListComponent,
+	EnginPositionComponent
   ],
   entryComponents: [
 	BottomSheetOverviewExampleSheet,
 	EnginAddComponent,
 	EnginFormComponent,
 	CategorieAddComponent,
-	CategorieFormComponent,
+  CategorieFormComponent,
+  RegionAddComponent,
+  RegionFormComponent,
+  EnginPositionComponent,
 	FournisseurAddComponent,
 	FournisseurFormComponent,
 	ChantierAddComponent,
@@ -248,6 +260,9 @@ firebase.initializeApp(environment.firebase);
 	MatStepperModule,
   DragDropModule,
   MatSnackBarModule,
+  AgmCoreModule.forRoot({
+    apiKey: 'AIzaSyAgAdva88NetRz6vyCzpfaltzNM11FaFtw'
+  }),
 	AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule.enablePersistence()
   ],
