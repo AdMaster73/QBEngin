@@ -9,9 +9,9 @@ import { CollectionsComponent } from '../collections.component';
   styleUrls: ['./collections-form.component.scss']
 })
 export class CollectionsFormComponent implements OnInit {
-  CollectionsFormEdit: FormGroup  
-  @ViewChild('resetCollectionsForm',{static: true}) myNgForm : NgForm;  
-  constructor(      
+  CollectionsFormEdit: FormGroup
+  @ViewChild('resetCollectionsForm',{static: true}) myNgForm : NgForm;
+  constructor(
     public fb: FormBuilder ,
     public dialogRef: MatDialogRef<CollectionsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {}
@@ -22,12 +22,13 @@ export class CollectionsFormComponent implements OnInit {
       name: ['', Validators.required],
       intitule: new FormControl(),
       toolTipe: new FormControl(),
-      icon: new FormControl(),      
-    });    
-  } 
+      icon: new FormControl(),
+      order: new FormControl(),
+    });
+  }
 
   /* Get errors */
   public handleError = (controlName: string, errorName: string) => {
     return this.CollectionsFormEdit.controls[controlName].hasError(errorName);
-  } 
+  }
 }
