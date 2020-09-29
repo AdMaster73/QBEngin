@@ -3,45 +3,53 @@
     <h1 class="mat-h1">Modifier Collections</h1>
     <mat-divider fxFlex="1 0"></mat-divider>
   </div>
- 
+
   <!-- Collections form -->
   <div class="example-container">
     <form [formGroup]="CollectionsFormEdit" (ngSubmit)="onSubmit(CollectionsFormEdit.value)">
       <!-- Left block -->
-      <mat-card>         
+      <mat-card>
           <input matInput class="invisible" formControlName="id" [(ngModel)]="data.id">
 
           <!-- Collections designation -->
-          <mat-form-field class="example-full-width" appearance="outline">
+          <mat-form-field class="example-full-width" appearance="">
             <input matInput placeholder="Désignation" formControlName="name" [(ngModel)]="data.name">
             <mat-error *ngIf="handleError('name', 'required')">
               Vous devez Entrer la <strong>Désignation</strong>
             </mat-error>
-          </mat-form-field>  
+          </mat-form-field>
 
           <!-- Collections Intitule -->
-          <mat-form-field class="example-full-width" appearance="outline">
+          <mat-form-field class="example-full-width" appearance="">
             <input matInput placeholder="Intitulé complet" formControlName="intitule" [(ngModel)]="data.intitule">
             <mat-error *ngIf="handleError('intitule', 'required')">
               Vous devez Entrer le <strong>Intitule complet</strong>
             </mat-error>
-          </mat-form-field>  
+          </mat-form-field>
 
           <!-- Collections Tooltip -->
-          <mat-form-field class="example-full-width" appearance="outline">
+          <mat-form-field class="example-full-width" appearance="">
             <input matInput placeholder="ToolTipe" formControlName="toolTipe" [(ngModel)]="data.toolTipe">
             <mat-error *ngIf="handleError('toolTipe', 'required')">
               Vous devez Entrer le <strong>ToolTipe</strong>
             </mat-error>
-          </mat-form-field>  
-          
+          </mat-form-field>
+
           <!-- Collections Icon -->
-          <mat-form-field class="example-full-width" appearance="outline">
-            <input matInput placeholder="Icons nme" formControlName="icon" [(ngModel)]="data.icon">
+          <mat-form-field class="example-full-width" appearance="">
+            <input matInput placeholder="Icons" formControlName="icon" [(ngModel)]="data.icon">
             <mat-error *ngIf="handleError('icon', 'required')">
               Vous devez Entrer l'<strong>Icon</strong>
             </mat-error>
-          </mat-form-field>          
+          </mat-form-field>
+
+          <!-- Collections Icon -->
+          <mat-form-field class="example-full-width" appearance="">
+            <input matInput placeholder="Order" formControlName="order" [(ngModel)]="data.order">
+            <mat-error *ngIf="handleError('order', 'required')">
+              Vous devez Entrer l'<strong>order</strong>
+            </mat-error>
+          </mat-form-field>
 
           <mat-card-actions>
             <button mat-fab color="primary" [disabled]="CollectionsFormEdit.invalid" [mat-dialog-close]="data">
@@ -50,7 +58,7 @@
             <button mat-fab color="accent" mat-dialog-close>
               <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
             </button>
-          </mat-card-actions>             
+          </mat-card-actions>
       </mat-card>
     </form>
   </div>
