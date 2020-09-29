@@ -84,7 +84,6 @@ import { ChantierFormComponent } from './chantier-list/chantier-form/chantier-fo
 import { UserAddComponent } from './user-list/user-add/user-add.component';
 import { UserFormComponent } from './user-list/user-form/user-form.component';
 import { PointageListComponent } from './pointage-list/pointage-list.component';
-import { UserFormComponentP } from './pointage-list/user-Form/userFormComponent'
 import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
 import * as firebase from 'firebase';
 import { NotFoundComponent } from './not-found/not-found-component';
@@ -155,7 +154,6 @@ firebase.initializeApp(environment.firebase);
 	ChantierFormComponent,
 	UserAddComponent,
 	UserFormComponent,
-	UserFormComponentP,
 	PointageListComponent,
 	NotFoundComponent,
 	DetailsUsersComponent,
@@ -203,7 +201,6 @@ firebase.initializeApp(environment.firebase);
 	ChantierFormComponent,
 	UserAddComponent,
 	UserFormComponent,
-	UserFormComponentP,
 	UserDeleteComponent,
 	ChantierDeleteComponent,
   ChantierUserComponent,
