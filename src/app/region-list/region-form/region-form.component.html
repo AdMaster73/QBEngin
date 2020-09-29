@@ -6,7 +6,7 @@
 
 <!-- Region form -->
 <div class="example-container">
-  <form [formGroup]="RegionFormEdit" (ngSubmit)="onSubmit(RegionFormEdit.value)">
+  <form [formGroup]="RegionFormEdit">
     <!-- Left block -->
     <mat-card>
         <input matInput class="invisible" formControlName="id" [(ngModel)]="data.id">
