@@ -37,11 +37,11 @@ const routes: Routes = [
         { path: 'fournisseur', canActivate: [AuthGuardService], component: FournisseurListComponent },
         { path: 'chantier', canActivate: [AuthGuardService], component: ChantierListComponent },
         { path: 'signUp',canActivate:[AuthAdminGuardGuard],component:SignupComponent},
-        { path: 'pointage',component:PointageListComponent,canActivate:[AuthAdminGuardGuard]},
+        { path: 'pointage',component:PointageListComponent,canActivate:[AuthGuardService]},
         { path: 'settings',component:SettingsComponent,canActivate:[AuthAdminGuardGuard]},
-        { path: 'transfert',component:TransfertComponent,canActivate:[AuthAdminGuardGuard]},
-        { path: 'transfert/add',component:EncoursAddComponent,canActivate:[AuthAdminGuardGuard]},
-        { path: 'region',component:RegionListComponent,canActivate:[AuthAdminGuardGuard]},
+        { path: 'transfert',component:TransfertComponent,canActivate:[AuthGuardService]},
+        { path: 'transfert/add',component:EncoursAddComponent,canActivate:[AuthGuardService]},
+        { path: 'region',component:RegionListComponent,canActivate:[AuthGuardService]},
         { path: '**', component: NotFoundComponent }
 
         ]},
