@@ -3,12 +3,12 @@
     <h1 class="mat-h1">Modifier Categorie</h1>
     <mat-divider fxFlex="1 0"></mat-divider>
   </div>
- 
+
   <!-- Categorie form -->
   <div class="example-container">
-    <form [formGroup]="CategorieFormEdit" (ngSubmit)="onSubmit(CategorieFormEdit.value)">
+    <form [formGroup]="CategorieFormEdit">
       <!-- Left block -->
-      <mat-card>         
+      <mat-card>
           <input matInput class="invisible" formControlName="id" [(ngModel)]="data.id">
 
           <!-- Categorie designation -->
@@ -17,7 +17,7 @@
             <mat-error *ngIf="handleError('name', 'required')">
               Vous devez Entrer la <strong>Désignation</strong>
             </mat-error>
-          </mat-form-field>   
+          </mat-form-field>
 
           <!-- Categorie compte -->
           <mat-form-field class="example-full-width" appearance="outline">
@@ -34,7 +34,7 @@
             <button mat-fab color="accent" mat-dialog-close>
               <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
             </button>
-          </mat-card-actions>             
+          </mat-card-actions>
       </mat-card>
     </form>
   </div>
