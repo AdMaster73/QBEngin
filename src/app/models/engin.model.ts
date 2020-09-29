@@ -26,6 +26,7 @@ export interface Engin {
     name:string,
     compte:string,
     archive:number,
+    region:string
   }
   export interface chantierUser{
     createdBy: string
@@ -55,7 +56,8 @@ export interface Engin {
     name:string,
     intitule?:string,
     toolTipe?:string,
-    icon?:string
+    icon?:string,
+    order?:number
   }
   export interface Permissions{
     id:number,
@@ -102,3 +104,28 @@ export interface Engin {
     updateBy?:string,
     updatedAt?:Date
   }
+
+  export interface Region {
+    id:number;
+    name:string;
+    compte:string
+  }
+
+  export interface Pointage{
+    id?:string,
+    chantier:string,
+    chantier_id?:string,
+    etat_e:string,
+    gasoil:string[],
+    heure_ar:number,
+    heure_m:number,
+    heure_p:number,
+    localisation:Localisation,
+    lubrifiant:number[],
+    type_p:string,
+    uid:string
+ }
+ export interface Localisation{
+   altitude:number,
+   longtitude:number
+ }
