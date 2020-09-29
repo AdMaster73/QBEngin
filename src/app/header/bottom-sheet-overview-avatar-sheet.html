@@ -1,20 +1,17 @@
 <mat-nav-list>
-  <mat-list-item *ngFor="let notification of listNotification | async">
-     <a matLine>Une {{ notification.type.toUpperCase() }} de l'engin {{ notification.engin.code }} - {{notification.engin.name}}
-       du provenance {{notification.provenance.name}} vers <p>{{notification.destination.name}}, est en attente de votre validation notifiée par
+  <mat-list-item *ngFor="let notification of (data.notification | async)">
+     <a matLine>{{ notification.type }} de l'engin {{ notification.engin_code }} - {{notification.engin_name}}<p>
+       du provenance {{notification.provenance}} vers {{notification.destination}}, est en attente de votre validation, notifiée par
          {{notification.userName}} ({{notification.role}})</p>
      </a>
-     <button mat-icon-button (click)="archive(notification)" matTooltip="Archiver">
-        <mat-icon>archive</mat-icon>
-     </button>
-     <button mat-icon-button (click)="delete(notification)" matTooltip="Refuser">
-        <mat-icon>delete</mat-icon>
-     </button>
-     <button mat-icon-button (click)="wait(notification)" matTooltip="Mettre en attente">
-        <mat-icon>query_builder</mat-icon>
-     </button>
-     <button mat-icon-button (click)="validate(notification)" matTooltip="Valider">
-        <mat-icon>check</mat-icon>
-     </button>
+     <ng-container *ngIf="data.role !== 'admin'">
+        <button mat-icon-button (click)="delete(notification)" matTooltip="Refuser">
+          <mat-icon>delete</mat-icon>
+      </button>
+      <button mat-icon-button (click)="validate(notification)" matTooltip="Valider">
+          <mat-icon>check</mat-icon>
+      </button>
+     </ng-container>
+
   </mat-list-item>
 </mat-nav-list>
