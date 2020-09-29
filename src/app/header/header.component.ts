@@ -1,6 +1,6 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, Inject, OnInit} from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import { MatBottomSheet, MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { SidenavService } from './../services/sidenavService';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -11,7 +11,7 @@ import { Roles, Notification, Engin } from '../models/engin.model';
 import { async } from '@angular/core/testing';
 import { EnginService } from '../services/engin.service';
 import { MatSnackBar } from '@angular/material';
-import { User } from 'firebase';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-header',
@@ -47,24 +47,33 @@ export class HeaderComponent implements OnInit {
   toggleRightSidenav() {
       this.sidenavService.toggle();
   }
-  openBottomSheet(): void {
+  openBottomSheet(notifications,role): void {
 
     if(this.countNot == 0){
       return
     }
-    this._bottomSheet.open(BottomSheetOverviewExampleSheet);
+    this._bottomSheet.open(BottomSheetOverviewExampleSheet,{
+      data: {
+        notification: notifications,
+        role:role
+      }
+    });
   }
   ngOnInit() {
     this.user$ = this.firebaseAuth.user.pipe(
       filter(user => !!user),
       switchMap(user => this.authService.user$(user.uid))
-    )
+    );
 
-    this.listNotification = this.sidenavService.getNotificationByUser()
+    (async () => {
+      let roleCurrentUser = await (await firebase.auth().currentUser.getIdTokenResult()).claims.role
+      this.listNotification = this.sidenavService.getNotificationByUser(roleCurrentUser)
 
-    this.sidenavService.getNotificationByUser().subscribe(results=>{
-      this.countNot = results.length
-    })
+      this.sidenavService.getNotificationByUser(roleCurrentUser).subscribe(results=>{
+        this.countNot = results.length
+      })
+    })();
+
   }
 
   onSignOut() {
@@ -99,15 +108,16 @@ export class BottomSheetOverviewExampleSheet {
   listNotification : Observable <Notification[]>
   engins: Observable<Engin[]>
   user$: Observable<{}>;
-  constructor(private _bottomSheetRef: MatBottomSheetRef<BottomSheetOverviewExampleSheet>
-    ,private sidenaveService: SidenavService,
+  constructor(private _bottomSheetRef: MatBottomSheetRef<BottomSheetOverviewExampleSheet>,
+    private sidenaveService: SidenavService,
     private firebaseAuth: AngularFireAuth,
     private enginService:EnginService,
     public authService: AuthService,
-    private _snackBar: MatSnackBar) {
+    private _snackBar: MatSnackBar,
+    @Inject(MAT_BOTTOM_SHEET_DATA) public data: any) {
     }
   ngOnInit() {
-    this.listNotification = this.sidenaveService.getNotificationByUser()
+
     this.user$ = this.firebaseAuth.user.pipe(
       filter(user => !!user),
       switchMap(user => this.authService.user$(user.uid))
