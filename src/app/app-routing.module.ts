@@ -4,7 +4,7 @@ import { AuthGuardService } from './services/auth-guard.service';
 import { UserListComponent } from './user-list/user-list.component';
 import { NewUserComponent } from './new-user/new-user.component';
 import { SignupComponent } from './auth/signup/signup.component';
-import { SigninComponent } from './auth/signin/signin.component';	
+import { SigninComponent } from './auth/signin/signin.component';
 import { AuthComponent } from './auth/auth.component';
 import { MainDashoardComponent } from './main-dashoard/main-dashoard.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
@@ -20,26 +20,28 @@ import { PointageListComponent } from './pointage-list/pointage-list.component';
 import { SettingsComponent } from './settings/settings.component';
 import { TransfertComponent } from './transfert/transfert.component';
 import { EncoursAddComponent } from './transfert/encours-add/encours-add.component';
+import { RegionListComponent } from './region-list/region-list.component';
 
 const routes: Routes = [
   { path: 'sidenav', canActivate: [AuthGuardService], component: MainNavComponent,
       children: [
         {
-          path: '',      
+          path: '',
           pathMatch: 'full', redirectTo: 'home'
         },
         { path: 'home',canActivate:[AuthGuardService], component: MainDashoardComponent },
-        { path: 'engin', canActivate: [AuthGuardService], component: EnginListComponent },        
-        { path: 'user', component: UserListComponent,canActivate:[AuthAdminGuardGuard]},  
+        { path: 'engin', canActivate: [AuthGuardService], component: EnginListComponent },
+        { path: 'user', component: UserListComponent,canActivate:[AuthAdminGuardGuard]},
         { path: 'user/new', component: NewUserComponent,canActivate:[AuthAdminGuardGuard] },
         { path: 'categorie', canActivate: [AuthGuardService], component: CategorieListComponent },
         { path: 'fournisseur', canActivate: [AuthGuardService], component: FournisseurListComponent },
-        { path: 'chantier', canActivate: [AuthGuardService], component: ChantierListComponent },        
+        { path: 'chantier', canActivate: [AuthGuardService], component: ChantierListComponent },
         { path: 'signUp',canActivate:[AuthAdminGuardGuard],component:SignupComponent},
         { path: 'pointage',component:PointageListComponent,canActivate:[AuthAdminGuardGuard]},
         { path: 'settings',component:SettingsComponent,canActivate:[AuthAdminGuardGuard]},
         { path: 'transfert',component:TransfertComponent,canActivate:[AuthAdminGuardGuard]},
         { path: 'transfert/add',component:EncoursAddComponent,canActivate:[AuthAdminGuardGuard]},
+        { path: 'region',component:RegionListComponent,canActivate:[AuthAdminGuardGuard]},
         { path: '**', component: NotFoundComponent }
 
         ]},
@@ -50,7 +52,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],  
+  imports: [RouterModule.forRoot(routes)],
 exports: [RouterModule]
 })
 export class AppRoutingModule { }
