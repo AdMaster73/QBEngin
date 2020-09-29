@@ -17,17 +17,17 @@ export class CollectionsComponent implements OnInit {
 
   constructor(
     public db : AngularFirestore,
-    private rollectionsServices : CollectionsService, 
+    private rollectionsServices : CollectionsService,
     public dialog: MatDialog) {}
-  displayedColumns: string[] = ['action','numero', 'designation','intitule','toolTipe','icon'];
+  displayedColumns: string[] = ['action','order', 'designation','intitule','toolTipe','icon'];
   dataSource : MatTableDataSource<Collections>;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static : true}) sort: MatSort;  
+  @ViewChild(MatSort, {static : true}) sort: MatSort;
   ngOnInit(): void {
     this.rollectionsServices.GetCollectionsList().subscribe(
       data => {
-        this.dataSource = new MatTableDataSource(data);  
-        this.dataSource.paginator = this.paginator;        
+        this.dataSource = new MatTableDataSource(data.sort((a,b)=>a.order-b.order));
+        this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.paginator._intl.itemsPerPageLabel = 'Affichage par page.';
         this.paginator._intl.firstPageLabel = 'Page Premier';
@@ -52,22 +52,23 @@ export class CollectionsComponent implements OnInit {
     const dialogRef = this.dialog.open(CollectionsAddComponent);
   }
   /**Modifier Collections */
-  editCollections(index:number, element){   
-    const dialogConfig = new MatDialogConfig();            
+  editCollections(index:number, element){
+    const dialogConfig = new MatDialogConfig();
     this.dialog.open(CollectionsFormComponent,{data:{
       id:element.id,
       name:element.name,
       intitule:element.intitule,
       toolTipe:element.toolTipe,
-      icon:element.icon
+      icon:element.icon,
+      order:element.order,
     }}).afterClosed().subscribe(result => {
       if (result){
         this.rollectionsServices.UpdateCollections(result)
-      } 
-    });                      
+      }
+    });
   }
   /* Delete */
-  deleteCollections(index: number){    
+  deleteCollections(index: number){
     if(window.confirm('Are you sure?')) {
       const data = this.dataSource.data;
       data.splice((this.paginator.pageIndex * this.paginator.pageSize) + index, 1);
