@@ -48,7 +48,7 @@ export class MainNavComponent  implements AfterViewInit, OnInit{
               this.afs
               .collection<Collections>('collections',ref=>ref.where(firebase.firestore.FieldPath.documentId(),'in',item.list)).valueChanges()
               .subscribe(result=>{
-                observer.next(result)
+                observer.next(result.sort((a,b)=>a.order - b.order))
               })
             })
           })
