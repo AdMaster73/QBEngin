@@ -39,6 +39,12 @@ export interface Engin {
     uid:string,
     email:string,
     displayName: string,
+    creationTime?:Date,
+    lastSignInTime?:Date,
+    photoURL?:string,
+    emailVerified?:boolean,
+    password?:string,
+    phoneNumber?:string,
     role?:string
   }
   export interface Roles{
