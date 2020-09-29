@@ -1,8 +1,9 @@
 import { Component, OnInit,Inject, ViewChild} from '@angular/core';
 import { MAT_DIALOG_DATA,MatDialogRef} from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators, FormControl, NgForm } from "@angular/forms";
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ChantierListComponent } from '../chantier-list.component';
+import { RegionService } from 'src/app/services/region.service';
 
 @Component({
   selector: 'app-chantier-form',
@@ -11,12 +12,14 @@ import { ChantierListComponent } from '../chantier-list.component';
 })
 export class ChantierFormComponent implements OnInit {
 
-  startAt: BehaviorSubject<string | null> = new BehaviorSubject(''); 
+  startAt: BehaviorSubject<string | null> = new BehaviorSubject('');
 
-  ChantierFormEdit: FormGroup  
-  @ViewChild('resetChantierForm',{static: true}) myNgForm : NgForm;  
-  constructor(      
+  regions$: Observable<any[]>;
+  ChantierFormEdit: FormGroup
+  @ViewChild('resetChantierForm',{static: true}) myNgForm : NgForm;
+  constructor(
     public fb: FormBuilder ,
+    public regionService : RegionService,
     public dialogRef: MatDialogRef<ChantierListComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {}
 
@@ -25,13 +28,15 @@ export class ChantierFormComponent implements OnInit {
       id : new FormControl(),
       name: ['', Validators.required],
       compte:[],
-      archive:[]
-    });    
+      archive:[],
+      region:[]
+    });
+    this.regions$ = this.regionService.GetRegionList();
   }
- 
+
   /* Get errors */
   public handleError = (controlName: string, errorName: string) => {
     return this.ChantierFormEdit.controls[controlName].hasError(errorName);
-  }   
+  }
 
 }
