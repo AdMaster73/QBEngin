@@ -2,17 +2,47 @@
 <button mat-fab *ngIf="collectionPermAdd" color="primary" matTooltip="Nouvelle élement" (click)="addEngin()" class="addEngin">
   <i class="material-icons">add</i>
 </button>
+
 <mat-form-field>
     <mat-label>Recherche par Engin</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. 102">
 </mat-form-field>
   <div class="mat-elevation-z8">
+    <mat-chip-list aria-label="Fish selection">
+      <mat-chip class="marche">Marche</mat-chip>
+      <mat-chip class="mad">Mise à disposition</mat-chip>
+      <mat-chip class="arret">Arrêt</mat-chip>
+      <mat-chip class="attente">En Attente</mat-chip>
+      <mat-chip class="panne">En Panne</mat-chip>
+    </mat-chip-list>
   <table mat-table [dataSource]="dataSource">
 
     <!-- Numero Column -->
     <ng-container matColumnDef="numero" class="make-red">
       <th mat-header-cell *matHeaderCellDef> No. </th>
       <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+
+    <!-- Transfert Column -->
+    <ng-container matColumnDef="transfert" class="make-red">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+          <mat-icon *ngIf="element.last_notified == 1" matTooltip="une validation de la part de (charger/conducteur/chef) pour terminer l'opération de transfert">notifications</mat-icon>
+          <mat-icon *ngIf="element.last_notified == 2" matTooltip="une validation de la part de (dex/dtu) pour terminer l'opération de transfert">restore</mat-icon>
+          <mat-icon *ngIf="element.last_notified == 3" matTooltip="une validation au niveau du GLM pour terminer l'opération de transfert">home</mat-icon>
+          <mat-icon *ngIf="element.last_notified == 4" matTooltip="opération est prise en charge via GLM">home</mat-icon>
+          <mat-icon *ngIf="element.last_notified == 5" matTooltip="Transfert en cours">transit_enterexit</mat-icon>
+      </td>
+    </ng-container>
+
+    <!-- position Column -->
+    <ng-container matColumnDef="position" class="make-red">
+      <th mat-header-cell *matHeaderCellDef> Position </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-mini-fab color="" aria-label="Icon button with a menu icon" *ngIf="element.last_pointage" (click)="getPosition(element)">
+          <mat-icon>where_to_vote</mat-icon>
+        </button>
+      </td>
     </ng-container>
 
     <!-- Code Column -->
