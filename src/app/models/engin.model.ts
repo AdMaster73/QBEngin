@@ -26,7 +26,7 @@ export interface Engin {
     name:string,
     compte:string,
     archive:number,
-    region:string
+    region?:string
   }
   export interface chantierUser{
     createdBy: string
