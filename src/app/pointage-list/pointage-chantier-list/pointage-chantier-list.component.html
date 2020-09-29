@@ -2,12 +2,12 @@
 <mat-vertical-stepper linear #stepper>
   <mat-step [stepControl]="chantierFormGroup" [editable]="isEditable">
     <form [formGroup]="chantierFormGroup">
-      <ng-template matStepLabel>  
+      <ng-template matStepLabel>
       {{
           shoes.selectedOptions.selected.length>0 ? 'Chantiers : '+selectedOption:'Séléctionnez les chantiers'
         }}
-      </ng-template>   
-        <mat-selection-list #shoes [(ngModel)]="selectedOptions" 
+      </ng-template>
+        <mat-selection-list #shoes [(ngModel)]="selectedOptions"
          formControlName="chantierShoes"
          (ngModelChange)="onNgModelChange($event)">
           <mat-list-option *ngFor="let chantier of (chantiers$ | async)" [value]="chantier.name">
@@ -23,12 +23,12 @@
   </mat-step>
   <mat-step [stepControl]="dateFormGroup" [editable]="isEditable">
     <form [formGroup]="dateFormGroup">
-      <ng-template matStepLabel>La période {{changeDate}}</ng-template>      
+      <ng-template matStepLabel>La période {{changeDate}}</ng-template>
       <mat-form-field class="example-full-width" color="accent" appearance="outline">
         <mat-label>Du</mat-label>
-        <input matInput [matDatepicker]="picker" #date_debut_pointage 
-        formControlName="date_debut_pointage" 
-        (dateChange)="changeDate='du '+date_debut_pointage.value" 
+        <input matInput [matDatepicker]="picker" #date_debut_pointage
+        formControlName="date_debut_pointage"
+        (dateChange)="changeDate='du '+date_debut_pointage.value"
         [max]="maxDate" required>
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker touchUi #picker></mat-datepicker>
@@ -36,16 +36,16 @@
 
       <mat-form-field class="example-full-width" color="accent" appearance="outline">
         <mat-label>Au</mat-label>
-        <input matInput [matDatepicker]="pickerF" #date_fin_pointage 
-        formControlName="date_fin_pointage" 
-        (dateChange)="changeDate=changeDate+' Au '+date_fin_pointage.value" 
+        <input matInput [matDatepicker]="pickerF" #date_fin_pointage
+        formControlName="date_fin_pointage"
+        (dateChange)="changeDate=changeDate+' Au '+date_fin_pointage.value"
         [max]="maxDate" [min]="minDate" required>
         <mat-datepicker-toggle matSuffix [for]="pickerF"></mat-datepicker-toggle>
         <mat-datepicker touchUi #pickerF></mat-datepicker>
       </mat-form-field>
 
       <div>
-        <button mat-fab color="primary" matStepperPrevious>          
+        <button mat-fab color="primary" matStepperPrevious>
           <mat-icon>navigate_before</mat-icon>
         </button>
         <button mat-fab color="primary" matStepperNext (click)="refresh(date_debut_pointage.value,date_fin_pointage.value)">
@@ -54,7 +54,7 @@
       </div>
     </form>
   </mat-step>
-  <mat-step [stepControl]="enginFormGroup">
+  <mat-step [stepControl]="">
     <ng-template matStepLabel>Affichage du résultat</ng-template>
     <div>
       <button mat-fab color="accent" (click)="popDataSource();stepper.reset();selectedOption=''">
@@ -65,28 +65,28 @@
   <mat-form-field appearance="outline">
     <mat-label>Recherche par Engin</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. 102205">
-  </mat-form-field>  
+  </mat-form-field>
   <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource">
-  
+
     <!-- Numero Column -->
     <ng-container matColumnDef="numero">
       <th mat-header-cell *matHeaderCellDef> No. </th>
       <td mat-cell *matCellDef="let element"> {{element.id}} </td>
     </ng-container>
-  
+
     <!-- Code Column -->
     <ng-container matColumnDef="code">
       <th mat-header-cell *matHeaderCellDef> Code </th>
       <td mat-cell *matCellDef="let element"> {{element.code}} </td>
     </ng-container>
-  
+
     <!-- Name Column -->
     <ng-container matColumnDef="designation">
       <th mat-header-cell *matHeaderCellDef> D&eacute;signation </th>
       <td mat-cell *matCellDef="let element"> {{element.name}} </td>
     </ng-container>
-      
+
     <!-- Catégorie Column -->
     <ng-container matColumnDef="categorie">
       <th mat-header-cell *matHeaderCellDef>Cat&eacute;gorie </th>
@@ -103,7 +103,7 @@
     <ng-container matColumnDef="b_code">
       <th mat-header-cell *matHeaderCellDef>Code Bare </th>
       <td mat-cell *matCellDef="let element"> {{element.b_code}} </td>
-    </ng-container>    
+    </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
