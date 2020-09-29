@@ -20,7 +20,7 @@ export const PICK_FORMATS = {
   }
 };
 
-class PickDateAdapter extends NativeDateAdapter {
+export class PickDateAdapter extends NativeDateAdapter {
   format(date: Date, displayFormat: Object): string {
       if (displayFormat === 'input') {
           return formatDate(date,'dd-MM-yyyy',this.locale)/* dd MMM-yyyy */
@@ -38,57 +38,57 @@ class PickDateAdapter extends NativeDateAdapter {
     {provide: DateAdapter, useClass: PickDateAdapter},
     {provide: MAT_DATE_FORMATS, useValue: PICK_FORMATS},
     {provide: MAT_DATE_LOCALE, useValue: 'fr-FR'}
-]  
+]
 })
 
 export class PointageChantierListComponent implements OnInit {
-  
+
   step = 0;
   chantierSelected:string = "Chantier"
   changeEngin:string = 'Engin'
   changeDate:string=""
   maxDate:Date = new Date()
   minDate:Date = new Date()
-  chantiers$: Observable<Chantier[]>;    
+  chantiers$: Observable<Chantier[]>;
   selectedOptions=[];
-  selectedOption: string = ""; 
+  selectedOption: string = "";
   isLinear = false;
   isEditable = false;
-  chantierFormGroup: FormGroup;  
+  chantierFormGroup: FormGroup;
   dateFormGroup: FormGroup;
   EnginData: any = [];
   optionsEngin: string[] = [];
-  optionsChantier: string[] = [];  
-  constructor(    
+  optionsChantier: string[] = [];
+  constructor(
     private _formBuilder: FormBuilder,
     private pointageService:PointageService,
     private enginService : EnginService,
     private _adapter: DateAdapter<any>,
     public dialog: MatDialog) {
-      this._adapter.setLocale('fr'); 
-      registerLocaleData(localeFr, 'fr');       
-      this.maxDate.setDate(this.maxDate.getDate()-1)      
+      this._adapter.setLocale('fr');
+      registerLocaleData(localeFr, 'fr');
+      this.maxDate.setDate(this.maxDate.getDate()-1)
     }
   displayedColumns: string[] = ['numero', 'code', 'designation', 'categorie','fournisseur','b_code'];
   dataSource : MatTableDataSource<Engin>;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static : true}) sort: MatSort;  
+  @ViewChild(MatSort, {static : true}) sort: MatSort;
   startAt: BehaviorSubject<string | null> = new BehaviorSubject('');
-  ngOnInit(): void {                    
-    this.chantiers$ = this.pointageService.getChantierByUser()   
+  ngOnInit(): void {
+    this.chantiers$ = this.pointageService.getChantierByUser()
     this.enginService.GetEnginList().subscribe(engins=>{
       engins.forEach(engin=>{
         this.optionsEngin.push(engin.code+' => '+engin.name)
       })
-    })           
+    })
       this.dateFormGroup = this._formBuilder.group({
         date_debut_pointage: new FormControl(),
         date_fin_pointage: new FormControl()
       })
       this.dateFormGroup
       .valueChanges
-      .subscribe(x => {        
+      .subscribe(x => {
         this.minDate = x.date_debut_pointage;
       });
       this.chantierFormGroup = this._formBuilder.group({
@@ -97,17 +97,17 @@ export class PointageChantierListComponent implements OnInit {
   }
 
   onNgModelChange($event){
-    this.selectedOption=$event;    
+    this.selectedOption=$event;
   }
-  
+
   refresh(dateD:string,dateF:string){
     let dated = new Date(dateD)
     let datef = new Date(dateF)
     let selectChantiers = this.selectedOption
     this.enginService.GetEnginList().subscribe(
       data => {
-        this.dataSource = new MatTableDataSource(data);  
-        this.dataSource.paginator = this.paginator;        
+        this.dataSource = new MatTableDataSource(data);
+        this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.paginator._intl.itemsPerPageLabel = 'Affichage par page.';
         this.paginator._intl.firstPageLabel = 'Page Premier';
@@ -118,9 +118,9 @@ export class PointageChantierListComponent implements OnInit {
     )
   }
   popDataSource(){
-    this.dataSource = new MatTableDataSource([])    
+    this.dataSource = new MatTableDataSource([])
   }
-  
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
