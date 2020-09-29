@@ -1,6 +1,16 @@
 {
   "projects": {
     "default": "admater-a06e8",
-    "bqengin": "admater-a06e8"
+    "bqengin": "admater-a06e8",
+    "BarCode": "admater-a06e8"
+  },
+  "targets": {
+    "admater-a06e8": {
+      "hosting": {
+        "mon-projet-angular": [
+          "admater-a06e8"
+        ]
+      }
+    }
   }
 }
