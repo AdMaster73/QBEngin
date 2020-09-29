@@ -13,6 +13,9 @@ import * as firebase from 'firebase';
 })
 
 export class EnginService {
+  getLocalisationEngin(data: any) {
+    return this.afs.doc('engin/'+data.id+'/pointage/'+data.last_pointage.replace('/','').replace('/','')).snapshotChanges()
+  }
 
 	constructor(private afs: AngularFirestore,private firebaseAuth: AngularFireAuth) {
 	}
@@ -54,7 +57,7 @@ export class EnginService {
               compteur: 0
           });
       });
-    }); */
+    });
     let maintenant:string = new Date().toLocaleDateString('fr-FR')
     const db = firebase.firestore()
     db.collection("engin").where('last_pointage','==',maintenant).get().then(function(querySnapshot) {
@@ -63,7 +66,7 @@ export class EnginService {
               compteur: 0
           });
       });
-    });
+    });*/
 
     return this.afs.collection<Engin>('engin',ref=> ref.orderBy('createdAt','asc'))
     .snapshotChanges().pipe(
@@ -134,6 +137,8 @@ export class EnginService {
 	/* Modifier un engin */
 	UpdateEngin(engin) {
     let accessoire_veh = engin.accessoire_v ? 1 : 0
+    let pointage_veh = engin.pointed ? 1 : 0
+    let porte = engin.porte ? 1 : 0
 		this.afs.doc('engin/'+engin.id).update(
 			{
 				updatedBy: this.firebaseAuth.auth.currentUser.uid,
@@ -147,18 +152,20 @@ export class EnginService {
 				serie_moteur: engin.serie_moteur,
 				b_code: engin.b_code,
 				categorie:{
-					id:engin.categorie.id,
+					id:eval(engin.categorie.id),
 					name:engin.categorie.name
 				},
 				fournisseur:{
-					id:engin.fournisseur.id,
+					id:eval(engin.fournisseur.id),
 					name:engin.fournisseur.name
         },
         type_v:engin.type_v,
         etat_f:engin.etat_f,
         etat_k:engin.etat_k,
         accessoire_v:accessoire_veh,
-        compteur:engin.compteur
+        compteur:engin.compteur,
+        pointed:pointage_veh,
+        porte:porte,
 			}
 		)
   }
