@@ -108,7 +108,7 @@
             </mat-form-field>
 
             <!-- Type vidange -->
-            <mat-form-field>
+            <mat-form-field class="example-full-width" appearance="outline">
               <mat-label>Type Vidange</mat-label>
               <mat-select [(ngModel)]="data.type_v" formControlName="type_v">
                 <mat-option *ngFor="let typeV of typeVs" [value]="typeV">
@@ -118,7 +118,7 @@
             </mat-form-field>
 
             <!-- Etat de fonctionnement -->
-            <mat-form-field>
+            <mat-form-field class="full-width" appearance="outline">
               <mat-label>Etat du véhicule</mat-label>
               <mat-select [(ngModel)]="data.etat_f" formControlName="etat_f">
                 <mat-option *ngFor="let etatVf of etatVfs" [value]="etatVf">
@@ -128,7 +128,7 @@
             </mat-form-field>
 
             <!-- Etat du Compteur de kilômetrage -->
-            <mat-form-field>
+            <mat-form-field class="example-full-width" appearance="outline">
               <mat-label>Etat du Compteur de kilômetrage</mat-label>
               <mat-select [(ngModel)]="data.etat_k" formControlName="etat_k">
                 <mat-option *ngFor="let etatVk of etatVks" [value]="etatVk">
@@ -143,12 +143,17 @@
               <input matInput placeholder="Compteur Kilomêtre/Heure" formControlName="compteur" [(ngModel)]="data.compteur" type="number">
             </mat-form-field>
 
-            <!---->
-            <mat-slide-toggle [(ngModel)]="data.accessoire_v" formControlName="accessoire_v">Accéssoire</mat-slide-toggle>
+            <!-- Accessoire-->
+              <mat-slide-toggle [(ngModel)]="data.accessoire_v" formControlName="accessoire_v">Accéssoire</mat-slide-toggle>
 
+            <!-- Pointage-->
+              <mat-slide-toggle [(ngModel)]="data.pointed" formControlName="pointed">Pointage</mat-slide-toggle>
+
+            <!-- Porte char-->
+              <mat-slide-toggle [(ngModel)]="data.porte" formControlName="porte">Porte Char</mat-slide-toggle>
 
           <mat-card-actions>
-            <button mat-fab color="primary" [disabled]="EnginFormEdit.invalid" [mat-dialog-close]="data">
+            <button mat-fab color="primary" [mat-dialog-close]="data">
               <mat-icon aria-label="Example icon-button with a heart icon">edit</mat-icon>
             </button>
             <button mat-fab color="accent" mat-dialog-close>
