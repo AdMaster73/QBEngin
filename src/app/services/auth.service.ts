@@ -74,7 +74,7 @@ createNewUser(email: string, password: string) {
       (resolve, reject) => {
         firebase.auth().createUserWithEmailAndPassword(email, password).then(
           (user) => {
-            this.updateUserData(user)
+            //this.updateUserData(user)
             resolve();
           },
           (error) => {
@@ -133,7 +133,7 @@ signInUser(email: string, password: string) {
       (resolve, reject) => {
         firebase.auth().signInWithEmailAndPassword(email, password).then(
           (user) => {
-            this.updateUserData(user)
+            //this.updateUserData(user)
             this.isAuth = true
             resolve();
           },
@@ -154,7 +154,7 @@ signInUser(email: string, password: string) {
 		  (resolve, reject) => {
 			setTimeout(
       (user) => {
-        this.updateUserData(user)
+        //this.updateUserData(user)
         this.isAuth = true;
 				resolve(true);
 			  }, 2000
