@@ -1,9 +1,9 @@
-<h3>Liste des Chantiers</h3>
+<h3>Liste des Sites</h3>
 <button mat-fab *ngIf="collectionPermAdd" color="primary" matTooltip="Nouvelle élement" (click)="addChantier()" class="addEngin">
   <i class="material-icons">add</i>
 </button>
   <mat-form-field>
-    <mat-label>Recherche par Chantier</mat-label>
+    <mat-label>Recherche par Site</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Cate">
   </mat-form-field>
   <div class="mat-elevation-z8">
@@ -31,7 +31,7 @@
 
     <!-- engins Column -->
     <ng-container matColumnDef="engins">
-      <th mat-header-cell *matHeaderCellDef> Matériel </th>
+      <th mat-header-cell *matHeaderCellDef> Matériels </th>
       <td mat-cell *matCellDef="let element">
         <mat-icon *ngIf="element.engins" [matBadge]="element.engins.length" matBadgeColor="primary">commute</mat-icon>
       </td>
