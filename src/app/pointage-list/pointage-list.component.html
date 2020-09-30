@@ -33,7 +33,7 @@
     </mat-tab>
   </mat-tab-group> -->
 
-  <button mat-button (click)="actualiser()">Actualiser</button>
+  <button mat-button (click)="actualiser()"><mat-icon>refresh</mat-icon></button>
 
 
   <button mat-button [matMenuTriggerFor]="menuSite">Site</button>
@@ -46,7 +46,7 @@
 
   <button mat-button [matMenuTriggerFor]="menu">Région</button>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item *ngFor="let region of (regions$ | async)">{{region.name}}</button>
+    <button mat-menu-item *ngFor="let region of (regions$ | async)" (click)="getEnginsByRegion(region.id,region.name)">{{region.name}}</button>
   </mat-menu>
 
   <mat-chip-list aria-label="Fish selection" *ngIf="selectionSite!==''">
@@ -112,7 +112,7 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-row [ngStyle]="{backgroundColor: getBackgroundColor(row.etat_f)}" *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
   <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
 
