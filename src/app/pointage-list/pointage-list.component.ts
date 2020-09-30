@@ -76,10 +76,11 @@ export class PointageListComponent implements OnInit {
       this.dataSource.sort = this.sort;
     }
   }
+
   /** Filter les engin par leur site */
   getEnginsBySite(siteId:string,site:string){
     //const dialogRef = this.dialog.open(CategorieAddComponent);
-    this.selectionSite = 'Filtrage par : '+site
+    this.selectionSite = 'Filtrage par Site : '+site
     this.enginService.GetEnginListBySite(siteId).subscribe(
       data => {
         this.dataSource = new MatTableDataSource(data);
@@ -93,6 +94,14 @@ export class PointageListComponent implements OnInit {
       }
     )
   }
+
+  /** Filter les engin par leur site */
+  getEnginsByRegion(regionId:string,region:string){
+    this.selectionSite = 'Filtrage par Région : '+region
+  }
+
+
+
   /** Actualiser la liste des engins */
   actualiser(){
     this.selectionSite = ''
@@ -110,4 +119,28 @@ export class PointageListComponent implements OnInit {
       }
     )
   }
+
+    /** */
+    getBackgroundColor(etat: string): String {
+      switch (etat) {
+        case 'MARCHE':
+          return ''
+          break;
+        case 'ARRET':
+          return 'rgb(88, 78, 78)'
+          break;
+        case 'MAD':
+          return 'rgb(148, 204, 241)'
+          break;
+        case 'EN ATTENTE':
+          return 'yellow'
+          break;
+        case 'PANNE':
+          return 'red'
+          break;
+
+        default:
+          break;
+      }
+    }
 }
