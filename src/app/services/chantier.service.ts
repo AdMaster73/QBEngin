@@ -55,6 +55,19 @@ export class ChantierService {
 		);
 	}
 
+	/*Retourner une liste des chantier non archivées*/
+	GetChantierListNnArchived() {
+		return this.afs.collection<Chantier>('chantier',ref=> ref.where('archive','==',0)).snapshotChanges().pipe(
+			map(actions => {
+			return actions.map(a => {
+				const data = a.payload.doc.data() as Chantier;
+				const id = a.payload.doc.id;
+				return { id, ...data };
+			});
+			})
+		);
+	}
+
 	//Avoir le ID du dernier enregesitrement
 	GetChantierLastRecord(){
 	  return this.afs.collection('chantier', ref => ref
