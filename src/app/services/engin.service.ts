@@ -13,12 +13,27 @@ import * as firebase from 'firebase';
 })
 
 export class EnginService {
+
+
+	constructor(private afs: AngularFirestore,private firebaseAuth: AngularFireAuth) {
+  }
+
+  GetEnginListBySite(siteId: string) {
+    return this.afs.collection<Engin>('engin',ref=> ref.where('id_chantier','==',eval(siteId.toString())))
+    .snapshotChanges().pipe(
+			map(actions => {
+			return actions.map(a => {
+				const data = a.payload.doc.data() as Engin;
+				const id = a.payload.doc.id;
+				return { id, ...data };
+			})
+			})
+		)
+  }
   getLocalisationEngin(data: any) {
     return this.afs.doc('engin/'+data.id+'/pointage/'+data.last_pointage.replace('/','').replace('/','')).snapshotChanges()
   }
 
-	constructor(private afs: AngularFirestore,private firebaseAuth: AngularFireAuth) {
-	}
 	/* Créer un nouveau engin */
 	AddEngin(engin: Engin){
 		return this.afs.collection('engin').doc(engin.id.toString()).set({
