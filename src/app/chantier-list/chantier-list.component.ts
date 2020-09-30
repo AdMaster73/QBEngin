@@ -44,7 +44,6 @@ export class ChantierListComponent implements OnInit {
     public dialog: MatDialog,private firebaseAuth: AngularFireAuth) {
       (async () => {
         let roleCurrentUser = await (await firebase.auth().currentUser.getIdTokenResult()).claims.role
-        console.log(roleCurrentUser)
         let collectionId :number
         this.collectionService.GetCollectionsByName('chantier').subscribe(collections=>{
           collections.map(collection=>{
