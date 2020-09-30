@@ -1,9 +1,9 @@
 <!-- Title group  -->
 <div class="title-group">
-    <h1 class="mat-h1">Ajouter Chantier</h1>
+    <h1 class="mat-h1">Ajouter Site</h1>
     <mat-divider fxFlex="1 0"></mat-divider>
   </div>
- 
+
   <!-- Chantier form -->
   <div class="example-container">
     <form [formGroup]="ChantierForm" (ngSubmit)="submitChantierForm()">
@@ -16,7 +16,7 @@
             <mat-error *ngIf="handleError('name', 'required')">
               Vous devez Entrer la <strong>Désignation</strong>
             </mat-error>
-          </mat-form-field>   
+          </mat-form-field>
 
           <mat-card-actions>
             <button mat-fab color="primary" [disabled]="ChantierForm.invalid" matTooltip="Nouvelle élement">
@@ -25,7 +25,7 @@
             <button mat-fab color="accent" (click)="closeForm()" matTooltip="Annuler">
               <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
             </button>
-          </mat-card-actions>             
+          </mat-card-actions>
       </mat-card>
     </form>
   </div>
