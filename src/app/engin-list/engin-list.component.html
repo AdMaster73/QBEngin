@@ -8,12 +8,12 @@
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. 102">
 </mat-form-field>
   <div class="mat-elevation-z8">
-    <mat-chip-list aria-label="Fish selection">
-      <mat-chip class="marche">Marche</mat-chip>
-      <mat-chip class="mad">Mise à disposition</mat-chip>
-      <mat-chip class="arret">Arrêt</mat-chip>
-      <mat-chip class="attente">En Attente</mat-chip>
-      <mat-chip class="panne">En Panne</mat-chip>
+    <mat-chip-list aria-label="Fish selection" button>
+      <mat-chip class="marche" (click)="filterEtat('MARCHE')" value="marche">Marche</mat-chip>
+      <mat-chip class="mad" (click)="filterEtat('MAD')">Mise à disposition</mat-chip>
+      <mat-chip class="arret" (click)="filterEtat('ARRET')">Arrêt</mat-chip>
+      <mat-chip class="attente" (click)="filterEtat('EN ATTENTE')">En Attente</mat-chip>
+      <mat-chip class="panne" (click)="filterEtat('PANNE')">En Panne</mat-chip>
     </mat-chip-list>
   <table mat-table [dataSource]="dataSource">
 
