@@ -9,6 +9,8 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import * as firebase from 'firebase';
 import { CollectionsService } from '../services/collections.service';
 import { RolesService } from '../services/roles.service';
+import { ChantierService } from '../services/chantier.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-region-list',
@@ -99,5 +101,4 @@ export class RegionListComponent implements OnInit {
       this.regionService.DeleteRegion(index)
     }
   }
-
 }
