@@ -98,6 +98,15 @@ export class EnginListComponent implements OnInit{
       this.dataSource.sort = this.sort;
     }
   }
+
+  filterEtat(etat: string) {
+    this.dataSource.filter = etat.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+      this.dataSource.sort = this.sort;
+    }
+  }
   /** Ajouter nouveau Engin */
   addEngin(): void{
     const dialogRef = this.dialog.open(EnginAddComponent);
@@ -149,10 +158,10 @@ export class EnginListComponent implements OnInit{
   getBackgroundColor(etat: string): String {
     switch (etat) {
       case 'MARCHE':
-        return 'blue'
+        return ''
         break;
       case 'ARRET':
-        return 'black'
+        return 'rgb(88, 78, 78)'
         break;
       case 'MAD':
         return 'rgb(148, 204, 241)'
