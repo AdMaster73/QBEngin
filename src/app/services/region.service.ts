@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Region } from '../models/engin.model';
+import { Chantier, Region } from '../models/engin.model';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { map } from 'rxjs/operators';
+import { map, mergeMap, switchMap } from 'rxjs/operators';
 import { firestore } from 'firebase';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { combineLatest } from 'rxjs-compat/operator/combineLatest';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -30,12 +32,13 @@ export class RegionService {
 			map(actions => {
 			return actions.map(a => {
 				const data = a.payload.doc.data() as Region[];
-				const id = a.payload.doc.id;
-				return { id, ...data };
+        const id = a.payload.doc.id;
+				return {id, ...data}
 			});
 			})
-		);
-	}
+    );
+  }
+
 
 	//Retourne le ID du dernier enregistrement
 	GetRegionLastRecord(){
