@@ -21,6 +21,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { TransfertComponent } from './transfert/transfert.component';
 import { EncoursAddComponent } from './transfert/encours-add/encours-add.component';
 import { RegionListComponent } from './region-list/region-list.component';
+import { PointageEnginComponent } from './pointage-list/pointage-engin/pointage-engin.component';
 
 const routes: Routes = [
   { path: 'sidenav', canActivate: [AuthGuardService], component: MainNavComponent,
@@ -38,6 +39,7 @@ const routes: Routes = [
         { path: 'chantier', canActivate: [AuthGuardService], component: ChantierListComponent },
         { path: 'signUp',canActivate:[AuthAdminGuardGuard],component:SignupComponent},
         { path: 'pointage',component:PointageListComponent,canActivate:[AuthGuardService]},
+        { path: 'pointage/engins',component:PointageEnginComponent,canActivate:[AuthGuardService]},
         { path: 'settings',component:SettingsComponent,canActivate:[AuthAdminGuardGuard]},
         { path: 'transfert',component:TransfertComponent,canActivate:[AuthGuardService]},
         { path: 'transfert/add',component:EncoursAddComponent,canActivate:[AuthGuardService]},
