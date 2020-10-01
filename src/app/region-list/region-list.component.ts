@@ -47,7 +47,7 @@ export class RegionListComponent implements OnInit {
         })
     })();
     }
-  displayedColumns: string[] = ['action','numero', 'designation','compte'];
+  displayedColumns: string[] = ['action','numero', 'designation','compte','count'];
   dataSource : MatTableDataSource<Region[]>;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static : true}) sort: MatSort;
