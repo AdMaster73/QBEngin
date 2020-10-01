@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import {MatTableDataSource, MatSort, MatDialog} from '@angular/material';
 import {MatPaginator} from '@angular/material/paginator';
 import { EnginService } from './../../services/engin.service';
-import { Engin, Pointage } from 'src/app/models/engin.model';
+import { Engin, Pointage, User } from 'src/app/models/engin.model';
 import { Observable } from 'rxjs';
 import { PointageService } from 'src/app/services/pointage.service';
 import { FormControl } from '@angular/forms';
@@ -28,7 +28,7 @@ export class PointageEnginComponent implements OnInit {
       this.pointageService.getPointageByEngin(this.engin).subscribe(
         data => {
           this.dataSource = new MatTableDataSource(data.sort((a,b)=>(
-            a.date_pointage.slice(3, 5)+a.date_pointage.slice(0, 2)+a.date_pointage.slice(6, 10) < b.date_pointage.slice(3, 5)+b.date_pointage.slice(0, 2)+b.date_pointage.slice(6, 10) ? -1 : 1
+            a.payload.doc.data().date_pointage.slice(3, 5)+a.payload.doc.data().date_pointage.slice(0, 2)+a.payload.doc.data().date_pointage.slice(6, 10) < b.payload.doc.data().date_pointage.slice(3, 5)+b.payload.doc.data().date_pointage.slice(0, 2)+b.payload.doc.data().date_pointage.slice(6, 10) ? -1 : 1
               )));
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
@@ -41,7 +41,7 @@ export class PointageEnginComponent implements OnInit {
       )
     }
 
-  displayedColumns: string[] = ['date_pointage', 'chantier', 'type_p', 'etat_e','heure_m','heure_ar','heure_p'];
+  displayedColumns: string[] = ['date_pointage', 'chantier', 'type_p', 'etat_e','heure_m','heure_ar','heure_p','displayName'];
   dataSource : MatTableDataSource<Pointage>;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -74,5 +74,30 @@ export class PointageEnginComponent implements OnInit {
       this.dataSource.sort = this.sort;
     }
   }
+
+
+    /** */
+    getBackgroundColor(etat: string): String {
+      switch (etat) {
+        case 'MARCHE':
+          return ''
+          break;
+        case 'ARRET':
+          return 'rgb(88, 78, 78)'
+          break;
+        case 'MAD':
+          return 'rgb(148, 204, 241)'
+          break;
+        case 'EN ATTENTE':
+          return 'yellow'
+          break;
+        case 'PANNE':
+          return 'red'
+          break;
+
+        default:
+          break;
+      }
+    }
 
 }
