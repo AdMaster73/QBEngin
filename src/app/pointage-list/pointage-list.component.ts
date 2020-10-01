@@ -177,4 +177,8 @@ export class PointageListComponent implements OnInit {
           break;
       }
     }
+
+    addPointage(){
+
+    }
 }
