@@ -4,7 +4,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { map, mergeMap, switchMap } from 'rxjs/operators';
 import { firestore } from 'firebase';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { combineLatest } from 'rxjs-compat/operator/combineLatest';
+import { Observable, combineLatest } from 'rxjs';
 import { of } from 'rxjs';
 
 @Injectable({
@@ -28,7 +28,7 @@ export class RegionService {
 
 	/* Retourn une liste des regions */
 	GetRegionList() {
-		return this.afs.collection<Region[]>('region',ref=> ref.orderBy('createdAt','asc')).snapshotChanges().pipe(
+		/* return this.afs.collection<Region[]>('region',ref=> ref.orderBy('createdAt','asc')).snapshotChanges().pipe(
 			map(actions => {
 			return actions.map(a => {
 				const data = a.payload.doc.data() as Region[];
@@ -36,7 +36,20 @@ export class RegionService {
 				return {id, ...data}
 			});
 			})
-    );
+    ); */
+
+    return this.afs.collection<Region>('region').snapshotChanges().pipe(
+      switchMap((regions)=>{
+        const region = regions.map(r=>{
+          return this.afs.collection('chantier',ref=> ref.where('region','==',r.payload.doc.data().name)).snapshotChanges()
+          .pipe(
+            map(sites=>Object.assign(r,{sites}))
+          )
+        })
+        return combineLatest(...region)
+      }
+      )
+    )
   }
 
 
