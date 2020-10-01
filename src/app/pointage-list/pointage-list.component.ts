@@ -19,7 +19,9 @@ export class PointageListComponent implements OnInit {
 
   regions$: Observable<any[]>;
   sites$: Observable<any[]>;
+  siteRegions$: Observable<any[]>;
   selectionSite:string=''
+  selectionRegion:string=''
   constructor(
     public db : AngularFirestore,
     private enginService : EnginService,
@@ -79,7 +81,7 @@ export class PointageListComponent implements OnInit {
 
   /** Filter les engin par leur site */
   getEnginsBySite(siteId:string,site:string){
-    //const dialogRef = this.dialog.open(CategorieAddComponent);
+    this.selectionRegion = ''
     this.selectionSite = 'Filtrage par Site : '+site
     this.enginService.GetEnginListBySite(siteId).subscribe(
       data => {
@@ -96,8 +98,26 @@ export class PointageListComponent implements OnInit {
   }
 
   /** Filter les engin par leur site */
-  getEnginsByRegion(regionId:string,region:string){
-    this.selectionSite = 'Filtrage par Région : '+region
+  getSitesByRegion(regionId:string,region:string){
+    this.selectionSite = ''
+    this.selectionRegion = 'Filtrage par Région : '+region
+    this.siteRegions$ = this.chantierService.getChantierByRegion(region);
+  }
+
+  /** Filter les engin par leur site */
+  getEnginsByRegion(site:any){
+    this.enginService.GetEnginListBySite(site).subscribe(
+      data => {
+        this.dataSource = new MatTableDataSource(data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.paginator._intl.itemsPerPageLabel = 'Affichage par page.';
+        this.paginator._intl.firstPageLabel = 'Page Premier';
+        this.paginator._intl.nextPageLabel = 'Page Suivant';
+        this.paginator._intl.previousPageLabel = 'Page Précédante';
+        this.paginator._intl.lastPageLabel = 'Dérnier Page';
+      }
+    )
   }
 
 
@@ -105,7 +125,7 @@ export class PointageListComponent implements OnInit {
   /** Actualiser la liste des engins */
   actualiser(){
     this.selectionSite = ''
-    //const dialogRef = this.dialog.open(CategorieAddComponent);
+    this.selectionRegion = ''
     this.enginService.GetEnginList().subscribe(
       data => {
         this.dataSource = new MatTableDataSource(data);
