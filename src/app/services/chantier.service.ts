@@ -12,6 +12,19 @@ export class ChantierService {
 
 	constructor(private afs: AngularFirestore,private firebaseAuth: AngularFireAuth) {}
 
+  /*** */
+
+  getChantierByRegion(region: string): import("rxjs").Observable<any[]> {
+    return this.afs.collection('chantier',ref=>ref.where('region','==',region)).snapshotChanges().pipe(
+      map(action =>{
+        return action.map(a =>{
+          const data = a.payload.doc.data() as Chantier;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        })
+      })
+    )
+  }
   /**Récuperer le chantier par utilisateur */
 
   getChantierByUser(){
