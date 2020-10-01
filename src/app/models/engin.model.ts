@@ -121,6 +121,7 @@ export interface Engin {
     id?:string,
     chantier:string,
     chantier_id?:string,
+    date_pointage?:string,
     etat_e:string,
     gasoil:string[],
     heure_ar:number,
