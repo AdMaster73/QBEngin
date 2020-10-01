@@ -3,7 +3,7 @@ import {MatTableDataSource, MatSort, MatDialog} from '@angular/material';
 import {MatPaginator} from '@angular/material/paginator';
 import { EnginService } from '../services/engin.service';
 import { Engin, Pointage } from './../models/engin.model';
-import * as firebase from 'firebase';
+import { Router, NavigationExtras} from '@angular/router';
 import { PointageService } from '../services/pointage.service';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
@@ -27,6 +27,7 @@ export class PointageListComponent implements OnInit {
     private enginService : EnginService,
     private pointageService : PointageService,
     public regionService : RegionService,
+    private router:Router,
     public chantierService : ChantierService,
     public dialog: MatDialog) { }
     displayedColumnsObj = [
@@ -37,7 +38,8 @@ export class PointageListComponent implements OnInit {
       {"value":'categorie',"show": true},
       {"value":'id_site',"show": false},
       {"value":'b_code',"show": true},
-      {"value":'etat_f',"show": false}
+      {"value":'etat_f',"show": false},
+      {"value":'pointage',"show": true}
       ];
       get displayedColumns(): string[]{
         return this.displayedColumnsObj.filter(
@@ -120,6 +122,18 @@ export class PointageListComponent implements OnInit {
     )
   }
 
+  /**
+   *
+   * @param element
+   */
+  getPointage(element:Engin){
+    let navigationExtras: NavigationExtras = {
+      state: {engins:element}
+    }
+    this.router.navigate(['/sidenav/pointage/engins'],
+     navigationExtras
+    )
+  }
 
 
   /** Actualiser la liste des engins */
