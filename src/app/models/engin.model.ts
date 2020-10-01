@@ -130,7 +130,8 @@ export interface Engin {
     localisation:Localisation,
     lubrifiant:number[],
     type_p:string,
-    uid:string
+    uid:string,
+    user?:string
  }
  export interface Localisation{
    altitude:number,
