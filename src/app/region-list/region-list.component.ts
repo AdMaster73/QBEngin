@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort, MatDialog, MatDialogConfig} from '@angular/material';
 import { MatPaginator} from '@angular/material/paginator';
 import { RegionService } from '../services/region.service';
-import { Region } from './../models/engin.model';
+import { Chantier, Region } from './../models/engin.model';
 import { RegionAddComponent } from './region-add/region-add.component';
 import { RegionFormComponent } from "./region-form/region-form.component";
 import { AngularFirestore } from 'angularfire2/firestore';
