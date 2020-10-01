@@ -36,7 +36,7 @@
   <button mat-button (click)="actualiser()"><mat-icon>refresh</mat-icon></button>
 
 
-  <button mat-button [matMenuTriggerFor]="menuSite">Site</button>
+  <button mat-button [matMenuTriggerFor]="menuSite"><mat-icon>place</mat-icon></button>
   <mat-menu #menuSite="matMenu">
     <button mat-menu-item *ngFor="let site of (sites$ | async)" (click)="getEnginsBySite(site.id,site.name)">
       <mat-icon *ngIf="site.engins" [matBadge]="site.engins.length" matBadgeColor="primary">commute</mat-icon>
@@ -46,13 +46,26 @@
 
   <button mat-button [matMenuTriggerFor]="menu">Région</button>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item *ngFor="let region of (regions$ | async)" (click)="getEnginsByRegion(region.id,region.name)">{{region.name}}</button>
+    <button mat-menu-item *ngFor="let region of (regions$ | async)" (click)="getSitesByRegion(region.id,region.name)">{{region.name}}</button>
   </mat-menu>
 
-  <mat-chip-list aria-label="Fish selection" *ngIf="selectionSite!==''">
-    <mat-chip>{{selectionSite}}</mat-chip>
-  </mat-chip-list>
+  <mat-divider></mat-divider>
+    <mat-chip-list aria-label="Site selection" *ngIf="selectionSite!==''">
+      <mat-chip>{{selectionSite}}</mat-chip>
+    </mat-chip-list>
+    <mat-chip-list aria-label="Region selection" *ngIf="selectionRegion!==''">
+      <mat-chip>{{selectionRegion}}</mat-chip>
+    </mat-chip-list>
+      <mat-chip-list *ngIf="selectionRegion!==''"
+        cdkDropList
+        cdkDropListOrientation="horizontal">
+        <mat-chip (click)="getEnginsByRegion(siteRegion.id)"
+          *ngFor="let siteRegion of (siteRegions$ | async)">
+          {{siteRegion.name}}
+        </mat-chip>
+      </mat-chip-list>
 
+  <mat-divider></mat-divider>
 
   <table mat-table [dataSource]="dataSource">
 
