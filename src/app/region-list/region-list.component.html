@@ -10,19 +10,27 @@
     <!-- Numero Column -->
     <ng-container matColumnDef="numero">
       <th mat-header-cell *matHeaderCellDef> No. </th>
-      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.payload.doc.id}} </td>
     </ng-container>
 
     <!-- compte Column -->
     <ng-container matColumnDef="compte">
       <th mat-header-cell *matHeaderCellDef> Compte Tiére </th>
-      <td mat-cell *matCellDef="let element"> {{element.compte}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.payload.doc.data().compte}} </td>
     </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="designation">
       <th mat-header-cell *matHeaderCellDef> D&eacute;signation </th>
-      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.payload.doc.data().name}} </td>
+    </ng-container>
+
+    <!-- count Column -->
+    <ng-container matColumnDef="count">
+      <th mat-header-cell *matHeaderCellDef> Sites </th>
+      <td mat-cell *matCellDef="let element">
+        <mat-icon *ngIf="element.sites" [matBadge]="element.sites.length" matBadgeColor="primary">place</mat-icon>
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="action">
