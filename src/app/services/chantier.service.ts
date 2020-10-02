@@ -1,16 +1,31 @@
 import { Injectable } from '@angular/core';
 import { Chantier } from '../models/engin.model';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { map } from 'rxjs/operators';
+import { debounceTime, map, switchMap } from 'rxjs/operators';
 import { firestore } from 'firebase';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { AngularFireDatabase } from '@angular/fire/database';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChantierService {
 
-	constructor(private afs: AngularFirestore,private firebaseAuth: AngularFireAuth) {}
+  constructor(private afs: AngularFirestore,private firebaseAuth: AngularFireAuth,private db: AngularFireDatabase) {}
+
+  getChantierById(chantier: any): import("rxjs").Observable<Chantier[]> {
+    if(!chantier) return
+    return this.afs.collection<Chantier>('chantier',ref=>ref.where(firestore.FieldPath.documentId(),'==',eval(chantier).toString())).snapshotChanges().pipe(
+      map(action =>{
+        return action.map(a =>{
+          const data = a.payload.doc.data() as Chantier;
+          const id = a.payload.doc.id;
+          return {id, ...data };
+        })
+      })
+    )
+  }
 
   /*** */
 
@@ -35,6 +50,31 @@ export class ChantierService {
           const id = a.payload.doc.id;
           return { id, ...data };
         })
+      })
+    )
+  }
+  /**Récuperer le chantier par utilisateur */
+
+  getChantierByUserP(start: BehaviorSubject<string>):Observable<any[]>{
+    return start.pipe(
+      switchMap(startText=>{
+        const endText = startText + '\uf8ff';
+        return this.afs.collection(
+          'chantier',ref=>
+          ref
+          .where('users','array-contains',this.firebaseAuth.auth.currentUser.uid)
+        )
+        .snapshotChanges()
+        .pipe(
+          debounceTime(200),
+          map(changes=>{
+            return changes.map(c=>{
+              const data = c.payload.doc.data() as Chantier;
+              const id = c.payload.doc.id;
+              return { id, ...data}
+            })
+          })
+        )
       })
     )
   }
