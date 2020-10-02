@@ -119,6 +119,7 @@ import { RegionListComponent } from './region-list/region-list.component';
 import { RegionAddComponent } from './region-list/region-add/region-add.component';
 import { RegionFormComponent } from './region-list/region-form/region-form.component';
 import { EnginPositionComponent } from './engin-list/engin-position/engin-position.component';
+import { PointageAddComponent } from './pointage-list/pointage-add/pointage-add.component';
 
 firebase.initializeApp(environment.firebase);
 
@@ -184,7 +185,8 @@ firebase.initializeApp(environment.firebase);
 	EncoursDeleteComponent,
 	EnginAccessoireComponent,
 	RegionListComponent,
-	EnginPositionComponent
+	EnginPositionComponent,
+	PointageAddComponent
   ],
   entryComponents: [
 	BottomSheetOverviewExampleSheet,
@@ -215,7 +217,8 @@ firebase.initializeApp(environment.firebase);
 	PermissionsFormComponent,
 	PermissionsDeleteComponent,
 	EncoursFormComponent,
-	EncoursDeleteComponent
+  EncoursDeleteComponent,
+  PointageAddComponent
   ],
   imports: [
     BrowserModule,
