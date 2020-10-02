@@ -43,7 +43,7 @@ export class RegionService {
         const region = regions.map(r=>{
           return this.afs.collection('chantier',ref=> ref.where('region','==',r.payload.doc.data().name)).snapshotChanges()
           .pipe(
-            map(sites=>Object.assign(r,{sites}))
+            map(sites=>Object.assign(r.payload.doc.data(),{sites}))
           )
         })
         return combineLatest(...region)
