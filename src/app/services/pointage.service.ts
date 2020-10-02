@@ -24,7 +24,7 @@ export class PointageService {
           const point = pointages.map(p=>{
             return this.authService.user$(p.payload.doc.data().uid)
             .pipe(
-              map(users=>Object.assign(p,{users}))
+              map(users=>Object.assign(p.payload.doc.data(),{users}))
             )
           })
           return combineLatest(...point)
