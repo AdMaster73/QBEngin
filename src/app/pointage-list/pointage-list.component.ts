@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {MatTableDataSource, MatSort, MatDialog} from '@angular/material';
+import {MatTableDataSource, MatSort, MatDialog, MatDialogConfig} from '@angular/material';
 import {MatPaginator} from '@angular/material/paginator';
 import { EnginService } from '../services/engin.service';
 import { Engin, Pointage } from './../models/engin.model';
@@ -9,6 +9,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
 import { RegionService } from '../services/region.service';
 import { ChantierService } from '../services/chantier.service';
+import { PointageAddComponent } from './pointage-add/pointage-add.component';
 
 @Component({
   selector: 'app-pointage-list',
@@ -178,7 +179,13 @@ export class PointageListComponent implements OnInit {
       }
     }
 
-    addPointage(){
-
+    addPointage(engin:Engin){
+      const dialogConfig = new MatDialogConfig();
+      this.dialog.open(PointageAddComponent,{data:{engin,chantier:engin.id_chantier
+      }}).afterClosed().subscribe(result => {
+        if (result){
+          this.chantierService.UpdateChantier(result)
+        }
+      });
     }
 }
