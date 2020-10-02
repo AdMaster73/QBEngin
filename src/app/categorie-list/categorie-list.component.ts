@@ -19,13 +19,13 @@ export class CategorieListComponent implements OnInit {
 
   collectionPermAdd: boolean
   collectionPermUpdate: boolean
-  collectionPermDelete: boolean  
-  collectionMenuToggel:boolean   
+  collectionPermDelete: boolean
+  collectionMenuToggel:boolean
   constructor(
     public db : AngularFirestore,
     private rolesService:RolesService,
     private collectionService: CollectionsService,
-    private categorieService : CategorieService, 
+    private categorieService : CategorieService,
     public dialog: MatDialog) {
       (async () => {
         let roleCurrentUser = await (await firebase.auth().currentUser.getIdTokenResult()).claims.role
@@ -42,18 +42,18 @@ export class CategorieListComponent implements OnInit {
                 this.collectionPermDelete = item.delete.includes(collectionId.toString())
                 !this.collectionPermUpdate && !this.collectionPermDelete ? this.collectionMenuToggel = false : this.collectionMenuToggel = true
           })
-        })       
-    })();      
+        })
+    })();
     }
   displayedColumns: string[] = ['action','numero', 'designation','compte'];
   dataSource : MatTableDataSource<Categorie>;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static : true}) sort: MatSort;  
+  @ViewChild(MatSort, {static : true}) sort: MatSort;
   ngOnInit(): void {
     this.categorieService.GetCategorieList().subscribe(
       data => {
-        this.dataSource = new MatTableDataSource(data);  
-        this.dataSource.paginator = this.paginator;        
+        this.dataSource = new MatTableDataSource(data);
+        this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.paginator._intl.itemsPerPageLabel = 'Affichage par page.';
         this.paginator._intl.firstPageLabel = 'Page Premier';
@@ -78,8 +78,8 @@ export class CategorieListComponent implements OnInit {
     const dialogRef = this.dialog.open(CategorieAddComponent);
   }
   /**Modifier Categorie */
-  editCategorie(index:number, element){   
-    const dialogConfig = new MatDialogConfig();            
+  editCategorie(index:number, element){
+    const dialogConfig = new MatDialogConfig();
     this.dialog.open(CategorieFormComponent,{data:{
       id:element.id,
       name:element.name,
@@ -87,11 +87,11 @@ export class CategorieListComponent implements OnInit {
     }}).afterClosed().subscribe(result => {
       if (result){
         this.categorieService.UpdateCategorie(result)
-      } 
-    });                           
+      }
+    });
   }
   /* Delete */
-  deleteCategorie(index: number){    
+  deleteCategorie(index: number){
     if(window.confirm('Are you sure?')) {
       const data = this.dataSource.data;
       data.splice((this.paginator.pageIndex * this.paginator.pageSize) + index, 1);
