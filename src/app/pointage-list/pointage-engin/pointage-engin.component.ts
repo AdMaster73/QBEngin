@@ -25,44 +25,28 @@ export class PointageEnginComponent implements OnInit {
     private router:Router,
     private pointageService:PointageService) {
       this.engin = this.router.getCurrentNavigation().extras.state.engins
-      this.pointageService.getPointageByEngin(this.engin).subscribe(
-        data => {
-          this.dataSource = new MatTableDataSource(data.sort((a,b)=>(
-            a.payload.doc.data().date_pointage.slice(3, 5)+a.payload.doc.data().date_pointage.slice(0, 2)+a.payload.doc.data().date_pointage.slice(6, 10) < b.payload.doc.data().date_pointage.slice(3, 5)+b.payload.doc.data().date_pointage.slice(0, 2)+b.payload.doc.data().date_pointage.slice(6, 10) ? -1 : 1
-              )));
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
-          this.paginator._intl.itemsPerPageLabel = 'Affichage par page.';
-          this.paginator._intl.firstPageLabel = 'Page Premier';
-          this.paginator._intl.nextPageLabel = 'Page Suivant';
-          this.paginator._intl.previousPageLabel = 'Page Précédante';
-          this.paginator._intl.lastPageLabel = 'Dérnier Page';
-        }
-      )
     }
 
-  displayedColumns: string[] = ['date_pointage', 'chantier', 'type_p', 'etat_e','heure_m','heure_ar','heure_p','displayName'];
+  displayedColumns: string[] = ['date_pointage', 'chantier', 'type_p','heure_m','heure_ar','heure_p','gasoil','compteur','compteur_p','consomation','etat_compteur','displayName'];
   dataSource : MatTableDataSource<Pointage>;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static : true}) sort: MatSort;
   ngOnInit(): void {
-
-
-    this.filteredOptions = this.myControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filter_engin(value))
-      );
-  }
-
-  private _filter_engin(value: string): string[] {
-    if(value === null){
-      return
-    }
-    const filterValue = value.toLowerCase();
-
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+    this.pointageService.getPointageByEngin(this.engin).subscribe(
+      data => {
+        this.dataSource = new MatTableDataSource(data.sort((a,b)=>(
+          a.date_pointage.slice(3, 5)+a.date_pointage.slice(0, 2)+a.date_pointage.slice(6, 10) < b.date_pointage.slice(3, 5)+b.date_pointage.slice(0, 2)+b.date_pointage.slice(6, 10) ? -1 : 1
+            )));
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.paginator._intl.itemsPerPageLabel = 'Affichage par page.';
+        this.paginator._intl.firstPageLabel = 'Page Premier';
+        this.paginator._intl.nextPageLabel = 'Page Suivant';
+        this.paginator._intl.previousPageLabel = 'Page Précédante';
+        this.paginator._intl.lastPageLabel = 'Dérnier Page';
+      }
+    )
   }
 
   applyFilter(event: Event) {
@@ -73,6 +57,30 @@ export class PointageEnginComponent implements OnInit {
       this.dataSource.paginator.firstPage();
       this.dataSource.sort = this.sort;
     }
+  }
+
+  /** Gets the total heure_marche of all data. */
+  getTotalHeureMarche() {
+    if (!this.dataSource) return
+    return this.dataSource.filteredData.map(t => t.heure_m).reduce((acc, value) => acc + value, 0);
+  }
+
+  /** Gets the total heure_marche of all data. */
+  getTotalHeureArret() {
+    if (!this.dataSource) return
+    return this.dataSource.filteredData.map(t => t.heure_ar).reduce((acc, value) => acc + value, 0);
+  }
+
+  /** Gets the total heure_panne of all data. */
+  getTotalHeurePanne() {
+    if (!this.dataSource) return
+    return this.dataSource.filteredData.map(t => t.heure_p).reduce((acc, value) => acc + value, 0);
+  }
+
+  /** Gets the total heure_marche of all data. */
+  getTotalGasoil() {
+    if (!this.dataSource) return
+    return this.dataSource.filteredData.map(t => eval(t.gasoil[0])).reduce((acc, value) => acc + value, 0);
   }
 
 
