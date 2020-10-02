@@ -1,0 +1,140 @@
+<!-- Title group  -->
+<div class="title-group">
+  <h1 class="mat-h1">Pointage du matériel code: {{data.engin.code}} - {{data.engin.name}}</h1>
+</div>
+
+<!-- Pointage form -->
+  <form [formGroup]="PointageFormAdd">
+    <!-- Left block -->
+
+        <!-- Pointage chantier -->
+        <mat-form-field class="" appearance="outline">
+          <mat-label>Chantier</mat-label>
+          <input matInput
+          [formControl]="myControl"
+          placeholder="Chantier"
+          aria-label="Chantier"
+          [(ngModel)]="chantier_name"
+          [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)='getControls($event)'>
+            <mat-option *ngFor="let chantier of filteredOptions | async" [value]="chantier.split('//')[1]" [id]="chantier.split('//')[0]">
+              <span>{{chantier.split('//')[1]}}</span>
+            </mat-option>
+          </mat-autocomplete>
+          <mat-icon matSuffix>place</mat-icon>
+        </mat-form-field>
+          <input matInput class="invisible" formControlName="id_chantier" [(ngModel)]="data.chantier">
+
+        <!--DATE pointage-->
+        <mat-form-field appearance="outline">
+          <mat-label>Entrer la date du pointage</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="date_pointage" [max]="maxDate">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker touchUi #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Etat du Matériel</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let etat of Etat_Array" [value]="etat">
+              {{etat}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Heure d'arrêt</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let arret of [0,1,2,3,4,5,6,7,8,9,10]" [value]="arret">
+              {{arret}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Heure de marche</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let marche of [0,1,2,3,4,5,6,7,8,9,10]" [value]="marche">
+              {{marche}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Heure de panne</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let panne of [0,1,2,3,4,5,6,7,8,9,10]" [value]="panne">
+              {{panne}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-card>
+          <!-- Engin gasoil -->
+          <mat-form-field appearance="outline">
+            <mat-label>Gasoil</mat-label>
+            <input matInput type="number" placeholder="Gasoil" formControlName="gasoil">
+          </mat-form-field>
+
+          <!-- Engin compteur Ancienne-->
+          <mat-form-field appearance="outline">
+            <mat-label>Ancienne Compteur</mat-label>
+            <input matInput [(ngModel)]="data.engin.compteur" placeholder="Ancienne Compteur" formControlName="compteur_anc">
+          </mat-form-field>
+
+          <!-- Engin compteur Nouveau-->
+          <mat-form-field appearance="outline">
+            <mat-label>Nouveau Compteur</mat-label>
+            <input matInput type="number" placeholder="Nouveau Compteur" formControlName="compteur_nvx">
+          </mat-form-field>
+
+          <!-- Engin compteur Nouveau-->
+          <mat-form-field appearance="outline">
+            <mat-label>Consomation</mat-label>
+            <span matPrefix>% &nbsp;</span>
+            <input matInput placeholder="Consomation" formControlName="consomation">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Etat de compteur</mat-label>
+            <mat-select formControlName="etat_compt" >
+              <mat-option *ngFor="let compte of ['MARCHE','PANNE','INNEXISTANT']" [value]="compte">
+                {{compte}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </mat-card>
+
+        <mat-card>
+          <!-- Engin gasoil -->
+          <mat-form-field appearance="outline">
+            <mat-label>H10</mat-label>
+            <input matInput type="number" placeholder="Huile de h10" formControlName="h10">
+          </mat-form-field>
+
+          <!-- Engin compteur Ancienne-->
+          <mat-form-field appearance="outline">
+            <mat-label>H40</mat-label>
+            <input matInput type="number" placeholder="Huile de h40" formControlName="h40">
+          </mat-form-field>
+
+          <!-- Engin compteur Nouveau-->
+          <mat-form-field appearance="outline">
+            <mat-label>H90</mat-label>
+            <input matInput type="number" placeholder="Huile de h90" formControlName="h90">
+          </mat-form-field>
+
+        </mat-card>
+
+
+
+        <mat-card-actions>
+          <button mat-fab color="primary" [disabled]="PointageFormAdd.invalid" [mat-dialog-close]="data">
+            <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+          </button>
+          <button mat-fab color="accent" mat-dialog-close>
+            <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
+          </button>
+        </mat-card-actions>
+  </form>
