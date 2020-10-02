@@ -9,7 +9,8 @@ export interface Engin {
     marque_moteur: string;
     serie_moteur: string;
     categorie:Categorie;
-    fournisseur:Fournisseur
+    fournisseur:Fournisseur;
+    id_chantier?:number
   }
   export interface Categorie{
     id:number,
