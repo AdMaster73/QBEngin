@@ -3,7 +3,7 @@
 
   <h3>Liste de pointage du : {{engin.code}} - {{engin.name}}</h3>
   <mat-form-field appearance="outline">
-      <mat-label>Recherche par pointage</mat-label>
+      <mat-label>Recherche du pointage</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Ex. 102">
     </mat-form-field>
     <div class="mat-elevation-z8">
@@ -12,53 +12,96 @@
       <!-- Numero Column -->
       <ng-container matColumnDef="date_pointage">
         <th mat-header-cell *matHeaderCellDef> Date </th>
-        <td mat-cell *matCellDef="let element"> {{element.payload.doc.data().date_pointage }} </td>
+        <td mat-cell *matCellDef="let element"> {{element.date_pointage }} </td>
+        <td mat-footer-cell *matFooterCellDef></td>
       </ng-container>
 
       <!-- Code Column -->
       <ng-container matColumnDef="chantier">
         <th mat-header-cell *matHeaderCellDef> Site </th>
-        <td mat-cell *matCellDef="let element"> {{element.payload.doc.data().chantier}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.chantier}} </td>
+        <td mat-footer-cell *matFooterCellDef></td>
       </ng-container>
 
       <!-- Name Column -->
       <ng-container matColumnDef="type_p">
         <th mat-header-cell *matHeaderCellDef> Type </th>
-        <td mat-cell *matCellDef="let element"> {{element.payload.doc.data().type_p}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.type_p}} </td>
+        <td mat-footer-cell *matFooterCellDef>Total</td>
       </ng-container>
 
       <!-- Catégorie Column -->
       <ng-container matColumnDef="etat_e">
         <th mat-header-cell *matHeaderCellDef>Etat </th>
-        <td mat-cell *matCellDef="let element"> {{element.payload.doc.data().etat_e}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.etat_e}} </td>
       </ng-container>
 
       <!-- Fournisseur Column -->
       <ng-container matColumnDef="heure_m">
         <th mat-header-cell *matHeaderCellDef>Hm </th>
-        <td mat-cell *matCellDef="let element"> {{element.payload.doc.data().heure_m}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.heure_m}} </td>
+        <td mat-footer-cell *matFooterCellDef>{{getTotalHeureMarche()}}</td>
       </ng-container>
 
       <!-- B_CODE Column -->
       <ng-container matColumnDef="heure_ar">
         <th mat-header-cell *matHeaderCellDef>Ha </th>
-        <td mat-cell *matCellDef="let element"> {{element.payload.doc.data().heure_ar}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.heure_ar}} </td>
+        <td mat-footer-cell *matFooterCellDef>{{getTotalHeureArret()}}</td>
       </ng-container>
 
       <!-- B_CODE Column -->
       <ng-container matColumnDef="heure_p">
         <th mat-header-cell *matHeaderCellDef>Hp </th>
-        <td mat-cell *matCellDef="let element"> {{element.payload.doc.data().heure_p}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.heure_p}} </td>
+        <td mat-footer-cell *matFooterCellDef>{{getTotalHeurePanne()}}</td>
       </ng-container>
 
       <!-- B_CODE Column -->
       <ng-container matColumnDef="displayName">
         <th mat-header-cell *matHeaderCellDef>Ut. </th>
         <td mat-cell *matCellDef="let element"> {{element.users.displayName}} </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+
+      <!-- B_CODE Column -->
+      <ng-container matColumnDef="gasoil">
+        <th mat-header-cell *matHeaderCellDef>Gasoil</th>
+        <td mat-cell *matCellDef="let element"> {{element.gasoil[0]}} </td>
+        <td mat-footer-cell *matFooterCellDef>{{getTotalGasoil()}}</td>
+      </ng-container>
+
+      <!-- B_CODE Column -->
+      <ng-container matColumnDef="compteur">
+        <th mat-header-cell *matHeaderCellDef>Compt.1 </th>
+        <td mat-cell *matCellDef="let element"> {{element.gasoil[1]}} </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+
+      <!-- B_CODE Column -->
+      <ng-container matColumnDef="compteur_p">
+        <th mat-header-cell *matHeaderCellDef>Compt.2 </th>
+        <td mat-cell *matCellDef="let element"> {{element.gasoil[2]}} </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+
+      <!-- B_CODE Column -->
+      <ng-container matColumnDef="consomation">
+        <th mat-header-cell *matHeaderCellDef>Cons. </th>
+        <td mat-cell *matCellDef="let element"> {{element.gasoil[3]}} %</td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+
+      <!-- B_CODE Column -->
+      <ng-container matColumnDef="etat_compteur">
+        <th mat-header-cell *matHeaderCellDef>Etat compt. </th>
+        <td mat-cell *matCellDef="let element"> {{element.gasoil[4]}} </td>
+        <td mat-footer-cell *matFooterCellDef></td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row [ngStyle]="{backgroundColor: getBackgroundColor(row.etat_e)}" *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
     </table>
     <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
     </div>
