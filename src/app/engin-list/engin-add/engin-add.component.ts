@@ -28,29 +28,29 @@ export class EnginAddComponent implements OnInit {
   engins: Engin[];
   results$ : Observable<any[]>;
   results_f$: Observable<any[]>;
-  startAt: BehaviorSubject<string | null> = new BehaviorSubject('');   
+  startAt: BehaviorSubject<string | null> = new BehaviorSubject('');
 
 
   @ViewChild('resetEnginForm',{static: true}) myNgForm : NgForm;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   selectedBindingType: string;
-  EnginForm: FormGroup;   
+  EnginForm: FormGroup;
   constructor(
       public db : AngularFirestore,
       public fb: FormBuilder ,
-      private enginService : EnginService,     
-      public serviceFournisseur : FournisseurService, 
-      public serviceCategorie : CategorieService, 
+      private enginService : EnginService,
+      public serviceFournisseur : FournisseurService,
+      public serviceCategorie : CategorieService,
       private _adapter: DateAdapter<any>,
-      public dialogRef: MatDialogRef<EnginListComponent>) {     
+      public dialogRef: MatDialogRef<EnginListComponent>) {
   }
 
-  ngOnInit() {  
-    this._adapter.setLocale('fr');  
+  ngOnInit() {
+    this._adapter.setLocale('fr');
     this.enginService.GetEnginLastRecord().snapshotChanges().forEach(data => {
       data.forEach(user=>{
         this.EnginLastRecord = eval(user.payload.doc.id)+1
-      })              
+      })
     })
     this.EnginForm = this.fb.group({
       code: ['', Validators.required],
@@ -65,17 +65,17 @@ export class EnginAddComponent implements OnInit {
       serie_moteur:[],
       numero_serie:[]
     })
-    this.results$ = this.serviceCategorie.GetCategorieList(); 
-    this.results_f$ = this.serviceFournisseur.GetFournisseurList(); 
+    this.results$ = this.serviceCategorie.GetCategorieList();
+    this.results_f$ = this.serviceFournisseur.GetFournisseurList();
   }
   search(searchText){
     this.startAt.next(searchText);
-  }  
+  }
   /*Avoir le id pour le stocker dans une zone de texte afin de l'ituliser à l'ajout*/
-  getControls(event$,model:string){     
-    this.EnginForm.controls[model].setValue(event$.option.value.name) 
+  getControls(event$,model:string){
+    this.EnginForm.controls[model].setValue(event$.option.value.name)
     this.EnginForm.controls['id_'+model].setValue(event$.option.value.id)
-  } 
+  }
   /* Reactive book form */
   submitEnginForm() {
     this.submitted = true;
@@ -91,9 +91,9 @@ export class EnginAddComponent implements OnInit {
       id:this.EnginForm.controls['id_fournisseur'].value,
       name:this.EnginForm.controls['fournisseur'].value,
       compte:''
-    };    
-    let engin: Engin = { 
-          id: this.EnginLastRecord,          
+    };
+    let engin: Engin = {
+          id: this.EnginLastRecord,
           code: this.EnginForm.controls['code'].value,
           name: this.EnginForm.controls['designation'].value,
           date_achat:this.EnginForm.controls['date_achat'].value,
@@ -103,7 +103,7 @@ export class EnginAddComponent implements OnInit {
           serie_moteur: this.EnginForm.controls['serie_moteur'].value,
           categorie:icategorie,
           fournisseur:ifournisseur
-    } ;    
+    } ;
     this.enginService.AddEngin(engin).then(
       res => {
         this.dialogRef.close();
@@ -112,15 +112,15 @@ export class EnginAddComponent implements OnInit {
       err=>{
         alert('Vous avez mal tappez les champs !')
       }
-    )      
+    )
   }
   /* Get errors */
   public handleError = (controlName: string, errorName: string) => {
     return this.EnginForm.controls[controlName].hasError(errorName);
-  }  
+  }
 
   /* Reset form */
-  closeForm() {        
-    this.dialogRef.close(); 
+  closeForm() {
+    this.dialogRef.close();
   }
 }
