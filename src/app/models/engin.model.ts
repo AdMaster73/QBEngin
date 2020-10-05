@@ -10,6 +10,12 @@ export interface Engin {
     serie_moteur: string;
     categorie:Categorie;
     fournisseur:Fournisseur;
+    type_v?:string;//type de vidange km ou hr
+    compteur_dernier_v?:number;//Compteur du dernier vidange fait
+    compteur_v?:number;//km ou hr à parcourir pour faire le vidange
+    date_v?:Date;//la date du dernier vidange
+    vidange_complet?:boolean;//vidange complet ou non
+    vidange_alarm?:number;//le compteur qu'on doit allumer l'alarme
     id_chantier?:number
   }
   export interface Categorie{
