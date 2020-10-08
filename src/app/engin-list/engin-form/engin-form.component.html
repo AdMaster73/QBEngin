@@ -146,6 +146,27 @@
             <!-- Porte char-->
               <mat-slide-toggle [(ngModel)]="data.porte" formControlName="porte">Porte Char</mat-slide-toggle>
 
+            <!-- chauffeur -->
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Chauffeur</mat-label>
+              <input matInput #searchInput_ch
+              formControlName="chauffeur"
+              placeholder="Chauffeur"
+              aria-label="Chauffeur"
+              [(ngModel)]="data.chauffeur.name"
+              (keyup)="search(searchInput_ch.value)"
+              [matAutocomplete]="auto_ch">
+              <mat-autocomplete #auto_ch="matAutocomplete" (optionSelected)='getControls($event,"chauffeur")'>
+                <mat-option *ngFor="let chauffeur of (results_ch$ | async)" [value]="chauffeur">
+                  <span>{{chauffeur?.name}}</span>
+                </mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="handleError('chauffeur', 'required')">
+                Vous devez Entrer le <strong>Chauffeur</strong>
+              </mat-error>
+            </mat-form-field>
+              <input matInput class="invisible" formControlName="id_chauffeur" [(ngModel)]="data.chauffeur.id">
+
           <mat-card-actions>
             <button mat-fab color="primary" [mat-dialog-close]="data">
               <mat-icon aria-label="Example icon-button with a heart icon">edit</mat-icon>
