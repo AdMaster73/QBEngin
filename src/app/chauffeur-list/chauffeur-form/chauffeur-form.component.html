@@ -1,0 +1,28 @@
+<!-- Chauffeur form -->
+<div class="example-container">
+  <form [formGroup]="ChauffeurFormEdit">
+    <!-- Left block -->
+    <mat-card>
+      <mat-card-title>Modifier {{data.name}}</mat-card-title>
+        <input matInput class="invisible" formControlName="id" [(ngModel)]="data.id">
+
+        <!-- Chauffeur designation -->
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Nom complet</mat-label>
+          <input matInput placeholder="Nom complet" formControlName="name" [(ngModel)]="data.name">
+          <mat-error *ngIf="handleError('name', 'required')">
+            Vous devez Entrer la <strong>Désignation</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-card-actions>
+          <button mat-fab color="primary" [disabled]="ChauffeurFormEdit.invalid" [mat-dialog-close]="data">
+            <mat-icon aria-label="Example icon-button with a heart icon">edit</mat-icon>
+          </button>
+          <button mat-fab color="accent" mat-dialog-close>
+            <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
+          </button>
+        </mat-card-actions>
+    </mat-card>
+  </form>
+</div>
