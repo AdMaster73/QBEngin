@@ -1,16 +1,18 @@
-<!-- Title group  -->
-<div class="title-group">
-    <h1 class="mat-h1">Ajouter Engin</h1>
-    <mat-divider fxFlex="1 0"></mat-divider>
-  </div>
- 
+<button mat-icon-button color="primary" [disabled]="EnginForm.invalid" [mat-dialog-close]="data">
+  <mat-icon aria-label="Example icon-button with a heart icon">edit</mat-icon>
+</button>
+<button mat-icon-button color="accent" mat-dialog-close>
+  <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
+</button>
   <!-- Engin form -->
   <div class="example-container">
     <form [formGroup]="EnginForm" (ngSubmit)="submitEnginForm()"> <!-- #resetEnginForm="ngForm"-->
       <!-- Left block -->
       <mat-card>
+        <mat-card-title>Ajouter un Engin</mat-card-title>
           <!-- Engin code -->
           <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Code</mat-label>
             <input matInput placeholder="Code" formControlName="code">
             <mat-error *ngIf="handleError('code', 'required')">
               Vous devez Entrer le <strong>Code engin</strong>
@@ -19,14 +21,15 @@
 
           <!-- Engin designation -->
           <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Désignation</mat-label>
             <input matInput placeholder="Désignation" formControlName="designation">
             <mat-error *ngIf="handleError('designation', 'required')">
               Vous devez Entrer la <strong>Désignation</strong>
             </mat-error>
-          </mat-form-field>   
+          </mat-form-field>
 
           <!-- Add categorie -->
-          <mat-form-field class="example-full-width" appearance="outline">            
+          <mat-form-field class="example-full-width" appearance="outline">
             <input matInput #searchInput
             formControlName="categorie"
             placeholder="Catégorie"
@@ -34,18 +37,18 @@
             (keyup)="search(searchInput.value)"
             [matAutocomplete]="auto">
             <mat-autocomplete #auto="matAutocomplete" (optionSelected)='getControls($event,"categorie")'>
-              <mat-option *ngFor="let categorie of (results$ | async)" [value]="categorie">                                         
-                <span>{{categorie?.name}}</span>                                
-              </mat-option> 
-            </mat-autocomplete> 
+              <mat-option *ngFor="let categorie of (results$ | async)" [value]="categorie">
+                <span>{{categorie?.name}}</span>
+              </mat-option>
+            </mat-autocomplete>
             <mat-error *ngIf="handleError('categorie', 'required')">
               Vous devez Entrer la <strong>Catégorie</strong>
-            </mat-error>                  
+            </mat-error>
           </mat-form-field>
             <input matInput class="invisible" formControlName="id_categorie">
 
           <!-- Add fornisseur -->
-          <mat-form-field class="example-full-width" appearance="outline">            
+          <mat-form-field class="example-full-width" appearance="outline">
             <input matInput #searchInput_f
             formControlName="fournisseur"
             placeholder="Fournisseur"
@@ -53,51 +56,74 @@
             (keyup)="search(searchInput_f.value)"
             [matAutocomplete]="auto_f">
             <mat-autocomplete #auto_f="matAutocomplete" (optionSelected)='getControls($event,"fournisseur")'>
-              <mat-option *ngFor="let fournisseur of (results_f$ | async)" [value]="fournisseur">                                         
-                <span>{{fournisseur?.name}}</span>                                
-              </mat-option> 
-            </mat-autocomplete> 
+              <mat-option *ngFor="let fournisseur of (results_f$ | async)" [value]="fournisseur">
+                <span>{{fournisseur?.name}}</span>
+              </mat-option>
+            </mat-autocomplete>
             <mat-error *ngIf="handleError('fournisseur', 'required')">
               Vous devez Entrer Un <strong>Fournisseur</strong>
-            </mat-error>                  
+            </mat-error>
           </mat-form-field>
-            <input matInput class="invisible" formControlName="id_fournisseur">  
+            <input matInput class="invisible" formControlName="id_fournisseur">
 
             <!--DATE ACHAT-->
             <mat-form-field class="example-full-width" appearance="outline">
               <mat-label>Entrer la date d'achat</mat-label>
-              <input matInput [matDatepicker]="picker" formControlName="date_achat">
+              <input matInput [matDatepicker]="picker" formControlName="date_achat" [max]="maxDate">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker touchUi #picker></mat-datepicker>
-            </mat-form-field>   
+            </mat-form-field>
             <!-- VALEUR ACHAT -->
             <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Valeur Achat</mat-label>
               <input matInput placeholder="Valeur Achat" formControlName="value_chat">
-            </mat-form-field> 
-       
+            </mat-form-field>
+
             <!-- MARQUE MOTEUR -->
             <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Marque Moteur</mat-label>
               <input matInput placeholder="Marque Moteur" formControlName="marque_moteur">
-            </mat-form-field> 
+            </mat-form-field>
 
             <!-- SERIE MOTEUR -->
             <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Serie Moteur</mat-label>
               <input matInput placeholder="Serie Moteur" formControlName="serie_moteur">
             </mat-form-field>
 
             <!-- NUMERO SERIE -->
             <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Numéro de serie</mat-label>
               <input matInput placeholder="Numéro de serie" formControlName="numero_serie">
-            </mat-form-field> 
+            </mat-form-field>
 
-          <mat-card-actions>
-            <button mat-fab color="primary" [disabled]="EnginForm.invalid" matTooltip="Nouvelle élement">
-              <mat-icon aria-label="Example icon-button with a heart icon">done_outline</mat-icon>
+
+             <!-- Add chauffeur -->
+          <mat-form-field class="example-full-width" appearance="outline">
+            <input matInput #searchInput_ch
+            formControlName="chauffeur"
+            placeholder="Fournisseur"
+            aria-label="Fournisseur"
+            (keyup)="search(searchInput_ch.value)"
+            [matAutocomplete]="auto_ch">
+            <mat-autocomplete #auto_ch="matAutocomplete" (optionSelected)='getControls($event,"chauffeur")'>
+              <mat-option *ngFor="let chauffeur of (results_ch$ | async)" [value]="chauffeur">
+                <span>{{chauffeur?.name}}</span>
+              </mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="handleError('chauffeur', 'required')">
+              Vous devez Entrer Un <strong>Fournisseur</strong>
+            </mat-error>
+          </mat-form-field>
+            <input matInput class="invisible" formControlName="id_chauffeur">
+          <!-- <mat-card-actions>
+            <button mat-icon-button color="primary" [disabled]="EnginForm.invalid" [mat-dialog-close]="data">
+              <mat-icon aria-label="Example icon-button with a heart icon">edit</mat-icon>
             </button>
-            <button mat-fab color="accent" (click)="closeForm()" matTooltip="Annuler">
+            <button mat-icon-button color="accent" mat-dialog-close>
               <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
             </button>
-          </mat-card-actions>             
+          </mat-card-actions> -->
       </mat-card>
     </form>
   </div>
