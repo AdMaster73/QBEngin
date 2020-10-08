@@ -1,6 +1,6 @@
 import { Component, OnInit,ViewChild  } from '@angular/core';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { FormGroup, FormBuilder, Validators, NgForm } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators, NgForm,FormControl } from "@angular/forms";
 import { EnginService } from './../../services/engin.service';
 import { CategorieService } from './../../services/categorie.service'
 import { Engin, Categorie,Fournisseur, Chauffeur } from './../../models/engin.model';
@@ -27,6 +27,7 @@ export class EnginAddComponent implements OnInit {
   addOnBlur = true;
   EnginLastRecord: number;
   engins: Engin[];
+  maxDate:Date =  new Date();
   chauffeurs: Chauffeur[];
   results$ : Observable<any[]>;
   results_f$: Observable<any[]>;
@@ -60,15 +61,16 @@ export class EnginAddComponent implements OnInit {
       code: ['', Validators.required],
       designation: ['', Validators.required],
       categorie: ['', Validators.required],
+      id_categorie:new FormControl(),
       fournisseur: ['', Validators.required],
-      id_categorie:['', Validators.required],
-      id_fournisseur:['', Validators.required],
-      id_chauffeur:['', Validators.required],
-      date_achat: [],
-      value_chat:[],
-      marque_moteur:[],
-      serie_moteur:[],
-      numero_serie:[]
+      id_fournisseur:new FormControl(),
+      chauffeur: ['', Validators.required],
+      id_chauffeur:new FormControl(),
+      date_achat: new FormControl(),
+      value_chat:new FormControl(),
+      marque_moteur:new FormControl(),
+      serie_moteur:new FormControl(),
+      numero_serie:new FormControl()
     })
     this.results$ = this.serviceCategorie.GetCategorieList();
     this.results_f$ = this.serviceFournisseur.GetFournisseurList();
