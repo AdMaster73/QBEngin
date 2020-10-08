@@ -1,0 +1,27 @@
+<!-- Chauffeur form -->
+<div class="example-container">
+  <form [formGroup]="ChauffeurForm" (ngSubmit)="submitChauffeurForm()">
+    <!-- Left block -->
+    <mat-card>
+
+      <mat-card-title>Ajouter Chauffeur</mat-card-title>
+        <!-- User display name -->
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Nom complet</mat-label>
+          <input matInput placeholder="Nom complet" formControlName="name">
+          <mat-error *ngIf="handleError('name', 'required')">
+            Vous devez Entrer le <strong>Nom complet</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-card-actions>
+          <button mat-fab color="primary" [disabled]="ChauffeurForm.invalid" matTooltip="Nouvelle élement">
+            <mat-icon aria-label="Example icon-button with a heart icon">done_outline</mat-icon>
+          </button>
+          <button mat-fab color="accent" (click)="closeForm()" matTooltip="Annuler">
+            <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
+          </button>
+        </mat-card-actions>
+    </mat-card>
+  </form>
+</div>
