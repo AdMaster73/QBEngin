@@ -3,7 +3,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { FormGroup, FormBuilder, Validators, NgForm } from "@angular/forms";
 import { EnginService } from './../../services/engin.service';
 import { CategorieService } from './../../services/categorie.service'
-import { Engin, Categorie,Fournisseur } from './../../models/engin.model';
+import { Engin, Categorie,Fournisseur, Chauffeur } from './../../models/engin.model';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs';
 import {MatDialogRef} from '@angular/material/dialog';
@@ -11,6 +11,7 @@ import {DateAdapter} from '@angular/material/core';
 import { EnginListComponent } from '../engin-list.component';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { FournisseurService } from 'src/app/services/fournisseur.service';
+import { ChauffeurService } from 'src/app/services/chauffeur.service';
 
 @Component({
   selector: 'app-engin-add',
@@ -26,8 +27,10 @@ export class EnginAddComponent implements OnInit {
   addOnBlur = true;
   EnginLastRecord: number;
   engins: Engin[];
+  chauffeurs: Chauffeur[];
   results$ : Observable<any[]>;
   results_f$: Observable<any[]>;
+  results_ch$: Observable<any[]>;
   startAt: BehaviorSubject<string | null> = new BehaviorSubject('');
 
 
@@ -41,6 +44,7 @@ export class EnginAddComponent implements OnInit {
       private enginService : EnginService,
       public serviceFournisseur : FournisseurService,
       public serviceCategorie : CategorieService,
+      public serviceChauffeur : ChauffeurService,
       private _adapter: DateAdapter<any>,
       public dialogRef: MatDialogRef<EnginListComponent>) {
   }
@@ -59,6 +63,7 @@ export class EnginAddComponent implements OnInit {
       fournisseur: ['', Validators.required],
       id_categorie:['', Validators.required],
       id_fournisseur:['', Validators.required],
+      id_chauffeur:['', Validators.required],
       date_achat: [],
       value_chat:[],
       marque_moteur:[],
@@ -67,6 +72,7 @@ export class EnginAddComponent implements OnInit {
     })
     this.results$ = this.serviceCategorie.GetCategorieList();
     this.results_f$ = this.serviceFournisseur.GetFournisseurList();
+    this.results_ch$ = this.serviceChauffeur.GetChauffeurList();
   }
   search(searchText){
     this.startAt.next(searchText);
@@ -92,6 +98,10 @@ export class EnginAddComponent implements OnInit {
       name:this.EnginForm.controls['fournisseur'].value,
       compte:''
     };
+    var ichauffeur : Chauffeur = {
+      id:this.EnginForm.controls['id_chauffeur'].value,
+      name:this.EnginForm.controls['chauffeur'].value
+    };
     let engin: Engin = {
           id: this.EnginLastRecord,
           code: this.EnginForm.controls['code'].value,
@@ -102,7 +112,8 @@ export class EnginAddComponent implements OnInit {
           marque_moteur: this.EnginForm.controls['marque_moteur'].value,
           serie_moteur: this.EnginForm.controls['serie_moteur'].value,
           categorie:icategorie,
-          fournisseur:ifournisseur
+          fournisseur:ifournisseur,
+          chauffeur:ichauffeur
     } ;
     this.enginService.AddEngin(engin).then(
       res => {
