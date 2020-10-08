@@ -10,6 +10,7 @@ export interface Engin {
     serie_moteur: string;
     categorie:Categorie;
     fournisseur:Fournisseur;
+    chauffeur?:Chauffeur,
     compteur?:number,
     type_v?:string;//type de vidange km ou hr
     compteur_dernier_v?:number;//Compteur du dernier vidange fait
@@ -29,6 +30,7 @@ export interface Engin {
     name:string,
     compte:string
   }
+
   export interface Chantier{
     id:number,
     name:string,
