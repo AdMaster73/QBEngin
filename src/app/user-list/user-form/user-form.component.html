@@ -1,14 +1,9 @@
-<!-- Title group  -->
-<div class="title-group">
-    <h1 class="mat-h1">Modifier Utilisateur</h1>
-    <mat-divider fxFlex="1 0"></mat-divider>
-  </div>
-
   <!-- User form -->
   <div class="example-container">
     <form [formGroup]="UserFormEdit">
       <!-- Left block -->
       <mat-card>
+        <mat-card-title>Modifier Utilisateur</mat-card-title>
           <!-- User nom complet -->
           <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>Nom Complet</mat-label>
@@ -48,7 +43,7 @@
           </mat-form-field>
 
           <!-- User rôle -->
-          <mat-form-field>
+          <mat-form-field appearance="outline">
             <mat-label>Rôle</mat-label>
             <mat-select [(ngModel)]="data.role" name="role" formControlName="role">
               <mat-option *ngFor="let role of roles" [value]="role.name">
@@ -58,10 +53,10 @@
           </mat-form-field>
 
           <mat-card-actions>
-            <button mat-fab color="primary" [disabled]="UserFormEdit.invalid" [mat-dialog-close]="data">
+            <button mat-icon-button color="primary" [disabled]="UserFormEdit.invalid" [mat-dialog-close]="data">
               <mat-icon aria-label="Example icon-button with a heart icon">edit</mat-icon>
             </button>
-            <button mat-fab mat-dialog-close color="accent">
+            <button mat-icon-button mat-dialog-close color="accent">
               <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
             </button>
           </mat-card-actions>
