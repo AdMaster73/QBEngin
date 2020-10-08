@@ -6,7 +6,7 @@
 
   <!-- Categorie form -->
   <div class="example-container">
-    <form [formGroup]="CategorieFormEdit">
+    <form [formGroup]="CategorieFormEdit" (ngSubmit)="onSubmit(CategorieFormEdit.value)">
       <!-- Left block -->
       <mat-card>
           <input matInput class="invisible" formControlName="id" [(ngModel)]="data.id">
