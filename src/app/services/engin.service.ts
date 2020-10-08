@@ -65,15 +65,15 @@ export class EnginService {
 	/*Retourner une liste des engin */
 	GetEnginList() {
 
-    /* const db = firebase.firestore()
-    db.collection("engin").get().then(function(querySnapshot) {
-      querySnapshot.forEach(function(doc) {
+    /*const db = firebase.firestore()
+    db.collection("engin").get().then((querySnapshot) =>{
+      querySnapshot.forEach((doc) =>{
           doc.ref.update({
-              compteur: 0
+              chauffeur: {id:3,name:'SANS'}
           });
       });
     });
-    let maintenant:string = new Date().toLocaleDateString('fr-FR')
+     let maintenant:string = new Date().toLocaleDateString('fr-FR')
     const db = firebase.firestore()
     db.collection("engin").where('last_pointage','==',maintenant).get().then(function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
@@ -81,7 +81,7 @@ export class EnginService {
               compteur: 0
           });
       });
-    });*/
+    }); */
 
     return this.afs.collection<Engin>('engin',ref=> ref.orderBy('createdAt','asc'))
     .snapshotChanges().pipe(
@@ -173,6 +173,10 @@ export class EnginService {
 				fournisseur:{
 					id:eval(engin.fournisseur.id),
 					name:engin.fournisseur.name
+        },
+				chauffeur:{
+					id:eval(engin.chauffeur.id),
+					name:engin.chauffeur.name
         },
         type_v:engin.type_v,
         etat_f:engin.etat_f,
