@@ -128,14 +128,24 @@
     <ng-container matColumnDef="pointage">
       <th mat-header-cell *matHeaderCellDef> Pointage </th>
       <td mat-cell *matCellDef="let element">
-        <button mat-mini-fab color="" aria-label="Icon button with a menu icon" *ngIf="element.last_pointage" (click)="getPointage(element)">
-          <mat-icon>my_location</mat-icon>
-        </button>
-        <button mat-mini-fab color="" aria-label="Icon button with a menu icon" *ngIf="!element.last_pointage" (click)="addPointage(element)">
+        <button mat-mini-fab color=""  *ngIf="element.last_pointage !== maintenant" (click)="addPointage(element)">
           <mat-icon>add</mat-icon>
+        </button>
+          <mat-icon *ngIf="element.last_pointage == maintenant">check</mat-icon>
+      </td>
+    </ng-container>
+
+    <!-- position Column -->
+    <ng-container matColumnDef="history">
+      <th mat-header-cell *matHeaderCellDef> Historique </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-mini-fab color=""  *ngIf="element.last_pointage" (click)="getPointage(element)">
+          <mat-icon>my_location</mat-icon>
         </button>
       </td>
     </ng-container>
+
+
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row [ngStyle]="{backgroundColor: getBackgroundColor(row.etat_f)}" *matRowDef="let row; columns: displayedColumns;"></tr>
