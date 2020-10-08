@@ -53,6 +53,10 @@ export class EnginService {
 			fournisseur:{
 				id :engin.fournisseur.id,
 				name:engin.fournisseur.name
+			},
+			chauffeur:{
+				id :engin.chauffeur.id,
+				name:engin.chauffeur.name
 			}
 		})
 	}
