@@ -1,14 +1,11 @@
 <!-- Title group  -->
 <div class="title-group">
-  <h1 class="mat-h1">Pointage du matériel code: {{data.engin.code}} - {{data.engin.name}}</h1>
+  <h1 class="mat-h1">Pointage du matériel code: {{data.code}} - {{data.name}}</h1>
 </div>
-
+<form [formGroup]="PointageFormAdd">
   <mat-horizontal-stepper #stepper>
-    <mat-step [stepControl]="PointageFormAddFirst" errorMessage="Name is required.">
-      <form [formGroup]="PointageFormAddFirst">
+    <mat-step [stepControl]="PointageFormAddFirst" errorMessage="is required.">
         <ng-template matStepLabel>Entrer l'etat du matériel</ng-template>
-
-        <mat-card>
         <!-- Pointage chantier -->
         <mat-form-field appearance="outline">
           <mat-label>Chantier</mat-label>
@@ -25,7 +22,7 @@
           </mat-autocomplete>
           <mat-icon matSuffix>place</mat-icon>
         </mat-form-field>
-
+        <input matInput type="number" class="invisible" formControlName="id_chantier" [(ngModel)]="data.id_chantier">
         <!--DATE pointage-->
         <mat-form-field appearance="outline">
           <mat-label>Date du pointage</mat-label>
@@ -70,42 +67,38 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-        </mat-card>
         <div>
-          <button mat-button matStepperNext>Suivant</button>
+          <button mat-fab matStepperNext color="primary"><mat-icon>play_arrow</mat-icon></button>
         </div>
-      </form>
     </mat-step>
     <mat-step [stepControl]="PointageFormAddSecond" errorMessage="Address is required.">
-      <form [formGroup]="PointageFormAddSecond">
         <ng-template matStepLabel>Entrer le gasoil</ng-template>
 
-        <p style="color: royalblue;">Dérnier vidange fait le {{data.engin.date_v.toDate() | date:'dd/MM/yyyy'}}  {{data.engin.type_v=='KILOMETRE'?'à '+data.engin.compteur_dernier_v+" Km":'à '+data.engin.compteur_dernier_v+" Hr"}}
-           d'un vidange {{data.engin.vidange_complet?'Complet':'Normale'}}
+        <p *ngIf="data.date_v" style="color: royalblue;">Dérnier vidange fait le {{data.date_v.toDate() | date:'dd/MM/yyyy'}}  {{data.type_v=='KILOMETRE'?'à '+data.compteur_dernier_v+" Km":'à '+data.compteur_dernier_v+" Hr"}}
+           d'un vidange {{data.vidange_complet?'Complet':'Normale'}}
         </p>
-        <p>
-          Prochaine vidange sera à {{data.engin.compteur_v+data.engin.compteur_dernier_v | number}} {{data.engin.type_v=='KILOMETRE'?" Km":" Hr"}} il reste <span [ngStyle]="{'color':(data.engin.compteur_v+data.engin.compteur_dernier_v)-data.engin.compteur < data.engin.vidange_alarm ? 'red' : '' }">{{(data.engin.compteur_v+data.engin.compteur_dernier_v)-data.engin.compteur | number}}</span>
+        <p *ngIf="data.date_v">
+          Prochaine vidange sera à {{data.compteur_v+data.compteur_dernier_v | number}} {{data.type_v=='KILOMETRE'?" Km":" Hr"}} il reste <span [ngStyle]="{'color':(data.compteur_v+data.compteur_dernier_v)-data.compteur < data.vidange_alarm ? 'red' : '' }">{{(data.compteur_v+data.compteur_dernier_v)-data.compteur | number}}</span>
         </p>
         <mat-form-field appearance="outline">
           <mat-label>Ancienne Compteur</mat-label>
-          <input matInput [(ngModel)]="data.engin.compteur" placeholder="Ancienne Compteur" formControlName="compteur_anc">
+          <input matInput [(ngModel)]="data.compteur" placeholder="Ancienne Compteur" formControlName="compteur_anc">
         </mat-form-field>
 
 
         <mat-form-field appearance="outline">
-          <mat-label>Nouveau Compteur par [{{data.engin.type_v}}]</mat-label>
+          <mat-label>Nouveau Compteur par [{{data.type_v}}]</mat-label>
           <input matInput type="number" placeholder="Nouveau Compteur" formControlName="compteur_nvx">
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Gasoil</mat-label>
-          <input matInput type="number" placeholder="Gasoil" formControlName="gasoil">
+          <input matInput type="number" placeholder="Gasoil" formControlName="gasoil" min="0" max="1000">
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Consomation</mat-label>
-          <mat-icon matSuffix>place</mat-icon>
-          <input matInput placeholder="Consomation" formControlName="consomation">
+          <input matInput placeholder="Consomation" formControlName="consomation" readonly>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -122,35 +115,53 @@
           <input matInput placeholder="Numéro de bon" formControlName="bon">
         </mat-form-field>
         <div>
-          <button mat-button matStepperPrevious>Retour</button>
-          <button mat-button matStepperNext>Suivant</button>
+          <button mat-fab matStepperPrevious><mat-icon>replay</mat-icon></button>
+          <button mat-fab matStepperNext color="primary" [disabled]="PointageFormAdd.invalid"><mat-icon>play_arrow</mat-icon></button>
         </div>
-      </form>
     </mat-step>
     <mat-step>
-      <form [formGroup]="PointageFormAddThird">
       <ng-template matStepLabel>Les huiles</ng-template>
       <mat-form-field appearance="outline">
         <mat-label>H10</mat-label>
-        <input matInput type="number" placeholder="Huile de h10" formControlName="h10">
+        <input matInput type="number" placeholder="Huile de h10" formControlName="oil_10" min="0" max="200">
       </mat-form-field>
 
 
       <mat-form-field appearance="outline">
         <mat-label>H40</mat-label>
-        <input matInput type="number" placeholder="Huile de h40" formControlName="h40">
+        <input matInput type="number" placeholder="Huile de h40" formControlName="oil_40" min="0" max="200">
       </mat-form-field>
 
 
       <mat-form-field appearance="outline">
         <mat-label>H90</mat-label>
-        <input matInput type="number" placeholder="Huile de h90" formControlName="h90">
+        <input matInput type="number" placeholder="Huile de h90" formControlName="oil_90" min="0" max="200">
       </mat-form-field>
+
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Vidange</mat-card-title>
+        </mat-card-header>
+        <!-- Vidange Complet-->
+        <mat-radio-group  formControlName="vidange">
+          <mat-radio-button class="example-margin" value="simple">
+            Simple
+          </mat-radio-button>
+          <mat-radio-button class="example-margin" value="complet">
+            Complet
+          </mat-radio-button>
+        </mat-radio-group>
+      </mat-card>
+
+
       <div>
-        <button mat-button matStepperPrevious>Retour</button>
-        <button mat-button (click)="pointer()">Pointer</button>
+        <button mat-fab matStepperPrevious>
+          <mat-icon >replay</mat-icon>
+        </button>
+        <button mat-fab [mat-dialog-close]="PointageFormAdd.value" [disabled]="PointageFormAdd.invalid" color="primary">
+          <mat-icon >done_outline</mat-icon>
+        </button>
       </div>
-      </form>
     </mat-step>
   </mat-horizontal-stepper>
-
+</form>
