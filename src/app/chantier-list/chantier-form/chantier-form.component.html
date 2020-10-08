@@ -3,7 +3,7 @@
     <form [formGroup]="ChantierFormEdit">
       <!-- Left block -->
       <mat-card>
-        <mat-card-title>Modifier le Site</mat-card-title>
+        <mat-card-title>Modifier le Site {{data.name}}</mat-card-title>
           <input matInput class="invisible" formControlName="id" [(ngModel)]="data.id">
 
           <!-- Chantier designation -->
@@ -12,15 +12,6 @@
             <input matInput placeholder="Désignation" formControlName="name" [(ngModel)]="data.name">
             <mat-error *ngIf="handleError('name', 'required')">
               Vous devez Entrer la <strong>Désignation</strong>
-            </mat-error>
-          </mat-form-field>
-
-          <!-- compte designation -->
-          <mat-form-field class="example-full-width" appearance="outline">
-            <mat-label>Compte tièrs</mat-label>
-            <input matInput placeholder="Compte" formControlName="compte" [(ngModel)]="data.compte">
-            <mat-error *ngIf="handleError('compte', 'required')">
-              Vous devez Entrer le <strong>Compte tière</strong>
             </mat-error>
           </mat-form-field>
 
@@ -35,11 +26,55 @@
             </mat-select>
           </mat-form-field>
 
+          <!-- chantier compte -->
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Compte tièrs</mat-label>
+            <input matInput placeholder="Compte" formControlName="compte" [(ngModel)]="data.compte">
+            <mat-error *ngIf="handleError('compte', 'required')">
+              Vous devez Entrer le <strong>Compte tière</strong>
+            </mat-error>
+          </mat-form-field>
 
           <mat-checkbox
           [(ngModel)]="data.archive" formControlName="archive">
           Chantier Archivée
           </mat-checkbox>
+          <mat-card>
+
+          <!-- Chantier latitude -->
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Latitude</mat-label>
+            <input matInput placeholder="Latitude" formControlName="latitude" [(ngModel)]="data.latitude" readonly>
+            <mat-error *ngIf="handleError('latitude', 'required')">
+              Vous devez Entrer la <strong>Latitude</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Chantier longitude -->
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Longitude</mat-label>
+            <input matInput placeholder="Longitude" formControlName="longitude" [(ngModel)]="data.longitude" readonly>
+            <mat-error *ngIf="handleError('longitude', 'required')">
+              Vous devez Entrer la <strong>Longitude</strong>
+            </mat-error>
+          </mat-form-field>
+          <!--  -->
+          <agm-map style="text-shadow: 0px 0px 6.2px grey;" [latitude]="data.latitude"
+           [longitude]="data.longitude"
+            [zoom]="16"
+            (mapDblClick)="placeMarker($event)"
+            [keyboardShortcuts]="true" [usePanning]="true" [fullscreenControl]="true"
+            [mapTypeControl]="true">
+              <agm-marker
+              [latitude]="data.latitude"
+              [longitude]="data.longitude"
+              [label]="labelSiteOptions"
+              class="agm-marker"
+              [markerDraggable]="true">
+
+              </agm-marker>
+            </agm-map>
+          </mat-card>
 
           <mat-card-actions>
             <button mat-fab color="primary" [disabled]="ChantierFormEdit.invalid" [mat-dialog-close]="data">
