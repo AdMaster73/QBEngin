@@ -57,7 +57,17 @@
           [(ngModel)]="element.archive" disabled="true">
           </mat-checkbox>
         </td>
-      </ng-container>
+    </ng-container>
+
+    <!-- geolocalisation Column -->
+    <ng-container matColumnDef="geolocalisation">
+        <th mat-header-cell *matHeaderCellDef> Géo </th>
+        <td mat-cell *matCellDef="let element">
+          <ng-container *ngIf="element.localisation">{{element.localisation.latitude}} </ng-container>
+        </td>
+    </ng-container>
+
+
 
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef><mat-icon aria-hidden="false" aria-label="Example home icon">menu</mat-icon>
