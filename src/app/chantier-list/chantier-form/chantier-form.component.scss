@@ -7,6 +7,14 @@ button{
     margin-right: 8px;
 }
 .mat-form-field{
-    margin-left: 0px !important;
-    margin-left: 5px !important;
+  width: 49% !important;
+  margin-left: 5px !important;
+  height: 70px;
+}
+.mat-checkbox{
+  margin-left: 5px !important;
+  height: 70px;
+}
+agm-map {
+  height: 250px;
 }
