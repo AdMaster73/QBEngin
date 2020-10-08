@@ -26,37 +26,37 @@ export class CollectionsAddComponent implements OnInit {
   Collectionss: Collections[];
   results$ : Observable<any[]>;
   results_f$: Observable<any[]>;
-  startAt: BehaviorSubject<string | null> = new BehaviorSubject('');   
+  startAt: BehaviorSubject<string | null> = new BehaviorSubject('');
 
 
   @ViewChild('resetCollectionsForm',{static: true}) myNgForm : NgForm;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   selectedBindingType: string;
-  CollectionsForm: FormGroup;  
+  CollectionsForm: FormGroup;
   constructor(
       public db : AngularFirestore,
       public fb: FormBuilder ,
-      private CollectionsService : CollectionsService,      
+      private CollectionsService : CollectionsService,
       private _adapter: DateAdapter<any>,
       public dialogRef: MatDialogRef<CollectionsComponent>) {}
 
-  ngOnInit() {  
-    this._adapter.setLocale('fr');  
+  ngOnInit() {
+    this._adapter.setLocale('fr');
     this.CollectionsService.GetCollectionsLastRecord().snapshotChanges().forEach(data => {
-      data.forEach(user=>{        
+      data.forEach(user=>{
         this.CollectionsLastRecord = eval(user.payload.doc.id)+1
-      })              
-    })    
+      })
+    })
     this.CollectionsForm = this.fb.group({
       name: ['', Validators.required],
       intitule: new FormControl(),
       toolTipe: new FormControl(),
       icon: new FormControl(),
-    })   
+    })
   }
   search(searchText){
     this.startAt.next(searchText);
-  }  
+  }
 
   /* Reactive book form */
   submitCollectionsForm() {
@@ -71,9 +71,9 @@ export class CollectionsAddComponent implements OnInit {
       name:this.CollectionsForm.controls['name'].value,
       intitule: this.CollectionsForm.controls['intitule'].value,
       toolTipe: this.CollectionsForm.controls['toolTipe'].value,
-      icon: this.CollectionsForm.controls['icon'].value,   
-    }    
-  
+      icon: this.CollectionsForm.controls['icon'].value
+    }
+
     this.CollectionsService.AddCollections(iCollections).then(
       res => {
         this.dialogRef.close();
@@ -82,15 +82,15 @@ export class CollectionsAddComponent implements OnInit {
       err=>{
         alert('Vous avez mal tappez les champs !')
       }
-    )      
+    )
   }
   /* Get errors */
   public handleError = (controlName: string, errorName: string) => {
     return this.CollectionsForm.controls[controlName].hasError(errorName);
-  }  
+  }
 
   /* Reset form */
-  closeForm() {        
-    this.dialogRef.close(); 
+  closeForm() {
+    this.dialogRef.close();
   }
 }
