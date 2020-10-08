@@ -13,9 +13,14 @@ import { RegionService } from 'src/app/services/region.service';
 export class ChantierFormComponent implements OnInit {
 
   startAt: BehaviorSubject<string | null> = new BehaviorSubject('');
-
   regions$: Observable<any[]>;
-  ChantierFormEdit: FormGroup
+  ChantierFormEdit: FormGroup;
+  labelSiteOptions = {
+    color: 'black',
+    fontFamily: '',
+    fontSize: '8px',
+    text: this.data.name
+}
   @ViewChild('resetChantierForm',{static: true}) myNgForm : NgForm;
   constructor(
     public fb: FormBuilder ,
@@ -29,6 +34,8 @@ export class ChantierFormComponent implements OnInit {
       name: ['', Validators.required],
       compte:[],
       archive:[],
+      latitude:new FormControl(),
+      longitude:new FormControl(),
       region:[]
     });
     this.regions$ = this.regionService.GetRegionList();
@@ -37,6 +44,10 @@ export class ChantierFormComponent implements OnInit {
   /* Get errors */
   public handleError = (controlName: string, errorName: string) => {
     return this.ChantierFormEdit.controls[controlName].hasError(errorName);
+  }
+  placeMarker($event){
+      this.ChantierFormEdit.get('latitude').setValue($event.coords.lat);
+      this.ChantierFormEdit.get('longitude').setValue($event.coords.lng);
   }
 
 }
