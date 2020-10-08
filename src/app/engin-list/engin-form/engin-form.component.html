@@ -6,7 +6,7 @@
 
   <!-- Engin form -->
   <div class="example-container">
-    <form [formGroup]="EnginFormEdit">
+    <form [formGroup]="EnginFormEdit" (ngSubmit)="onSubmit(EnginFormEdit.value)">
       <!-- Left block -->
       <mat-card>
           <!-- Engin code -->
@@ -73,7 +73,7 @@
             <!--DATE ACHAT-->
             <mat-form-field class="example-full-width" appearance="outline">
               <mat-label>Date d'achat</mat-label>
-              <input matInput [matDatepicker]="picker" formControlName="date_achat">
+              <input matInput [matDatepicker]="picker" formControlName="date_achat" [(ngModel)]="data.date_achat">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker touchUi #picker></mat-datepicker>
             </mat-form-field>
