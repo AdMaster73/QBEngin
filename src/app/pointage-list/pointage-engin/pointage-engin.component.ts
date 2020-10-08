@@ -1,12 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {MatTableDataSource, MatSort, MatDialog} from '@angular/material';
+import {MatTableDataSource, MatSort } from '@angular/material';
 import {MatPaginator} from '@angular/material/paginator';
 import { EnginService } from './../../services/engin.service';
-import { Engin, Pointage, User } from 'src/app/models/engin.model';
+import { Pointage } from 'src/app/models/engin.model';
 import { Observable } from 'rxjs';
 import { PointageService } from 'src/app/services/pointage.service';
 import { FormControl } from '@angular/forms';
-import { startWith, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Component({
