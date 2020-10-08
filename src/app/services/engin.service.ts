@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Engin } from '../models/engin.model';
+import { Engin, Pointage } from '../models/engin.model';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { map } from 'rxjs/operators';
 import { firestore, User } from 'firebase';
@@ -31,7 +31,7 @@ export class EnginService {
 		)
   }
   getLocalisationEngin(data: any) {
-    return this.afs.doc('engin/'+data.id+'/pointage/'+data.last_pointage.replace('/','').replace('/','')).snapshotChanges()
+    return this.afs.doc<Pointage>('engin/'+data.id+'/pointage/'+data.last_pointage.replace('/','').replace('/','')).valueChanges()
   }
 
 	/* Créer un nouveau engin */
