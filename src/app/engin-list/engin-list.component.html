@@ -69,6 +69,12 @@
       <td mat-cell *matCellDef="let element"> {{element.fournisseur.name}} </td>
     </ng-container>
 
+    <!-- chauffeur Column -->
+    <ng-container matColumnDef="chauffeur">
+      <th mat-header-cell *matHeaderCellDef>Chauffeur </th>
+      <td mat-cell *matCellDef="let element"> {{element.chauffeur.name}} </td>
+    </ng-container>
+
     <!-- B_CODE Column -->
     <ng-container matColumnDef="b_code">
       <th mat-header-cell *matHeaderCellDef>Code Bare </th>
