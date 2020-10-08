@@ -23,7 +23,8 @@ export class PointageService {
       let maintenant:string = result.date_pointage.toLocaleDateString('fr-FR')
       this.afs.doc<Chantier>('chantier/'+engin.id_chantier).valueChanges()
       .subscribe(chantier=>{
-              this.afs.collection('engin/'+engin.id+'/pointage').doc(maintenant.replace('/','').replace('/',''))
+        const locationData = new firebase.firestore.GeoPoint(chantier.localisation.latitude, chantier.localisation.longitude)
+            this.afs.collection('engin/'+engin.id+'/pointage').doc(maintenant.replace('/','').replace('/',''))
             .set({
               chantier:chantier.name,
               date_pointage:maintenant,
@@ -32,7 +33,7 @@ export class PointageService {
               heure_ar:result.heure_ar,
               heure_m:result.heure_m,
               heure_p:result.heure_p,
-              localisation:{altitude:chantier.localisation.latitude,longitude:chantier.localisation.longitude},
+              localisation:locationData,
               lubrifiant:[result.oil_10,result.oil_40,result.oil_90],
               type_p:'pointage',
               mobile:false,
