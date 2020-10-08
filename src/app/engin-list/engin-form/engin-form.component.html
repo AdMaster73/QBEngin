@@ -1,4 +1,12 @@
   <!-- Engin form -->
+ <div style="margin-top: -20px;">
+  <button mat-icon-button color="primary" [mat-dialog-close]="data">
+    <mat-icon aria-label="Example icon-button with a heart icon">edit</mat-icon>
+  </button>
+  <button mat-icon-button color="accent" mat-dialog-close>
+    <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
+  </button>
+ </div>
   <div class="example-container">
     <form [formGroup]="EnginFormEdit" (ngSubmit)="onSubmit(EnginFormEdit.value)">
       <!-- Left block -->
@@ -166,15 +174,6 @@
               </mat-error>
             </mat-form-field>
               <input matInput class="invisible" formControlName="id_chauffeur" [(ngModel)]="data.chauffeur.id">
-
-          <mat-card-actions>
-            <button mat-fab color="primary" [mat-dialog-close]="data">
-              <mat-icon aria-label="Example icon-button with a heart icon">edit</mat-icon>
-            </button>
-            <button mat-fab color="accent" mat-dialog-close>
-              <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
-            </button>
-          </mat-card-actions>
       </mat-card>
     </form>
   </div>
