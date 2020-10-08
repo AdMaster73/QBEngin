@@ -21,9 +21,9 @@ export class EnginPositionComponent implements OnInit {
 
   ngOnInit() {
     this.enginService.getLocalisationEngin(this.data).subscribe(pointage=>{
-      this.latitude = pointage.payload.data()['localisation'].altitude
-      this.longitude = pointage.payload.data()['localisation'].longitude
-      this.chantier = pointage.payload.data()['chantier']
+      this.latitude = pointage.localisation.latitude
+      this.longitude = pointage.localisation.longitude
+      this.chantier = pointage.chantier
     })
   }
 
