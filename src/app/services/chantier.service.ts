@@ -6,6 +6,7 @@ import { firestore } from 'firebase';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AngularFireDatabase } from '@angular/fire/database';
+import * as firebase from 'firebase';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,17 @@ export class ChantierService {
 
   constructor(private afs: AngularFirestore,private firebaseAuth: AngularFireAuth,private db: AngularFireDatabase) {}
 
+  bulkChantier(){
+    const db = firebase.firestore()
+    const locationData = new firebase.firestore.GeoPoint(33.8504681, -7.0409885)
+    db.collection("chantier").get().then(querySnapshot=>{
+      querySnapshot.forEach(doc=>{
+          doc.ref.update({
+              localisation: locationData
+          });
+      });
+    });
+  }
   getChantierById(chantier: any): import("rxjs").Observable<Chantier[]> {
     if(!chantier) return
     return this.afs.collection<Chantier>('chantier',ref=>ref.where(firestore.FieldPath.documentId(),'==',eval(chantier).toString())).snapshotChanges().pipe(
@@ -97,6 +109,15 @@ export class ChantierService {
 
 	/*Retourner une liste des chantier */
 	GetChantierList() {
+    /* const db = firebase.firestore()
+    const locationData = new firebase.firestore.GeoPoint(33.8504681, -7.0409885)
+    db.collection("chantier").get().then(querySnapshot=>{
+      querySnapshot.forEach(doc=>{
+          doc.ref.update({
+              localisation: locationData
+          });
+      });
+    }); */
 		return this.afs.collection<Chantier>('chantier',ref=> ref.orderBy('createdAt','asc')).snapshotChanges().pipe(
 			map(actions => {
 			return actions.map(a => {
@@ -136,7 +157,8 @@ export class ChantierService {
 			archive = chantier.archive
 		}else{
 			!!chantier.archive ? archive = 1 : archive = 0
-		}
+    }
+    const locationData = new firebase.firestore.GeoPoint(chantier.latitude, chantier.longitude)
 		this.afs.doc('chantier/'+chantier.id).update(
 			{
 			uodatedBy: this.firebaseAuth.auth.currentUser.uid,
@@ -144,7 +166,8 @@ export class ChantierService {
 			name: chantier.name.toUpperCase(),
 			compte:chantier.compte,
 			archive:archive,
-			region:chantier.region
+			region:chantier.region,
+			localisation:locationData
 			}
 		)
 	}
