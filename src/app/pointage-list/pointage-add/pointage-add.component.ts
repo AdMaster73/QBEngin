@@ -22,6 +22,7 @@ export class PointageAddComponent implements OnInit {
 
   PointageFormAdd: FormGroup
   PointageFormAddSecond: FormGroup
+  PointageFormAddFirst: FormGroup
   PointageFormAddThird: FormGroup
   options: string[] = [];
   filteredOptions: Observable<string[]>;
