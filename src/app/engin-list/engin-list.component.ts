@@ -56,6 +56,7 @@ export class EnginListComponent implements OnInit{
     {"value":'designation',"show": true},
     {"value":'categorie',"show": true},
     {"value":'fournisseur',"show": true},
+    {"value":'chauffeur',"show": true},
     {"value":'b_code',"show": true},
     {"value":'etat_f',"show": false},
     {"value":'position',"show": true}
@@ -130,6 +131,10 @@ export class EnginListComponent implements OnInit{
       fournisseur:{
         id:eval(element.fournisseur.id),
         name:element.fournisseur.name
+      },
+      chauffeur:{
+        id:eval(element.chauffeur.id),
+        name:element.chauffeur.name
       },
       type_v:element.type_v?element.type_v:'',
       etat_f:element.etat_f?element.etat_f:'',
