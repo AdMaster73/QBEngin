@@ -10,11 +10,12 @@ export interface Engin {
     serie_moteur: string;
     categorie:Categorie;
     fournisseur:Fournisseur;
+    compteur?:number,
     type_v?:string;//type de vidange km ou hr
     compteur_dernier_v?:number;//Compteur du dernier vidange fait
     compteur_v?:number;//km ou hr à parcourir pour faire le vidange
     date_v?:Date;//la date du dernier vidange
-    vidange_complet?:boolean;//vidange complet ou non
+    vidange?:string;//vidange complet ou simple
     vidange_alarm?:number;//le compteur qu'on doit allumer l'alarme
     id_chantier?:number
   }
@@ -33,7 +34,8 @@ export interface Engin {
     name:string,
     compte:string,
     archive:number,
-    region?:string
+    region?:string,
+    localisation?:Localisation
   }
   export interface chantierUser{
     createdBy: string
@@ -141,6 +143,6 @@ export interface Engin {
     user?:string
  }
  export interface Localisation{
-   altitude:number,
-   longtitude:number
+   latitude:number,
+   longitude:number
  }
