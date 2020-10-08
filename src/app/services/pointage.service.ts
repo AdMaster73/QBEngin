@@ -4,7 +4,8 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { flatMap, map, mergeMap, switchMap } from 'rxjs/operators';
 import { Chantier, Engin, Pointage, User } from '../models/engin.model';
 import { AuthService} from '../services/auth.service';
-import { Observable, combineLatest, of } from 'rxjs';
+import { Observable, combineLatest, of, Subject } from 'rxjs';
+import { firestore } from 'firebase';
 declare var require: any;
 const firebase = require('firebase')
 
@@ -17,6 +18,49 @@ export class PointageService {
   constructor(private afs: AngularFirestore,private authService:AuthService,
 		private firebaseAuth: AngularFireAuth) {
     }
+
+    addPointage(result: any,engin :Engin) {
+      let maintenant:string = result.date_pointage.toLocaleDateString('fr-FR')
+      this.afs.doc<Chantier>('chantier/'+engin.id_chantier).valueChanges()
+      .subscribe(chantier=>{
+              this.afs.collection('engin/'+engin.id+'/pointage').doc(maintenant.replace('/','').replace('/',''))
+            .set({
+              chantier:chantier.name,
+              date_pointage:maintenant,
+              etat_e:result.etat_f,
+              gasoil:[result.gasoil,engin.compteur,result.compteur_nvx,result.consomation,result.etat_compt],
+              heure_ar:result.heure_ar,
+              heure_m:result.heure_m,
+              heure_p:result.heure_p,
+              localisation:{altitude:chantier.localisation.latitude,longitude:chantier.localisation.longitude},
+              lubrifiant:[result.oil_10,result.oil_40,result.oil_90],
+              type_p:'pointage',
+              mobile:false,
+              uid:this.firebaseAuth.auth.currentUser.uid
+            },{ merge: true })
+            if(result.vidange == null){
+              this.afs.doc('engin/'+engin.id).update({
+                last_pointage:maintenant,
+                etat_f:result.etat_f,
+                id_chantier:result.id_chantier,
+                compteur: result.compteur_nvx,
+                pointed:1
+              })
+            }else{
+              this.afs.doc('engin/'+engin.id).update({
+                last_pointage:maintenant,
+                etat_f:result.etat_f,
+                id_chantier:result.id_chantier,
+                compteur: result.compteur_nvx,
+                compteur_dernier_v:result.compteur_nvx,
+                date_v:result.date_pointage,
+                vidange_complet:result.vidange,
+                pointed:1
+              })
+            }
+      })
+    }
+
      getPointageByEngin(engin: Engin) {
 
       return this.afs.collection<Pointage>('engin/'+engin.id+'/pointage').snapshotChanges().pipe(
