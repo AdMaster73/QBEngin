@@ -42,7 +42,8 @@ export class CollectionsService {
 			name: Collections.name,
 			intitule:Collections.intitule,
 			toolTipe:Collections.toolTipe,
-			icon:Collections.icon
+      icon:Collections.icon,
+      order:1
 		})
 	}
 
