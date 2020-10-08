@@ -120,6 +120,10 @@ import { RegionAddComponent } from './region-list/region-add/region-add.componen
 import { RegionFormComponent } from './region-list/region-form/region-form.component';
 import { EnginPositionComponent } from './engin-list/engin-position/engin-position.component';
 import { PointageAddComponent } from './pointage-list/pointage-add/pointage-add.component';
+import { ChauffeurListComponent } from './chauffeur-list/chauffeur-list.component';
+import { ChauffeurAddComponent } from './chauffeur-list/chauffeur-add/chauffeur-add.component';
+import { ChauffeurFormComponent } from './chauffeur-list/chauffeur-form/chauffeur-form.component';
+import { ChauffeurDeleteComponent } from './chauffeur-list/chauffeur-delete/chauffeur-delete.component';
 
 firebase.initializeApp(environment.firebase);
 
@@ -186,7 +190,11 @@ firebase.initializeApp(environment.firebase);
 	EnginAccessoireComponent,
 	RegionListComponent,
 	EnginPositionComponent,
-	PointageAddComponent
+	PointageAddComponent,
+	ChauffeurListComponent,
+	ChauffeurAddComponent,
+	ChauffeurFormComponent,
+	ChauffeurDeleteComponent
   ],
   entryComponents: [
 	BottomSheetOverviewExampleSheet,
@@ -218,7 +226,10 @@ firebase.initializeApp(environment.firebase);
 	PermissionsDeleteComponent,
 	EncoursFormComponent,
   EncoursDeleteComponent,
-  PointageAddComponent
+  PointageAddComponent,
+  ChauffeurAddComponent,
+  ChauffeurFormComponent,
+  ChauffeurDeleteComponent
   ],
   imports: [
     BrowserModule,
