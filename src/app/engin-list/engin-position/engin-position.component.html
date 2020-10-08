@@ -1,9 +1,9 @@
 <h3>{{chantier}}</h3>
 <agm-map [latitude]='latitude' [longitude]='longitude'
-[zoom]="16">
+[zoom]="16" [minZoom]="4" [maxZoom]="16" [mapTypeControl]="true">
 <agm-marker
   [latitude]="latitude"
   [longitude]="longitude"
   [markerDraggable]="true">
 </agm-marker>
-    </agm-map>
+</agm-map>
