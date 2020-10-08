@@ -10,6 +10,7 @@ import   localeFr from '@angular/common/locales/fr';
 import { registerLocaleData } from '@angular/common';
 import { CategorieService } from 'src/app/services/categorie.service';
 import { RegionService } from 'src/app/services/region.service';
+import { ChauffeurService } from 'src/app/services/chauffeur.service';
 
 @Component({
   selector: 'app-engin-form',
@@ -23,9 +24,9 @@ export class EnginFormComponent implements OnInit {
 
   date: any
   EnginFormEdit: FormGroup
-  myFournisseur = new FormControl();
   results$ : Observable<any[]>;
   results_f$: Observable<any[]>;
+  results_ch$: Observable<any[]>;
 
   accessoire_v:boolean
   typeVs:string[]=['HEURE','KILOMETRE'];
@@ -38,6 +39,7 @@ export class EnginFormComponent implements OnInit {
       public fb: FormBuilder ,
       public serviceFournisseur : FournisseurService,
       public serviceCategorie : CategorieService,
+      public serviceChauffeur : ChauffeurService,
       private _adapter: DateAdapter<any>,
       public dialogRef: MatDialogRef<EnginListComponent>,
       @Inject(MAT_DIALOG_DATA) public data: any
@@ -57,6 +59,8 @@ export class EnginFormComponent implements OnInit {
       id_fournisseur:['', Validators.required],
       categorie:['', Validators.required],
       id_categorie: ['', Validators.required],
+      chauffeur:['', Validators.required],
+      id_chauffeur: ['', Validators.required],
       valeur_achat: new FormControl(),
       date_achat:[''],
       marque_moteur:new FormControl(),
@@ -78,6 +82,7 @@ export class EnginFormComponent implements OnInit {
     });
     this.results$ = this.serviceCategorie.GetCategorieList();
     this.results_f$ = this.serviceFournisseur.GetFournisseurList();
+    this.results_ch$ = this.serviceChauffeur.GetChauffeurList();
 
   }
 
