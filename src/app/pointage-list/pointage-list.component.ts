@@ -23,6 +23,7 @@ export class PointageListComponent implements OnInit {
   siteRegions$: Observable<any[]>;
   selectionSite:string=''
   selectionRegion:string=''
+  maintenant:string = new Date().toLocaleDateString('fr-FR')
   constructor(
     public db : AngularFirestore,
     private enginService : EnginService,
@@ -39,6 +40,7 @@ export class PointageListComponent implements OnInit {
       {"value":'categorie',"show": true},
       {"value":'id_site',"show": false},
       {"value":'b_code',"show": true},
+      {"value":'history',"show": true},
       {"value":'etat_f',"show": false},
       {"value":'pointage',"show": true}
       ];
@@ -180,11 +182,9 @@ export class PointageListComponent implements OnInit {
     }
 
     addPointage(engin:Engin){
-      const dialogConfig = new MatDialogConfig();
-      this.dialog.open(PointageAddComponent,{data:{engin,chantier:engin.id_chantier
-      }}).afterClosed().subscribe(result => {
+      this.dialog.open(PointageAddComponent,{data:engin}).afterClosed().subscribe(result => {
         if (result){
-          this.chantierService.UpdateChantier(result)
+          this.pointageService.addPointage(result,engin)
         }
       });
     }
