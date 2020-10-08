@@ -146,3 +146,8 @@ export interface Engin {
    latitude:number,
    longitude:number
  }
+
+ export interface Chauffeur{
+   id:number,
+   name:string
+ }
