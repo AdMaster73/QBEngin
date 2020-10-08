@@ -68,7 +68,7 @@
           </mat-select>
         </mat-form-field>
         <div>
-          <button mat-fab matStepperNext color="primary"><mat-icon>play_arrow</mat-icon></button>
+          <button mat-icon-button matStepperNext color="primary"><mat-icon>play_arrow</mat-icon></button>
         </div>
     </mat-step>
     <mat-step [stepControl]="PointageFormAddSecond" errorMessage="Address is required.">
@@ -115,8 +115,8 @@
           <input matInput placeholder="Numéro de bon" formControlName="bon">
         </mat-form-field>
         <div>
-          <button mat-fab matStepperPrevious><mat-icon>replay</mat-icon></button>
-          <button mat-fab matStepperNext color="primary" [disabled]="PointageFormAdd.invalid"><mat-icon>play_arrow</mat-icon></button>
+          <button mat-icon-button matStepperPrevious><mat-icon>replay</mat-icon></button>
+          <button mat-icon-button matStepperNext color="primary" [disabled]="PointageFormAdd.invalid"><mat-icon>play_arrow</mat-icon></button>
         </div>
     </mat-step>
     <mat-step>
@@ -155,10 +155,10 @@
 
 
       <div>
-        <button mat-fab matStepperPrevious>
+        <button mat-icon-button matStepperPrevious>
           <mat-icon >replay</mat-icon>
         </button>
-        <button mat-fab [mat-dialog-close]="PointageFormAdd.value" [disabled]="PointageFormAdd.invalid" color="primary">
+        <button mat-icon-button [mat-dialog-close]="PointageFormAdd.value" [disabled]="PointageFormAdd.invalid" color="primary">
           <mat-icon >done_outline</mat-icon>
         </button>
       </div>
