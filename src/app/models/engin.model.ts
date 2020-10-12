@@ -23,7 +23,7 @@ export interface Engin {
   export interface Categorie{
     id:number,
     name:string,
-    compte:string,
+    compte?:string,
   }
   export interface Fournisseur{
     id:number,
@@ -139,6 +139,7 @@ export interface Engin {
     heure_m:number,
     heure_p:number,
     localisation:Localisation,
+    chauffeur:string,
     lubrifiant:number[],
     type_p:string,
     uid:string,
