@@ -93,12 +93,14 @@ export class ChantierService {
 
 	/* Créer un nouveau chantier */
 	AddChantier(chantier: Chantier){
+    const locationData = new firebase.firestore.GeoPoint(33.8504681, -7.0409885)
 		return this.afs.collection('chantier').doc(chantier.id.toString()).set({
 			createdBy: this.firebaseAuth.auth.currentUser.uid,
 			createdAt: firestore.FieldValue.serverTimestamp(),
 			name: chantier.name,
 			compte:chantier.compte,
 			archive:chantier.archive,
+			localisation:locationData
 		})
 	}
 
