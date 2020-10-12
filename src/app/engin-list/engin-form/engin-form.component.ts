@@ -65,6 +65,7 @@ export class EnginFormComponent implements OnInit {
       date_achat:[''],
       marque_moteur:new FormControl(),
       serie_moteur:new FormControl(),
+      consomation:new FormControl(),
       n_serie:new FormControl(),
       b_code:new FormControl('', [
         Validators.required,
