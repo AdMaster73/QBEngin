@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Engin, Pointage } from '../models/engin.model';
+import { Chantier, Engin, Pointage } from '../models/engin.model';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { firestore, User } from 'firebase';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable, combineLatest } from 'rxjs';
 import * as firebase from 'firebase';
+import { ChantierService } from './chantier.service';
 
 
 @Injectable({
@@ -15,21 +16,10 @@ import * as firebase from 'firebase';
 export class EnginService {
 
 
-	constructor(private afs: AngularFirestore,private firebaseAuth: AngularFireAuth) {
+	constructor(private afs: AngularFirestore,private firebaseAuth: AngularFireAuth,public chantierService:ChantierService) {
   }
 
-  GetEnginListBySite(siteId: string) {
-    return this.afs.collection<Engin>('engin',ref=> ref.where('id_chantier','==',eval(siteId.toString())))
-    .snapshotChanges().pipe(
-			map(actions => {
-			return actions.map(a => {
-				const data = a.payload.doc.data() as Engin;
-				const id = a.payload.doc.id;
-				return { id, ...data };
-			})
-			})
-		)
-  }
+
   getLocalisationEngin(data: any) {
     return this.afs.doc<Pointage>('engin/'+data.id+'/pointage/'+data.last_pointage.replace('/','').replace('/','')).valueChanges()
   }
@@ -64,8 +54,53 @@ export class EnginService {
 	/* Supprier un engin */
 	async DeleteEngin(id) {
 		this.afs.doc('engin/'+id).delete()
-	}
+  }
 
+  getEnginWithChantierName(){
+    return this.afs.collection<Engin>('engin').snapshotChanges().pipe(
+      switchMap((engins)=>{
+        const engin = engins.map(c=>{
+          var id_chantier :string
+          var id  = c.payload.doc.id
+          if(c.payload.doc.data().id_chantier){
+            id_chantier = c.payload.doc.data().id_chantier.toString()
+          }else{
+            id_chantier = '249'
+          }
+          return this.chantierService.getChantierById(id_chantier)
+          .pipe(
+            map(chantiers=>Object.assign(c.payload.doc.data(),{chantiers,id}))
+          )
+        })
+        return combineLatest(...engin)
+      }
+      )
+    )
+  }
+  GetEnginListBySite(siteId: string) {
+    return this.afs.collection<Engin>('engin',ref=> ref.where('id_chantier','==',eval(siteId.toString())))
+    .snapshotChanges()
+    .pipe(
+      switchMap((engins)=>{
+        const engin = engins.map(c=>{
+          var id_chantier :string
+          var id = c.payload.doc.id
+          if(c.payload.doc.data().id_chantier){
+            id_chantier = c.payload.doc.data().id_chantier.toString()
+          }else{
+            id_chantier = '249'
+          }
+          return this.chantierService.getChantierById(id_chantier)
+          .pipe(
+            map(chantiers=>Object.assign(c.payload.doc.data(),{chantiers,id}))
+          )
+        })
+        return combineLatest(...engin)
+      }
+      )
+    )
+
+  }
 	/*Retourner une liste des engin */
 	GetEnginList() {
 
@@ -189,6 +224,7 @@ export class EnginService {
         compteur:engin.compteur,
         pointed:pointage_veh,
         porte:porte,
+        consomation:engin.consomation
 			}
 		)
   }
