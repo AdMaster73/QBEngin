@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { flatMap, map, mergeMap, switchMap } from 'rxjs/operators';
-import { Chantier, Engin, Pointage, User } from '../models/engin.model';
+import { map, switchMap } from 'rxjs/operators';
+import { Chantier, Engin, Pointage } from '../models/engin.model';
 import { AuthService} from '../services/auth.service';
-import { Observable, combineLatest, of, Subject } from 'rxjs';
+import { combineLatest } from 'rxjs';
 import { firestore } from 'firebase';
 declare var require: any;
 const firebase = require('firebase')
@@ -21,12 +21,10 @@ export class PointageService {
 
     addPointage(result: any,engin :Engin) {
       let maintenant:string = result.date_pointage.toLocaleDateString('fr-FR')
-      this.afs.doc<Chantier>('chantier/'+engin.id_chantier).valueChanges()
-      .subscribe(chantier=>{
-        const locationData = new firebase.firestore.GeoPoint(chantier.localisation.latitude, chantier.localisation.longitude)
+      const locationData = new firebase.firestore.GeoPoint(result.latitude, result.longitude)
             this.afs.collection('engin/'+engin.id+'/pointage').doc(maintenant.replace('/','').replace('/',''))
             .set({
-              chantier:chantier.name,
+              chantier:result.chantier,
               date_pointage:maintenant,
               etat_e:result.etat_f,
               gasoil:[result.gasoil,engin.compteur,result.compteur_nvx,result.consomation,result.etat_compt],
@@ -36,6 +34,7 @@ export class PointageService {
               localisation:locationData,
               lubrifiant:[result.oil_10,result.oil_40,result.oil_90],
               type_p:'pointage',
+              chauffeur:result.chauffeur,
               mobile:false,
               uid:this.firebaseAuth.auth.currentUser.uid
             },{ merge: true })
@@ -59,11 +58,9 @@ export class PointageService {
                 pointed:1
               })
             }
-      })
     }
 
      getPointageByEngin(engin: Engin) {
-
       return this.afs.collection<Pointage>('engin/'+engin.id+'/pointage').snapshotChanges().pipe(
         switchMap((pointages)=>{
           const point = pointages.map(p=>{
