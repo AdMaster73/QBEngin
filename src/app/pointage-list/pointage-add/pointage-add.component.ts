@@ -1,14 +1,13 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators, FormControl } from '@angular/forms';
-import { DateAdapter, MatDialogRef, MatSelect, MAT_DIALOG_DATA } from '@angular/material';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { DateAdapter, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { Chantier } from 'src/app/models/engin.model';
 import { ChantierService } from 'src/app/services/chantier.service';
 import { PointageListComponent } from '../pointage-list.component';
 import { map, startWith } from 'rxjs/operators';
-import {DragDropModule, transferArrayItem} from '@angular/cdk/drag-drop';
-import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import { ChauffeurService } from 'src/app/services/chauffeur.service';
 
 @Component({
   selector: 'app-pointage-add',
@@ -21,12 +20,10 @@ import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 export class PointageAddComponent implements OnInit {
 
   PointageFormAdd: FormGroup
-  PointageFormAddSecond: FormGroup
-  PointageFormAddFirst: FormGroup
-  PointageFormAddThird: FormGroup
   options: string[] = [];
+  chauffeurs: string[] = [];
   filteredOptions: Observable<string[]>;
-  myControl = new FormControl()
+  chauffeurOptions: Observable<string[]>;
   chantier_name:string=''
   maxDate:Date =  new Date();
   minDate = new Date();
@@ -36,12 +33,13 @@ export class PointageAddComponent implements OnInit {
   engin_etat:string
   compteur_etat:string
   Etat_Array=['MARCHE','ARRET','MAD','PANNE','EN ATTENTE']
+  color:string=""
   constructor(public fb: FormBuilder ,
     public chantierService:ChantierService,
+    public chauffeurService:ChauffeurService,
     private _adapter: DateAdapter<any>,
     public dialogRef: MatDialogRef<PointageListComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
-
   ngOnInit() {
     this._adapter.setLocale('fr');
     this.engin_etat = this.data.etat_f
@@ -67,14 +65,24 @@ export class PointageAddComponent implements OnInit {
     if(this.data.id_chantier){
       this.chantierService.getChantierById(this.data.id_chantier).subscribe(chantiers=>{
         chantiers.forEach(chantier=>{
-          this.chantier_name = chantier.name
+          this.PointageFormAdd.get('chantier').setValue(chantier.name)
+          this.PointageFormAdd.get('latitude').setValue(chantier.localisation.latitude)
+          this.PointageFormAdd.get('longitude').setValue(chantier.localisation.longitude)
         })
       })
     }
 
+
+
     this.chantierService.getChantierByUser().subscribe(chantiers=>{
       chantiers.forEach(chantier=>{
-        this.options.push(chantier.id+'//'+chantier.name)
+        this.options.push(chantier.id+'//'+chantier.name+'//'+chantier.localisation.latitude+'//'+chantier.localisation.longitude)
+      })
+    })
+
+    this.chauffeurService.GetChauffeurList().subscribe(chauffeurs=>{
+      chauffeurs.forEach(chauffeur=>{
+        this.chauffeurs.push(chauffeur.id+'//'+chauffeur.name)
       })
     })
 
@@ -83,6 +91,11 @@ export class PointageAddComponent implements OnInit {
       etat_f: new FormControl(),
       vidange: new FormControl(),
       id_chantier: new FormControl(),
+      chantier: new FormControl(),
+      chauffeur: new FormControl(),
+      id_chauffeur: new FormControl(),
+      latitude : new FormControl(),
+      longitude : new FormControl(),
       heure_m: new FormControl(),
       heure_ar: new FormControl(),
       heure_p: new FormControl(),
@@ -91,7 +104,7 @@ export class PointageAddComponent implements OnInit {
       etat_compt: new FormControl({value:this.data.etat_k}, Validators.required),
       compteur_anc: new FormControl({ value: '', disabled: true }),
       compteur_nvx: new FormControl(this.data.compteur, [Validators.min(this.data.compteur)]),
-      consomation: new FormControl(),
+      consomation: new FormControl({value:0},[Validators.max(100)]),
       oil_10: new FormControl(),
       oil_40: new FormControl(),
       oil_90: new FormControl()
@@ -113,6 +126,11 @@ export class PointageAddComponent implements OnInit {
       }else if(consomation < 0){
         this.PointageFormAdd.get('consomation').setValue(0)
       }else{
+        if(this.data.consomation < consomation){
+          this.color = 'red'
+        }else{
+          this.color = ''
+        }
         this.PointageFormAdd.get('consomation').setValue(Math.round(consomation))
       }
     })
@@ -202,11 +220,19 @@ export class PointageAddComponent implements OnInit {
     })
 
 
-    this.filteredOptions = this.myControl.valueChanges
+    this.filteredOptions = this.PointageFormAdd.get('chantier').valueChanges
       .pipe(
         startWith(''),
         map(value => this._filter_chantier(value))
       );
+
+    this.chauffeurOptions = this.PointageFormAdd.get('chauffeur').valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filter_chauffeur(value))
+      );
+
+
   }
 
 
@@ -218,10 +244,26 @@ export class PointageAddComponent implements OnInit {
 
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
+
+  private _filter_chauffeur(value: string): string[] {
+    if(value === null){
+      return
+    }
+    const filterValue = value.toLowerCase();
+
+    return this.chauffeurs.filter(option => option.toLowerCase().includes(filterValue));
+  }
+
+
+
   /** */
-  getControls(event$){
-    this.PointageFormAdd.controls['id_chantier'].setValue(eval(event$.option.id))
-    this.PointageFormAdd.controls['myControl'].setValue(event$.option.value)
+  getControls(event$,model:string){
+    this.PointageFormAdd.controls[model].setValue(event$.option.value)
+    this.PointageFormAdd.controls['id_'+model].setValue(eval(event$.option.id.split('//')[0]))
+    if(model=='chantier'){
+      this.PointageFormAdd.controls['latitude'].setValue(eval(event$.option.id.split('//')[1]))
+      this.PointageFormAdd.controls['longitude'].setValue(eval(event$.option.id.split('//')[2]))
+    }
   }
 
     /* Get errors */
