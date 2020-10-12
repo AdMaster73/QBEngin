@@ -4,7 +4,7 @@
 </div>
 <form [formGroup]="PointageFormAdd">
   <mat-horizontal-stepper #stepper>
-    <mat-step [stepControl]="PointageFormAddFirst" errorMessage="is required.">
+    <mat-step [stepControl]="PointageFormAdd" errorMessage="is required.">
         <ng-template matStepLabel>Entrer l'etat du matériel</ng-template>
         <!-- Pointage chantier -->
         <mat-form-field appearance="outline">
@@ -74,7 +74,7 @@
           <button mat-icon-button matStepperNext color="primary"><mat-icon>play_arrow</mat-icon></button>
         </div>
     </mat-step>
-    <mat-step [stepControl]="PointageFormAddSecond" errorMessage="Address is required.">
+    <mat-step [stepControl]="PointageFormAdd" errorMessage="Address is required.">
         <ng-template matStepLabel>Entrer le gasoil</ng-template>
 
         <p *ngIf="data.date_v" style="color: royalblue;">Dérnier vidange fait le {{data.date_v.toDate() | date:'dd/MM/yyyy'}}  {{data.type_v=='KILOMETRE'?'à '+data.compteur_dernier_v+" Km":'à '+data.compteur_dernier_v+" Hr"}}
