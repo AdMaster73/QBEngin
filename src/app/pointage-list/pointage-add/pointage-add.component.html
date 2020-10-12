@@ -10,19 +10,22 @@
         <mat-form-field appearance="outline">
           <mat-label>Chantier</mat-label>
           <input matInput
-          [formControl]="myControl"
+          formControlName="chantier"
           placeholder="Chantier"
           aria-label="Chantier"
           [(ngModel)]="chantier_name"
           [matAutocomplete]="auto">
-          <mat-autocomplete #auto="matAutocomplete" (optionSelected)='getControls($event)'>
-            <mat-option *ngFor="let chantier of filteredOptions | async" [value]="chantier.split('//')[1]" [id]="chantier.split('//')[0]">
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)='getControls($event,"chantier")'>
+            <mat-option *ngFor="let chantier of filteredOptions | async" [value]="chantier.split('//')[1]"
+            [id]="chantier.split('//')[0]+'//'+chantier.split('//')[2]+'//'+chantier.split('//')[3]">
               <span>{{chantier.split('//')[1]}}</span>
             </mat-option>
           </mat-autocomplete>
           <mat-icon matSuffix>place</mat-icon>
         </mat-form-field>
         <input matInput type="number" class="invisible" formControlName="id_chantier" [(ngModel)]="data.id_chantier">
+        <input matInput type="number" class="invisible" formControlName="latitude">
+        <input matInput type="number" class="invisible" formControlName="longitude">
         <!--DATE pointage-->
         <mat-form-field appearance="outline">
           <mat-label>Date du pointage</mat-label>
@@ -96,9 +99,12 @@
           <input matInput type="number" placeholder="Gasoil" formControlName="gasoil" min="0" max="1000">
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" [ngClass]="color">
           <mat-label>Consomation</mat-label>
           <input matInput placeholder="Consomation" formControlName="consomation" readonly>
+          <mat-error *ngIf="handleError('consomation', 'max')">
+            La consomation ne doit pas dépasser 100% vérifiez vos données
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -138,6 +144,24 @@
         <input matInput type="number" placeholder="Huile de h90" formControlName="oil_90" min="0" max="200">
       </mat-form-field>
 
+      <!-- Pointage chauffeur -->
+      <mat-form-field appearance="outline">
+        <mat-label>Chauffeur</mat-label>
+        <input matInput
+        formControlName="chauffeur"
+        placeholder="Chauffeur"
+        aria-label="Chauffeur"
+        [(ngModel)]="data.chauffeur.name"
+        [matAutocomplete]="auto_ch">
+        <mat-autocomplete #auto_ch="matAutocomplete" (optionSelected)='getControls($event,"chauffeur")'>
+          <mat-option *ngFor="let chauffeur of chauffeurOptions | async" [value]="chauffeur.split('//')[1]" [id]="chauffeur.split('//')[0]">
+            <span>{{chauffeur.split('//')[1]}}</span>
+          </mat-option>
+        </mat-autocomplete>
+        <mat-icon matSuffix>user_acount</mat-icon>
+      </mat-form-field>
+      <input matInput type="number" class="invisible" formControlName="id_chauffeur" [(ngModel)]="data.chauffeur.id">
+
       <mat-card>
         <mat-card-header>
           <mat-card-title>Vidange</mat-card-title>
@@ -164,4 +188,4 @@
       </div>
     </mat-step>
   </mat-horizontal-stepper>
-</form>
+  </form>
