@@ -145,14 +145,7 @@
               <input matInput placeholder="Compteur Kilomêtre/Heure" formControlName="compteur" [(ngModel)]="data.compteur" type="number">
             </mat-form-field>
 
-            <!-- Accessoire-->
-              <mat-slide-toggle [(ngModel)]="data.accessoire_v" formControlName="accessoire_v">Accéssoire</mat-slide-toggle>
 
-            <!-- Pointage-->
-              <mat-slide-toggle [(ngModel)]="data.pointed" formControlName="pointed">Pointage</mat-slide-toggle>
-
-            <!-- Porte char-->
-              <mat-slide-toggle [(ngModel)]="data.porte" formControlName="porte">Porte Char</mat-slide-toggle>
 
             <!-- chauffeur -->
             <mat-form-field class="example-full-width" appearance="outline">
@@ -174,6 +167,23 @@
               </mat-error>
             </mat-form-field>
               <input matInput class="invisible" formControlName="id_chauffeur" [(ngModel)]="data.chauffeur.id">
+
+
+            <!-- CONSOMATION -->
+            <mat-form-field class="example-full-width" appearance="outline" >
+              <mat-label>Consomation</mat-label>
+              <input matInput type="number" placeholder="Consomation" formControlName="consomation" [(ngModel)]="data.consomation">
+            </mat-form-field>
+
+            <!-- Accessoire-->
+              <mat-slide-toggle [(ngModel)]="data.accessoire_v" formControlName="accessoire_v">Accéssoire</mat-slide-toggle>
+
+            <!-- Pointage-->
+              <mat-slide-toggle [(ngModel)]="data.pointed" formControlName="pointed">Pointage</mat-slide-toggle>
+
+            <!-- Porte char-->
+              <mat-slide-toggle [(ngModel)]="data.porte" formControlName="porte">Porte Char</mat-slide-toggle>
+
       </mat-card>
     </form>
   </div>
