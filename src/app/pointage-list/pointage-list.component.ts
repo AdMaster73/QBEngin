@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import {MatTableDataSource, MatSort, MatDialog, MatDialogConfig} from '@angular/material';
 import {MatPaginator} from '@angular/material/paginator';
 import { EnginService } from '../services/engin.service';
-import { Engin, Pointage } from './../models/engin.model';
+import { Chantier, Engin, Pointage, Region } from './../models/engin.model';
 import { Router, NavigationExtras} from '@angular/router';
 import { PointageService } from '../services/pointage.service';
 import { AngularFirestore } from 'angularfire2/firestore';
@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 import { RegionService } from '../services/region.service';
 import { ChantierService } from '../services/chantier.service';
 import { PointageAddComponent } from './pointage-add/pointage-add.component';
+
+const ELEMENT_DATA: Engin[]=[]
 
 @Component({
   selector: 'app-pointage-list',
@@ -42,6 +44,7 @@ export class PointageListComponent implements OnInit {
       {"value":'b_code',"show": true},
       {"value":'history',"show": true},
       {"value":'etat_f',"show": false},
+      {"value":'site',"show": true},
       {"value":'pointage',"show": true}
       ];
       get displayedColumns(): string[]{
@@ -58,7 +61,7 @@ export class PointageListComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static : true}) sort: MatSort;
   ngOnInit(): void {
-    this.enginService.GetEnginList().subscribe(
+    this.enginService.getEnginWithChantierName().subscribe(
       data => {
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator;
@@ -85,10 +88,10 @@ export class PointageListComponent implements OnInit {
   }
 
   /** Filter les engin par leur site */
-  getEnginsBySite(siteId:string,site:string){
+  getEnginsBySite(site:Chantier){
     this.selectionRegion = ''
-    this.selectionSite = 'Filtrage par Site : '+site
-    this.enginService.GetEnginListBySite(siteId).subscribe(
+    this.selectionSite = 'Filtrage par Site : '+site.name
+    this.enginService.GetEnginListBySite(site.id.toString()).subscribe(
       data => {
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator;
@@ -103,14 +106,15 @@ export class PointageListComponent implements OnInit {
   }
 
   /** Filter les engin par leur site */
-  getSitesByRegion(regionId:string,region:string){
+  getSitesByRegion(region:Region){
     this.selectionSite = ''
-    this.selectionRegion = 'Filtrage par Région : '+region
-    this.siteRegions$ = this.chantierService.getChantierByRegion(region);
+    this.selectionRegion = 'Filtrage par Région : '+region.name
+    this.siteRegions$ = this.chantierService.getChantierByRegion(region.name);
   }
 
   /** Filter les engin par leur site */
   getEnginsByRegion(site:any){
+    this.dataSource = new MatTableDataSource(ELEMENT_DATA)
     this.enginService.GetEnginListBySite(site).subscribe(
       data => {
         this.dataSource = new MatTableDataSource(data);
@@ -143,7 +147,7 @@ export class PointageListComponent implements OnInit {
   actualiser(){
     this.selectionSite = ''
     this.selectionRegion = ''
-    this.enginService.GetEnginList().subscribe(
+    this.enginService.getEnginWithChantierName().subscribe(
       data => {
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator;
