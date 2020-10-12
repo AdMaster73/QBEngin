@@ -12,6 +12,18 @@ export class ChauffeurService {
 
   constructor(private afs: AngularFirestore,private firebaseAuth: AngularFireAuth) { }
 
+  GetChauffeurById(id: any) {
+    return this.afs.collection<Chauffeur>('chauffeur',ref=>ref.where(firestore.FieldPath.documentId(),'==',eval(id).toString())).snapshotChanges().pipe(
+      map(action =>{
+        return action.map(a =>{
+          const data = a.payload.doc.data() as Chauffeur;
+          const id = a.payload.doc.id;
+          return {id, ...data };
+        })
+      })
+    )
+  }
+
 	/* Cérer un Chauffeur */
 	AddChauffeur(Chauffeur: Chauffeur){
 		return this.afs.collection('chauffeur').doc(Chauffeur.id.toString()).set({
