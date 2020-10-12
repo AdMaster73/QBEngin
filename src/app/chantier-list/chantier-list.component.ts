@@ -125,10 +125,7 @@ export class ChantierListComponent implements OnInit {
       id:index
     }}).afterClosed().subscribe(result => {
       if (result){
-        const data = this.dataSource.data;
-        data.splice((this.paginator.pageIndex * this.paginator.pageSize) + index, 1);
-        this.dataSource.data = data;
-        this.chantierService.DeleteChantier(result)
+        this.chantierService.DeleteChantier(result.id)
       }
     });
   }
