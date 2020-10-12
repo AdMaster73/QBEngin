@@ -142,7 +142,8 @@ export class EnginListComponent implements OnInit{
       accessoire_v:element.accessoire_v?element.accessoire_v:'',
       compteur:element.compteur?element.compteur:0,
       pointed:element.pointed?element.pointed:0,
-      porte:element.porte
+      porte:element.porte,
+      consomation:element.consomation
     }}).afterClosed().subscribe(result => {
       if (result){
         this.enginService.UpdateEngin(result)
