@@ -4,14 +4,16 @@
       <mat-card-subtitle></mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-    <form [formGroup]="form"><input matInput class="invisible" formControlName="id"></form>
+    <form [formGroup]="form">
+      <input matInput class="invisible" formControlName="id">
+    </form>
         <p>Vous êtes en train de supprimer un site !</p>
     </mat-card-content>
     <mat-card-actions>
-        <button mat-fab color="warn" [mat-dialog-close]="data">
+        <button mat-icon-button color="warn" [mat-dialog-close]="data">
             <mat-icon aria-label="Example icon-button with a heart icon">delete</mat-icon>
         </button>
-        <button mat-fab mat-dialog-close color="primary">
+        <button mat-icon-button mat-dialog-close color="primary">
             <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
         </button>
     </mat-card-actions>
