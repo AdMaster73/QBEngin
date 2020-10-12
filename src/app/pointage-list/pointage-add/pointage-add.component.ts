@@ -20,6 +20,9 @@ import { ChauffeurService } from 'src/app/services/chauffeur.service';
 export class PointageAddComponent implements OnInit {
 
   PointageFormAdd: FormGroup
+  PointageFormFirst: FormGroup
+  PointageFormSecond: FormGroup
+  PointageFormThird: FormGroup
   options: string[] = [];
   chauffeurs: string[] = [];
   filteredOptions: Observable<string[]>;
