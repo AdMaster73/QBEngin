@@ -46,7 +46,7 @@ export class ChauffeurListComponent implements OnInit {
           })
       })();
       }
-    displayedColumns: string[] = ['action','numero', 'designation'];
+    displayedColumns: string[] = ['action','numero', 'designation','type_permis','date_obtention','date_visite_yeux'];
     dataSource : MatTableDataSource<Chauffeur>;
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
     @ViewChild(MatSort, {static : true}) sort: MatSort;
@@ -79,11 +79,13 @@ export class ChauffeurListComponent implements OnInit {
       const dialogRef = this.dialog.open(ChauffeurAddComponent);
     }
     /**Modifier Chauffeur */
-    editChauffeur(index:number, element){
-      const dialogConfig = new MatDialogConfig();
+    editChauffeur(chauffeur){
       this.dialog.open(ChauffeurFormComponent,{data:{
-        id:element.id,
-        name:element.name
+        id:chauffeur.id,
+        name:chauffeur.name,
+        type_permis:chauffeur.type_permis,
+        date_obtention:chauffeur.date_obtention,
+        date_visite_yeux:chauffeur.date_visite_yeux
       }}).afterClosed().subscribe(result => {
         if (result){
           this.chauffeurServices.UpdateChauffeur(result)
