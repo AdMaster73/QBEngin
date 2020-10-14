@@ -9,7 +9,8 @@
 </mat-form-field>
   <div class="mat-elevation-z8">
     <mat-chip-list aria-label="Fish selection" button>
-      <mat-chip class="marche" (click)="filterEtat('MARCHE')" value="marche">Marche</mat-chip>
+      <mat-chip class="refresh" (click)="filterEtat('')">Refresh</mat-chip>
+      <mat-chip class="marche" (click)="filterEtat('MARCHE')">Marche</mat-chip>
       <mat-chip class="mad" (click)="filterEtat('MAD')">Mise à disposition</mat-chip>
       <mat-chip class="arret" (click)="filterEtat('ARRET')">Arrêt</mat-chip>
       <mat-chip class="attente" (click)="filterEtat('EN ATTENTE')">En Attente</mat-chip>
@@ -55,6 +56,12 @@
     <ng-container matColumnDef="designation">
       <th mat-header-cell *matHeaderCellDef> D&eacute;signation </th>
       <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="site">
+      <th mat-header-cell *matHeaderCellDef> Site </th>
+      <td mat-cell *matCellDef="let element"> {{element.chantiers[0].name}} </td>
     </ng-container>
 
     <!-- Catégorie Column -->
