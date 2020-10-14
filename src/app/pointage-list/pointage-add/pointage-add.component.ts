@@ -94,7 +94,7 @@ export class PointageAddComponent implements OnInit {
       etat_f: new FormControl(),
       vidange: new FormControl(),
       id_chantier: new FormControl(),
-      chantier: new FormControl(),
+      chantier: new FormControl({value:''},[Validators.required]),
       chauffeur: new FormControl(),
       id_chauffeur: new FormControl(),
       latitude : new FormControl(),
