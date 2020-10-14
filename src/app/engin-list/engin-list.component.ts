@@ -59,6 +59,7 @@ export class EnginListComponent implements OnInit{
     {"value":'chauffeur',"show": true},
     {"value":'b_code',"show": true},
     {"value":'etat_f',"show": false},
+    {"value":'site',"show": true},
     {"value":'position',"show": true}
     ];
   get displayedColumns(): string[]{
@@ -76,7 +77,7 @@ export class EnginListComponent implements OnInit{
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static : true}) sort: MatSort;
   ngOnInit(): void {
-    this.enginService.GetEnginList().subscribe(
+    this.enginService.getEnginWithChantierName().subscribe(
       data => {
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator;
@@ -101,7 +102,21 @@ export class EnginListComponent implements OnInit{
   }
 
   filterEtat(etat: string) {
-    this.dataSource.filter = etat.trim().toLowerCase();
+    if(etat == ''){
+      this.enginService.getEnginWithChantierName().subscribe(
+        data => {
+          this.dataSource = new MatTableDataSource(data);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+          this.paginator._intl.itemsPerPageLabel = 'Affichage par page.';
+          this.paginator._intl.firstPageLabel = 'Page Premier';
+          this.paginator._intl.nextPageLabel = 'Page Suivant';
+          this.paginator._intl.previousPageLabel = 'Page Précédante';
+          this.paginator._intl.lastPageLabel = 'Dérnier Page';
+        }
+      )
+    }
+    this.dataSource.filter = etat.trim().toUpperCase();
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
@@ -143,7 +158,11 @@ export class EnginListComponent implements OnInit{
       compteur:element.compteur?element.compteur:0,
       pointed:element.pointed?element.pointed:0,
       porte:element.porte,
-      consomation:element.consomation
+      consomation:element.consomation,
+      compteur_v:element.compteur_v,
+      vidange_alarm:element.vidange_alarm,
+      compteur_dernier_v:element.compteur_dernier_v,
+      date_v:element.date_v
     }}).afterClosed().subscribe(result => {
       if (result){
         this.enginService.UpdateEngin(result)
