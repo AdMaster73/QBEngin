@@ -47,7 +47,9 @@ export class EnginFormComponent implements OnInit {
       this._adapter.setLocale('fr');
       registerLocaleData(localeFr, 'fr');
       var pattern = /(\d{2})\/(\d{2})\/(\d{4})/;
+      if (data.date_v === undefined ) data.date_v= ''
       data.date_achat = typeof this.data.date_achat === 'string' ? this.date = new Date(this.data.date_achat.replace(pattern,'$3/$2/$1')) : this.date = new Date((this.data.date_achat).toDate());
+      data.date_v = typeof this.data.date_v === 'string' ? this.date = new Date(this.data.date_v.replace(pattern,'$3/$2/$1')) : this.date = new Date((this.data.date_v).toDate());
     }
 
   ngOnInit() {
@@ -63,6 +65,10 @@ export class EnginFormComponent implements OnInit {
       id_chauffeur: ['', Validators.required],
       valeur_achat: new FormControl(),
       date_achat:[''],
+      date_v:new FormControl({value:'',disabled:true}),
+      compteur_v:[''],
+      vidange_alarm:new FormControl({value:0},[Validators.max(500)]),
+      compteur_dernier_v:new FormControl({value:'',disabled:true}),
       marque_moteur:new FormControl(),
       serie_moteur:new FormControl(),
       consomation:new FormControl(),
