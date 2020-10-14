@@ -1,16 +1,18 @@
   <!-- Engin form -->
- <div style="margin-top: -20px;">
+<!--  <div style="margin-top: -20px;">
   <button mat-icon-button color="primary" [mat-dialog-close]="data">
     <mat-icon aria-label="Example icon-button with a heart icon">edit</mat-icon>
   </button>
   <button mat-icon-button color="accent" mat-dialog-close>
     <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
   </button>
- </div>
-  <div class="example-container">
+ </div> -->
     <form [formGroup]="EnginFormEdit">
+      <mat-horizontal-stepper #stepper>
+        <mat-step [stepControl]="EnginFormEdit">
+          <ng-template matStepLabel>Informations du matériel</ng-template>
       <!-- Left block -->
-      <mat-card>
+          <mat-card class="mat-elevation-z8">
           <!-- Engin code -->
           <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>Code</mat-label>
@@ -84,7 +86,14 @@
               <mat-label>Valeur d'achat</mat-label>
               <input matInput placeholder="Valeur Achat" formControlName="valeur_achat" [(ngModel)]="data.valeur_achat">
             </mat-form-field>
-
+          </mat-card>
+          <div>
+            <button mat-icon-button matStepperNext color="primary"><mat-icon>fast_forward</mat-icon></button>
+          </div>
+          </mat-step>
+          <mat-step>
+              <ng-template matStepLabel>Huiles</ng-template>
+              <mat-card class="mat-elevation-z8">
             <!-- MARQUE MOTEUR -->
             <mat-form-field class="example-full-width" appearance="outline">
               <mat-label>Marque moteur</mat-label>
@@ -102,50 +111,11 @@
               <mat-label>Numéro de série</mat-label>
               <input matInput placeholder="Numéro de serie" formControlName="n_serie" [(ngModel)]="data.n_serie">
             </mat-form-field>
-
             <!-- BARE CODE -->
             <mat-form-field class="example-full-width" appearance="outline">
               <mat-label>Code à bare</mat-label>
               <input matInput placeholder="Bare code" formControlName="b_code" [(ngModel)]="data.b_code">
             </mat-form-field>
-
-            <!-- Type vidange -->
-            <mat-form-field class="example-full-width" appearance="outline">
-              <mat-label>Type Vidange</mat-label>
-              <mat-select [(ngModel)]="data.type_v" formControlName="type_v">
-                <mat-option *ngFor="let typeV of typeVs" [value]="typeV">
-                  {{typeV}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <!-- Etat de fonctionnement -->
-            <mat-form-field class="full-width" appearance="outline">
-              <mat-label>Etat du véhicule</mat-label>
-              <mat-select [(ngModel)]="data.etat_f" formControlName="etat_f">
-                <mat-option *ngFor="let etatVf of etatVfs" [value]="etatVf">
-                  {{etatVf}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <!-- Etat du Compteur de kilômetrage -->
-            <mat-form-field class="example-full-width" appearance="outline">
-              <mat-label>Etat du Compteur de kilômetrage</mat-label>
-              <mat-select [(ngModel)]="data.etat_k" formControlName="etat_k">
-                <mat-option *ngFor="let etatVk of etatVks" [value]="etatVk">
-                  {{etatVk}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <!-- COMPTEUR -->
-            <mat-form-field class="example-full-width" appearance="outline">
-              <mat-label>Compteur</mat-label>
-              <input matInput placeholder="Compteur Kilomêtre/Heure" formControlName="compteur" [(ngModel)]="data.compteur" type="number">
-            </mat-form-field>
-
-
 
             <!-- chauffeur -->
             <mat-form-field class="example-full-width" appearance="outline">
@@ -169,10 +139,92 @@
               <input matInput class="invisible" formControlName="id_chauffeur" [(ngModel)]="data.chauffeur.id">
 
 
+            <!-- Etat de fonctionnement -->
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Etat du véhicule</mat-label>
+              <mat-select [(ngModel)]="data.etat_f" formControlName="etat_f">
+                <mat-option *ngFor="let etatVf of etatVfs" [value]="etatVf">
+                  {{etatVf}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+
+            </mat-card>
+            <div>
+              <button mat-icon-button matStepperPrevious  color="primary"><mat-icon>fast_rewind</mat-icon></button>
+              <button mat-icon-button matStepperNext color="primary"><mat-icon>fast_forward</mat-icon></button>
+            </div>
+            </mat-step>
+            <mat-step>
+
+              <ng-template matStepLabel>Papiers</ng-template>
+              <mat-card class="mat-elevation-z8">
+
+              </mat-card>
+            </mat-step>
+
+            <mat-step>
+              <ng-template matStepLabel>Vidanges</ng-template>
+              <mat-card class="mat-elevation-z8">
+
+            <!-- Etat du Compteur de kilômetrage -->
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Etat du Compteur de kilômetrage</mat-label>
+              <mat-select [(ngModel)]="data.etat_k" formControlName="etat_k">
+                <mat-option *ngFor="let etatVk of etatVks" [value]="etatVk">
+                  {{etatVk}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <!-- COMPTEUR -->
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Compteur</mat-label>
+              <input matInput placeholder="Compteur Kilomêtre/Heure" formControlName="compteur" [(ngModel)]="data.compteur" type="number">
+            </mat-form-field>
+
+            <!-- Type vidange -->
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Type Vidange</mat-label>
+              <mat-select [(ngModel)]="data.type_v" formControlName="type_v">
+                <mat-option *ngFor="let typeV of typeVs" [value]="typeV">
+                  {{typeV}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
             <!-- CONSOMATION -->
             <mat-form-field class="example-full-width" appearance="outline" >
-              <mat-label>Consomation</mat-label>
-              <input matInput type="number" placeholder="Consomation" formControlName="consomation" [(ngModel)]="data.consomation">
+              <mat-label>Consomation moyenne</mat-label>
+              <input matInput type="number" placeholder="Consomation moyenne" formControlName="consomation" [(ngModel)]="data.consomation">
+            </mat-form-field>
+
+            <!-- VIDANGE COMPTEUR -->
+            <mat-form-field class="example-full-width" appearance="outline" >
+              <mat-label>Compteur à parcourir pour le prochaine vidange</mat-label>
+              <input matInput type="number" placeholder="Compteur à parcourir pour le prochaine vidange" formControlName="compteur_v" [(ngModel)]="data.compteur_v">
+            </mat-form-field>
+
+            <!-- VIDANGE ALARME -->
+            <mat-form-field class="example-full-width" appearance="outline" >
+              <mat-label>Alarme vidange</mat-label>
+              <input matInput type="number" placeholder="Consomation" formControlName="vidange_alarm" [(ngModel)]="data.vidange_alarm">
+            </mat-form-field>
+
+            <!-- COMPTEUR DERNIER VIDANGE ALARME -->
+            <mat-form-field class="example-full-width" appearance="outline" >
+              <mat-label>Compteur du dernier vidange</mat-label>
+              <input matInput type="number" placeholder="Compteur du dernier vidange" formControlName="compteur_dernier_v" [(ngModel)]="data.compteur_dernier_v">
+            </mat-form-field>
+
+            <!-- DATE DERNIER VIDANGE ALARME -->
+
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Date du dernier vidange</mat-label>
+              <input matInput [matDatepicker]="picker_v" formControlName="date_v" [(ngModel)]="data.date_v">
+              <mat-datepicker-toggle matSuffix [for]="picker_v"></mat-datepicker-toggle>
+              <mat-datepicker touchUi #picker_v></mat-datepicker>
             </mat-form-field>
 
             <!-- Accessoire-->
@@ -184,6 +236,22 @@
             <!-- Porte char-->
               <mat-slide-toggle [(ngModel)]="data.porte" formControlName="porte">Porte Char</mat-slide-toggle>
 
-      </mat-card>
+              <!-- <button mat-icon-button color="primary" [mat-dialog-close]="data">
+                <mat-icon aria-label="Example icon-button with a heart icon">edit</mat-icon>
+              </button>
+              <button mat-icon-button color="accent" mat-dialog-close>
+                <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
+              </button> -->
+              </mat-card>
+
+              <div>
+                <button mat-icon-button matStepperPrevious  color="primary">
+                  <mat-icon >fast_rewind</mat-icon>
+                </button>
+                <button mat-icon-button [mat-dialog-close]="data" [disabled]="EnginFormEdit.invalid" color="warn">
+                  <mat-icon >edit</mat-icon>
+                </button>
+              </div>
+    </mat-step>
+      </mat-horizontal-stepper>
     </form>
-  </div>
