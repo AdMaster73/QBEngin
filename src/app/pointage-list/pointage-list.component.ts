@@ -88,24 +88,6 @@ export class PointageListComponent implements OnInit {
   }
 
   /** Filter les engin par leur site */
-  getEnginsBySite(site:Chantier){
-    this.selectionRegion = ''
-    this.selectionSite = 'Filtrage par Site : '+site.name
-    this.enginService.GetEnginListBySite(site.id.toString()).subscribe(
-      data => {
-        this.dataSource = new MatTableDataSource(data);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        this.paginator._intl.itemsPerPageLabel = 'Affichage par page.';
-        this.paginator._intl.firstPageLabel = 'Page Premier';
-        this.paginator._intl.nextPageLabel = 'Page Suivant';
-        this.paginator._intl.previousPageLabel = 'Page Précédante';
-        this.paginator._intl.lastPageLabel = 'Dérnier Page';
-      }
-    )
-  }
-
-  /** Filter les engin par leur site */
   getSitesByRegion(region:Region){
     this.selectionSite = ''
     this.selectionRegion = 'Filtrage par Région : '+region.name
