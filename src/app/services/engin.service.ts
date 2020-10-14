@@ -56,7 +56,7 @@ export class EnginService {
 		this.afs.doc('engin/'+id).delete()
   }
 
-  getEnginWithChantierName(){
+  getEnginWithChantierName(){//,ref=>ref.where('pointed','==',1)
     return this.afs.collection<Engin>('engin').snapshotChanges().pipe(
       switchMap((engins)=>{
         const engin = engins.map(c=>{
@@ -193,6 +193,12 @@ export class EnginService {
     let accessoire_veh = engin.accessoire_v ? 1 : 0
     let pointage_veh = engin.pointed ? 1 : 0
     let porte = engin.porte ? 1 : 0
+    var consomation :number =0
+    if(engin.consomation===undefined){
+      consomation = 0
+    }else{
+      consomation = engin.consomation
+    }
 		this.afs.doc('engin/'+engin.id).update(
 			{
 				updatedBy: this.firebaseAuth.auth.currentUser.uid,
@@ -224,7 +230,9 @@ export class EnginService {
         compteur:engin.compteur,
         pointed:pointage_veh,
         porte:porte,
-        consomation:engin.consomation
+        consomation:consomation,
+        compteur_v:engin.compteur_v,
+        vidange_alarm:engin.vidange_alarm
 			}
 		)
   }
