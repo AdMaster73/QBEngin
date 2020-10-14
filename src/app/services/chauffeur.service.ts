@@ -60,11 +60,14 @@ export class ChauffeurService {
 	}
 
 	/* Modifier un Chauffeur */
-	UpdateChauffeur(chauffeur) {
+	UpdateChauffeur(chauffeur:Chauffeur) {
 		this.afs.doc('chauffeur/'+chauffeur.id).update({
 			updatedBy: this.firebaseAuth.auth.currentUser.uid,
 			updatedAt: firestore.FieldValue.serverTimestamp(),
-			name: chauffeur.name.toUpperCase()
+			name: chauffeur.name.toUpperCase(),
+			type_permis: chauffeur.type_permis.toUpperCase(),
+			date_obtention: chauffeur.date_obtention,
+			date_visite_yeux: chauffeur.date_visite_yeux
 		})
 	}
 }
