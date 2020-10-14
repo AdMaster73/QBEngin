@@ -18,7 +18,8 @@ export interface Engin {
     date_v?:Date;//la date du dernier vidange
     vidange?:string;//vidange complet ou simple
     vidange_alarm?:number;//le compteur qu'on doit allumer l'alarme
-    id_chantier?:number
+    id_chantier?:number,
+    pointed?:number
   }
   export interface Categorie{
     id:number,
@@ -152,5 +153,8 @@ export interface Engin {
 
  export interface Chauffeur{
    id:number,
-   name:string
+   name:string,
+   type_permis?:string,
+   date_obtention?:Date,
+   date_visite_yeux?:Date,
  }
