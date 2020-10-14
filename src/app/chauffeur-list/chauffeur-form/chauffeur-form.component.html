@@ -15,6 +15,34 @@
           </mat-error>
         </mat-form-field>
 
+
+        <!-- Etat du Compteur de kilômetrage -->
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Type de permis</mat-label>
+          <mat-select [(ngModel)]="data.type_permis" formControlName="type_permis">
+            <mat-option *ngFor="let type_permis of ['A','B','C','D','AC']" [value]="type_permis">
+              {{type_permis}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <!--DATE OBTENTION-->
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Date permis</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="date_obtention" [(ngModel)]="data.date_obtention">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker touchUi #picker></mat-datepicker>
+        </mat-form-field>
+
+        <!--DATE YEUX-->
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Date permis</mat-label>
+          <input matInput [matDatepicker]="picker_y" formControlName="date_visite_yeux" [(ngModel)]="data.date_visite_yeux">
+          <mat-datepicker-toggle matSuffix [for]="picker_y"></mat-datepicker-toggle>
+          <mat-datepicker touchUi #picker_y></mat-datepicker>
+        </mat-form-field>
+
         <mat-card-actions>
           <button mat-icon-button color="primary" [disabled]="ChauffeurFormEdit.invalid" [mat-dialog-close]="data">
             <mat-icon aria-label="Example icon-button with a heart icon">edit</mat-icon>
