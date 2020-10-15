@@ -4,7 +4,7 @@
         aria-describedby="modal-title"
         mat-dialog-close>
         <span aria-hidden="true">&times;</span>
-    </button>   
+    </button>
     <p>Information sur les utilisateurs affectés </p>
     <p>au <span class="mat-subheading-1">{{data.name}}</span></p>
 </div>
@@ -25,15 +25,15 @@
     <mat-chip-list #chipList aria-label="Fruit selection">
         <mat-chip *ngFor="let chantier of chantiers"
                 [selectable]="selectable"
-                [removable]="removable" 
+                [removable]="removable"
                 (removed)="remove(chantier)">
                 ({{chantier.role}}) {{chantier.email}}
         <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
         </mat-chip>
-        <input placeholder="Nouvau chantier..."
+        <input placeholder="Nouvau Utilisateur..."
                 #chantierInput
                 [formControl]="chantierCtrl"
-                [matAutocomplete]="auto"              
+                [matAutocomplete]="auto"
                 [matChipInputFor]="chipList"
                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                 (matChipInputTokenEnd)="add($event)">
@@ -47,4 +47,3 @@
 
 </mat-expansion-panel>
 </mat-accordion>
-  
