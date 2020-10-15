@@ -19,6 +19,7 @@ export interface Engin {
     vidange?:string;//vidange complet ou simple
     vidange_alarm?:number;//le compteur qu'on doit allumer l'alarme
     id_chantier?:number,
+    etiquette_ancienne?:number,
     pointed?:number
   }
   export interface Categorie{
