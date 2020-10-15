@@ -120,6 +120,17 @@
           <mat-label>N° de Bon</mat-label>
           <input matInput placeholder="Numéro de bon" formControlName="bon">
         </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Ancienne Etiquette</mat-label>
+          <input matInput type="number" placeholder="Ancienne Etiquette" formControlName="etiquette_ancienne">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Nouveau Etiquette</mat-label>
+          <input matInput type="number" placeholder="Nouveau Etiquette" formControlName="etiquette_nvx" min="0">
+        </mat-form-field>
+
         <div>
           <button mat-icon-button matStepperPrevious><mat-icon>replay</mat-icon></button>
           <button mat-icon-button matStepperNext color="primary" [disabled]="PointageFormAdd.invalid"><mat-icon>play_arrow</mat-icon></button>
