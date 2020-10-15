@@ -194,10 +194,18 @@ export class EnginService {
     let pointage_veh = engin.pointed ? 1 : 0
     let porte = engin.porte ? 1 : 0
     var consomation :number =0
+    var compteur_v :number =0
+    var vidange_alarm :number =0
     if(engin.consomation===undefined){
       consomation = 0
     }else{
       consomation = engin.consomation
+    }
+    if(engin.compteur_v!=undefined){
+      compteur_v = engin.compteur_v
+    }
+    if(engin.vidange_alarm!=undefined){
+      vidange_alarm = engin.vidange_alarm
     }
 		this.afs.doc('engin/'+engin.id).update(
 			{
@@ -231,8 +239,8 @@ export class EnginService {
         pointed:pointage_veh,
         porte:porte,
         consomation:consomation,
-        compteur_v:engin.compteur_v,
-        vidange_alarm:engin.vidange_alarm
+        compteur_v:compteur_v,
+        vidange_alarm:vidange_alarm
 			}
 		)
   }
