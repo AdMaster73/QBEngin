@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { RegionService } from '../services/region.service';
 import { ChantierService } from '../services/chantier.service';
 import { PointageAddComponent } from './pointage-add/pointage-add.component';
+import { element } from 'protractor';
 
 const ELEMENT_DATA: Engin[]=[]
 
