@@ -35,9 +35,9 @@ export class PointageService {
                 result.gasoil,
                 engin.compteur,
                 result.compteur_nvx,
-                result.consomation,result.etat_compt,
+                result.consomation,
+                result.etat_compt,
                 result.bon,
-                etiquette_ancienne,
                 result.etiquette_nvx
               ],
               heure_ar:result.heure_ar,
@@ -65,7 +65,7 @@ export class PointageService {
                 compteur: result.compteur_nvx,
                 compteur_dernier_v:result.compteur_nvx,
                 etiquette_ancienne: result.etiquette_nvx,
-                date_v:result.date_pointage,
+                date_v:firestore.FieldValue.serverTimestamp(),
                 vidange_complet:result.vidange,
                 pointed:1
               })
