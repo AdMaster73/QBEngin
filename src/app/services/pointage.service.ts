@@ -20,14 +20,26 @@ export class PointageService {
     }
 
     addPointage(result: any,engin :Engin) {
-      let maintenant:string = result.date_pointage.toLocaleDateString('fr-FR')
-      const locationData = new firebase.firestore.GeoPoint(result.latitude, result.longitude)
+      var id_chantier = engin.id_chantier === undefined ? 249 : engin.id_chantier
+      var latitude = result.latitude === null ? 33.8504681 : result.latitude
+      var longitude = result.longitude === null ? -7.0409885 : result.longitude
+      let etiquette_ancienne = engin.etiquette_ancienne == undefined ? 0:engin.etiquette_ancienne
+      let maintenant:string = new Date().toLocaleDateString('fr-FR')
+      const locationData = new firebase.firestore.GeoPoint(latitude, longitude)
             this.afs.collection('engin/'+engin.id+'/pointage').doc(maintenant.replace('/','').replace('/',''))
             .set({
-              chantier:result.chantier,
+              chantier:id_chantier,
               date_pointage:maintenant,
               etat_e:result.etat_f,
-              gasoil:[result.gasoil,engin.compteur,result.compteur_nvx,result.consomation,result.etat_compt],
+              gasoil:[
+                result.gasoil,
+                engin.compteur,
+                result.compteur_nvx,
+                result.consomation,result.etat_compt,
+                result.bon,
+                etiquette_ancienne,
+                result.etiquette_nvx
+              ],
               heure_ar:result.heure_ar,
               heure_m:result.heure_m,
               heure_p:result.heure_p,
@@ -38,21 +50,21 @@ export class PointageService {
               mobile:false,
               uid:this.firebaseAuth.auth.currentUser.uid
             },{ merge: true })
-            if(result.vidange == null){
+            if(result.vidange == null || result.vidange === ''){
               this.afs.doc('engin/'+engin.id).update({
                 last_pointage:maintenant,
                 etat_f:result.etat_f,
-                id_chantier:result.id_chantier,
                 compteur: result.compteur_nvx,
+                etiquette_ancienne: result.etiquette_nvx,
                 pointed:1
               })
             }else{
               this.afs.doc('engin/'+engin.id).update({
                 last_pointage:maintenant,
                 etat_f:result.etat_f,
-                id_chantier:result.id_chantier,
                 compteur: result.compteur_nvx,
                 compteur_dernier_v:result.compteur_nvx,
+                etiquette_ancienne: result.etiquette_nvx,
                 date_v:result.date_pointage,
                 vidange_complet:result.vidange,
                 pointed:1
