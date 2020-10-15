@@ -90,11 +90,11 @@ export class PointageAddComponent implements OnInit {
     })
 
     this.PointageFormAdd= this.fb.group({
-      date_pointage:new FormControl(Validators.required),
+      date_pointage:new FormControl({value:'',disabled: true},[Validators.required]),
       etat_f: new FormControl(),
-      vidange: new FormControl(),
+      vidange: new FormControl({ value: '', disabled: true }),
       id_chantier: new FormControl(),
-      chantier: new FormControl({value:''},[Validators.required]),
+      chantier: new FormControl({value:'',disabled: true},[Validators.required]),
       chauffeur: new FormControl(),
       id_chauffeur: new FormControl(),
       latitude : new FormControl(),
@@ -103,7 +103,9 @@ export class PointageAddComponent implements OnInit {
       heure_ar: new FormControl(),
       heure_p: new FormControl(),
       gasoil: new FormControl(),
-      bon: new FormControl(),
+      bon: new FormControl({value:'',disabled:true},[Validators.required]),
+      etiquette_nvx: new FormControl({value:this.data.etiquette_ancienne,disabled:true},[Validators.required]),
+      etiquette_ancienne: new FormControl({value:this.data.etiquette_ancienne,disabled:true}),
       etat_compt: new FormControl({value:this.data.etat_k}, Validators.required),
       compteur_anc: new FormControl({ value: '', disabled: true }),
       compteur_nvx: new FormControl(this.data.compteur, [Validators.min(this.data.compteur)]),
@@ -117,9 +119,20 @@ export class PointageAddComponent implements OnInit {
     this.PointageFormAdd.get('oil_90').setValue(0)
     this.PointageFormAdd.get('gasoil').setValue(0)
     this.PointageFormAdd.get('consomation').setValue(0)
+    this.PointageFormAdd.get('etiquette_nvx').setValue(this.data.etiquette_ancienne)
     this.PointageFormAdd.get('bon').setValue('')
+    this.PointageFormAdd.get('vidange').setValue('')
     this.PointageFormAdd.get('date_pointage').setValue(new Date())
     this.PointageFormAdd.get('gasoil').valueChanges.subscribe(value => {
+      if(value==0 || value == null){
+        this.PointageFormAdd.get('bon').disable()
+        this.PointageFormAdd.get('bon').setValue('')
+        this.PointageFormAdd.get('etiquette_nvx').setValue('')
+        this.PointageFormAdd.get('etiquette_nvx').disable()
+      }else{
+        this.PointageFormAdd.get('bon').enable()
+        this.PointageFormAdd.get('etiquette_nvx').enable()
+      }
       var consomation = (value*100)/(this.PointageFormAdd.get('compteur_nvx').value-this.PointageFormAdd.get('compteur_anc').value)
       if(consomation == Infinity){
         return
@@ -138,6 +151,14 @@ export class PointageAddComponent implements OnInit {
       }
     })
 
+    this.PointageFormAdd.get('oil_40').valueChanges.subscribe(value => {
+      if(value<5){
+        this.PointageFormAdd.get('vidange').disable()
+      }else{
+        this.PointageFormAdd.get('vidange').enable()
+      }
+    })
+
     this.PointageFormAdd.get('compteur_nvx').valueChanges.subscribe(value => {
       var consomation = (this.PointageFormAdd.get('gasoil').value*100)/(value-this.PointageFormAdd.get('compteur_anc').value)
       if(consomation == Infinity){
@@ -148,6 +169,11 @@ export class PointageAddComponent implements OnInit {
       }else if(consomation < 0){
         this.PointageFormAdd.get('consomation').setValue(0)
       }else{
+        if(this.data.consomation < consomation){
+          this.color = 'red'
+        }else{
+          this.color = ''
+        }
         this.PointageFormAdd.get('consomation').setValue(Math.round(consomation))
       }
     })
