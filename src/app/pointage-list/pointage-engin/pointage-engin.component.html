@@ -30,6 +30,20 @@
         <td mat-footer-cell *matFooterCellDef>Total</td>
       </ng-container>
 
+      <!-- Name Column -->
+      <ng-container matColumnDef="mobile">
+        <th mat-header-cell *matHeaderCellDef> Mobile </th>
+        <td mat-cell *matCellDef="let element">
+          <ng-container *ngIf="element.mobile==true">
+            Mobile
+          </ng-container>
+          <ng-container *ngIf="element.mobile==false">
+            Ordi.
+          </ng-container>
+           </td>
+        <td mat-footer-cell *matFooterCellDef>Total</td>
+      </ng-container>
+
       <!-- Catégorie Column -->
       <ng-container matColumnDef="etat_e">
         <th mat-header-cell *matHeaderCellDef>Etat </th>
@@ -61,6 +75,13 @@
       <ng-container matColumnDef="displayName">
         <th mat-header-cell *matHeaderCellDef>Ut. </th>
         <td mat-cell *matCellDef="let element"> {{element.users.displayName}} </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+
+      <!-- B_CODE Column -->
+      <ng-container matColumnDef="chauffeur">
+        <th mat-header-cell *matHeaderCellDef>Chauffeur</th>
+        <td mat-cell *matCellDef="let element"> {{element.chauffeur}} </td>
         <td mat-footer-cell *matFooterCellDef></td>
       </ng-container>
 
