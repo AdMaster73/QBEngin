@@ -125,7 +125,7 @@ import { ChauffeurAddComponent } from './chauffeur-list/chauffeur-add/chauffeur-
 import { ChauffeurFormComponent } from './chauffeur-list/chauffeur-form/chauffeur-form.component';
 import { ChauffeurDeleteComponent } from './chauffeur-list/chauffeur-delete/chauffeur-delete.component';
 
-firebase.initializeApp(environment.firebase);
+firebase.initializeApp(environment.firebaseConfig);
 
 @NgModule({
   declarations: [
@@ -274,7 +274,7 @@ firebase.initializeApp(environment.firebase);
   AgmCoreModule.forRoot({
     apiKey: 'AIzaSyAgAdva88NetRz6vyCzpfaltzNM11FaFtw'
   }),
-	AngularFireModule.initializeApp(environment.firebase),
+	AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule.enablePersistence()
   ],
   providers: [
