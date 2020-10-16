@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { EnginService } from 'src/app/services/engin.service';
 import { startWith, map } from 'rxjs/operators';
 import { ChantierService } from 'src/app/services/chantier.service';
+import { Engin } from 'src/app/models/engin.model';
 
 @Component({
   selector: 'app-encours-add',
@@ -22,8 +23,8 @@ export class EncoursAddComponent implements OnInit {
   filteredChantiersD: Observable<string[]>
   typeOfTransfert:string;
   //typeControl = new FormControl('engin')
-  provenance :string[]=[];
-  destination = [];
+  engins_provenance :Observable<Engin[]>;
+  engins_destination :Observable<Engin[]>;
   typeFormGroup: FormGroup;
   secondFormGroup: FormGroup
   constructor(private enginService: EnginService,private _formBuilder: FormBuilder,
@@ -47,12 +48,12 @@ export class EncoursAddComponent implements OnInit {
     })
     this.chantierService.GetChantierList().subscribe(data=>{
       data.forEach(chantier=>{
-        this.optionsC.push(chantier.name)
+        this.optionsC.push(chantier.id+' => '+chantier.name)
       })
     })
     this.chantierService.GetChantierList().subscribe(data=>{
       data.forEach(chantier=>{
-        this.optionsD.push(chantier.name)
+        this.optionsD.push(chantier.id+' => '+chantier.name)
       })
     })
 
@@ -98,33 +99,20 @@ export class EncoursAddComponent implements OnInit {
     return this.optionsD.filter(option => option.toLowerCase().includes(filterValue));
   }
   getControls(event$,type:string){
+    let id_chantier = event$.option.value.split('=>')[0]
     if(type === 'chantier'){
-      this.chantierService.GetChantierList().subscribe(data=>{
-        data.filter((chantier)=>{
-          return chantier.name == event$.option.value
-        }).map(
-          (element) =>
-          {
-            this.provenance.push(element.name)
-          })
-      })
+      this.engins_provenance = this.enginService.GetEnginListBySite(id_chantier)
     }else{
-      this.chantierService.GetChantierList().subscribe(data=>{
-        data.filter((chantier)=>{
-          return chantier.name == event$.option.value
-        }).map(
-          (element) =>
-          {
-            this.destination.push(element.name)
-          })
-      })
+      this.engins_destination = this.enginService.GetEnginListBySite(id_chantier)
     }
   }
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
+      console.log(1)
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
+      console.log(2)
       transferArrayItem(event.previousContainer.data,
                         event.container.data,
                         event.previousIndex,
