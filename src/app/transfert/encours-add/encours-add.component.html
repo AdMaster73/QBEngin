@@ -80,7 +80,7 @@
                 [cdkDropListConnectedTo]="todoList"
                 class="example-list"
                 (cdkDropListDropped)="drop($event)">
-                <mat-expansion-panel *ngFor="let engin of (engins_provenance | async)" [cdkDragDisabled]="engin.etat_f!=='MAD'" cdkDrag>
+                <mat-expansion-panel *ngFor="let engin of (engins_provenance)" [cdkDragDisabled]="engin.etat_f!=='MAD'" cdkDrag>
                   <mat-expansion-panel-header>
                     <mat-panel-title>
                       {{engin.code}}
@@ -102,7 +102,7 @@
                 [cdkDropListConnectedTo]="todoList"
                 class="example-list"
                 (cdkDropListDropped)="drop($event)">
-                <mat-expansion-panel *ngFor="let item of (engins_destination | async)" cdkDrag>
+                <mat-expansion-panel *ngFor="let item of (engins_destination)" cdkDrag>
                   <mat-expansion-panel-header>
                     <mat-panel-title>
                       {{item.code}}
@@ -119,9 +119,10 @@
           <div>
             <button mat-raised-button matStepperPrevious>Précedent</button>
             <button mat-raised-button (click)="stepper.reset()">Rafrichir</button>
-            <button mat-raised-button>Envoyer</button>
+            <button mat-raised-button disabled>Envoyer</button>
           </div>
         </mat-step>
       </mat-horizontal-stepper>
 </form>
+
 
