@@ -26,7 +26,7 @@ export class PointageEnginComponent implements OnInit {
       this.engin = this.router.getCurrentNavigation().extras.state.engins
     }
 
-  displayedColumns: string[] = ['date_pointage', 'chantier','mobile', 'type_p','heure_m','heure_ar','heure_p','gasoil','compteur','compteur_p','consomation','etat_compteur','chauffeur','displayName'];
+  displayedColumns: string[] = ['date_pointage', 'chantier','mobile', 'type_p','heure_m','heure_ar','heure_p','gasoil','bon','etiquette_ancienne','etiquette_nvx','compteur','compteur_p','consomation','etat_compteur','chauffeur','displayName'];
   dataSource : MatTableDataSource<Pointage>;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
