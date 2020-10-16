@@ -7,7 +7,7 @@ import * as firebase from 'firebase';
 import { CollectionsService } from '../../services/collections.service';
 import { RolesService } from '../../services/roles.service';
 import { Router } from '@angular/router';
-import { EncoursFormComponent } from '../encours-form/encours-form.component';
+import { EncoursAddComponent } from '../encours-add/encours-add.component';
 
 @Component({
   selector: 'app-encours',
@@ -76,8 +76,8 @@ export class EncoursComponent implements OnInit {
   }
 
     /** Ajouter nouveau transfert */
-    addCategorie(): void{
-      this.router.navigate(['sidenav/transfert/add']);
-      //const dialogRef = this.dialog.open(EncoursFormComponent);
+    addTransfert(): void{
+      //this.router.navigate(['sidenav/transfert/add']);
+      const dialogRef = this.dialog.open(EncoursAddComponent);
     }
 }
