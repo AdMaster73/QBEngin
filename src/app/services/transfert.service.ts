@@ -24,4 +24,17 @@ export class TransfertService {
       })
     }))
   }
+  getTransfertHistorique(){
+    return this.afs.collection<Transfert>('notification',ref=>{
+      let query : firebase.firestore.Query = ref
+      query = query.where('etat','>=',6)
+      return query
+    }).snapshotChanges().pipe(map(action=>{
+      return action.map(a=>{
+        const id = a.payload.doc.id
+        const data = a.payload.doc.data() as Transfert
+        return {id, ...data}
+      })
+    }))
+  }
 }
