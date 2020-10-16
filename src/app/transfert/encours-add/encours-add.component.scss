@@ -23,6 +23,10 @@ button{
     margin-right: 8px;
 }
 
+.mat-expansion-panel.cdk-drag-disabled {
+  background: #ccc;
+  cursor: default;
+}
 
 .example-container {
   width: 400px;
