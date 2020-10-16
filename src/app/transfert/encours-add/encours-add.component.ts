@@ -7,6 +7,7 @@ import { EnginService } from 'src/app/services/engin.service';
 import { startWith, map } from 'rxjs/operators';
 import { ChantierService } from 'src/app/services/chantier.service';
 import { Engin } from 'src/app/models/engin.model';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-encours-add',
@@ -18,12 +19,14 @@ export class EncoursAddComponent implements OnInit {
   options: string[] = [];
   optionsC: string[] = []
   optionsD: string[] = []
+  engins_provenance = []
+  engins_destination = []
   filteredEngins: Observable<string[]>;
   filteredChantiers: Observable<string[]>
   filteredChantiersD: Observable<string[]>
   typeOfTransfert:string;
-  engins_provenance :Observable<Engin[]>;
-  engins_destination :Observable<Engin[]>;
+  /* engins_provenance :Observable<Engin[]>;
+  engins_destination :Observable<Engin[]>; */
   transfertFormGroup: FormGroup;
   secondFormGroup: FormGroup
   typeFormGroup: FormGroup
@@ -99,23 +102,24 @@ export class EncoursAddComponent implements OnInit {
   getControls(event$,type:string){
     let id_chantier = event$.option.value.split('=>')[0]
     if(type === 'chantier'){
-      this.engins_provenance = this.enginService.GetEnginListBySite(id_chantier)
-    }else{
-      this.engins_destination = this.enginService.GetEnginListBySite(id_chantier)
+      this.enginService.GetEnginListBySite(id_chantier).subscribe(resluts=>{
+        resluts.forEach(engin=>{
+          this.engins_provenance.push({code:engin.code,name:engin.name,etat_f:engin.etat_f})
+        })
+      })
     }
   }
 
-  drop(event: CdkDragDrop<string[]>) {
-    if (event.previousContainer === event.container) {
-      console.log(1)
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      console.log(event.previousContainer.data)
-      transferArrayItem(event.previousContainer.data,
-                        event.container.data,
-                        event.previousIndex,
-                        event.currentIndex);
+  drop(event: CdkDragDrop<{code: string, name: string, etat_f :string}[]>) {
+      if (event.previousContainer === event.container) {
+        console.log(1)
+        moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      } else {
+        console.log(2)
+        transferArrayItem(event.previousContainer.data,
+                          event.container.data,
+                          event.previousIndex,
+                          event.currentIndex);
+      }
     }
-  }
-
 }
