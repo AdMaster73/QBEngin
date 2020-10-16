@@ -7,7 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TransfertComponent implements OnInit {
 
-  constructor() { }
+  collectionPermAdd: boolean
+  constructor(
+  ) {
+  }
 
   ngOnInit() {
   }
