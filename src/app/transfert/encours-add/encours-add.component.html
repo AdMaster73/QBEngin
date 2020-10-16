@@ -1,9 +1,7 @@
 <!-- Title group  -->
-  <div class="title-group">
-    <h3>Transfert des engins</h3>
+<form [formGroup]="transfertFormGroup">
       <mat-horizontal-stepper linear="true" labelPosition="bottom" #stepper>
         <mat-step [stepControl]="typeFormGroup" editable="true">
-          <form [formGroup]="typeFormGroup">
             <ng-template matStepLabel>Selectionner le type de transfert <small>{{typeOfTransfert}}</small></ng-template>
             <section class="example-section">
               <label class="example-margin">Par:</label>
@@ -20,10 +18,8 @@
               <button mat-raised-button matStepperNext>Suivant</button>
               <button mat-raised-button (click)="stepper.reset()">Rafrichir</button>
             </div>
-          </form>
         </mat-step>
         <mat-step [stepControl]="secondFormGroup"  editable="true">
-          <form [formGroup]="secondFormGroup">
               <ng-template matStepLabel>Autre selection <small>{{typeOfTransfert}}</small></ng-template>
               <mat-form-field class="example-full-width" appearance="outline" *ngIf="typeOfTransfert == 'engin'">
                 <mat-label>Engin</mat-label>
@@ -71,19 +67,20 @@
                 <button mat-raised-button matStepperNext>Suivant</button>
                 <button mat-raised-button (click)="stepper.reset()">Rafrichir</button>
               </div>
-            </form>
         </mat-step>
         <mat-step>
           <ng-template matStepLabel>Transfert</ng-template>
-          <div cdkDropListGroup *ngIf="typeOfTransfert">
+          <div cdkDropListGroup>
             <div class="example-container">
               <h2>Provenance</h2>
               <div
                 cdkDropList
+                #todoList="cdkDropList"
                 [cdkDropListData]="engins_provenance"
+                [cdkDropListConnectedTo]="todoList"
                 class="example-list"
-                (cdkDropListDropped)="drop($event)" *ngFor="let engin of (engins_provenance | async)">
-                <mat-expansion-panel [cdkDragDisabled]="engin.etat_f!=='MAD'" cdkDrag>
+                (cdkDropListDropped)="drop($event)">
+                <mat-expansion-panel *ngFor="let engin of (engins_provenance | async)" [cdkDragDisabled]="engin.etat_f!=='MAD'" cdkDrag>
                   <mat-expansion-panel-header>
                     <mat-panel-title>
                       {{engin.code}}
@@ -100,10 +97,12 @@
               <h2>Destination</h2>
               <div
                 cdkDropList
+                #doneList="cdkDropList"
                 [cdkDropListData]="engins_destination"
+                [cdkDropListConnectedTo]="todoList"
                 class="example-list"
                 (cdkDropListDropped)="drop($event)">
-                <mat-expansion-panel *ngFor="let item of (engins_destination | async)">
+                <mat-expansion-panel *ngFor="let item of (engins_destination | async)" cdkDrag>
                   <mat-expansion-panel-header>
                     <mat-panel-title>
                       {{item.code}}
@@ -124,4 +123,5 @@
           </div>
         </mat-step>
       </mat-horizontal-stepper>
-  </div>
+</form>
+
