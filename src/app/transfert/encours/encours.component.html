@@ -1,6 +1,6 @@
 <h3>Liste des engins en cours de transfert</h3>
-<button mat-fab *ngIf="collectionPermAdd" 
-color="primary" matTooltip="Nouvelle élement" 
+<button mat-fab *ngIf="collectionPermAdd"
+color="primary" matTooltip="Nouvelle élement"
 (click)="addCategorie()" class="addEngin"> <i class="material-icons">add</i> </button>
 <mat-form-field>
     <mat-label>Recherche par engin</mat-label>
@@ -8,7 +8,7 @@ color="primary" matTooltip="Nouvelle élement"
   </mat-form-field>
   <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource">
-  
+
     <ng-container matColumnDef="action">
       <th mat-header-cell *matHeaderCellDef>Action</th>
       <td mat-cell *matCellDef="let element; let i = index;">
@@ -27,68 +27,92 @@ color="primary" matTooltip="Nouvelle élement"
           </mat-menu>
       </td>
     </ng-container>
-    <!-- Numero Column -->
-    <ng-container matColumnDef="numero">
-      <th mat-header-cell *matHeaderCellDef> No. </th>
-      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-    </ng-container>
-
-    <!-- chantier Column -->
-    <ng-container matColumnDef="chantier">
-        <th mat-header-cell *matHeaderCellDef> Chantier </th>
-        <td mat-cell *matCellDef="let element"> {{element.compte}} </td>
-    </ng-container>
 
     <!-- date Column -->
-    <ng-container matColumnDef="date">
-      <th mat-header-cell *matHeaderCellDef> Date </th>
-      <td mat-cell *matCellDef="let element"> {{element.compte}} </td>
+    <ng-container matColumnDef="numero">
+      <th mat-header-cell *matHeaderCellDef style="text-align: center;border: 1px solid;font-weight: bold;">N° Transfert</th>
+      <td mat-cell *matCellDef="let element" style="text-align: center;border: 1px solid;"> {{element.id}} </td>
     </ng-container>
-        
-    <!-- Name Column -->
+
+    <!-- Provenance Column -->
+    <ng-container matColumnDef="code">
+        <th mat-header-cell *matHeaderCellDef style="text-align: center;border: 1px solid;font-weight: bold;">Code/Matricule</th>
+        <td mat-cell *matCellDef="let element" style="text-align: center;border: 1px solid;"> {{element.engin_code}} </td>
+    </ng-container>
+
+    <!-- Designation Column -->
     <ng-container matColumnDef="designation">
-      <th mat-header-cell *matHeaderCellDef> D&eacute;signation </th>
-      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        <th mat-header-cell *matHeaderCellDef style="text-align: center;border: 1px solid;font-weight: bold;">Matériels</th>
+        <td mat-cell *matCellDef="let element" style="text-align: center;border: 1px solid;"> {{element.engin_name}} </td>
+    </ng-container>
+
+    <!-- Designation Column -->
+    <ng-container matColumnDef="accessoire">
+        <th mat-header-cell *matHeaderCellDef style="text-align: center;border: 1px solid;font-weight: bold;">Accessoires</th>
+        <td mat-cell *matCellDef="let element" style="text-align: center;border: 1px solid;"> {{element.engin_name}} </td>
+    </ng-container>
+
+    <!-- Destination Column -->
+    <ng-container matColumnDef="destination">
+      <th mat-header-cell *matHeaderCellDef style="text-align: center;border: 1px solid;font-weight: bold;">Site</th>
+      <td mat-cell *matCellDef="let element" style="text-align: center;border: 1px solid;"> {{element.destination}} </td>
+    </ng-container>
+
+    <!-- Destination Column -->
+    <ng-container matColumnDef="demandeur">
+        <th mat-header-cell *matHeaderCellDef style="text-align: center;border: 1px solid;font-weight: bold;">Demandeur</th>
+        <td mat-cell *matCellDef="let element" style="text-align: center;border: 1px solid;"> {{element.userName}} </td>
     </ng-container>
 
     <!-- Provenance Column -->
     <ng-container matColumnDef="provenance">
-        <th mat-header-cell *matHeaderCellDef> Provenance </th>
-        <td mat-cell *matCellDef="let element"> {{element.compte}} </td>
+      <th mat-header-cell *matHeaderCellDef style="text-align: center;border: 1px solid;font-weight: bold;">Site</th>
+      <td mat-cell *matCellDef="let element" style="text-align: center;border: 1px solid;"> {{element.provenance}} </td>
     </ng-container>
-    
+
     <!-- Destination Column -->
-    <ng-container matColumnDef="destination">
-        <th mat-header-cell *matHeaderCellDef> Destination </th>
-        <td mat-cell *matCellDef="let element"> {{element.compte}} </td>
+    <ng-container matColumnDef="accord">
+        <th mat-header-cell *matHeaderCellDef style="text-align: center;border: 1px solid;font-weight: bold;">Accord</th>
+        <td mat-cell *matCellDef="let element" style="text-align: center;border: 1px solid;"> {{element.second_validation_name}} </td>
     </ng-container>
 
-    <!-- Porte Char Column -->
-    <ng-container matColumnDef="porteChar">
-        <th mat-header-cell *matHeaderCellDef> Porte Char </th>
-        <td mat-cell *matCellDef="let element"> {{element.compte}} </td>
+    <!-- date Column -->
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef style="text-align: center;border: 1px solid;font-weight: bold;">Date</th>
+      <td mat-cell *matCellDef="let element" style="text-align: center;border: 1px solid;"> {{element.createdAt.toDate()|date:'dd/MM/yyyy'}} </td>
     </ng-container>
 
-    <!-- Propriétaire Porte Char Column -->
-    <ng-container matColumnDef="proprietairePorteChar">
-        <th mat-header-cell *matHeaderCellDef> Pr. Porte Char </th>
-        <td mat-cell *matCellDef="let element"> {{element.compte}} </td>
+
+      <!-- Item Numero Description Column -->
+    <ng-container matColumnDef="item-numero">
+      <th mat-header-cell *matHeaderCellDef style="border: 1px solid;"></th>
     </ng-container>
 
-    <!-- Niveau Gasoil Column -->
-    <ng-container matColumnDef="niveauGasoil">
-        <th mat-header-cell *matHeaderCellDef> Niveau Gasoil </th>
-        <td mat-cell *matCellDef="let element"> {{element.compte}} </td>
+      <!-- Item Materiel Description Column -->
+    <ng-container matColumnDef="item-designation">
+      <th mat-header-cell *matHeaderCellDef colspan="3" style="text-align: center;border: 1px solid;font-weight: bold;">Désignation Matériels</th>
     </ng-container>
 
-    <!-- Etat d'Engin Column -->
-    <ng-container matColumnDef="etatEngin">
-        <th mat-header-cell *matHeaderCellDef> Etat Engin </th>
-        <td mat-cell *matCellDef="let element"> {{element.compte}} </td>
+      <!-- Item destination Description Column -->
+    <ng-container matColumnDef="item-destination">
+      <th mat-header-cell *matHeaderCellDef colspan="2" style="text-align: center;border: 1px solid;font-weight: bold;">Destination</th>
     </ng-container>
-    
+
+      <!-- Item provenance Description Column -->
+    <ng-container matColumnDef="item-provenance">
+      <th mat-header-cell *matHeaderCellDef colspan="2" style="text-align: center;border: 1px solid;font-weight: bold;">Provenance</th>
+    </ng-container>
+
+    <!-- Item Date Description Column -->
+    <ng-container matColumnDef="item-date">
+      <th mat-header-cell *matHeaderCellDef style="border: 1px solid;"></th>
+    </ng-container>
+
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-header-row
+    *matHeaderRowDef="['item-numero','item-designation','item-destination','item-provenance','item-date']"></tr>
+
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
   <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
