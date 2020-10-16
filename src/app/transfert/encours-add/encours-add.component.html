@@ -1,8 +1,7 @@
 <!-- Title group  -->
-<div class="example-container mat-elevation-z8">
   <div class="title-group">
     <h3>Transfert des engins</h3>
-      <mat-vertical-stepper linear="true" #stepper>
+      <mat-horizontal-stepper linear="true" labelPosition="bottom" #stepper>
         <mat-step [stepControl]="typeFormGroup" editable="true">
           <form [formGroup]="typeFormGroup">
             <ng-template matStepLabel>Selectionner le type de transfert <small>{{typeOfTransfert}}</small></ng-template>
@@ -34,7 +33,7 @@
                 aria-label="Engin"
                 [matAutocomplete]="auto">
                 <mat-autocomplete #auto="matAutocomplete">
-                  <mat-option *ngFor="let engin of filteredEngins | async" [value]="engin">
+                  <mat-option *ngFor="let engin of (filteredEngins | async)" [value]="engin">
                     <span>{{engin}}</span>
                   </mat-option>
                 </mat-autocomplete>
@@ -48,8 +47,8 @@
                 aria-label="Chantier de provenanace"
                 [matAutocomplete]="autoC">
                 <mat-autocomplete #autoC="matAutocomplete" (optionSelected)="getControls($event,'chantier')">
-                  <mat-option *ngFor="let chantier of filteredChantiers | async" [value]="chantier">
-                    <span>{{chantier}}</span>
+                  <mat-option *ngFor="let chantier of (filteredChantiers | async)" [value]="chantier">
+                    <span>{{chantier.split('=>')[1]}}</span>
                   </mat-option>
                 </mat-autocomplete>
                 <mat-icon matSuffix>place</mat-icon>
@@ -63,7 +62,7 @@
                 [matAutocomplete]="autoD">
                 <mat-autocomplete #autoD="matAutocomplete" (optionSelected)="getControls($event,'destination')">
                   <mat-option *ngFor="let chantier of filteredChantiersD | async" [value]="chantier">
-                    <span>{{chantier}}</span>
+                    <span>{{chantier.split('=>')[1]}}</span>
                   </mat-option>
                 </mat-autocomplete>
                 <mat-icon matSuffix>place</mat-icon>
@@ -81,19 +80,19 @@
               <h2>Provenance</h2>
               <div
                 cdkDropList
-                [cdkDropListData]="provenance"
+                [cdkDropListData]="engins_provenance"
                 class="example-list"
-                (cdkDropListDropped)="drop($event)" *ngFor="let chantier of provenance">
-                <mat-expansion-panel cdkDrag>
+                (cdkDropListDropped)="drop($event)" *ngFor="let engin of (engins_provenance | async)">
+                <mat-expansion-panel [cdkDragDisabled]="engin.etat_f!=='MAD'" cdkDrag>
                   <mat-expansion-panel-header>
                     <mat-panel-title>
-                      {{chantier}}
+                      {{engin.code}}
                     </mat-panel-title>
                     <mat-panel-description>
-                      {{chantier}}
+                      {{engin.name}}
                     </mat-panel-description>
                   </mat-expansion-panel-header>
-                  <p>{{chantier}}</p>
+                  <p>{{engin.etat_f}}</p>
                 </mat-expansion-panel>
               </div>
             </div>
@@ -101,19 +100,19 @@
               <h2>Destination</h2>
               <div
                 cdkDropList
-                [cdkDropListData]="destination"
+                [cdkDropListData]="engins_destination"
                 class="example-list"
                 (cdkDropListDropped)="drop($event)">
-                <mat-expansion-panel *ngFor="let item of destination" cdkDrag>
+                <mat-expansion-panel *ngFor="let item of (engins_destination | async)">
                   <mat-expansion-panel-header>
                     <mat-panel-title>
-                      {{item}}
+                      {{item.code}}
                     </mat-panel-title>
                     <mat-panel-description>
-                      {{item}}
+                      {{item.name}}
                     </mat-panel-description>
                   </mat-expansion-panel-header>
-                  <p>{{item}}</p>
+                  <p>{{item.etat_f}}</p>
                 </mat-expansion-panel>
               </div>
             </div>
@@ -124,6 +123,5 @@
             <button mat-raised-button>Envoyer</button>
           </div>
         </mat-step>
-      </mat-vertical-stepper>
+      </mat-horizontal-stepper>
   </div>
-</div>
