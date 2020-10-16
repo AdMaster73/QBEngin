@@ -31,6 +31,27 @@
       </ng-container>
 
       <!-- Name Column -->
+      <ng-container matColumnDef="bon">
+        <th mat-header-cell *matHeaderCellDef> Bon </th>
+        <td mat-cell *matCellDef="let element"> {{element.gasoil[5]}} </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="etiquette_ancienne">
+        <th mat-header-cell *matHeaderCellDef> Et. 1 </th>
+        <td mat-cell *matCellDef="let element"> {{element.gasoil[6]}} </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="etiquette_nvx">
+        <th mat-header-cell *matHeaderCellDef> Et. 2 </th>
+        <td mat-cell *matCellDef="let element"> {{element.gasoil[7]}} </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+
+      <!-- Name Column -->
       <ng-container matColumnDef="mobile">
         <th mat-header-cell *matHeaderCellDef> Mobile </th>
         <td mat-cell *matCellDef="let element">
@@ -40,8 +61,8 @@
           <ng-container *ngIf="element.mobile==false">
             Ordi.
           </ng-container>
-           </td>
-        <td mat-footer-cell *matFooterCellDef>Total</td>
+        </td>
+        <td mat-footer-cell *matFooterCellDef></td>
       </ng-container>
 
       <!-- Catégorie Column -->
@@ -94,14 +115,14 @@
 
       <!-- B_CODE Column -->
       <ng-container matColumnDef="compteur">
-        <th mat-header-cell *matHeaderCellDef>Compt.1 </th>
-        <td mat-cell *matCellDef="let element"> {{element.gasoil[1]}} </td>
+        <th mat-header-cell *matHeaderCellDef>Compt. p </th>
+        <td mat-cell *matCellDef="let element">{{element.gasoil[1]}}</td>
         <td mat-footer-cell *matFooterCellDef></td>
       </ng-container>
 
       <!-- B_CODE Column -->
       <ng-container matColumnDef="compteur_p">
-        <th mat-header-cell *matHeaderCellDef>Compt.2 </th>
+        <th mat-header-cell *matHeaderCellDef>Compt. d </th>
         <td mat-cell *matCellDef="let element"> {{element.gasoil[2]}} </td>
         <td mat-footer-cell *matFooterCellDef></td>
       </ng-container>
@@ -109,7 +130,7 @@
       <!-- B_CODE Column -->
       <ng-container matColumnDef="consomation">
         <th mat-header-cell *matHeaderCellDef>Cons. </th>
-        <td mat-cell *matCellDef="let element"> {{element.gasoil[3]}} %</td>
+        <td mat-cell *matCellDef="let element" [ngStyle]="{'color':engin.consomation<element.gasoil[3]?'red':''}"> {{element.gasoil[3]}} %</td>
         <td mat-footer-cell *matFooterCellDef></td>
       </ng-container>
 
