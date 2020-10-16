@@ -81,7 +81,8 @@
            d'un vidange {{data.vidange_complet?'Complet':'Normale'}}
         </p>
         <p *ngIf="data.date_v">
-          Prochaine vidange sera à {{data.compteur_v+data.compteur_dernier_v | number}} {{data.type_v=='KILOMETRE'?" Km":" Hr"}} il reste <span [ngStyle]="{'color':(data.compteur_v+data.compteur_dernier_v)-data.compteur < data.vidange_alarm ? 'red' : '' }">{{(data.compteur_v+data.compteur_dernier_v)-data.compteur | number}}</span>
+          Prochaine vidange sera à {{data.compteur_v+data.compteur_dernier_v | number}} {{data.type_v=='KILOMETRE'?" Km":" Hr"}} il reste
+          <span [ngStyle]="{'color':(data.compteur_v+data.compteur_dernier_v)-data.compteur < data.vidange_alarm ? 'red' : '' }">{{(data.compteur_v+data.compteur_dernier_v)-data.compteur | number}}</span>
         </p>
         <mat-form-field appearance="outline">
           <mat-label>Ancienne Compteur</mat-label>
