@@ -12,9 +12,9 @@ export class TransfertService {
 
   constructor(private afs: AngularFirestore) {}
   getTransfertEnCours(){
-    return this.afs.collection<Transfert>('transfert',ref=>{
+    return this.afs.collection<Transfert>('notification',ref=>{
       let query : firebase.firestore.Query = ref
-      query = query.where('arrived','==',false)
+      query = query.where('etat','<',6)
       return query
     }).snapshotChanges().pipe(map(action=>{
       return action.map(a=>{
