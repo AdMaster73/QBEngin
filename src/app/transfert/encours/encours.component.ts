@@ -18,9 +18,9 @@ export class EncoursComponent implements OnInit {
 
   collectionPermAdd: boolean
   collectionPermUpdate: boolean
-  collectionPermDelete: boolean  
+  collectionPermDelete: boolean
   collectionMenuToggel:boolean
-  displayedColumns: string[] = ['numero', 'chantier','date','designation','provenance','destination','porteChar','proprietairePorteChar','niveauGasoil','etatEngin'];
+  displayedColumns: string[] = ['numero','code','designation','accessoire','destination','demandeur','provenance','accord','date'];
   dataSource : MatTableDataSource<Transfert>;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static : true}) sort: MatSort;
@@ -41,20 +41,20 @@ export class EncoursComponent implements OnInit {
       })
       this.rolesService.getRolesByNameAndType(roleCurrentUser).subscribe(roles=>{
         roles.forEach(item=>{
-              this.collectionPermAdd = item.add.includes(collectionId.toString())              
+              this.collectionPermAdd = item.add.includes(collectionId.toString())
               this.collectionPermUpdate = item.update.includes(collectionId.toString())
               this.collectionPermDelete = item.delete.includes(collectionId.toString())
               !this.collectionPermUpdate && !this.collectionPermDelete ? this.collectionMenuToggel = false : this.collectionMenuToggel = true
         })
-      })       
-  })();    
+      })
+  })();
   }
 
   ngOnInit():void {
     this.transfertService.getTransfertEnCours().subscribe(
       data => {
-        this.dataSource = new MatTableDataSource(data);  
-        this.dataSource.paginator = this.paginator;        
+        this.dataSource = new MatTableDataSource(data);
+        this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.paginator._intl.itemsPerPageLabel = 'Affichage par page.';
         this.paginator._intl.firstPageLabel = 'Page Premier';
@@ -62,7 +62,7 @@ export class EncoursComponent implements OnInit {
         this.paginator._intl.previousPageLabel = 'Page Précédante';
         this.paginator._intl.lastPageLabel = 'Dérnier Page';
       }
-    )    
+    )
   }
 
   applyFilter(event: Event) {
