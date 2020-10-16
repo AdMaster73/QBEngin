@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatRadioChange } from '@angular/material';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
@@ -22,21 +22,19 @@ export class EncoursAddComponent implements OnInit {
   filteredChantiers: Observable<string[]>
   filteredChantiersD: Observable<string[]>
   typeOfTransfert:string;
-  //typeControl = new FormControl('engin')
   engins_provenance :Observable<Engin[]>;
   engins_destination :Observable<Engin[]>;
-  typeFormGroup: FormGroup;
+  transfertFormGroup: FormGroup;
   secondFormGroup: FormGroup
+  typeFormGroup: FormGroup
   constructor(private enginService: EnginService,private _formBuilder: FormBuilder,
     private chantierService: ChantierService) {}
   radioChange(event: MatRadioChange) {
     this.typeOfTransfert = event.value
   }
   ngOnInit() {
-    this.typeFormGroup = this._formBuilder.group({
-      typeControl: []
-    })
-    this.secondFormGroup = this._formBuilder.group({
+    this.transfertFormGroup = this._formBuilder.group({
+      typeControl: [],
       myControl : new FormControl(''),
       myControlC : new FormControl('',[Validators.required]),
       myControlD : new FormControl('',[Validators.required])
@@ -57,17 +55,17 @@ export class EncoursAddComponent implements OnInit {
       })
     })
 
-    this.filteredEngins = this.secondFormGroup.get('myControl').valueChanges
+    this.filteredEngins = this.transfertFormGroup.get('myControl').valueChanges
       .pipe(
         startWith(''),
         map(value => this._filter_engin(value))
       );
-    this.filteredChantiers = this.secondFormGroup.get('myControlC').valueChanges
+    this.filteredChantiers = this.transfertFormGroup.get('myControlC').valueChanges
     .pipe(
       startWith(''),
       map(value => this._filter_chantier(value))
     );
-    this.filteredChantiersD = this.secondFormGroup.get('myControlD').valueChanges
+    this.filteredChantiersD = this.transfertFormGroup.get('myControlD').valueChanges
     .pipe(
       startWith(''),
       map(value => this._filter_chantierD(value))
@@ -112,7 +110,7 @@ export class EncoursAddComponent implements OnInit {
       console.log(1)
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-      console.log(2)
+      console.log(event.previousContainer.data)
       transferArrayItem(event.previousContainer.data,
                         event.container.data,
                         event.previousIndex,
