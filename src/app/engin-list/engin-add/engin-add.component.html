@@ -1,12 +1,12 @@
-<button mat-icon-button color="primary" [disabled]="EnginForm.invalid">
-  <mat-icon aria-label="Example icon-button with a heart icon">edit</mat-icon>
-</button>
-<button mat-icon-button color="accent" mat-dialog-close>
-  <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
-</button>
   <!-- Engin form -->
   <div class="example-container">
     <form [formGroup]="EnginForm" (ngSubmit)="submitEnginForm()"> <!-- #resetEnginForm="ngForm"-->
+      <button mat-icon-button color="primary" [disabled]="EnginForm.invalid">
+        <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+      </button>
+      <button mat-icon-button color="accent" mat-dialog-close>
+        <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
+      </button>
       <!-- Left block -->
       <mat-card>
         <mat-card-title>Ajouter un Engin</mat-card-title>
