@@ -129,12 +129,13 @@ export class RolesService {
 
 	/* Modifier un Roles */
 	UpdateRoles(roles) {
+    var listerChantier = roles.listerChantier? true:false
 		this.afs.doc('roles/'+roles.id).update({
 			updatedBy: this.firebaseAuth.auth.currentUser.uid,
 			updatedAt: firestore.FieldValue.serverTimestamp(),
 			name: roles.name,
 			intitule: roles.intitule.toUpperCase(),
-			listerChantier:roles.listerChantier
+			listerChantier:listerChantier
 		})
 	}
 
