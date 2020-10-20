@@ -107,10 +107,13 @@ export interface Engin {
   }
 
   export interface Notification{
+    id?:string,
     uid:string,
     first_validation?:firebase.User[],
     second_validation?:firebase.User[],
     dex_dtu?:firebase.User[],
+    userName:string,
+    role:string,
     type:string,
     engin:Engin,
     etat:number,
@@ -121,7 +124,8 @@ export interface Engin {
     createdBy?:string,
     createdAt?:Date,
     updateBy?:string,
-    updatedAt?:Date
+    updatedAt?:Date,
+    engin_id?:string
   }
 
   export interface Region {
