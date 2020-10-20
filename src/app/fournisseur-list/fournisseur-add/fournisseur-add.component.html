@@ -1,12 +1,12 @@
-<button mat-icon-button color="primary" [disabled]="FournisseurForm.invalid" matTooltip="Nouvelle élement">
-  <mat-icon aria-label="Example icon-button with a heart icon">done_outline</mat-icon>
-</button>
-<button mat-icon-button color="accent" (click)="closeForm()" matTooltip="Annuler">
-  <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
-</button>
  <!-- Fournisseur form -->
   <div class="example-container">
     <form [formGroup]="FournisseurForm" (ngSubmit)="submitFournisseurForm()">
+      <button mat-icon-button color="primary" [disabled]="FournisseurForm.invalid" matTooltip="Nouvelle élement">
+        <mat-icon aria-label="Example icon-button with a heart icon">done_outline</mat-icon>
+      </button>
+      <button mat-icon-button color="accent" (click)="closeForm()" matTooltip="Annuler">
+        <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
+      </button>
       <!-- Left block -->
       <mat-card>
 
