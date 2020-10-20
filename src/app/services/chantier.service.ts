@@ -26,6 +26,7 @@ export class ChantierService {
       });
     });
   }
+
   getChantierById(chantier: any): import("rxjs").Observable<Chantier[]> {
     if(!chantier) return
     return this.afs.collection<Chantier>('chantier',ref=>ref.where(firestore.FieldPath.documentId(),'==',eval(chantier).toString())).snapshotChanges().pipe(
@@ -120,7 +121,7 @@ export class ChantierService {
           });
       });
     }); */
-		return this.afs.collection<Chantier>('chantier',ref=> ref.orderBy('createdAt','asc')).snapshotChanges().pipe(
+		return this.afs.collection<Chantier>('chantier',ref=> ref.orderBy(firestore.FieldPath.documentId(),'asc')).snapshotChanges().pipe(
 			map(actions => {
 			return actions.map(a => {
 				const data = a.payload.doc.data() as Chantier;
