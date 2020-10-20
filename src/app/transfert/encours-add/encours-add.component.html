@@ -15,8 +15,8 @@
               </mat-radio-group>
             </section>
             <div>
-              <button mat-raised-button matStepperNext>Suivant</button>
               <button mat-raised-button (click)="stepper.reset()">Rafrichir</button>
+              <button mat-raised-button matStepperNext>Suivant</button>
             </div>
         </mat-step>
         <mat-step [stepControl]="secondFormGroup"  editable="true">
@@ -49,7 +49,7 @@
                 </mat-autocomplete>
                 <mat-icon matSuffix>place</mat-icon>
               </mat-form-field>
-              <mat-form-field class="example-full-width" appearance="outline" *ngIf="typeOfTransfert == 'chantier'">
+              <mat-form-field class="example-full-width" appearance="outline" *ngIf="typeOfTransfert == 'chantier'" disabled>
                 <mat-label>Chantier de destination</mat-label>
                 <input matInput
                 formControlName="myControlD"
@@ -64,62 +64,39 @@
                 <mat-icon matSuffix>place</mat-icon>
               </mat-form-field>
               <div>
-                <button mat-raised-button matStepperNext>Suivant</button>
                 <button mat-raised-button (click)="stepper.reset()">Rafrichir</button>
+                <button mat-raised-button matStepperNext>Suivant</button>
               </div>
         </mat-step>
         <mat-step>
           <ng-template matStepLabel>Transfert</ng-template>
           <div cdkDropListGroup>
             <div class="example-container">
-              <h2>Provenance</h2>
+              <h2>{{provenance}}</h2>
               <div
                 cdkDropList
-                #todoList="cdkDropList"
                 [cdkDropListData]="engins_provenance"
-                [cdkDropListConnectedTo]="todoList"
                 class="example-list"
                 (cdkDropListDropped)="drop($event)">
-                <mat-expansion-panel *ngFor="let engin of (engins_provenance)" [cdkDragDisabled]="engin.etat_f!=='MAD'" cdkDrag>
-                  <mat-expansion-panel-header>
-                    <mat-panel-title>
-                      {{engin.code}}
-                    </mat-panel-title>
-                    <mat-panel-description>
-                      {{engin.name}}
-                    </mat-panel-description>
-                  </mat-expansion-panel-header>
-                  <p>{{engin.etat_f}}</p>
-                </mat-expansion-panel>
+                <div class="example-box" *ngFor="let engin of (engins_provenance)" [cdkDragDisabled]="engin.etat_f!=='MAD'" cdkDrag>{{engin.code}} <small>{{engin.etat_f}}</small></div>
               </div>
             </div>
             <div class="example-container">
-              <h2>Destination</h2>
+              <h2>{{destination}}</h2>
               <div
                 cdkDropList
-                #doneList="cdkDropList"
                 [cdkDropListData]="engins_destination"
-                [cdkDropListConnectedTo]="todoList"
                 class="example-list"
+                cdkDropListSortingDisabled
                 (cdkDropListDropped)="drop($event)">
-                <mat-expansion-panel *ngFor="let item of (engins_destination)" cdkDrag>
-                  <mat-expansion-panel-header>
-                    <mat-panel-title>
-                      {{item.code}}
-                    </mat-panel-title>
-                    <mat-panel-description>
-                      {{item.name}}
-                    </mat-panel-description>
-                  </mat-expansion-panel-header>
-                  <p>{{item.etat_f}}</p>
-                </mat-expansion-panel>
+                <div class="example-box" *ngFor="let engin of (engins_destination)" [cdkDragDisabled]="engin.id_chantier==id_destination" cdkDrag>{{engin.code}} <small>{{engin.etat_f}}</small></div>
               </div>
             </div>
           </div>
           <div>
-            <button mat-raised-button matStepperPrevious>Précedent</button>
             <button mat-raised-button (click)="stepper.reset()">Rafrichir</button>
-            <button mat-raised-button disabled>Envoyer</button>
+            <button mat-raised-button matStepperPrevious>Précedent</button>
+            <button mat-raised-button (click)="sendTransfert()" #envoyer disabled>Envoyer</button>
           </div>
         </mat-step>
       </mat-horizontal-stepper>
