@@ -18,6 +18,7 @@ const roleArray =['admin',//administrateur
                   'chefe', // chef d'équipe
                   'chaufp', // chauffeur porte char
                   'tech', // technicien du travaux
+                  'inj', // injénieur du travaux
                 ]
 app.post('/users',
     isAuthenticated,
