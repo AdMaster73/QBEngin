@@ -14,7 +14,7 @@ import { RolesAddComponent } from './roles-add/roles-add.component';
   styleUrls: ['./roles.component.scss']
 })
 export class RolesComponent implements OnInit {
-     
+
   displayedColumns: string[] = ['action','numero', 'designation','intitule','listerChantier'];
   dataSource : MatTableDataSource<Roles>;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -22,14 +22,14 @@ export class RolesComponent implements OnInit {
 
   constructor(
     public db : AngularFirestore,
-    private rolesServices : RolesService, 
+    private rolesServices : RolesService,
     public dialog: MatDialog) {}
-    
+
   ngOnInit(): void {
     this.rolesServices.GetRolesList().subscribe(
       data => {
-        this.dataSource = new MatTableDataSource(data);  
-        this.dataSource.paginator = this.paginator;      
+        this.dataSource = new MatTableDataSource(data);
+        this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.paginator._intl.itemsPerPageLabel = 'Affichage par page.';
         this.paginator._intl.firstPageLabel = 'Page Premier';
@@ -54,8 +54,8 @@ export class RolesComponent implements OnInit {
     const dialogRef = this.dialog.open(RolesAddComponent);
   }
   /**Modifier Roles */
-  editRoles(index:number, element){   
-    const dialogConfig = new MatDialogConfig();            
+  editRoles(index:number, element){
+    const dialogConfig = new MatDialogConfig();
     this.dialog.open(RolesFormComponent,{data:{
       id:element.id,
       name:element.name,
@@ -64,11 +64,11 @@ export class RolesComponent implements OnInit {
     }}).afterClosed().subscribe(result => {
       if (result){
         this.rolesServices.UpdateRoles(result)
-      } 
-    });                      
+      }
+    });
   }
   /* Delete */
-  deleteRoles(index: number){    
+  deleteRoles(index: number){
     if(window.confirm('Are you sure?')) {
       const data = this.dataSource.data;
       data.splice((this.paginator.pageIndex * this.paginator.pageSize) + index, 1);
