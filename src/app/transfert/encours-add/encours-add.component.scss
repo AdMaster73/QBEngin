@@ -28,6 +28,15 @@ button{
   cursor: default;
 }
 
+.mat-chip {
+  max-width: 200px;
+}
+
+.example-box.cdk-drag-disabled {
+  background: #ccc;
+  cursor: default;
+}
+
 .example-container {
   width: 400px;
   max-width: 100%;
