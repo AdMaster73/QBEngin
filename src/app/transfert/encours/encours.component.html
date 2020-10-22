@@ -37,13 +37,17 @@ color="primary" matTooltip="Nouvelle transfert"
     <!-- Provenance Column -->
     <ng-container matColumnDef="code">
         <th mat-header-cell *matHeaderCellDef style="text-align: center;border: 1px solid;font-weight: bold;">Code/Matricule</th>
-        <td mat-cell *matCellDef="let element" style="text-align: center;border: 1px solid;"> {{element.engin_code}} </td>
+        <td mat-cell *matCellDef="let element" style="text-align: center;border: 1px solid;">
+          <ng-container *ngFor="let engin of (element.engins | async)">{{engin.code}}</ng-container>
+         </td>
     </ng-container>
 
     <!-- Designation Column -->
     <ng-container matColumnDef="designation">
         <th mat-header-cell *matHeaderCellDef style="text-align: center;border: 1px solid;font-weight: bold;">Matériels</th>
-        <td mat-cell *matCellDef="let element" style="text-align: center;border: 1px solid;"> {{element.engin_name}} </td>
+        <td mat-cell *matCellDef="let element" style="text-align: center;border: 1px solid;">
+          <ng-container *ngFor="let engin of (element.engins | async)">{{engin.name}}</ng-container>
+        </td>
     </ng-container>
 
     <!-- Designation Column -->
@@ -61,7 +65,9 @@ color="primary" matTooltip="Nouvelle transfert"
     <!-- Destination Column -->
     <ng-container matColumnDef="demandeur">
         <th mat-header-cell *matHeaderCellDef style="text-align: center;border: 1px solid;font-weight: bold;">Demandeur</th>
-        <td mat-cell *matCellDef="let element" style="text-align: center;border: 1px solid;"> {{element.userName}} </td>
+        <td mat-cell *matCellDef="let element" style="text-align: center;border: 1px solid;">
+          <ng-container *ngIf="element.users | async ;let user">{{user.displayName}}</ng-container>
+         </td>
     </ng-container>
 
     <!-- Provenance Column -->
@@ -73,7 +79,9 @@ color="primary" matTooltip="Nouvelle transfert"
     <!-- Destination Column -->
     <ng-container matColumnDef="accord">
         <th mat-header-cell *matHeaderCellDef style="text-align: center;border: 1px solid;font-weight: bold;">Accord</th>
-        <td mat-cell *matCellDef="let element" style="text-align: center;border: 1px solid;"> {{element.second_validation_name}} </td>
+        <td mat-cell *matCellDef="let element" style="text-align: center;border: 1px solid;">
+          <ng-container *ngIf="element.users_validation | async ;let user">{{user.displayName}}</ng-container>
+        </td>
     </ng-container>
 
     <!-- date Column -->
