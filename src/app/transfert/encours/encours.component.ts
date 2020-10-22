@@ -21,7 +21,7 @@ export class EncoursComponent implements OnInit {
   collectionPermDelete: boolean
   collectionMenuToggel:boolean
   displayedColumns: string[] = ['numero','code','designation','accessoire','destination','demandeur','provenance','accord','date'];
-  dataSource : MatTableDataSource<Transfert>;
+  dataSource : MatTableDataSource<any>;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static : true}) sort: MatSort;
   constructor(
