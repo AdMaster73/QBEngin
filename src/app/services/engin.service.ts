@@ -148,6 +148,25 @@ export class EnginService {
 		);
   }
 
+
+    	/*Retourner une liste des engin */
+	GetEnginListByIdArray(idArray:string[]):Observable<Engin[]> {
+		return this.afs.collection<Engin>('engin',ref=>{
+      let query : firebase.firestore.Query = ref
+      query = query.where(firestore.FieldPath.documentId(),'in',idArray)
+      return query
+    }).snapshotChanges().pipe(
+      map(action=>{
+      return action.map(a=>{
+        const id = a.payload.doc.id
+        const data = a.payload.doc.data() as Engin
+        const vidange_tf = data.compteur-data.compteur_dernier_v>data.compteur_v
+        return Object.assign(data,{id,vidange_tf})
+      })
+    })
+    )
+  }
+
   //
   addAccessoireEngin(enginId:string,engin:any){
 		this.afs.doc('/engin/'+enginId).update({
