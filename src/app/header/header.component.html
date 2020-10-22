@@ -2,7 +2,8 @@
   <mat-toolbar-row>
     <button routerLink="/sidenav" mat-button>{{title}}</button>
     <span class="example-spacer"></span>   <!-- [matMenuTriggerFor]="menul"  -->
-    <button mat-icon-button *ngIf="listNotification | async; let notification" (click)="openBottomSheet(listNotification,user.role)"  class="btn-notification">
+    <button mat-icon-button *ngIf="listNotification | async; let notification"
+    (click)="openBottomSheet(listNotification,user.role)"  class="btn-notification">
       <mat-icon *ngIf="!countNot" aria-hidden="false" class="" aria-label="">notifications_none
       </mat-icon>
       <mat-icon *ngIf="countNot" aria-hidden="false" class="" aria-label="">notifications
