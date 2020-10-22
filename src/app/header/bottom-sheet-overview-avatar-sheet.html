@@ -1,8 +1,12 @@
 <mat-nav-list>
   <mat-list-item *ngFor="let notification of (data.notification | async)">
-     <a matLine>{{ notification.type }} de l'engin {{ notification.engin_code }} - {{notification.engin_name}}<p>
-       du provenance {{notification.provenance}} vers {{notification.destination}}, est en attente de votre validation, notifiée par
-         {{notification.userName}} ({{notification.role}})</p>
+     <a matLine>{{ notification.type }} du site {{notification.provenance}} sur l'opération de transfert du matériel
+      <ng-container *ngFor="let engin of (notification.engins | async)">{{engin.code}} - {{engin.name}}</ng-container>
+       <p>
+        vers {{notification.destination}}, est en attente de votre validation,
+        <ng-container *ngIf="notification.users | async ;let user">Demander par {{user.displayName}}
+        ({{user.role}})</ng-container>
+      </p>
      </a>
      <ng-container *ngIf="data.role !== 'admin'">
         <button mat-icon-button (click)="delete(notification)" matTooltip="Refuser">
