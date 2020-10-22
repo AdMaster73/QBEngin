@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { MatSidenav } from '@angular/material';
 import { Router } from '@angular/router';
-import { firestore, User } from 'firebase';
+import { firestore } from 'firebase';
 import * as firebase from 'firebase';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { map } from 'rxjs/operators';
 import { Notification } from '../models/engin.model'
-import { AngularFireAuth } from 'angularfire2/auth';
+import { EnginService } from './engin.service';
+import {AuthService} from './auth.service'
 
 @Injectable({
   providedIn: 'root'
@@ -14,43 +15,39 @@ import { AngularFireAuth } from 'angularfire2/auth';
 export class SidenavService {
     private sidenav: MatSidenav;
 
-    constructor(public router: Router,private afs: AngularFirestore,private firebaseAuth: AngularFireAuth) { }
+    constructor(public router: Router,private afs: AngularFirestore,private enginService: EnginService,private authService : AuthService) { }
 
     getNotificationByUser(role){
       return this.afs.collection<Notification>('notification',
-      ref=>
-      {
-        let query : firebase.firestore.Query = ref
-        if(role.toUpperCase() == 'admin'.toUpperCase()){
-          query = query.where('etat','in',[1,2,3,4])
-        }else if(['dex','dtu'].includes(role)){
-          query = query.where('second_validation','==',this.firebaseAuth.auth.currentUser.uid)
-                       .where('etat','==',2)
-        }else if(role.toUpperCase() == 'glm'.toUpperCase()){
-          query = query.where('etat','in',[3,4])
-        }else if(role.toUpperCase() == 'pointeur'.toUpperCase()){
-          query = query.where('etat','==',5)
-        }else{
-          query = query.where('first_validation','==',this.firebaseAuth.auth.currentUser.uid)
-                       .where('etat','==',1)
-        }
-        return query
-      }
-      ).snapshotChanges().pipe(
-        map(action=>{
-          return action.map(a=>{
-            const data = a.payload.doc.data() as Notification;
-            const id = a.payload.doc.id;
-            const lenght = a.payload.doc.data.length
-            return { id,lenght, ...data };
-          })
-        })
-      )
+          ref=>
+          {
+            let query : firebase.firestore.Query = ref
+            if(role === 'admin'){
+              query = query.where('etat','<=',5)
+            }else{
+              query = query.where('etat','<=',5).where('validation','==',firebase.auth().currentUser.uid)
+            }
+            return query
+          }
+          ).snapshotChanges().pipe(
+            map(action=>{
+              return action.map(a=>{
+                const data = a.payload.doc.data() as Notification;
+                const id = a.payload.doc.id;
+                const lenght = a.payload.doc.data.length
+                const engin_id = a.payload.doc.data().engin
+                const user_uid = a.payload.doc.data().uid
+                let engins = this.enginService.GetEnginListByIdArray([engin_id])
+                let users = this.authService.user$(user_uid)
+                return { id,lenght,engins,users, ...data };
+              })
+            })
+          )
     }
 
      updateNotification(notification : Notification,etat:number){
       var notificationId = notification['id']
-      var enginId = notification.engin.id
+      var enginId = notification.engin
       switch (etat) {
         case 2://dans le cas ou la validation est normale "1er validation par le charger ou le conducteur du chantier provenance"
           this.afs.doc('notification/'+notificationId).set({
@@ -129,7 +126,7 @@ export class SidenavService {
     deleteNotification(notification:Notification,user:firebase.User){
       return this.afs.doc('notification/'+notification['id']).set(
         {deletedBy : user.uid,deletedAt:firestore.FieldValue.serverTimestamp()},{merge:true})
-      .then(()=>{this.afs.doc('engin/'+notification.engin.id+'/notification/'+notification['id']).set(
+      .then(()=>{this.afs.doc('engin/'+notification.engin+'/notification/'+notification['id']).set(
         {deletedBy : user.uid,deletedAt:firestore.FieldValue.serverTimestamp()},{merge:true})})
     }
 
