@@ -4,9 +4,10 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { debounceTime, map, switchMap } from 'rxjs/operators';
 import { firestore } from 'firebase';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, from, Observable, of } from 'rxjs';
 import { AngularFireDatabase } from '@angular/fire/database';
 import * as firebase from 'firebase';
+import { IChantierResponse,ChantierClass } from '../transfert/encours-add/encours-add.component';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,20 @@ import * as firebase from 'firebase';
 export class ChantierService {
 
   constructor(private afs: AngularFirestore,private firebaseAuth: AngularFireAuth,private db: AngularFireDatabase) {}
+
+  getChantierByName(destination: any) {
+    return this.afs.collection<Chantier>('chantier',ref=>{
+      let query : firebase.firestore.Query = ref
+      query = query.where('name','==',destination)
+      return query
+    }).snapshotChanges().pipe(map(action=>{
+      return action.map(a=>{
+        const id = a.payload.doc.id
+        const data = a.payload.doc.data() as Chantier
+        return {id, ...data}
+      })
+    }))
+  }
 
   bulkChantier(){
     const db = firebase.firestore()
@@ -56,7 +71,10 @@ export class ChantierService {
   /**Récuperer le chantier par utilisateur */
 
   getChantierByUser(){
-    return this.afs.collection('chantier',ref=>ref.where('users','array-contains',this.firebaseAuth.auth.currentUser.uid)).snapshotChanges().pipe(
+    return this.afs.collection('chantier',
+    ref=>ref.where('users','array-contains',this.firebaseAuth.auth.currentUser.uid)
+    .where('archive','==',0)
+    ).snapshotChanges().pipe(
       map(action =>{
         return action.map(a =>{
           const data = a.payload.doc.data() as Chantier;
@@ -126,10 +144,32 @@ export class ChantierService {
 			return actions.map(a => {
 				const data = a.payload.doc.data() as Chantier;
 				const id = a.payload.doc.id;
-				return { id, ...data };
+        return { id, ...data };
 			});
 			})
 		);
+	}
+	/*Retourner une liste des chantier */
+	GetChantierListSearch():Observable<IChantierResponse> {
+    return new Observable(subscriber => {
+      this.GetChantierListNnArchived().subscribe(chantiers=>{
+        subscriber.next({
+          total: chantiers.length,
+          results: chantiers
+        });
+      })
+    });
+	}
+	/*Retourner une liste des chantier */
+	GetChantierListSearchByUser():Observable<IChantierResponse> {
+    return new Observable(subscriber => {
+      this.getChantierByUser().subscribe(chantiers=>{
+        subscriber.next({
+          total: chantiers.length,
+          results: chantiers
+        });
+      })
+    });
 	}
 
 	/*Retourner une liste des chantier non archivées*/
@@ -156,11 +196,17 @@ export class ChantierService {
 	/* Modifier un chantier */
 	UpdateChantier(chantier) {
     let archive:number
+    let region:string=""
+    let departement:string=""
+    let num_marche:string=""
 		if(typeof(chantier.archive)==='number'){
 			archive = chantier.archive
 		}else{
 			!!chantier.archive ? archive = 1 : archive = 0
     }
+    if(chantier.region) region = chantier.region
+    if(chantier.departement) departement = chantier.departement
+    if(chantier.num_marche) num_marche = chantier.num_marche
     const locationData = new firebase.firestore.GeoPoint(chantier.latitude, chantier.longitude)
 		this.afs.doc('chantier/'+chantier.id).update(
 			{
@@ -168,8 +214,10 @@ export class ChantierService {
 			updatedAt: firestore.FieldValue.serverTimestamp(),
 			name: chantier.name.toUpperCase(),
 			compte:chantier.compte,
+			num_marche:num_marche,
 			archive:archive,
-			region:chantier.region,
+			region:region,
+			departement:departement,
 			localisation:locationData
 			}
 		)
