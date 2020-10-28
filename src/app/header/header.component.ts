@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit {
   user$: Observable<{}>;
   roles$: Observable<Roles>
   listNotification : Observable <{}>
-  countNot : number
+  countNot : number = 0
 
   customStyle = {
     backgroundColor: '#F4F4F4',
@@ -72,6 +72,7 @@ export class HeaderComponent implements OnInit {
       this.sidenavService.getNotificationByUser(roleCurrentUser).subscribe(results=>{
         this.countNot = results.length
       })
+
     })();
 
   }
@@ -132,31 +133,18 @@ export class BottomSheetOverviewExampleSheet {
     this._bottomSheetRef.dismiss();
     event.preventDefault();
   }
-
-  wait(notification: Notification) {
-    this._snackBar.open(notification.type + ' est mise en attente !!!! ', 'Ok', {
-      duration: 5000,
-    });
-  }
   validate(notification: Notification) {
-    this.firebaseAuth.user.pipe(
-      filter(user => !!user),
-      switchMap(user => this.authService.user$(user.uid))
-    ).subscribe(user=>{
-      this._snackBar.open(notification.type + ' est validée !!!! ', 'Ok', {
-        duration: 5000,
-      });
-      console.log(notification["id"])
-    })
+    if(notification.etat == 5){
+      this.enginService.getEnginById(notification.engin).subscribe(engins=>{
+        engins.forEach(engin => {
+          this.sidenaveService.updateNotification(notification,eval(notification.etat.toString()),engin)
+        });
+      })
+    }else{
+          this.sidenaveService.updateNotification(notification,eval(notification.etat.toString()))
+    }
   }
   delete(notification: Notification) {
-    this._snackBar.open(notification.type + ' est refusée !!!! ', 'Ok', {
-      duration: 5000,
-    });
-  }
-  archive(notification: Notification) {
-    this._snackBar.open(notification.type + ' est archivée !!!! ', 'Ok', {
-      duration: 5000,
-    });
+    this.sidenaveService.deleteNotification(notification)
   }
 }
