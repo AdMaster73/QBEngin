@@ -1,5 +1,6 @@
 <h3>Liste des Régions</h3>
-<button mat-fab *ngIf="collectionPermAdd" color="primary" matTooltip="Nouvelle élement" (click)="addRegion()" class="addEngin"> <i class="material-icons">add</i> </button>
+<button mat-fab *ngIf="collectionPermAdd" color="primary" matTooltip="Nouvelle élement"
+(click)="addRegion()" class="addEngin"> <i class="material-icons">add</i> </button>
 <mat-form-field>
     <mat-label>Recherche par Région</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Cate">
@@ -29,7 +30,9 @@
     <ng-container matColumnDef="count">
       <th mat-header-cell *matHeaderCellDef> Sites </th>
       <td mat-cell *matCellDef="let element">
-        <mat-icon *ngIf="element.sites" [matBadge]="element.sites.length" matBadgeColor="primary">place</mat-icon>
+        <ng-container *ngIf="element.sites | async;let site">
+          <mat-icon *ngIf="site.length!=0" [matBadge]="site.length" matBadgeColor="primary">place</mat-icon>
+        </ng-container>
       </td>
     </ng-container>
 
