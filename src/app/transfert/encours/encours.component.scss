@@ -18,3 +18,7 @@ h3{
   width: 90% !important;
   margin-left: 90px !important;
 }
+.is-loading ::ng-deep .mat-option-text {
+  display: flex;
+  justify-content: center;
+}
