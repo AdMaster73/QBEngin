@@ -36,30 +36,36 @@
                 <mat-icon matSuffix>commute</mat-icon>
               </mat-form-field>
               <mat-form-field class="example-full-width" appearance="outline" *ngIf="typeOfTransfert == 'chantier'">
-                <mat-label>Chantier de provenanace</mat-label>
+                <mat-label>Chantier de provenanace</mat-label><!-- (keyup)="search(searchInput_p.value)"  (optionSelected)="getControls($event,'myControlC')"-->
                 <input matInput
                 formControlName="myControlC"
                 placeholder="Chantier de provenance"
                 aria-label="Chantier de provenanace"
                 [matAutocomplete]="autoC">
-                <mat-autocomplete #autoC="matAutocomplete" (optionSelected)="getControls($event,'chantier')">
-                  <mat-option *ngFor="let chantier of (filteredChantiers | async)" [value]="chantier">
-                    <span>{{chantier.split('=>')[1]}}</span>
-                  </mat-option>
+                <mat-autocomplete #autoC="matAutocomplete" [displayWith]="displayFn">
+                  <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="20"></mat-spinner></mat-option>
+                  <ng-container *ngIf="!isLoading">
+                    <mat-option *ngFor="let chantier of filteredChantiers" [value]="chantier">
+                      <span>{{chantier.name}}</span>
+                    </mat-option>
+                  </ng-container>
                 </mat-autocomplete>
                 <mat-icon matSuffix>place</mat-icon>
               </mat-form-field>
-              <mat-form-field class="example-full-width" appearance="outline" *ngIf="typeOfTransfert == 'chantier'" disabled>
+              <mat-form-field class="example-full-width" appearance="outline" *ngIf="typeOfTransfert == 'chantier'">
                 <mat-label>Chantier de destination</mat-label>
                 <input matInput
                 formControlName="myControlD"
                 placeholder="Chantier de destination"
                 aria-label="Chantier de destination"
                 [matAutocomplete]="autoD">
-                <mat-autocomplete #autoD="matAutocomplete" (optionSelected)="getControls($event,'destination')">
-                  <mat-option *ngFor="let chantier of filteredChantiersD | async" [value]="chantier">
-                    <span>{{chantier.split('=>')[1]}}</span>
+                <mat-autocomplete #autoD="matAutocomplete" [displayWith]="displayFnD">
+                  <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="20"></mat-spinner></mat-option>
+                  <ng-container *ngIf="!isLoading">
+                  <mat-option *ngFor="let chantier of filteredChantiersD" [value]="chantier">
+                    <span>{{chantier.name}}</span>
                   </mat-option>
+                </ng-container>
                 </mat-autocomplete>
                 <mat-icon matSuffix>place</mat-icon>
               </mat-form-field>
@@ -72,24 +78,32 @@
           <ng-template matStepLabel>Transfert</ng-template>
           <div cdkDropListGroup>
             <div class="example-container">
-              <h2>{{provenance}}</h2>
+              <h2>{{transfertFormGroup.get('myControlC').value.name}}</h2>
               <div
                 cdkDropList
                 [cdkDropListData]="engins_provenance"
                 class="example-list"
-                (cdkDropListDropped)="drop($event)">
-                <div class="example-box" *ngFor="let engin of (engins_provenance)" [cdkDragDisabled]="engin.etat_f!=='MAD'" cdkDrag>{{engin.code}} <small>{{engin.etat_f}}</small></div>
+                (cdkDropListDropped)="drop($event)"> <!-- [cdkDragDisabled]="engin.etat_f!=='MAD'" -->
+                <div class="example-box" [ngStyle]="{backgroundColor: getBackgroundColor(engin.etat_f)}"
+                [cdkDragDisabled]="isDragable(engin)"
+                *ngFor="let engin of (engins_provenance)"
+                cdkDrag>{{engin.code}}- {{engin.name}}<small>
+                  {{engin.etat_f}}
+                  <mat-icon *ngIf="engin.last_notified"aria-hidden="false" aria-label="Example home icon">notification_important</mat-icon>
+                  </small></div>
               </div>
             </div>
             <div class="example-container">
-              <h2>{{destination}}</h2>
+              <h2>{{transfertFormGroup.get('myControlD').value.name}}</h2>
               <div
                 cdkDropList
                 [cdkDropListData]="engins_destination"
                 class="example-list"
                 cdkDropListSortingDisabled
                 (cdkDropListDropped)="drop($event)">
-                <div class="example-box" *ngFor="let engin of (engins_destination)" [cdkDragDisabled]="engin.id_chantier==id_destination" cdkDrag>{{engin.code}} <small>{{engin.etat_f}}</small></div>
+                <div class="example-box" [ngStyle]="{backgroundColor: getBackgroundColor(engin.etat_f)}"
+                *ngFor="let engin of (engins_destination)" [cdkDragDisabled]="engin.id_chantier==id_destination" cdkDrag>
+                  {{engin.code}}- {{engin.name}}<small>{{engin.etat_f}}</small></div>
               </div>
             </div>
           </div>
