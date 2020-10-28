@@ -12,6 +12,8 @@ export interface Engin {
     fournisseur:Fournisseur;
     chauffeur?:Chauffeur,
     compteur?:number,
+    etat_f?:string,
+    last_notified?:number,
     type_v?:string;//type de vidange km ou hr
     compteur_dernier_v?:number;//Compteur du dernier vidange fait
     compteur_v?:number;//km ou hr à parcourir pour faire le vidange
@@ -37,8 +39,11 @@ export interface Engin {
     id:number,
     name:string,
     compte:string,
+    num_marche?:string,
     archive:number,
     region?:string,
+    users?:string[],
+    engins?:string[],
     localisation?:Localisation
   }
   export interface chantierUser{
@@ -113,13 +118,13 @@ export interface Engin {
     second_validation?:firebase.User[],
     dex_dtu?:firebase.User[],
     validation?:string,
-    userName:string,
-    role:string,
+    userName?:string,
+    role?:string,
     type:string,
     engin:string,
     etat:number,
-    destination?:Chantier,
-    provenance?:Chantier,
+    destination?:string,
+    provenance?:string,
     description?:string,
     message?:string,
     createdBy?:string,
