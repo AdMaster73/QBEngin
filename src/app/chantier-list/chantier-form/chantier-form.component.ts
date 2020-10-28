@@ -33,10 +33,12 @@ export class ChantierFormComponent implements OnInit {
       id : new FormControl(),
       name: ['', Validators.required],
       compte:[],
+      num_marche:[],
       archive:[],
       latitude:new FormControl(),
       longitude:new FormControl(),
-      region:[]
+      region:[],
+      departement:[]
     });
     this.regions$ = this.regionService.GetRegionList();
   }
