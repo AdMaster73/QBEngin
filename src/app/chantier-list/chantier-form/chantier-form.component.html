@@ -3,7 +3,7 @@
     <form [formGroup]="ChantierFormEdit">
       <!-- Left block -->
       <mat-card>
-        <mat-card-title>Modifier le Site {{data.name}}</mat-card-title>
+        <!-- <mat-card-title>Modifier le Site {{data.name}}</mat-card-title> -->
           <input matInput class="invisible" formControlName="id" [(ngModel)]="data.id">
 
           <!-- Chantier designation -->
@@ -26,12 +26,32 @@
             </mat-select>
           </mat-form-field>
 
+          <!--Département-->
+
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Département</mat-label>
+            <mat-select [(ngModel)]="data.departement" formControlName="departement">
+              <mat-option *ngFor="let departement of ['DEX','DTU','DG','POSTE','CARR','MAINT']" [value]="departement">
+                {{departement}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
           <!-- chantier compte -->
           <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>Compte tièrs</mat-label>
             <input matInput placeholder="Compte" formControlName="compte" [(ngModel)]="data.compte">
             <mat-error *ngIf="handleError('compte', 'required')">
               Vous devez Entrer le <strong>Compte tière</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <!-- chantier num marche -->
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Num. Marché</mat-label>
+            <input matInput placeholder="Num. Marché" formControlName="num_marche" [(ngModel)]="data.num_marche">
+            <mat-error *ngIf="handleError('num_marche', 'required')">
+              Vous devez Entrer le <strong>Numéro de Marché</strong>
             </mat-error>
           </mat-form-field>
 
