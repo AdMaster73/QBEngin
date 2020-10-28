@@ -48,7 +48,7 @@ export class RegionListComponent implements OnInit {
     })();
     }
   displayedColumns: string[] = ['action','numero', 'designation','compte','count'];
-  dataSource : MatTableDataSource<Region[]>;
+  dataSource : MatTableDataSource<{ sites: Observable<any[]>; id: number; name: string; compte: string; }>;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static : true}) sort: MatSort;
   ngOnInit(): void {
