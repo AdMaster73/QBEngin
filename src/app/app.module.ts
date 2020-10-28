@@ -12,7 +12,8 @@ import { MatButtonModule,
 	MatExpansionModule,
 	MatDialogModule,
 	MatNativeDateModule,
-	MatSelectModule
+  MatSelectModule,
+  MatProgressSpinnerModule
 	} from '@angular/material';
 import { MatTabsModule} from '@angular/material/tabs';
 import { MatRadioModule} from '@angular/material/radio';
@@ -271,6 +272,7 @@ firebase.initializeApp(environment.firebaseConfig);
 	MatStepperModule,
   DragDropModule,
   MatSnackBarModule,
+  MatProgressSpinnerModule,
   AgmCoreModule.forRoot({
     apiKey: 'AIzaSyAgAdva88NetRz6vyCzpfaltzNM11FaFtw'
   }),
