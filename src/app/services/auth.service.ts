@@ -128,25 +128,6 @@ isSuperAdmin(){
   );
 }
 
-getSuperAdminId(){
-  return new Promise(
-    (resolve, reject) => {
-      firebase.auth().currentUser.getIdTokenResult().then(
-        (idTokenResult) => {
-          if(idTokenResult.claims.role === 'admin'){
-            resolve(idTokenResult.claims)
-          } else {
-            resolve("")
-          }
-        },
-        (error) => {
-          reject(error);
-        }
-      );
-    }
-  );
-}
-
 
 
 signInUser(email: string, password: string) {
