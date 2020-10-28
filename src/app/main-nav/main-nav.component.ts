@@ -11,6 +11,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { RolesService } from '../services/roles.service';
 import { Collections, Roles } from '../models/engin.model';
 import * as firebase from 'firebase';
+import { firestore } from 'firebase';
 
 @Component({
   selector: 'main-nav',
@@ -46,7 +47,7 @@ export class MainNavComponent  implements AfterViewInit, OnInit{
           this.rolesService.getRolesByNameAndType(this.roleCurrentUser).subscribe(roles=>{
             roles.forEach(item=>{
               this.afs
-              .collection<Collections>('collections',ref=>ref.where(firebase.firestore.FieldPath.documentId(),'in',item.list)).valueChanges()
+              .collection<Collections>('collections',ref=>ref.where(firestore.FieldPath.documentId(),'in',item.list)).valueChanges()
               .subscribe(result=>{
                 observer.next(result.sort((a,b)=>a.order - b.order))
               })
