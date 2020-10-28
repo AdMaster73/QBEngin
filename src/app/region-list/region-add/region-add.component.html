@@ -1,9 +1,3 @@
-<button mat-icon-button color="primary" [disabled]="RegionForm.invalid" matTooltip="Nouvelle élement">
-  <mat-icon aria-label="Example icon-button with a heart icon">done_outline</mat-icon>
-</button>
-<button mat-icon-button color="accent" (click)="closeForm()" matTooltip="Annuler">
-  <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
-</button>
 <!-- Region form -->
 <div class="example-container">
   <form [formGroup]="RegionForm" (ngSubmit)="submitRegionForm()">
@@ -19,5 +13,11 @@
           </mat-error>
         </mat-form-field>
     </mat-card>
+    <button mat-icon-button color="primary" [disabled]="RegionForm.invalid" matTooltip="Nouvelle élement">
+      <mat-icon aria-label="Example icon-button with a heart icon">done_outline</mat-icon>
+    </button>
+    <button mat-icon-button color="accent" (click)="closeForm()" matTooltip="Annuler">
+      <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
+    </button>
   </form>
 </div>
