@@ -1,21 +1,34 @@
 <mat-nav-list>
+  <ng-container *ngIf="user$ | async ;let user">
   <mat-list-item *ngFor="let notification of (data.notification | async)">
-     <a matLine>{{ notification.type }} du site {{notification.provenance}} sur l'opération de transfert du matériel
+
+    <ng-container *ngIf="notification.users_validate | async;let userValidation">
+     <a matLine>
+      Dans l'attent de validation de
+       <ng-container *ngIf="userValidation.uid === user.uid">
+         votre part
+       </ng-container>
+      <ng-container *ngIf="userValidation.uid !== user.uid">
+        la part de Mr {{userValidation.displayName}} ({{userValidation.role}})
+      </ng-container>
+      sur l'opération de transfert du matériel
       <ng-container *ngFor="let engin of (notification.engins | async)">{{engin.code}} - {{engin.name}}</ng-container>
        <p>
-        vers {{notification.destination}}, est en attente de votre validation,
-        <ng-container *ngIf="notification.users | async ;let user">Demander par {{user.displayName}}
+        venant de votre site {{notification.provenance}} vers {{notification.destination}},
+        <ng-container *ngIf="notification.users | async ;let user">Demander le {{notification.createdAt.toDate()|date:'dd/MM/yyyy à h:mm:ss'}} par Mr {{user.displayName}}
         ({{user.role}})</ng-container>
       </p>
      </a>
-     <ng-container *ngIf="data.role !== 'admin'">
-        <button mat-icon-button (click)="delete(notification)" matTooltip="Refuser">
+
+      <button mat-icon-button (click)="delete(notification)" matTooltip="Refuser" *ngIf="user.role !== 'admin'">
           <mat-icon>delete</mat-icon>
       </button>
-      <button mat-icon-button (click)="validate(notification)" matTooltip="Valider">
+      <button mat-icon-button (click)="validate(notification)" matTooltip="Valider" *ngIf="user.role !== 'admin'">
           <mat-icon>check</mat-icon>
       </button>
-     </ng-container>
+    </ng-container>
+
 
   </mat-list-item>
+  </ng-container>
 </mat-nav-list>
