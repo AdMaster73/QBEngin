@@ -29,7 +29,7 @@ export class ChantierListComponent implements OnInit {
   collectionMenuToggel:boolean
   EnginData: any = [];
   user$: Observable<{}>;
-  displayedColumns: string[] = ['action','numero', 'designation','region','users','engins','compte','archive'];
+  displayedColumns: string[] = ['action','compte','numero', 'designation','departement','region','users','engins','archive'];
   _filter_role_chantier: string[] = []
   is_in_array_chantier:boolean = false
   dataSource : MatTableDataSource<Chantier>;
@@ -52,9 +52,9 @@ export class ChantierListComponent implements OnInit {
         })
         this.rolesService.getRolesByNameAndType(roleCurrentUser).subscribe(roles=>{
           roles.forEach(item=>{
-                this.collectionPermAdd = item.add.includes(collectionId.toString())
-                this.collectionPermUpdate = item.update.includes(collectionId.toString())
-                this.collectionPermDelete = item.delete.includes(collectionId.toString())
+                this.collectionPermAdd = item.add?item.add.includes(collectionId.toString()):false
+                this.collectionPermUpdate = item.update?item.update.includes(collectionId.toString()):false
+                this.collectionPermDelete = item.delete?item.delete.includes(collectionId.toString()):false
                 !this.collectionPermUpdate && !this.collectionPermDelete ? this.collectionMenuToggel = false : this.collectionMenuToggel = true
           })
         })
@@ -108,8 +108,10 @@ export class ChantierListComponent implements OnInit {
       id:element.id,
       name:element.name,
       compte:element.compte,
+      num_marche:element.num_marche,
       archive:element.archive,
       region:element.region,
+      departement:element.departement,
       latitude:element.localisation.latitude,
       longitude:element.localisation.longitude
     }}).afterClosed().subscribe(result => {
