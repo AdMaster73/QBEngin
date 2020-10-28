@@ -87,7 +87,7 @@ color="primary" matTooltip="Nouvelle transfert"
     <!-- date Column -->
     <ng-container matColumnDef="date">
       <th mat-header-cell *matHeaderCellDef style="text-align: center;border: 1px solid;font-weight: bold;">Date</th>
-      <td mat-cell *matCellDef="let element" style="text-align: center;border: 1px solid;"> {{element.createdAt.toDate()|date:'dd/MM/yyyy'}} </td>
+      <td mat-cell *matCellDef="let element" style="text-align: center;border: 1px solid;"> {{element.createdAt.toDate()|date:'dd/MM/yyyy à h:mm:ss'}} </td>
     </ng-container>
 
 
