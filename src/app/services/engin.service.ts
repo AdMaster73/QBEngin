@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Chantier, Engin, Pointage } from '../models/engin.model';
+import { Chantier, Engin, Notification, Pointage } from '../models/engin.model';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { map, switchMap } from 'rxjs/operators';
 import { firestore, User } from 'firebase';
@@ -20,8 +20,36 @@ export class EnginService {
   }
 
 
-  getLocalisationEngin(data: any) {
-    return this.afs.doc<Pointage>('engin/'+data.id+'/pointage/'+data.last_pointage.replace('/','').replace('/','')).valueChanges()
+  AddNotification(notification: Notification) {
+    let maintenant:Date = new Date()
+    let idDoc : string = maintenant.getFullYear().toString() +
+     (maintenant.getMonth()+1).toString() +
+      maintenant.getDate().toString() +
+      maintenant.getHours().toString() +
+      notification.engin.toString()
+    this.afs.doc('engin/'+notification.engin.toString()).update({
+      last_notified : notification.etat
+    }).then(()=>{
+      this.afs.collection('notification').doc(idDoc).set({
+        createdBy:notification.uid,
+        createdAt:notification.createdAt,
+        uid : notification.uid,
+        validation:notification.validation,
+        type : notification.type,
+        etat: notification.etat,
+        provenance:notification.provenance,
+        destination:notification.destination,
+        description:notification.description,
+        message:notification.message,
+        engin:notification.engin
+    }).then(()=>{
+      this.afs.collection('notification/'+idDoc+'/story').add({
+        createdBy:notification.uid,
+        createdAt:notification.createdAt,
+        etat: notification.etat
+        })
+      })
+    })
   }
 
 	/* Créer un nouveau engin */
@@ -79,7 +107,7 @@ export class EnginService {
   }
 
   GetEnginListBySite(siteId: string) {
-    return this.afs.collection<Engin>('engin',ref=> ref.where('id_chantier','==',eval(siteId.toString())))
+    return this.afs.collection<Engin>('engin',ref=> ref.where('id_chantier','==',siteId))
     .snapshotChanges()
     .pipe(
       switchMap((engins)=>{
@@ -278,4 +306,10 @@ export class EnginService {
       })
     )
   }
+
+  getLocalisationEngin(data: any) {
+    return this.afs.doc<Pointage>('engin/'+data.id+'/pointage/'+data.last_pointage.replace('/','').replace('/','')).valueChanges()
+  }
+
+
 }
