@@ -6,7 +6,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { EnginService } from 'src/app/services/engin.service';
 import { startWith, map, debounceTime, tap, switchMap, finalize, filter } from 'rxjs/operators';
 import { ChantierService } from 'src/app/services/chantier.service';
-import { Chantier, Engin, Notification } from 'src/app/models/engin.model';
+import { Categorie, Chantier, Engin, Fournisseur, Notification } from 'src/app/models/engin.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'firebase';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -15,8 +15,15 @@ export interface IChantierResponse {
   total: number;
   results: Chantier[];
 }
+
+export interface IEnginResponse {
+  total: number;
+  results: Engin[];
+}
+
 export class ChantierClass {
-  constructor(public id: number,
+  constructor(
+    public id: number,
     public name: string,
     public compte : string,
     public archive : number,
@@ -25,6 +32,23 @@ export class ChantierClass {
     public engins : string[]
     ) {}
 }
+
+export class EnginClass {
+  constructor(
+    public id: number,
+    public name: string,
+    public code : string,
+    public id_chantier : number,
+    public date_achat:Date,
+    public valeur_achat:string,
+    public n_serie: string,
+    public marque_moteur: string,
+    public serie_moteur: string,
+    public categorie:Categorie,
+    public fournisseur:Fournisseur,
+    ) {}
+}
+
 @Component({
   selector: 'app-encours-add',
   templateUrl: './encours-add.component.html',
@@ -45,7 +69,7 @@ export class EncoursAddComponent implements OnInit {
   destination :string = 'Destination'
   id_destination :number
   id_provenance :number
-  filteredEngins: Observable<string[]>;
+  filteredEngins: Engin[] = [];
   results$: Observable<any[]>
   results_d$: Observable<any[]>
   typeOfTransfert:string;
@@ -116,6 +140,7 @@ export class EncoursAddComponent implements OnInit {
       )
     )
     .subscribe((chantiers)=>this.filteredChantiers = chantiers.results );
+
     this.transfertFormGroup.get('myControlD')
     .valueChanges
     .pipe(
@@ -128,6 +153,21 @@ export class EncoursAddComponent implements OnInit {
       )
     )
     .subscribe((chantiers)=>this.filteredChantiersD = chantiers.results );
+
+    this.transfertFormGroup.get('myControl')
+    .valueChanges
+    .pipe(
+      debounceTime(200),
+      tap(() => this.isLoading = true),
+      switchMap(value => this.searchEngin({name: value}, 1)
+      .pipe(
+        finalize(() => {this.isLoading = false}),
+        )
+      )
+    )
+    .subscribe((engins)=>this.filteredEngins = engins.results );
+
+
   }
 
   search(filter: {name: string} = {name: ''}, page = 1): Observable<IChantierResponse>{
@@ -197,11 +237,54 @@ export class EncoursAddComponent implements OnInit {
       })
       );
   }
+
+  searchEngin(filter: {name: string} = {name: ''}, page = 1): Observable<IEnginResponse>{
+    let filterString:string = filter.name
+    if (typeof( filter.name) === 'object') {
+      filterString = filter.name['code']
+      let engins_array : [] = filter.name['engins']
+      if(engins_array !== undefined){
+        if(engins_array.length >0){
+          this.enginService.GetEnginListByIdArray(filter.name['engins'])
+          .subscribe(engins=>{
+            this.engins_destination = engins
+          })
+        }
+      }
+      this.chantier_destination = filter.name
+    }
+    return this.enginService.GetEnginListSearch()
+    .pipe(
+      tap((response) => {
+        response.results = response.results.
+        map((engin)=>new EnginClass(
+          engin.id,
+          engin.name,
+          engin.code,
+          engin.id_chantier,
+          engin.date_achat,
+          engin.valeur_achat,
+          engin.n_serie,
+          engin.marque_moteur,
+          engin.serie_moteur,
+          engin.categorie,
+          engin.fournisseur
+          ))
+        .filter(engin => engin.code.toUpperCase().includes(filterString.toUpperCase()))
+        return response;
+      })
+      );
+  }
+
+
   displayFn(chantier: Chantier): string {
     return chantier && chantier.name ? chantier.name : '';
   }
   displayFnD(chantier: Chantier): string {
     return chantier && chantier.name ? chantier.name : '';
+  }
+  displayFnEngin(engin: Engin): string {
+    return engin && engin.code ? engin.code : '';
   }
 
   drop(event: CdkDragDrop<Engin[]>) {
