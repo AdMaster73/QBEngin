@@ -135,7 +135,11 @@ export class ChantierService {
     db.collection("chantier").get().then(querySnapshot=>{
       querySnapshot.forEach(doc=>{
           doc.ref.update({
-              localisation: locationData
+              marche: [],
+              arret: [],
+              attente: [],
+              mad: [],
+              panne: []
           });
       });
     }); */
