@@ -6,11 +6,11 @@
             <section class="example-section">
               <label class="example-margin">Par:</label>
               <mat-radio-group [(ngModel)]="typeOfTransfert" formControlName="typeControl">
-                <mat-radio-button class="example-margin" value="engin" (change)="radioChange($event)">
-                  Engin
-                </mat-radio-button>
-                <mat-radio-button class="example-margin" value="chantier" (change)="radioChange($event)">
-                  Chantier
+                <!-- <mat-radio-button class="example-margin" value="Materiél" (change)="radioChange($event)">
+                  Materiél
+                </mat-radio-button> -->
+                <mat-radio-button class="example-margin" value="Site" (change)="radioChange($event)">
+                  Site
                 </mat-radio-button>
               </mat-radio-group>
             </section>
@@ -21,26 +21,29 @@
         </mat-step>
         <mat-step [stepControl]="secondFormGroup"  editable="true">
               <ng-template matStepLabel>Autre selection <small>{{typeOfTransfert}}</small></ng-template>
-              <mat-form-field class="example-full-width" appearance="outline" *ngIf="typeOfTransfert == 'engin'">
-                <mat-label>Engin</mat-label>
+              <mat-form-field class="example-full-width" appearance="outline" *ngIf="typeOfTransfert == 'Materiél'">
+                <mat-label>Materiél</mat-label>
                 <input matInput
                 formControlName="myControl"
-                placeholder="Engin"
-                aria-label="Engin"
+                placeholder="Materiél"
+                aria-label="Materiél"
                 [matAutocomplete]="auto">
-                <mat-autocomplete #auto="matAutocomplete">
-                  <mat-option *ngFor="let engin of (filteredEngins | async)" [value]="engin">
-                    <span>{{engin}}</span>
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnEngin">
+                  <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="20"></mat-spinner></mat-option>
+                  <ng-container *ngIf="!isLoading">
+                  <mat-option *ngFor="let engin of filteredEngins" [value]="engin">
+                    <span>{{engin.code}}</span>
                   </mat-option>
+                  </ng-container>
                 </mat-autocomplete>
                 <mat-icon matSuffix>commute</mat-icon>
               </mat-form-field>
-              <mat-form-field class="example-full-width" appearance="outline" *ngIf="typeOfTransfert == 'chantier'">
-                <mat-label>Chantier de provenanace</mat-label><!-- (keyup)="search(searchInput_p.value)"  (optionSelected)="getControls($event,'myControlC')"-->
+              <mat-form-field class="example-full-width" appearance="outline" *ngIf="typeOfTransfert == 'Site'">
+                <mat-label>Chantier de provenanace</mat-label>
                 <input matInput
                 formControlName="myControlC"
-                placeholder="Chantier de provenance"
-                aria-label="Chantier de provenanace"
+                placeholder="Site de provenance"
+                aria-label="Site de provenanace"
                 [matAutocomplete]="autoC">
                 <mat-autocomplete #autoC="matAutocomplete" [displayWith]="displayFn">
                   <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="20"></mat-spinner></mat-option>
@@ -52,12 +55,12 @@
                 </mat-autocomplete>
                 <mat-icon matSuffix>place</mat-icon>
               </mat-form-field>
-              <mat-form-field class="example-full-width" appearance="outline" *ngIf="typeOfTransfert == 'chantier'">
+              <mat-form-field class="example-full-width" appearance="outline" *ngIf="typeOfTransfert == 'Site'">
                 <mat-label>Chantier de destination</mat-label>
                 <input matInput
                 formControlName="myControlD"
-                placeholder="Chantier de destination"
-                aria-label="Chantier de destination"
+                placeholder="Site de destination"
+                aria-label="Site de destination"
                 [matAutocomplete]="autoD">
                 <mat-autocomplete #autoD="matAutocomplete" [displayWith]="displayFnD">
                   <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="20"></mat-spinner></mat-option>
@@ -79,11 +82,12 @@
           <div cdkDropListGroup>
             <div class="example-container">
               <h2>{{transfertFormGroup.get('myControlC').value.name}}</h2>
+              <h2>{{transfertFormGroup.get('myControl').value.name}}</h2>
               <div
                 cdkDropList
                 [cdkDropListData]="engins_provenance"
                 class="example-list"
-                (cdkDropListDropped)="drop($event)"> <!-- [cdkDragDisabled]="engin.etat_f!=='MAD'" -->
+                (cdkDropListDropped)="drop($event)">
                 <div class="example-box" [ngStyle]="{backgroundColor: getBackgroundColor(engin.etat_f)}"
                 [cdkDragDisabled]="isDragable(engin)"
                 *ngFor="let engin of (engins_provenance)"
