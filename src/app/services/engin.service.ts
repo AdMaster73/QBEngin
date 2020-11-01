@@ -7,6 +7,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable, combineLatest, Subject } from 'rxjs';
 import * as firebase from 'firebase';
 import { ChantierService } from './chantier.service';
+import { IEnginResponse } from '../transfert/encours-add/encours-add.component';
 
 
 @Injectable({
@@ -15,10 +16,20 @@ import { ChantierService } from './chantier.service';
 
 export class EnginService {
 
-
 	constructor(private afs: AngularFirestore,private firebaseAuth: AngularFireAuth,public chantierService:ChantierService) {
   }
 
+/*Retourner une liste des chantier */
+  GetEnginListSearch():Observable<IEnginResponse> {
+      return new Observable(subscriber => {
+        this.GetEnginList().subscribe(engins=>{
+          subscriber.next({
+            total: engins.length,
+            results: engins
+          });
+        })
+      });
+    }
 
   AddNotification(notification: Notification) {
     let maintenant:Date = new Date()
