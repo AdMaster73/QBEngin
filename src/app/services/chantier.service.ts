@@ -7,7 +7,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { BehaviorSubject, combineLatest, from, Observable, of } from 'rxjs';
 import { AngularFireDatabase } from '@angular/fire/database';
 import * as firebase from 'firebase';
-import { IChantierResponse,ChantierClass } from '../transfert/encours-add/encours-add.component';
+import { IChantierResponse } from '../transfert/encours-add/encours-add.component';
 
 @Injectable({
   providedIn: 'root'
