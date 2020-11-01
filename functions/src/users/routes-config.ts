@@ -17,6 +17,7 @@ const roleArray =['admin',//administrateur
                   'chefp', // chef de poste d'enrobé
                   'chefe', // chef d'équipe
                   'chaufp', // chauffeur porte char
+                  'chefpr', // chauffeur porte projet
                   'tech', // technicien du travaux
                   'inj', // injénieur du travaux
                 ]
