@@ -85,6 +85,15 @@ export class EnginService {
   }
 
   getEnginWithChantierName(){//,ref=>ref.where('pointed','==',1)
+  /* const db = firebase.firestore()
+    db.collection("engin").get().then((querySnapshot) =>{
+      querySnapshot.forEach((doc) =>{
+          doc.ref.update({
+              b_code:firebase.firestore.FieldValue.delete()
+          });
+      });
+    }); */
+
     return this.afs.collection<Engin>('engin').snapshotChanges().pipe(
       switchMap((engins)=>{
         const engin = engins.map(c=>{
@@ -132,16 +141,7 @@ export class EnginService {
   }
 	/*Retourner une liste des engin */
 	GetEnginList() {
-
-    /*const db = firebase.firestore()
-    db.collection("engin").get().then((querySnapshot) =>{
-      querySnapshot.forEach((doc) =>{
-          doc.ref.update({
-              chauffeur: {id:3,name:'SANS'}
-          });
-      });
-    });
-     let maintenant:string = new Date().toLocaleDateString('fr-FR')
+    /*  let maintenant:string = new Date().toLocaleDateString('fr-FR')
     const db = firebase.firestore()
     db.collection("engin").where('last_pointage','==',maintenant).get().then(function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
@@ -149,7 +149,7 @@ export class EnginService {
               compteur: 0
           });
       });
-    }); */
+    }) */;
 
     return this.afs.collection<Engin>('engin',ref=> ref.orderBy('createdAt','asc'))
     .snapshotChanges().pipe(
