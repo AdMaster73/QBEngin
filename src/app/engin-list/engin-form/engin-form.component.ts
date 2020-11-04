@@ -3,14 +3,14 @@ import { MAT_DIALOG_DATA,MatDialogRef} from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators, FormControl, NgForm } from "@angular/forms";
 import { FournisseurService} from './../../services/fournisseur.service'
 import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs';
 import { DateAdapter, MAT_DATE_LOCALE} from '@angular/material/core';
 import { EnginListComponent } from '../engin-list.component';
 import   localeFr from '@angular/common/locales/fr';
 import { registerLocaleData } from '@angular/common';
 import { CategorieService } from 'src/app/services/categorie.service';
-import { RegionService } from 'src/app/services/region.service';
 import { ChauffeurService } from 'src/app/services/chauffeur.service';
+import { Categorie, CategorieClass, Chauffeur, ChauffeurClass, Fournisseur, FournisseurClass, ICategorieResponse, IChauffeurResponse, IFournisseurResponse } from 'src/app/models/engin.model';
+import { debounceTime, finalize, switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-engin-form',
@@ -24,15 +24,15 @@ export class EnginFormComponent implements OnInit {
 
   date: any
   EnginFormEdit: FormGroup
-  results$ : Observable<any[]>;
-  results_f$: Observable<any[]>;
-  results_ch$: Observable<any[]>;
+  isLoading = false;
+  filteredFournisseurs: Fournisseur[] = [];
+  filteredCategories: Categorie[] = [];
+  filteredChauffeurs: Chauffeur[] = [];
 
   accessoire_v:boolean
   typeVs:string[]=['HEURE','KILOMETRE'];
   etatVfs:string[]=['MARCHE','ARRET','MAD','PANNE','EN ATTENTE'];
   etatVks:string[]=['MARCHE','PANNE','INNEXISTANT'];
-  startAt: BehaviorSubject<string | null> = new BehaviorSubject('');
   @ViewChild('resetEnginForm',{static: true}) myNgForm : NgForm;
 
   constructor(
@@ -87,25 +87,115 @@ export class EnginFormComponent implements OnInit {
       pointed:new FormControl(),
       porte:new FormControl()
     });
-    this.results$ = this.serviceCategorie.GetCategorieList();
-    this.results_f$ = this.serviceFournisseur.GetFournisseurList();
-    this.results_ch$ = this.serviceChauffeur.GetChauffeurList();
+    this.EnginFormEdit.get('fournisseur')
+    .valueChanges
+    .pipe(
+      debounceTime(200),
+      tap(() => this.isLoading = true),
+      switchMap(value => this.search({name: value})
+      .pipe(
+        finalize(() => {this.isLoading = false}),
+        )
+      )
+    )
+    .subscribe((fournisseurs)=>this.filteredFournisseurs = fournisseurs.results );
+    this.EnginFormEdit.get('categorie')
+    .valueChanges
+    .pipe(
+      debounceTime(200),
+      tap(() => this.isLoading = true),
+      switchMap(value => this.searchCategorie({name: value})
+      .pipe(
+        finalize(() => {this.isLoading = false}),
+        )
+      )
+    )
+    .subscribe((categories)=>this.filteredCategories = categories.results );
+    this.EnginFormEdit.get('chauffeur')
+    .valueChanges
+    .pipe(
+      debounceTime(200),
+      tap(() => this.isLoading = true),
+      switchMap(value => this.searchChauffeur({name: value})
+      .pipe(
+        finalize(() => {this.isLoading = false}),
+        )
+      )
+    )
+    .subscribe((chauffeurs)=>this.filteredChauffeurs = chauffeurs.results );
 
+  }
+
+  search(filter: {name: string} = {name: ''}): Observable<IFournisseurResponse>{
+    let filterString:string = filter.name
+    if (typeof( filter.name) === 'object') {
+      this.EnginFormEdit.controls['id_fournisseur'].setValue(filter.name['id'])
+      filterString = filter.name['name']
+    }
+    return this.serviceFournisseur.GetFournisseurListSearch()
+    .pipe(
+      tap((response) => {
+        response.results = response.results.
+        map((fournisseur)=>new FournisseurClass(
+          fournisseur.id,
+          fournisseur.name
+          ))
+        .filter(fournisseur => fournisseur.name.toUpperCase().includes(filterString.toUpperCase()))
+        return response;
+      })
+      );
+  }
+  searchCategorie(filter: {name: string} = {name: ''}): Observable<ICategorieResponse>{
+    let filterString:string = filter.name
+    if (typeof( filter.name) === 'object') {
+      this.EnginFormEdit.controls['id_categorie'].setValue(filter.name['id'])
+      filterString = filter.name['name']
+    }
+    return this.serviceCategorie.GetCategorieListSearch()
+    .pipe(
+      tap((response) => {
+        response.results = response.results.
+        map((categorie)=>new CategorieClass(
+          categorie.id,
+          categorie.name
+          ))
+        .filter(categories => categories.name.toUpperCase().includes(filterString.toUpperCase()))
+        return response;
+      })
+      );
+  }
+  searchChauffeur(filter: {name: string} = {name: ''}): Observable<IChauffeurResponse>{
+    let filterString:string = filter.name
+    if (typeof( filter.name) === 'object') {
+      this.EnginFormEdit.controls['id_chauffeur'].setValue(filter.name['id'])
+      filterString = filter.name['name']
+    }
+    return this.serviceChauffeur.GetChauffeurListSearch()
+    .pipe(
+      tap((response) => {
+        response.results = response.results.
+        map((chauffeur)=>new ChauffeurClass(
+          chauffeur.id,
+          chauffeur.name
+          ))
+        .filter(chauffeures => chauffeures.name.toUpperCase().includes(filterString.toUpperCase()))
+        return response;
+      })
+      );
+  }
+  displayFnFournisseur(fournisseur: Fournisseur): string {
+    return fournisseur && fournisseur.name ? fournisseur.name : '';
+  }
+  displayFnCategorie(categorie: Categorie): string {
+    return categorie && categorie.name ? categorie.name : '';
+  }
+  displayFnChauffeur(chauffeur: Chauffeur): string {
+    return chauffeur && chauffeur.name ? chauffeur.name : '';
   }
 
   /* Get errors */
   public handleError = (controlName: string, errorName: string) => {
     return this.EnginFormEdit.controls[controlName].hasError(errorName);
-  }
-
-  search(searchText){
-    this.startAt.next(searchText);
-  }
-
-/** */
-  getControls(event$,model:string){
-    this.EnginFormEdit.controls[model].setValue(event$.option.value.name)
-    this.EnginFormEdit.controls['id_'+model].setValue(event$.option.value.id)
   }
 
 }
