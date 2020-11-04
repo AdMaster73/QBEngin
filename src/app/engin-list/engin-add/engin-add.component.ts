@@ -3,15 +3,16 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { FormGroup, FormBuilder, Validators, NgForm,FormControl } from "@angular/forms";
 import { EnginService } from './../../services/engin.service';
 import { CategorieService } from './../../services/categorie.service'
-import { Engin, Categorie,Fournisseur, Chauffeur } from './../../models/engin.model';
+import { Engin, Categorie,Fournisseur, Chauffeur, IFournisseurResponse, FournisseurClass, ICategorieResponse, CategorieClass, IChauffeurResponse, ChauffeurClass } from './../../models/engin.model';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs';
-import {MatDialogRef} from '@angular/material/dialog';
-import {DateAdapter} from '@angular/material/core';
+import { MatDialogRef} from '@angular/material/dialog';
+import { DateAdapter} from '@angular/material/core';
 import { EnginListComponent } from '../engin-list.component';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { FournisseurService } from 'src/app/services/fournisseur.service';
 import { ChauffeurService } from 'src/app/services/chauffeur.service';
+import { debounceTime, finalize, switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-engin-add',
@@ -28,11 +29,10 @@ export class EnginAddComponent implements OnInit {
   EnginLastRecord: number;
   engins: Engin[];
   maxDate:Date =  new Date();
-  chauffeurs: Chauffeur[];
-  results$ : Observable<any[]>;
-  results_f$: Observable<any[]>;
-  results_ch$: Observable<any[]>;
-  startAt: BehaviorSubject<string | null> = new BehaviorSubject('');
+  isLoading = false;
+  filteredFournisseurs: Fournisseur[] = [];
+  filteredCategories: Categorie[] = [];
+  filteredChauffeurs: Chauffeur[] = [];
 
 
   @ViewChild('resetEnginForm',{static: true}) myNgForm : NgForm;
@@ -64,7 +64,7 @@ export class EnginAddComponent implements OnInit {
       id_categorie:new FormControl(),
       fournisseur: ['', Validators.required],
       id_fournisseur:new FormControl(),
-      chauffeur: ['', Validators.required],
+      chauffeur: new FormControl(),
       id_chauffeur:new FormControl(),
       date_achat: new FormControl(),
       value_chat:new FormControl(),
@@ -72,18 +72,110 @@ export class EnginAddComponent implements OnInit {
       serie_moteur:new FormControl(),
       numero_serie:new FormControl()
     })
-    this.results$ = this.serviceCategorie.GetCategorieList();
-    this.results_f$ = this.serviceFournisseur.GetFournisseurList();
-    this.results_ch$ = this.serviceChauffeur.GetChauffeurList();
+    this.EnginForm.get('fournisseur')
+    .valueChanges
+    .pipe(
+      debounceTime(200),
+      tap(() => this.isLoading = true),
+      switchMap(value => this.search({name: value})
+      .pipe(
+        finalize(() => {this.isLoading = false}),
+        )
+      )
+    )
+    .subscribe((fournisseurs)=>this.filteredFournisseurs = fournisseurs.results );
+    this.EnginForm.get('categorie')
+    .valueChanges
+    .pipe(
+      debounceTime(200),
+      tap(() => this.isLoading = true),
+      switchMap(value => this.searchCategorie({name: value})
+      .pipe(
+        finalize(() => {this.isLoading = false}),
+        )
+      )
+    )
+    .subscribe((categories)=>this.filteredCategories = categories.results );
+    this.EnginForm.get('chauffeur')
+    .valueChanges
+    .pipe(
+      debounceTime(200),
+      tap(() => this.isLoading = true),
+      switchMap(value => this.searchChauffeur({name: value})
+      .pipe(
+        finalize(() => {this.isLoading = false}),
+        )
+      )
+    )
+    .subscribe((chauffeurs)=>this.filteredChauffeurs = chauffeurs.results );
   }
-  search(searchText){
-    this.startAt.next(searchText);
+  search(filter: {name: string} = {name: ''}): Observable<IFournisseurResponse>{
+    let filterString:string = filter.name
+    if (typeof( filter.name) === 'object') {
+      this.EnginForm.controls['id_fournisseur'].setValue(filter.name['id'])
+      filterString = filter.name['name']
+    }
+    return this.serviceFournisseur.GetFournisseurListSearch()
+    .pipe(
+      tap((response) => {
+        response.results = response.results.
+        map((fournisseur)=>new FournisseurClass(
+          fournisseur.id,
+          fournisseur.name
+          ))
+        .filter(fournisseur => fournisseur.name.toUpperCase().includes(filterString.toUpperCase()))
+        return response;
+      })
+      );
   }
-  /*Avoir le id pour le stocker dans une zone de texte afin de l'ituliser à l'ajout*/
-  getControls(event$,model:string){
-    this.EnginForm.controls[model].setValue(event$.option.value.name)
-    this.EnginForm.controls['id_'+model].setValue(event$.option.value.id)
+  searchCategorie(filter: {name: string} = {name: ''}): Observable<ICategorieResponse>{
+    let filterString:string = filter.name
+    if (typeof( filter.name) === 'object') {
+      this.EnginForm.controls['id_categorie'].setValue(filter.name['id'])
+      filterString = filter.name['name']
+    }
+    return this.serviceCategorie.GetCategorieListSearch()
+    .pipe(
+      tap((response) => {
+        response.results = response.results.
+        map((categorie)=>new CategorieClass(
+          categorie.id,
+          categorie.name
+          ))
+        .filter(categorie => categorie.name.toUpperCase().includes(filterString.toUpperCase()))
+        return response;
+      })
+      );
   }
+  searchChauffeur(filter: {name: string} = {name: ''}): Observable<IChauffeurResponse>{
+    let filterString:string = filter.name
+    if (typeof( filter.name) === 'object') {
+      this.EnginForm.controls['id_chauffeur'].setValue(filter.name['id'])
+      filterString = filter.name['name']
+    }
+    return this.serviceChauffeur.GetChauffeurListSearch()
+    .pipe(
+      tap((response) => {
+        response.results = response.results.
+        map((chauffeur)=>new ChauffeurClass(
+          chauffeur.id,
+          chauffeur.name
+          ))
+        .filter(categorie => categorie.name.toUpperCase().includes(filterString.toUpperCase()))
+        return response;
+      })
+      );
+  }
+  displayFnFournisseur(fournisseur: Fournisseur): string {
+    return fournisseur && fournisseur.name ? fournisseur.name : '';
+  }
+  displayFnCategorie(categorie: Categorie): string {
+    return categorie && categorie.name ? categorie.name : '';
+  }
+  displayFnChauffeur(chauffeur: Chauffeur): string {
+    return chauffeur && chauffeur.name ? chauffeur.name : '';
+  }
+
   /* Reactive book form */
   submitEnginForm() {
     this.submitted = true;
