@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 import { MatPaginator} from '@angular/material/paginator';
 import { TransfertService } from './../../services/transfert.service';
-import { Transfert } from './../../models/engin.model';
+import { Notification, Transfert } from './../../models/engin.model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -17,7 +17,7 @@ export class HistoriqueComponent implements OnInit {
   collectionPermDelete: boolean
   collectionMenuToggel:boolean
   displayedColumns: string[] = ['numero','code','designation','accessoire','destination','demandeur','provenance','accord','date'];
-  dataSource : MatTableDataSource<Transfert>;
+  dataSource : MatTableDataSource<Notification>;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static : true}) sort: MatSort;
   constructor(
