@@ -139,13 +139,13 @@ export class EnginListComponent implements OnInit{
       marque_moteur: element.marque_moteur?element.marque_moteur:'',
       serie_moteur: element.serie_moteur?element.serie_moteur:'',
       b_code:element.b_code?element.b_code:'',
-      categorie:{
-        id:eval(element.categorie.id),
-        name:element.categorie.name
-      },
       fournisseur:{
         id:eval(element.fournisseur.id),
         name:element.fournisseur.name
+      },
+      categorie:{
+        id:eval(element.categorie.id),
+        name:element.categorie.name
       },
       chauffeur:{
         id:eval(element.chauffeur.id),
