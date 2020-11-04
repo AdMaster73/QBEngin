@@ -34,12 +34,14 @@
             formControlName="categorie"
             placeholder="Catégorie"
             aria-label="Catégorie"
-            (keyup)="search(searchInput.value)"
             [matAutocomplete]="auto">
-            <mat-autocomplete #auto="matAutocomplete" (optionSelected)='getControls($event,"categorie")'>
-              <mat-option *ngFor="let categorie of (results$ | async)" [value]="categorie">
-                <span>{{categorie?.name}}</span>
-              </mat-option>
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnCategorie">
+              <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="20"></mat-spinner></mat-option>
+                <ng-container *ngIf="!isLoading">
+                  <mat-option *ngFor="let categorie of filteredCategories" [value]="categorie">
+                    <span>{{categorie.name}}</span>
+                  </mat-option>
+                </ng-container>
             </mat-autocomplete>
             <mat-error *ngIf="handleError('categorie', 'required')">
               Vous devez Entrer la <strong>Catégorie</strong>
@@ -53,12 +55,14 @@
             formControlName="fournisseur"
             placeholder="Fournisseur"
             aria-label="Fournisseur"
-            (keyup)="search(searchInput_f.value)"
             [matAutocomplete]="auto_f">
-            <mat-autocomplete #auto_f="matAutocomplete" (optionSelected)='getControls($event,"fournisseur")'>
-              <mat-option *ngFor="let fournisseur of (results_f$ | async)" [value]="fournisseur">
-                <span>{{fournisseur?.name}}</span>
-              </mat-option>
+            <mat-autocomplete #auto_f="matAutocomplete" [displayWith]="displayFnFournisseur">
+              <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="20"></mat-spinner></mat-option>
+                <ng-container *ngIf="!isLoading">
+                  <mat-option *ngFor="let fournisseur of filteredFournisseurs" [value]="fournisseur">
+                    <span>{{fournisseur.name}}</span>
+                  </mat-option>
+                </ng-container>
             </mat-autocomplete>
             <mat-error *ngIf="handleError('fournisseur', 'required')">
               Vous devez Entrer Un <strong>Fournisseur</strong>
@@ -102,21 +106,23 @@
           <mat-form-field class="example-full-width" appearance="outline">
             <input matInput #searchInput_ch
             formControlName="chauffeur"
-            placeholder="Fournisseur"
-            aria-label="Fournisseur"
-            (keyup)="search(searchInput_ch.value)"
+            placeholder="Chauffeur"
+            aria-label="Chauffeur"
             [matAutocomplete]="auto_ch">
-            <mat-autocomplete #auto_ch="matAutocomplete" (optionSelected)='getControls($event,"chauffeur")'>
-              <mat-option *ngFor="let chauffeur of (results_ch$ | async)" [value]="chauffeur">
-                <span>{{chauffeur?.name}}</span>
-              </mat-option>
+            <mat-autocomplete #auto_ch="matAutocomplete" [displayWith]="displayFnChauffeur">
+              <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="20"></mat-spinner></mat-option>
+                <ng-container *ngIf="!isLoading">
+                  <mat-option *ngFor="let chauffeur of filteredChauffeurs" [value]="chauffeur">
+                    <span>{{chauffeur?.name}}</span>
+                  </mat-option>
+                </ng-container>
             </mat-autocomplete>
             <mat-error *ngIf="handleError('chauffeur', 'required')">
-              Vous devez Entrer Un <strong>Fournisseur</strong>
+              Vous devez Entrer Un <strong>Chauffeur</strong>
             </mat-error>
           </mat-form-field>
             <input matInput class="invisible" formControlName="id_chauffeur">
-          <!-- <mat-card-actions>
+          <!-- <mat-card-actions>  (optionSelected)='getControls($event,"chauffeur")'  (keyup)="search(searchInput_ch.value)"
             <button mat-icon-button color="primary" [disabled]="EnginForm.invalid" [mat-dialog-close]="data">
               <mat-icon aria-label="Example icon-button with a heart icon">edit</mat-icon>
             </button>
