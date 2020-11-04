@@ -1,14 +1,25 @@
 import { Injectable } from '@angular/core';
-import { Chauffeur } from '../models/engin.model';
+import { Chauffeur, IChauffeurResponse } from '../models/engin.model';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { map } from 'rxjs/operators';
 import { firestore } from 'firebase';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChauffeurService {
+  GetChauffeurListSearch():Observable<IChauffeurResponse> {
+    return new Observable(subscriber => {
+      this.GetChauffeurList().subscribe(chauffeurs=>{
+        subscriber.next({
+          total: chauffeurs.length,
+          results: chauffeurs
+        });
+      })
+    });
+  }
 
   constructor(private afs: AngularFirestore,private firebaseAuth: AngularFireAuth) { }
 
@@ -40,7 +51,9 @@ export class ChauffeurService {
 
 	/* Retourne une liste des chauffeurs */
 	GetChauffeurList() {
-		return this.afs.collection<Chauffeur>('chauffeur',ref=> ref.orderBy('createdAt','asc')).snapshotChanges().pipe(
+    return this.afs.collection<Chauffeur>('chauffeur',ref=> ref.orderBy('createdAt','asc'))
+    .snapshotChanges()
+    .pipe(
 			map(actions => {
 			return actions.map(a => {
 				const data = a.payload.doc.data() as Chauffeur;
