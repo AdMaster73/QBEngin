@@ -135,7 +135,11 @@
       <th mat-header-cell *matHeaderCellDef> Pointage </th>
       <td mat-cell *matCellDef="let element">
         <button mat-mini-fab color=""
-        *ngIf="element.last_pointage !== maintenant && element.chantiers[0].id !=248 && element.pointed==1 && (!element.last_notified || element.last_notified==6)"
+        *ngIf="element.last_pointage !== maintenant &&
+        element.chantiers[0].id !=248 &&
+        element.pointed==1 &&
+        (!element.last_notified || element.last_notified==6) &&
+        element.id_chantier !='249'"
         (click)="addPointage(element)">
           <mat-icon>add</mat-icon>
         </button>
