@@ -32,7 +32,7 @@ export interface Engin {
   export interface Fournisseur{
     id:number,
     name:string,
-    compte:string
+    compte?:string
   }
 
   export interface Chantier{
@@ -169,3 +169,34 @@ export interface Engin {
    date_obtention?:Date,
    date_visite_yeux?:Date,
  }
+
+ export interface IFournisseurResponse {
+  total: number;
+  results: Fournisseur[];
+}
+export class FournisseurClass {
+  constructor(
+    public id: number,
+    public name: string
+    ) {}
+}
+export interface ICategorieResponse {
+  total: number;
+  results: Categorie[];
+}
+export class CategorieClass {
+  constructor(
+    public id: number,
+    public name: string
+    ) {}
+}
+export interface IChauffeurResponse {
+  total: number;
+  results: Chauffeur[];
+}
+export class ChauffeurClass {
+  constructor(
+    public id: number,
+    public name: string
+    ) {}
+}
