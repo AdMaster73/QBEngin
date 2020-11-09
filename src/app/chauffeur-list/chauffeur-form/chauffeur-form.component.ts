@@ -5,6 +5,10 @@ import { ChauffeurListComponent } from '../chauffeur-list.component';
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material';
 import   localeFr from '@angular/common/locales/fr';
 import { registerLocaleData } from '@angular/common';
+import { Fonction, FonctionClass, IFonctionResponse } from 'src/app/models/engin.model';
+import { debounceTime, finalize, switchMap, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { FonctionService } from 'src/app/services/fonction.service';
 
 @Component({
   selector: 'app-chauffeur-form',
@@ -18,10 +22,13 @@ export class ChauffeurFormComponent implements OnInit {
 
   date: any
   ChauffeurFormEdit: FormGroup
+  filteredFonctions: Fonction[] = [];
+  isLoading = false;
   @ViewChild('resetChauffeurForm',{static: true}) myNgForm : NgForm;
   constructor(
     public fb: FormBuilder ,
     private _adapter: DateAdapter<any>,
+    public serviceFonction : FonctionService,
     public dialogRef: MatDialogRef<ChauffeurListComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this._adapter.setLocale('fr');
@@ -39,10 +46,49 @@ export class ChauffeurFormComponent implements OnInit {
     this.ChauffeurFormEdit= this.fb.group({
       id : new FormControl(),
       name: ['', Validators.required],
+      fonction: ['', Validators.required],
+      id_fonction: [''],
+      matricule: [''],
       date_obtention: new FormControl(),
       date_visite_yeux: new FormControl(),
       type_permis: ['']
     });
+    this.ChauffeurFormEdit.get('fonction')
+    .valueChanges
+    .pipe(
+      debounceTime(100),
+      tap(() => this.isLoading = true),
+      switchMap(value => this.search({name: value})
+      .pipe(
+        finalize(() => {this.isLoading = false}),
+        )
+      )
+    )
+    .subscribe((fonctions)=>this.filteredFonctions = fonctions.results );
+  }
+
+  search(filter: {name: string} = {name: ''}): Observable<IFonctionResponse>{
+    let filterString:string = filter.name
+    if (typeof( filter.name) === 'object') {
+      this.ChauffeurFormEdit.controls['id_fonction'].setValue(filter.name['id'])
+      filterString = filter.name['name']
+    }
+    return this.serviceFonction.GetFonctionListSearch()
+    .pipe(
+      tap((response) => {
+        response.results = response.results.
+        map((fonction)=>new FonctionClass(
+          fonction.id,
+          fonction.name
+          ))
+        .filter(fonction => fonction.name.toUpperCase().includes(filterString.toUpperCase()))
+        return response;
+      })
+      );
+  }
+
+  displayFn(fonction: Fonction): string {
+    return fonction && fonction.name ? fonction.name : '';
   }
 
   /* Get errors */
