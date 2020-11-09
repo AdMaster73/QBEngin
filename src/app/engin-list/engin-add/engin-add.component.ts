@@ -75,7 +75,7 @@ export class EnginAddComponent implements OnInit {
     this.EnginForm.get('fournisseur')
     .valueChanges
     .pipe(
-      debounceTime(200),
+      debounceTime(100),
       tap(() => this.isLoading = true),
       switchMap(value => this.search({name: value})
       .pipe(
@@ -87,7 +87,7 @@ export class EnginAddComponent implements OnInit {
     this.EnginForm.get('categorie')
     .valueChanges
     .pipe(
-      debounceTime(200),
+      debounceTime(100),
       tap(() => this.isLoading = true),
       switchMap(value => this.searchCategorie({name: value})
       .pipe(
@@ -99,7 +99,7 @@ export class EnginAddComponent implements OnInit {
     this.EnginForm.get('chauffeur')
     .valueChanges
     .pipe(
-      debounceTime(200),
+      debounceTime(100),
       tap(() => this.isLoading = true),
       switchMap(value => this.searchChauffeur({name: value})
       .pipe(
@@ -184,17 +184,17 @@ export class EnginAddComponent implements OnInit {
     }
     var icategorie : Categorie = {
       id:this.EnginForm.controls['id_categorie'].value,
-      name:this.EnginForm.controls['categorie'].value,
+      name:this.EnginForm.controls['categorie'].value['name'],
       compte:''
     };
     var ifournisseur : Fournisseur = {
       id:this.EnginForm.controls['id_fournisseur'].value,
-      name:this.EnginForm.controls['fournisseur'].value,
+      name:this.EnginForm.controls['fournisseur'].value['name'],
       compte:''
     };
     var ichauffeur : Chauffeur = {
       id:this.EnginForm.controls['id_chauffeur'].value,
-      name:this.EnginForm.controls['chauffeur'].value
+      name:this.EnginForm.controls['chauffeur'].value['name']
     };
     let engin: Engin = {
           id: this.EnginLastRecord,
