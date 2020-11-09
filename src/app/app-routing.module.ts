@@ -23,6 +23,7 @@ import { EncoursAddComponent } from './transfert/encours-add/encours-add.compone
 import { RegionListComponent } from './region-list/region-list.component';
 import { PointageEnginComponent } from './pointage-list/pointage-engin/pointage-engin.component';
 import { ChauffeurListComponent } from './chauffeur-list/chauffeur-list.component';
+import { ChauffeurFonctionComponent } from './chauffeur-list/chauffeur-fonction/chauffeur-fonction.component';
 
 const routes: Routes = [
   { path: 'sidenav', canActivate: [AuthGuardService], component: MainNavComponent,
@@ -44,6 +45,7 @@ const routes: Routes = [
         { path: 'pointage/engins',component:PointageEnginComponent,canActivate:[AuthGuardService]},
         { path: 'settings',component:SettingsComponent,canActivate:[AuthAdminGuardGuard]},
         { path: 'transfert',component:TransfertComponent,canActivate:[AuthGuardService]},
+        { path: 'fonction',component:ChauffeurFonctionComponent,canActivate:[AuthAdminGuardGuard]},
         { path: 'transfert/add',component:EncoursAddComponent,canActivate:[AuthGuardService]},
         { path: 'region',component:RegionListComponent,canActivate:[AuthGuardService]},
         { path: '**', component: NotFoundComponent }
