@@ -34,7 +34,10 @@ export interface Engin {
     name:string,
     compte?:string
   }
-
+  export interface Fonction{
+    id:number,
+    name:string
+  }
   export interface Chantier{
     id:number,
     name:string,
@@ -165,6 +168,8 @@ export interface Engin {
  export interface Chauffeur{
    id:number,
    name:string,
+   fonction?:Fonction,
+   matricule?:string,
    type_permis?:string,
    date_obtention?:Date,
    date_visite_yeux?:Date,
@@ -195,6 +200,16 @@ export interface IChauffeurResponse {
   results: Chauffeur[];
 }
 export class ChauffeurClass {
+  constructor(
+    public id: number,
+    public name: string
+    ) {}
+}
+export interface IFonctionResponse {
+  total: number;
+  results: Fonction[];
+}
+export class FonctionClass {
   constructor(
     public id: number,
     public name: string
