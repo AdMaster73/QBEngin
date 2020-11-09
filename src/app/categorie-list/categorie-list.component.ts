@@ -83,7 +83,7 @@ export class CategorieListComponent implements OnInit {
     this.dialog.open(CategorieFormComponent,{data:{
       id:element.id,
       name:element.name,
-      compte:element.compte
+      compte:element.compte?element.compte:''
     }}).afterClosed().subscribe(result => {
       if (result){
         this.categorieService.UpdateCategorie(result)
