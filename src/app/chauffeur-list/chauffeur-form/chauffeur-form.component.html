@@ -3,8 +3,17 @@
   <form [formGroup]="ChauffeurFormEdit">
     <!-- Left block -->
     <mat-card>
-      <mat-card-title>Modifier {{data.name}}</mat-card-title>
+      <mat-card-title>Modifier</mat-card-title>
         <input matInput class="invisible" formControlName="id" [(ngModel)]="data.id">
+
+        <!-- Chauffeur matricule -->
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Matricule</mat-label>
+          <input matInput placeholder="Matricule" formControlName="matricule" [(ngModel)]="data.matricule">
+          <mat-error *ngIf="handleError('matricule', 'required')">
+            Vous devez Entrer le <strong>Matricule</strong>
+          </mat-error>
+        </mat-form-field>
 
         <!-- Chauffeur designation -->
         <mat-form-field class="example-full-width" appearance="outline">
@@ -14,6 +23,29 @@
             Vous devez Entrer la <strong>Désignation</strong>
           </mat-error>
         </mat-form-field>
+
+        <!-- fonction -->
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Fonction</mat-label>
+          <input matInput
+          formControlName="fonction"
+          placeholder="Fonction"
+          aria-label="Fonction"
+          [(ngModel)]="data.fonction"
+          [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+            <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="20"></mat-spinner></mat-option>
+            <ng-container *ngIf="!isLoading">
+              <mat-option *ngFor="let fonction of filteredFonctions" [value]="fonction">
+                <span>{{fonction?.name}}</span>
+              </mat-option>
+            </ng-container>
+          </mat-autocomplete>
+          <mat-error *ngIf="handleError('fonction', 'required')">
+            Vous devez selectionnez la <strong>fonction</strong>
+          </mat-error>
+        </mat-form-field>
+          <input matInput class="invisible" formControlName="id_fonction">
 
 
         <!-- Etat du Compteur de kilômetrage -->
@@ -37,7 +69,7 @@
 
         <!--DATE YEUX-->
         <mat-form-field class="example-full-width" appearance="outline">
-          <mat-label>Date permis</mat-label>
+          <mat-label>Date de visite des yeux</mat-label>
           <input matInput [matDatepicker]="picker_y" formControlName="date_visite_yeux" [(ngModel)]="data.date_visite_yeux">
           <mat-datepicker-toggle matSuffix [for]="picker_y"></mat-datepicker-toggle>
           <mat-datepicker touchUi #picker_y></mat-datepicker>
