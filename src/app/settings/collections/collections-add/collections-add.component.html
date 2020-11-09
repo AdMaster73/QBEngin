@@ -1,15 +1,14 @@
-<button mat-icon-button color="primary" [disabled]="CollectionsForm.invalid" matTooltip="Nouvelle élement">
-  <mat-icon aria-label="Example icon-button with a heart icon">done_outline</mat-icon>
-</button>
-<button mat-icon-button color="accent" (click)="closeForm()" matTooltip="Annuler">
-  <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
-</button>
   <!-- Collections form -->
   <div class="example-container">
     <form [formGroup]="CollectionsForm" (ngSubmit)="submitCollectionsForm()">
       <!-- Left block -->
       <mat-card>
-
+        <button mat-icon-button color="primary" [disabled]="CollectionsForm.invalid" matTooltip="Nouvelle élement">
+          <mat-icon aria-label="Example icon-button with a heart icon">done_outline</mat-icon>
+        </button>
+        <button mat-icon-button color="accent" (click)="closeForm()" matTooltip="Annuler">
+          <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
+        </button>
         <mat-card-title>Ajouter une collection</mat-card-title>
 
           <!-- Collections display name -->
