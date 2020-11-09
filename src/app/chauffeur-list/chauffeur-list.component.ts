@@ -46,7 +46,7 @@ export class ChauffeurListComponent implements OnInit {
           })
       })();
       }
-    displayedColumns: string[] = ['action','numero', 'designation','type_permis','date_obtention','date_visite_yeux'];
+    displayedColumns: string[] = ['action','matricule', 'designation','fonction','type_permis','date_obtention','date_visite_yeux'];
     dataSource : MatTableDataSource<Chauffeur>;
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
     @ViewChild(MatSort, {static : true}) sort: MatSort;
@@ -83,6 +83,11 @@ export class ChauffeurListComponent implements OnInit {
       this.dialog.open(ChauffeurFormComponent,{data:{
         id:chauffeur.id,
         name:chauffeur.name,
+        matricule:chauffeur.matricule,
+        fonction:{
+          id:eval(chauffeur.fonction.id),
+          name:chauffeur.fonction.name
+        },
         type_permis:chauffeur.type_permis,
         date_obtention:chauffeur.date_obtention,
         date_visite_yeux:chauffeur.date_visite_yeux
