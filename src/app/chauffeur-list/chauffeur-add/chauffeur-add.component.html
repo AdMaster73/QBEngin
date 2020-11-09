@@ -10,8 +10,9 @@
     <!-- Left block -->
     <mat-card>
 
-      <mat-card-title>Ajouter un Chauffeur</mat-card-title>
-        <!-- User display name -->
+      <mat-card-title>Ajouter une personne</mat-card-title>
+
+        <!-- chauffeur name -->
         <mat-form-field class="example-full-width" appearance="outline">
           <mat-label>Nom complet</mat-label>
           <input matInput placeholder="Nom complet" formControlName="name">
@@ -19,6 +20,39 @@
             Vous devez Entrer le <strong>Nom complet</strong>
           </mat-error>
         </mat-form-field>
+
+        <!-- chauffeur matricule -->
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Matricule</mat-label>
+          <input matInput placeholder="Matricule" formControlName="matricule">
+          <mat-error *ngIf="handleError('matricule', 'required')">
+            Vous devez Entrer le <strong>Nom complet</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- fonction -->
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Fonction</mat-label>
+          <input matInput
+          formControlName="fonction"
+          placeholder="Fonction"
+          aria-label="Fonction"
+          [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+            <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="20"></mat-spinner></mat-option>
+            <ng-container *ngIf="!isLoading">
+              <mat-option *ngFor="let fonction of filteredFonctions" [value]="fonction">
+                <span>{{fonction?.name}}</span>
+              </mat-option>
+            </ng-container>
+          </mat-autocomplete>
+          <mat-error *ngIf="handleError('fonction', 'required')">
+            Vous devez selectionnez la <strong>fonction</strong>
+          </mat-error>
+        </mat-form-field>
+          <input matInput class="invisible" formControlName="id_fonction">
+
+
     </mat-card>
   </form>
 </div>
