@@ -7,8 +7,10 @@ import { MatDialogRef} from '@angular/material/dialog';
 import { DateAdapter} from '@angular/material/core';
 import { ChauffeurListComponent } from '../chauffeur-list.component';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { Chauffeur } from 'src/app/models/engin.model';
+import { Chauffeur, Fonction, FonctionClass, IFonctionResponse } from 'src/app/models/engin.model';
 import { ChauffeurService } from 'src/app/services/chauffeur.service';
+import { debounceTime, finalize, switchMap, tap } from 'rxjs/operators';
+import { FonctionService } from 'src/app/services/fonction.service';
 
 @Component({
   selector: 'app-chauffeur-add',
@@ -23,6 +25,8 @@ export class ChauffeurAddComponent implements OnInit {
   selectable = true;
   removable = true;
   addOnBlur = true;
+  isLoading = false;
+  filteredFonctions: Fonction[] = [];
   ChauffeurLastRecord: number;
   Chauffeurs: Chauffeur[];
   results$ : Observable<any[]>;
@@ -38,6 +42,7 @@ export class ChauffeurAddComponent implements OnInit {
       public db : AngularFirestore,
       public fb: FormBuilder ,
       private ChauffeurService : ChauffeurService,
+      public serviceFonction : FonctionService,
       private _adapter: DateAdapter<any>,
       public dialogRef: MatDialogRef<ChauffeurListComponent>) {}
 
@@ -49,11 +54,46 @@ export class ChauffeurAddComponent implements OnInit {
       })
     })
     this.ChauffeurForm = this.fb.group({
-      name: ['', Validators.required]
+      name: ['', Validators.required],
+      matricule: [''],
+      fonction: [''],
+      id_fonction: [''],
     })
+    this.ChauffeurForm.get('fonction')
+    .valueChanges
+    .pipe(
+      debounceTime(100),
+      tap(() => this.isLoading = true),
+      switchMap(value => this.search({name: value})
+      .pipe(
+        finalize(() => {this.isLoading = false}),
+        )
+      )
+    )
+    .subscribe((fonctions)=>this.filteredFonctions = fonctions.results );
   }
-  search(searchText){
-    this.startAt.next(searchText);
+  search(filter: {name: string} = {name: ''}): Observable<IFonctionResponse>{
+    let filterString:string = filter.name
+    if (typeof( filter.name) === 'object') {
+      this.ChauffeurForm.controls['id_fonction'].setValue(filter.name['id'])
+      filterString = filter.name['name']
+    }
+    return this.serviceFonction.GetFonctionListSearch()
+    .pipe(
+      tap((response) => {
+        response.results = response.results.
+        map((fonction)=>new FonctionClass(
+          fonction.id,
+          fonction.name
+          ))
+        .filter(fonction => fonction.name.toUpperCase().includes(filterString.toUpperCase()))
+        return response;
+      })
+      );
+  }
+
+  displayFn(fonction: Fonction): string {
+    return fonction && fonction.name ? fonction.name : '';
   }
 
   /* Reactive book form */
@@ -65,7 +105,12 @@ export class ChauffeurAddComponent implements OnInit {
     if(!this.ChauffeurLastRecord) this.ChauffeurLastRecord = 1
     var iChauffeur : Chauffeur = {
       id:this.ChauffeurLastRecord,
-      name:this.ChauffeurForm.controls['name'].value
+      name:this.ChauffeurForm.controls['name'].value,
+      matricule:this.ChauffeurForm.controls['matricule'].value,
+      fonction:{
+        id : eval(this.ChauffeurForm.controls['fonction'].value['id']),
+        name : this.ChauffeurForm.controls['fonction'].value['name']
+      }
     }
 
     this.ChauffeurService.AddChauffeur(iChauffeur).then(
