@@ -1,0 +1,23 @@
+  <!-- Fonction form -->
+  <div class="example-container">
+    <form [formGroup]="FonctionForm" (ngSubmit)="submitFonctionForm()">
+      <button mat-icon-button color="primary" [disabled]="FonctionForm.invalid" matTooltip="Nouvelle élement">
+        <mat-icon aria-label="Example icon-button with a heart icon">done_outline</mat-icon>
+      </button>
+      <button mat-icon-button color="accent" (click)="closeForm()" matTooltip="Annuler">
+        <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
+      </button>
+      <!-- Left block -->
+      <mat-card>
+        <mat-card-title>Ajouter une Fonction</mat-card-title>
+          <!-- Fonction designation -->
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Désignation</mat-label>
+            <input matInput placeholder="Désignation" formControlName="name">
+            <mat-error *ngIf="handleError('name', 'required')">
+              Vous devez Entrer la <strong>Désignation</strong>
+            </mat-error>
+          </mat-form-field>
+      </mat-card>
+    </form>
+  </div>
