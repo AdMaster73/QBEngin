@@ -36,11 +36,16 @@ export class ChauffeurService {
   }
 
 	/* Cérer un Chauffeur */
-	AddChauffeur(Chauffeur: Chauffeur){
-		return this.afs.collection('chauffeur').doc(Chauffeur.id.toString()).set({
+	AddChauffeur(chauffeur: Chauffeur){
+		return this.afs.collection('chauffeur').doc(chauffeur.id.toString()).set({
 			createdBy: this.firebaseAuth.auth.currentUser.uid,
 			createdAt: firestore.FieldValue.serverTimestamp(),
-			name: Chauffeur.name.toUpperCase()
+      name: chauffeur.name.toUpperCase(),
+      matricule: chauffeur.matricule,
+      fonction:{
+        id:eval(chauffeur.fonction.id.toString()),
+        name:chauffeur.fonction.name
+      }
 		})
 	}
 
@@ -77,10 +82,15 @@ export class ChauffeurService {
 		this.afs.doc('chauffeur/'+chauffeur.id).update({
 			updatedBy: this.firebaseAuth.auth.currentUser.uid,
 			updatedAt: firestore.FieldValue.serverTimestamp(),
-			name: chauffeur.name.toUpperCase(),
-			type_permis: chauffeur.type_permis.toUpperCase(),
-			date_obtention: chauffeur.date_obtention,
-			date_visite_yeux: chauffeur.date_visite_yeux
+      name: chauffeur.name.toUpperCase(),
+      fonction:{
+        id:eval(chauffeur.fonction.id.toString()),
+        name:chauffeur.fonction.name
+      },
+			matricule: chauffeur.matricule?chauffeur.matricule:'',
+			type_permis: chauffeur.type_permis?chauffeur.type_permis.toUpperCase():'',
+			date_obtention: chauffeur.date_obtention?chauffeur.date_obtention:'',
+			date_visite_yeux: chauffeur.date_visite_yeux?chauffeur.date_visite_yeux:''
 		})
 	}
 }
