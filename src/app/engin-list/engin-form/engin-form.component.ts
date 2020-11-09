@@ -74,7 +74,7 @@ export class EnginFormComponent implements OnInit {
       consomation:new FormControl(),
       n_serie:new FormControl(),
       b_code:new FormControl('', [
-        Validators.required,
+        /* Validators.required, */
         Validators.pattern("^[0-9]*$"),
         Validators.minLength(6),
         Validators.maxLength(6)
@@ -128,6 +128,7 @@ export class EnginFormComponent implements OnInit {
 
   search(filter: {name: string} = {name: ''}): Observable<IFournisseurResponse>{
     let filterString:string = filter.name
+    console.log(filter)
     if (typeof( filter.name) === 'object') {
       this.EnginFormEdit.controls['id_fournisseur'].setValue(filter.name['id'])
       filterString = filter.name['name']
@@ -140,7 +141,8 @@ export class EnginFormComponent implements OnInit {
           fournisseur.id,
           fournisseur.name
           ))
-        .filter(fournisseur => fournisseur.name.toUpperCase().includes(filterString.toUpperCase()))
+        .filter(fournisseur => {
+          fournisseur.name.toUpperCase().includes(filterString.toUpperCase())})
         return response;
       })
       );
