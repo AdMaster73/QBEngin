@@ -125,6 +125,9 @@ import { ChauffeurListComponent } from './chauffeur-list/chauffeur-list.componen
 import { ChauffeurAddComponent } from './chauffeur-list/chauffeur-add/chauffeur-add.component';
 import { ChauffeurFormComponent } from './chauffeur-list/chauffeur-form/chauffeur-form.component';
 import { ChauffeurDeleteComponent } from './chauffeur-list/chauffeur-delete/chauffeur-delete.component';
+import { ChauffeurFonctionComponent } from './chauffeur-list/chauffeur-fonction/chauffeur-fonction.component';
+import { FonctionAddComponent } from './chauffeur-list/chauffeur-fonction/fonction-add/fonction-add.component';
+import { FonctionFormComponent } from './chauffeur-list/chauffeur-fonction/fonction-form/fonction-form.component';
 
 firebase.initializeApp(environment.firebaseConfig);
 
@@ -195,7 +198,10 @@ firebase.initializeApp(environment.firebaseConfig);
 	ChauffeurListComponent,
 	ChauffeurAddComponent,
 	ChauffeurFormComponent,
-	ChauffeurDeleteComponent
+	ChauffeurDeleteComponent,
+	ChauffeurFonctionComponent,
+	FonctionAddComponent,
+	FonctionFormComponent
   ],
   entryComponents: [
 	BottomSheetOverviewExampleSheet,
@@ -230,7 +236,9 @@ firebase.initializeApp(environment.firebaseConfig);
   PointageAddComponent,
   ChauffeurAddComponent,
   ChauffeurFormComponent,
-  ChauffeurDeleteComponent
+  ChauffeurDeleteComponent,
+  FonctionAddComponent,
+  FonctionFormComponent
   ],
   imports: [
     BrowserModule,
