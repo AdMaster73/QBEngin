@@ -12,6 +12,7 @@ import { RolesService } from '../services/roles.service';
 import { Collections, Roles } from '../models/engin.model';
 import * as firebase from 'firebase';
 import { firestore } from 'firebase';
+import { admin } from 'firebase-admin/lib/database';
 
 @Component({
   selector: 'main-nav',
@@ -46,11 +47,19 @@ export class MainNavComponent  implements AfterViewInit, OnInit{
           this.collections$ = new Observable((observer: Observer<Collections[]>) => {
           this.rolesService.getRolesByNameAndType(this.roleCurrentUser).subscribe(roles=>{
             roles.forEach(item=>{
-              this.afs
-              .collection<Collections>('collections',ref=>ref.where(firestore.FieldPath.documentId(),'in',item.list)).valueChanges()
-              .subscribe(result=>{
-                observer.next(result.sort((a,b)=>a.order - b.order))
-              })
+              if(this.roleCurrentUser == "admin"){
+                this.afs
+                .collection<Collections>('collections').valueChanges()
+                .subscribe(result=>{
+                  observer.next(result.sort((a,b)=>a.order - b.order))
+                })
+              }else{
+                this.afs
+                .collection<Collections>('collections',ref=>ref.where(firestore.FieldPath.documentId(),'in',item.list)).valueChanges()
+                .subscribe(result=>{
+                  observer.next(result.sort((a,b)=>a.order - b.order))
+                })
+              }
             })
           })
         })
