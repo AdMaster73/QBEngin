@@ -53,11 +53,11 @@ export class EnginListComponent implements OnInit{
     {"value":'action',"show": true},
     {"value":'numero',"show": false},
     {"value":'code',"show": true},
+    {"value":'b_code',"show": true},
     {"value":'designation',"show": true},
     {"value":'categorie',"show": true},
     {"value":'fournisseur',"show": true},
     {"value":'chauffeur',"show": true},
-    {"value":'b_code',"show": true},
     {"value":'etat_f',"show": false},
     {"value":'site',"show": true},
     {"value":'position',"show": true}
@@ -105,7 +105,7 @@ export class EnginListComponent implements OnInit{
     if(etat == ''){
       this.enginService.getEnginWithChantierName().subscribe(
         data => {
-          this.dataSource = new MatTableDataSource(data);
+          this.dataSource = new MatTableDataSource(data.sort((a,b)=>a.b_code - b.b_code));
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
           this.paginator._intl.itemsPerPageLabel = 'Affichage par page.';
