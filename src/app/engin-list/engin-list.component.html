@@ -1,10 +1,10 @@
-<h3>Liste des engins</h3>
+<h3>Liste des matériels</h3>
 <button mat-fab *ngIf="collectionPermAdd" color="primary" matTooltip="Nouvelle élement" (click)="addEngin()" class="addEngin">
   <i class="material-icons">add</i>
 </button>
 
 <mat-form-field>
-    <mat-label>Recherche par Engin</mat-label>
+    <mat-label>Recherche par Matériel</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. 102">
 </mat-form-field>
   <div class="mat-elevation-z8">
@@ -16,7 +16,7 @@
       <mat-chip class="attente" (click)="filterEtat('EN ATTENTE')">En Attente</mat-chip>
       <mat-chip class="panne" (click)="filterEtat('PANNE')">En Panne</mat-chip>
     </mat-chip-list>
-  <table mat-table [dataSource]="dataSource">
+  <table mat-table [dataSource]="dataSource" matSort>
 
     <!-- Numero Column -->
     <ng-container matColumnDef="numero" class="make-red">
@@ -48,7 +48,7 @@
 
     <!-- Code Column -->
     <ng-container matColumnDef="code">
-      <th mat-header-cell *matHeaderCellDef> Code </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Code </th>
       <td mat-cell *matCellDef="let element"> {{element.code}} </td>
     </ng-container>
 
@@ -84,7 +84,7 @@
 
     <!-- B_CODE Column -->
     <ng-container matColumnDef="b_code">
-      <th mat-header-cell *matHeaderCellDef>Code Bare </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Code Bare </th>
       <td mat-cell *matCellDef="let element"> {{element.b_code}} </td>
     </ng-container>
 
