@@ -96,11 +96,11 @@ export class EnginService {
   }
 
   getEnginWithChantierName(){//,ref=>ref.where('pointed','==',1)
-  /* const db = firebase.firestore()
-    db.collection("engin").get().then((querySnapshot) =>{
+  const db = firebase.firestore()
+    /* db.collection("engin").get().then((querySnapshot) =>{
       querySnapshot.forEach((doc) =>{
           doc.ref.update({
-              b_code:firebase.firestore.FieldValue.delete()
+              id_chantier:firebase.firestore.FieldValue.delete()
           });
       });
     }); */
