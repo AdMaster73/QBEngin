@@ -2,12 +2,15 @@
 <button mat-fab *ngIf="collectionPermAdd" color="primary" matTooltip="Nouvelle élement" (click)="addEngin()" class="addEngin">
   <i class="material-icons">add</i>
 </button>
+<button mat-fab *ngIf="collectionPermAdd" color="primary" matTooltip="Imprimer" (click)="exportToExcel()" class="addEngin">
+  <i class="material-icons">print</i>
+</button>
 
 <mat-form-field>
     <mat-label>Recherche par Matériel</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. 102">
 </mat-form-field>
-  <div class="mat-elevation-z8">
+  <div class="mat-elevation-z8" #epltable>
     <mat-chip-list aria-label="Fish selection" button>
       <mat-chip class="refresh" (click)="filterEtat('')">Refresh</mat-chip>
       <mat-chip class="marche" (click)="filterEtat('MARCHE')">Marche</mat-chip>
