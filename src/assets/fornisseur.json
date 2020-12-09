@@ -1,7 +1,7 @@
 [
     {
         "id": 1,
-        "fournisseur": "Tractafric"
+        "fournisseur": "TRACTAFRIC"
     },
     {
         "id": 2,
@@ -29,7 +29,7 @@
     },
     {
         "id": 8,
-        "fournisseur": "La ligne Blanche"
+        "fournisseur": "LIGNE BLANCHE"
     },
     {
         "id": 9,
@@ -61,7 +61,7 @@
     },
     {
         "id": 16,
-        "fournisseur": "STE AZIBRAMO"
+        "fournisseur": "AZIBRAMO"
     },
     {
         "id": 17,
@@ -165,7 +165,7 @@
     },
     {
         "id": 42,
-        "fournisseur": "\"GARAGE EL MASSIRA MOUNIR"
+        "fournisseur": "GARAGE EL MASSIRA MOUNIR"
     },
     {
         "id": 43,
@@ -265,7 +265,7 @@
     },
     {
         "id": 67,
-        "fournisseur": "Atelier Fertat"
+        "fournisseur": "ATERLIER FERTAT"
     },
     {
         "id": 68,
@@ -326,9 +326,5 @@
     {
         "id": 82,
         "fournisseur": "GERIS"
-    },
-    {
-        "id": 83,
-        "fournisseur": "Sans Fournisseur"
     }
 ]
