@@ -1,8 +1,8 @@
 <div class="grid-container">
-  <h1 class="mat-h2">Tableau de bord</h1>
+  <h1 class="mat-h2">Tableau de bord pour différent sites</h1>
   <mat-list>
-    <div mat-subheader>Chantiers</div>
-    <mat-list-item *ngFor="let chantier of (chantier$ | async)">
+    <!-- <div mat-subheader>Sites</div> -->
+    <mat-list-item *ngFor="let chantier of (chantier$ | async)" (click)="chantier.engins.length !== 0?forwordSites(chantier):''" [ngClass]="{'pointer':chantier.engins.length !== 0}">
       <mat-icon mat-list-icon>place</mat-icon>
       <div mat-line>{{chantier.name}}</div>
       <span *ngIf="chantier.users">
