@@ -109,6 +109,24 @@
             <input matInput type="number" placeholder="Durée de Contrat" formControlName="duree_contrat" [(ngModel)]="data.duree_contrat">
           </mat-form-field>
 
+
+          <!-- type_pointage -->
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Type de pointage</mat-label>
+            <mat-select [(ngModel)]="data.type_pointage" formControlName="type_pointage">
+              <mat-option *ngFor="let typePointage of ['Mensuel','Quinzainier']" [value]="typePointage">
+                {{typePointage}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          
+          <!-- Personnel heure_pp -->
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Heure de pointage par defaut</mat-label>
+            <input matInput type="number" min="9" max="12" placeholder="Durée de Contrat" formControlName="heure_pp" [(ngModel)]="data.heure_pp">
+          </mat-form-field>
+
           <mat-card-actions>
             <button mat-icon-button color="primary" [disabled]="PersonnelFormEdit.invalid" [mat-dialog-close]="data">
               <mat-icon aria-label="Example icon-button with a heart icon">edit</mat-icon>

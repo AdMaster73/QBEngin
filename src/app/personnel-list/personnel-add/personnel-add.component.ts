@@ -25,6 +25,8 @@ export class PersonnelAddComponent implements OnInit {
   results_f$: Observable<any[]>;
   filteredContrats: TypeOfContrat[] = [];
   isLoading = false;
+  maxDateAmb:Date=new Date()
+  maxDate:Date = new Date(new Date().getFullYear()-18,new Date().getMonth()-1,new Date().getDate())
   startAt: BehaviorSubject<string | null> = new BehaviorSubject('');
 
   @ViewChild('resetPersonnelForm',{static: true}) myNgForm : NgForm;
@@ -52,7 +54,9 @@ export class PersonnelAddComponent implements OnInit {
       date_naissance: ['', Validators.required],
       date_ambauche: ['', Validators.required],
       type_contrat: [''],
-      duree_contrat: ['']
+      duree_contrat: [''],
+      matricule: [''],
+      cin: [''],
     })
     this.PersonnelForm.get('type_contrat')
     .valueChanges
@@ -113,6 +117,8 @@ export class PersonnelAddComponent implements OnInit {
       date_ambauche:this.PersonnelForm.controls['date_ambauche'].value,
       type_contrat:this.PersonnelForm.controls['type_contrat'].value,
       duree_contrat:this.PersonnelForm.controls['duree_contrat'].value,
+      matricule:this.PersonnelForm.controls['matricule'].value,
+      cin:this.PersonnelForm.controls['cin'].value,
     }
 
     this.personnelService.AddPersonnel(iPersonnel).then(

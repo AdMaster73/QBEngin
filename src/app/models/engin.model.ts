@@ -263,7 +263,14 @@ export interface Personnel{
   num_tele?:string,
   updatetedAt?:Date,
   updatetedBy?:string,
-  id_chantier?:string
+  id_chantier?:string,
+  heure_pp?:number,
+  totalMois?:number,
+  last_day?:number,
+  isChecked?:boolean,
+  pending?:number,
+  id_pending?:string,
+  type_pointage?:string
 }
 
 export interface TypeOfContrat{

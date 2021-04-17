@@ -46,7 +46,9 @@ export class PersonnelFormComponent implements OnInit {
       matricule:[''],
       date_ambauche:['',Validators.required],
       duree_contrat:[''],
+      heure_pp:[''],
       type_contrat:['',Validators.required],
+      type_pointage:['',Validators.required],
       fonction:['',Validators.required]
     });
 

@@ -51,16 +51,19 @@ export class PersonnelService {
     }else{
       idPending = year.toString()+month.toString()+numberOfNow
     }
-		return this.afs.collection('personnel').doc(personnel.id.toString()).set({
+		this.afs.collection('personnel').doc(personnel.id.toString()).set({
 			createdBy: this.firebaseAuth.auth.currentUser.uid,
 			createdAt: firestore.FieldValue.serverTimestamp(),
       f_name: personnel.f_name.toUpperCase(),
 			l_name: personnel.l_name,
+			matricule: personnel.matricule,
+			cin: personnel.cin,
       date_naissance:personnel.date_naissance,
       date_ambauche:personnel.date_ambauche,
       pending:1,
       heure_pp:9,
       totalMois:0,
+      type_pointage:"",
       id_pending:idPending,
       type_contrat:{
         id:eval(personnel.type_contrat.id.toString()),
@@ -68,8 +71,8 @@ export class PersonnelService {
       },
       duree_contrat:personnel.duree_contrat,
       archive:0
-		})
-    this.afs.collection('personnel/'+personnel.id+'/pending').doc(idPending).set({
+		},{merge:true})
+    return this.afs.collection('personnel/'+personnel.id+'/pending').doc(idPending).set({
       uid:this.firebaseAuth.auth.currentUser.uid,
       date_pending:firestore.FieldValue.serverTimestamp()      
     })
@@ -144,7 +147,9 @@ export class PersonnelService {
 			date_naissance: personnel.date_naissance,
 			matricule: personnel.matricule,
 			date_ambauche: personnel.date_ambauche,
-      duree_contrat:personnel.duree_contrat,
+      duree_contrat:personnel.duree_contrat?personnel.duree_contrat:0,
+      type_pointage:personnel.type_pointage,
+      heure_pp:personnel.heure_pp,
       fonction:{
         id:eval(personnel.fonction.id.toString()),
         name:personnel.fonction.name

@@ -28,10 +28,30 @@
             </mat-error>
           </mat-form-field>
 
+          
+          <!-- Personnel matricule -->
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Matricule</mat-label>
+            <input matInput placeholder="Matricule" formControlName="matricule">
+            <mat-error *ngIf="handleError('matricule', 'required')">
+              Vous devez Entrer la <strong>Matricule</strong>
+            </mat-error>
+          </mat-form-field>
+
+          
+          <!-- Personnel cin -->
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>CIN</mat-label>
+            <input matInput placeholder="CIN" formControlName="cin">
+            <mat-error *ngIf="handleError('cin', 'required')">
+              Vous devez Entrer la <strong>CIN</strong>
+            </mat-error>
+          </mat-form-field>
+
           <!--DATE NAISSANCNE-->
           <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>Date de naissance</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="date_naissance">
+            <input matInput [matDatepicker]="picker" [max]="maxDate" formControlName="date_naissance">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker touchUi #picker></mat-datepicker>
           </mat-form-field>
@@ -39,7 +59,7 @@
           <!--DATE AMBAUCHE-->
           <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>Date d'ambauche</mat-label>
-            <input matInput [matDatepicker]="pickerA" formControlName="date_ambauche">
+            <input matInput [matDatepicker]="pickerA" [max]="maxDateAmb" formControlName="date_ambauche">
             <mat-datepicker-toggle matSuffix [for]="pickerA"></mat-datepicker-toggle>
             <mat-datepicker touchUi #pickerA></mat-datepicker>
           </mat-form-field>

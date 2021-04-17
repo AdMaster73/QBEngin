@@ -47,7 +47,7 @@ export class PersonnelListComponent implements OnInit {
         })
     })();
     }
-  displayedColumns: string[] = ['action','matricule', 'f_name','l_name','cin','date_naissance','fonction','type_contrat','date_amboche','duree_contrat','id_chantier'];
+  displayedColumns: string[] = ['action','matricule', 'f_name','l_name','cin','date_naissance','fonction','type_pointage','type_contrat','date_amboche','duree_contrat','id_chantier'];
   dataSource : MatTableDataSource<Personnel>;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static : true}) sort: MatSort;
@@ -100,6 +100,12 @@ export class PersonnelListComponent implements OnInit {
       },
       duree_contrat:element.duree_contrat,
       num_tele:element.num_tele,
+      type_pointage:element.type_pointage,
+      heure_pp:element.heure_pp,
+      totalMois:element.totalMois,
+      last_day:element.last_day,
+      isChecked:element.isChecked,
+      pending:element.pending
     }}).afterClosed().subscribe(result => {
       if (result){
         this.personnelService.UpdatePersonnel(result)
