@@ -21,6 +21,8 @@ export class PointageService {
 
     addPointage(result: any,engin :Engin) {
       var id_chantier = engin.id_chantier === undefined ? 249 : engin.id_chantier
+      var bon = result.bon === undefined ? "" : result.bon
+      var etiquette_nvx = result.etiquette_nvx === undefined ? "" : result.etiquette_nvx
       var latitude = result.latitude === null ? 33.8504681 : result.latitude
       var longitude = result.longitude === null ? -7.0409885 : result.longitude
       let etiquette_ancienne = engin.etiquette_ancienne == undefined ? 0:engin.etiquette_ancienne
@@ -36,9 +38,9 @@ export class PointageService {
                 engin.compteur,
                 result.compteur_nvx,
                 result.consomation,
-                result.etat_compt,
-                result.bon,
-                result.etiquette_nvx
+                result.etat_k,
+                bon,
+                etiquette_nvx
               ],
               heure_ar:result.heure_ar,
               heure_m:result.heure_m,
@@ -55,7 +57,7 @@ export class PointageService {
                 last_pointage:maintenant,
                 etat_f:result.etat_f,
                 compteur: result.compteur_nvx,
-                etiquette_ancienne: result.etiquette_nvx,
+                etiquette_ancienne: etiquette_nvx,
                 pointed:1
               })
             }else{
@@ -64,7 +66,7 @@ export class PointageService {
                 etat_f:result.etat_f,
                 compteur: result.compteur_nvx,
                 compteur_dernier_v:result.compteur_nvx,
-                etiquette_ancienne: result.etiquette_nvx,
+                etiquette_ancienne: etiquette_nvx,
                 date_v:firestore.FieldValue.serverTimestamp(),
                 vidange_complet:result.vidange,
                 pointed:1
