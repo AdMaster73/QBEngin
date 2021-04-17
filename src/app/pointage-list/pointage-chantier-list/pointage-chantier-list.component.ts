@@ -1,5 +1,8 @@
 import { Component, OnInit, ViewChild, Injectable } from '@angular/core';
-import {MatTableDataSource, MatSort, MatDialog, NativeDateAdapter, DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
+import { NativeDateAdapter, DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import { EnginService } from './../../services/engin.service';
 import { Engin, Chantier } from './../../models/engin.model';
