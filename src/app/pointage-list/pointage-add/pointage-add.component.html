@@ -110,7 +110,7 @@
 
         <mat-form-field appearance="outline">
           <mat-label>Etat de compteur</mat-label>
-          <mat-select formControlName="etat_compt" [(ngModel)]="compteur_etat" >
+          <mat-select formControlName="etat_k" [(ngModel)]="compteur_etat" >
             <mat-option *ngFor="let compte of ['MARCHE','PANNE','INNEXISTANT']" [value]="compte">
               {{compte}}
             </mat-option>
