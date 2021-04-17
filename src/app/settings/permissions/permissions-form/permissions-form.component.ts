@@ -1,5 +1,7 @@
 import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
-import { MAT_DIALOG_DATA, MatAccordion, MatAutocomplete } from '@angular/material';
+import { MatAutocomplete } from '@angular/material/autocomplete';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatAccordion } from '@angular/material/expansion';
 import { startWith, map } from 'rxjs/operators';
 import { RolesService } from 'src/app/services/roles.service';
 import { CollectionsService } from 'src/app/services/collections.service';
