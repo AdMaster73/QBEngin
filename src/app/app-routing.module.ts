@@ -54,14 +54,14 @@ const routes: Routes = [
         { path: '**', component: NotFoundComponent }
 
         ]},
-  { path: '', canActivate: [AuthGuardService], pathMatch: 'full', redirectTo: 'sidenav'},
+  { path: '', pathMatch: 'full', redirectTo: 'sidenav' },
   { path: 'auth/signUp', component: SignupComponent,canActivate:[AuthAdminGuardGuard] },
   { path: 'auth/signin', component: SigninComponent },
   { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
 exports: [RouterModule]
 })
 export class AppRoutingModule { }
