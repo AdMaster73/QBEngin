@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Injectable } from '@angular/core';
 import {MatTableDataSource, MatSort, MatDialog, NativeDateAdapter, DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
 import {MatPaginator} from '@angular/material/paginator';
 import { EnginService } from './../../services/engin.service';
@@ -20,6 +20,7 @@ export const PICK_FORMATS = {
   }
 };
 
+@Injectable()
 export class PickDateAdapter extends NativeDateAdapter {
   format(date: Date, displayFormat: Object): string {
       if (displayFormat === 'input') {
