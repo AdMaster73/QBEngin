@@ -1,0 +1,115 @@
+<h3>Liste des Personnes</h3>
+<button mat-fab *ngIf="collectionPermAdd" color="primary" matTooltip="Nouvelle élement" (click)="addPersonnel()" class="addEngin"> <i class="material-icons">add</i> </button>
+<mat-form-field>
+    <mat-label>Recherche par Personnes</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Cate">
+  </mat-form-field>
+  <div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource">
+
+    <!-- f_name Column -->
+    <ng-container matColumnDef="f_name">
+      <th mat-header-cell *matHeaderCellDef> Nom </th>
+      <td mat-cell *matCellDef="let element"> {{element.f_name}} </td>
+    </ng-container>
+
+    <!-- l_name Column -->
+    <ng-container matColumnDef="l_name">
+      <th mat-header-cell *matHeaderCellDef> Prénom </th>
+      <td mat-cell *matCellDef="let element"> {{element.l_name}} </td>
+    </ng-container>
+
+    <!-- cin Column -->
+    <ng-container matColumnDef="cin">
+      <th mat-header-cell *matHeaderCellDef> CIN </th>
+      <td mat-cell *matCellDef="let element"> {{element.cin}} </td>
+    </ng-container>
+
+    <!-- date_naissance Column -->
+    <ng-container matColumnDef="date_naissance">
+      <th mat-header-cell *matHeaderCellDef> Naissance </th>
+      <td mat-cell *matCellDef="let element">
+        <ng-container *ngIf="!element.date_naissance">
+          {{element.date_naissance | date:'dd/MM/yyyy'}}
+        </ng-container>
+        <ng-container *ngIf="element.date_naissance">
+          {{element.date_naissance.toDate() | date:'dd/MM/yyyy'}}
+        </ng-container>
+      </td>
+    </ng-container>
+
+    <!-- fonction Column -->
+    <ng-container matColumnDef="fonction">
+      <th mat-header-cell *matHeaderCellDef> Fonction </th>
+      <td mat-cell *matCellDef="let element"> {{element.fonction?element.fonction.name:''}} </td>
+    </ng-container>
+
+    <!-- matricule Column -->
+    <ng-container matColumnDef="matricule">
+      <th mat-header-cell *matHeaderCellDef> Matricule </th>
+      <td mat-cell *matCellDef="let element"> {{element.matricule}} </td>
+    </ng-container>
+
+    <!-- date_amboche Column -->
+    <ng-container matColumnDef="date_amboche">
+      <th mat-header-cell *matHeaderCellDef> Ambauche </th>
+      <td mat-cell *matCellDef="let element">
+        <ng-container *ngIf="element.date_ambauche">
+          {{element.date_ambauche.toDate() | date : 'dd/MM/yyyy'}}
+        </ng-container>
+        <ng-container *ngIf="!element.date_ambauche">
+        </ng-container>
+      </td>
+    </ng-container>
+
+    <!-- type_contrat Column -->
+    <ng-container matColumnDef="type_contrat">
+      <th mat-header-cell *matHeaderCellDef> Type de Contrat </th>
+      <td mat-cell *matCellDef="let element"> {{element.type_contrat?element.type_contrat.name:''}} </td>
+    </ng-container>
+
+    <!-- affectation Column -->
+    <ng-container matColumnDef="id_chantier">
+      <th mat-header-cell *matHeaderCellDef> Affectation </th>
+      <td mat-cell *matCellDef="let element"> {{element.chantiers[0].name}} </td>
+    </ng-container>
+
+    <!-- duree_contrat Column -->
+    <ng-container matColumnDef="duree_contrat">
+      <th mat-header-cell *matHeaderCellDef> Fin Contrat </th>
+      <td mat-cell *matCellDef="let element">
+        <ng-container *ngIf="element.date_ambauche && element.type_contrat.name !== 'CDI'">
+          {{element.date_ambauche.toDate().setMonth( element.date_ambauche.toDate().getMonth() + element.duree_contrat ) | date : 'dd/MM/yyyy'}}
+        </ng-container>
+        <ng-container *ngIf="!element.date_ambauche">
+        </ng-container>
+      </td>
+    </ng-container>
+
+
+
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef>Action</th>
+      <td mat-cell *matCellDef="let element; let i = index;">
+        <button mat-icon-button *ngIf="collectionMenuToggel" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item *ngIf="collectionPermDelete" (click)="deletePersonnel(element.id)">
+              <mat-icon>delete</mat-icon>
+              <span>Supprimer</span>
+            </button>
+            <button mat-menu-item *ngIf="collectionPermUpdate" (click)="editPersonnel(i,element)">
+              <mat-icon>edit</mat-icon>
+              <span>Modifier</span>
+            </button>
+          </mat-menu>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
+  </div>
