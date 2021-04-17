@@ -10,9 +10,9 @@ import { ListNfraisTableDataSource, ListNfraisTableItem } from './list-nfrais-ta
   styleUrls: ['./list-nfrais-table.component.scss']
 })
 export class ListNfraisTableComponent implements AfterViewInit, OnInit {
-  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: false}) sort: MatSort;
-  @ViewChild(MatTable, {static: false}) table: MatTable<ListNfraisTableItem>;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatTable) table: MatTable<ListNfraisTableItem>;
   dataSource: ListNfraisTableDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
