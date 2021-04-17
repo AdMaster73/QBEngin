@@ -33,7 +33,7 @@ export class MainNavComponent  implements AfterViewInit, OnInit{
     opened: boolean;
     shouldShow = true;
     toggle() { this.shouldShow = !this.shouldShow; }
-  @ViewChild('sidenavNotification',{'static':false}) public sidenav: MatSidenav
+  @ViewChild('sidenavNotification') public sidenav: MatSidenav
   constructor(
     private breakpointObserver: BreakpointObserver,
     private afs: AngularFirestore,
