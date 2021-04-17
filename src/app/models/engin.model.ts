@@ -22,12 +22,19 @@ export interface Engin {
     vidange_alarm?:number;//le compteur qu'on doit allumer l'alarme
     id_chantier?:number,
     etiquette_ancienne?:number,
-    pointed?:number
+    pointed?:number,
+    famille?:Famille,
+    archived?:Famille,
+    date_archived?:Famille
   }
   export interface Categorie{
     id:number,
     name:string,
     compte?:string,
+  }
+  export interface Famille{
+    id:number,
+    name:string
   }
   export interface Fournisseur{
     id:number,
@@ -35,7 +42,7 @@ export interface Engin {
     compte?:string
   }
   export interface Fonction{
-    id:number,
+    id?:string,
     name:string
   }
   export interface Chantier{
@@ -47,7 +54,8 @@ export interface Engin {
     region?:string,
     users?:string[],
     engins?:string[],
-    localisation?:Localisation
+    localisation?:Localisation,
+    departement?:string
   }
   export interface chantierUser{
     createdBy: string
@@ -195,6 +203,16 @@ export class CategorieClass {
     public name: string
     ) {}
 }
+export interface IPersonnelResponse {
+  total: number;
+  results: Personnel[];
+}
+export class PersonnelClass {
+  constructor(
+    public id: number,
+    public name: string
+    ) {}
+}
 export interface IChauffeurResponse {
   total: number;
   results: Chauffeur[];
@@ -206,10 +224,59 @@ export class ChauffeurClass {
     ) {}
 }
 export interface IFonctionResponse {
-  total: number;
+  total:number,
   results: Fonction[];
 }
 export class FonctionClass {
+  constructor(
+    public id : string,
+    public name: string
+    ) {}
+}
+export interface Mouvements{
+  id:string,
+  code_materiel:string,
+  libelle_materiel:string,
+  num_bon:string,
+  code_artice:string,
+  nom_produit:string,
+  num_mvt:string,
+  qte:number,
+  cout_mvt:number,
+  date_mvt:Date
+}
+
+export interface Personnel{
+  createdAt?:Date,
+  createdBy?:string,
+  id:number,
+  f_name:string,
+  l_name:string,
+  cin?:string,
+  date_naissance?:Date
+  adresse?:string,
+  fonction?:Fonction,
+  matricule?:string,
+  date_ambauche?:Date,
+  type_contrat?:TypeOfContrat,
+  duree_contrat?:number,
+  num_tele?:string,
+  updatetedAt?:Date,
+  updatetedBy?:string,
+  id_chantier?:string
+}
+
+export interface TypeOfContrat{
+  id:number,
+  name:string,
+  duree?:number
+}
+
+export interface ITypeOfContratResponse {
+  total: number;
+  results: TypeOfContrat[];
+}
+export class TypeOfContratClass {
   constructor(
     public id: number,
     public name: string
