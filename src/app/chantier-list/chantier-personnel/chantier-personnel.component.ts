@@ -1,6 +1,8 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { MatAccordion, MatAutocomplete, MAT_DIALOG_DATA } from '@angular/material';
+import { MatAutocomplete } from '@angular/material/autocomplete';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatAccordion } from '@angular/material/expansion';
 import { FormControl } from '@angular/forms';
 import { Chantier, Personnel } from 'src/app/models/engin.model';
 import { Observable } from 'rxjs';
