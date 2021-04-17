@@ -170,6 +170,7 @@ export class EnginListComponent implements OnInit{
       compteur:element.compteur?element.compteur:0,
       pointed:element.pointed?element.pointed:0,
       porte:element.porte,
+      archived:element.archived?element.archived:0,
       consomation:element.consomation,
       compteur_v:element.compteur_v,
       vidange_alarm:element.vidange_alarm,
