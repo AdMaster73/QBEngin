@@ -1,6 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { MatTableDataSource, MatSort, MatDialog} from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator} from '@angular/material/paginator';
 import { MouvementsService } from '../services/mouvements.service';
 import { Mouvements } from './../models/engin.model';
