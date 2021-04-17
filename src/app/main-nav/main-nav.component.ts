@@ -3,7 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable, from, zip, pipe, Observer, combineLatest } from 'rxjs';
 import { map, shareReplay, filter, switchMap } from 'rxjs/operators';
 import { SidenavService } from './../services/sidenavService';
-import { MatSidenav } from '@angular/material';
+import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AuthService } from '../services/auth.service';
