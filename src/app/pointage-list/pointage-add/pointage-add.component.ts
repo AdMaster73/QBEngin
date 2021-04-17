@@ -64,7 +64,8 @@ export class PointageAddComponent implements OnInit {
       this.heure_p=0
       this.heure_ar=0
     }
-    this.minDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+    //this.minDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+    this.minDate = new Date(2021, 0, 1);
     if(this.data.id_chantier){
       this.chantierService.getChantierById(this.data.id_chantier).subscribe(chantiers=>{
         chantiers.forEach(chantier=>{
@@ -106,7 +107,7 @@ export class PointageAddComponent implements OnInit {
       bon: new FormControl({value:'',disabled:true},[Validators.required]),
       etiquette_nvx: new FormControl({value:this.data.etiquette_ancienne,disabled:true},[Validators.required]),
       etiquette_ancienne: new FormControl({value:this.data.etiquette_ancienne,disabled:true}),
-      etat_compt: new FormControl({value:this.data.etat_k}, Validators.required),
+      etat_k: new FormControl(Validators.required),
       compteur_anc: new FormControl({ value: '', disabled: true }),
       compteur_nvx: new FormControl(this.data.compteur, [Validators.min(this.data.compteur)]),
       consomation: new FormControl({value:0},[Validators.max(100)]),
