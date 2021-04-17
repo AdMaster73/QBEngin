@@ -97,13 +97,13 @@ export class EnginService {
 
   getEnginWithChantierName(){//,ref=>ref.where('pointed','==',1)
   const db = firebase.firestore()
-    /* db.collection("engin").get().then((querySnapshot) =>{
+    db.collection("engin").get().then((querySnapshot) =>{
       querySnapshot.forEach((doc) =>{
           doc.ref.update({
-              id_chantier:firebase.firestore.FieldValue.delete()
+              last_pointage:firebase.firestore.FieldValue.delete()
           });
       });
-    }); */
+    });
 
     return this.afs.collection<Engin>('engin').snapshotChanges().pipe(
       switchMap((engins)=>{
@@ -252,6 +252,7 @@ export class EnginService {
     let accessoire_veh = engin.accessoire_v ? 1 : 0
     let pointage_veh = engin.pointed ? 1 : 0
     let porte = engin.porte ? 1 : 0
+    let archived = engin.archived ? 1 : 0
     var consomation :number =0
     var compteur_v :number =0
     var vidange_alarm :number =0
@@ -297,6 +298,7 @@ export class EnginService {
         compteur:engin.compteur,
         pointed:pointage_veh,
         porte:porte,
+        archived:archived,
         consomation:consomation,
         compteur_v:compteur_v,
         vidange_alarm:vidange_alarm
