@@ -56,7 +56,7 @@ export class FonctionAddComponent implements OnInit {
       return;
     }
     var iFonction : Fonction = {
-      id:this.EnginLastRecord,
+      id:eval(this.EnginLastRecord.toString()),
       name:this.FonctionForm.controls['name'].value
     }
 
