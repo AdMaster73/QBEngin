@@ -9,7 +9,7 @@ import   localeFr from '@angular/common/locales/fr';
 import { registerLocaleData } from '@angular/common';
 import { CategorieService } from 'src/app/services/categorie.service';
 import { ChauffeurService } from 'src/app/services/chauffeur.service';
-import { Categorie, CategorieClass, Chauffeur, ChauffeurClass, Fournisseur, FournisseurClass, ICategorieResponse, IChauffeurResponse, IFournisseurResponse } from 'src/app/models/engin.model';
+import { Categorie, CategorieClass, Chauffeur, ChauffeurClass, Famille, Fournisseur, FournisseurClass, ICategorieResponse, IChauffeurResponse, IFournisseurResponse } from 'src/app/models/engin.model';
 import { debounceTime, finalize, switchMap, tap } from 'rxjs/operators';
 
 @Component({
@@ -28,6 +28,7 @@ export class EnginFormComponent implements OnInit {
   filteredFournisseurs: Fournisseur[] = [];
   filteredCategories: Categorie[] = [];
   filteredChauffeurs: Chauffeur[] = [];
+  filteredFamille: Famille[] = [];
 
   accessoire_v:boolean
   typeVs:string[]=['HEURE','KILOMETRE'];
@@ -63,6 +64,8 @@ export class EnginFormComponent implements OnInit {
       id_categorie: ['', Validators.required],
       chauffeur:['', Validators.required],
       id_chauffeur: ['', Validators.required],
+      //famille:['', Validators.required],
+      //id_famille: ['', Validators.required],
       valeur_achat: new FormControl(),
       date_achat:[''],
       date_v:new FormControl({value:'',disabled:true}),
@@ -85,8 +88,22 @@ export class EnginFormComponent implements OnInit {
       accessoire_v:new FormControl(),
       compteur:new FormControl(),
       pointed:new FormControl(),
+      archived:new FormControl(),
       porte:new FormControl()
     });
+    /* this.EnginFormEdit.get('famille')
+    .valueChanges
+    .pipe(
+      debounceTime(200),
+      tap(() => this.isLoading = true),
+      switchMap(value => this.searchFamille({name: value})
+      .pipe(
+        finalize(() => {this.isLoading = false}),
+        )
+      )
+    )
+    .subscribe((familles)=>this.filteredFamille = familles.results ); */
+
     this.EnginFormEdit.get('fournisseur')
     .valueChanges
     .pipe(
@@ -99,6 +116,7 @@ export class EnginFormComponent implements OnInit {
       )
     )
     .subscribe((fournisseurs)=>this.filteredFournisseurs = fournisseurs.results );
+
     this.EnginFormEdit.get('categorie')
     .valueChanges
     .pipe(
@@ -128,7 +146,6 @@ export class EnginFormComponent implements OnInit {
 
   search(filter: {name: string} = {name: ''}): Observable<IFournisseurResponse>{
     let filterString:string = filter.name
-    console.log(filter)
     if (typeof( filter.name) === 'object') {
       this.EnginFormEdit.controls['id_fournisseur'].setValue(filter.name['id'])
       filterString = filter.name['name']
