@@ -54,7 +54,7 @@ export class MouvementsComponent implements OnInit {
   dataSource : MatTableDataSource<Mouvements>;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static : true}) sort: MatSort;
-  @ViewChild('epltable', { static: false }) epltable: ElementRef;
+  @ViewChild('epltable') epltable: ElementRef;
   ngOnInit(): void {
 
     this.mouvementsService.getAllMouvements().subscribe(mouvements=>{
