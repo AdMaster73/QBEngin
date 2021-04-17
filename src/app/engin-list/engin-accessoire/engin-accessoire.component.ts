@@ -1,5 +1,7 @@
 import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
-import { MAT_DIALOG_DATA, MatAccordion, MatAutocomplete } from '@angular/material';
+import { MatAutocomplete } from '@angular/material/autocomplete';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatAccordion } from '@angular/material/expansion';
 import { startWith, map } from 'rxjs/operators';
 import { UserService } from 'src/app/services/user.service';
 import { ChantierService } from 'src/app/services/chantier.service';
