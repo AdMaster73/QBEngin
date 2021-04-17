@@ -15,6 +15,7 @@ import { filter, switchMap } from 'rxjs/operators';
 import * as firebase from 'firebase';
 import { CollectionsService } from '../services/collections.service';
 import { RolesService } from '../services/roles.service';
+import { ChantierPersonnelComponent } from './chantier-personnel/chantier-personnel.component';
 
 @Component({
   selector: 'app-chantier-list',
@@ -112,8 +113,8 @@ export class ChantierListComponent implements OnInit {
       archive:element.archive,
       region:element.region,
       departement:element.departement,
-      latitude:element.localisation.latitude,
-      longitude:element.localisation.longitude
+      latitude:element.localisation== undefined?"":element.localisation.latitude,
+      longitude:element.localisation==undefined?"":element.localisation.longitude,
     }}).afterClosed().subscribe(result => {
       if (result){
         this.chantierService.UpdateChantier(result)
@@ -135,5 +136,9 @@ export class ChantierListComponent implements OnInit {
   editUser(chantier:Chantier){
     this.dialog.open(ChantierUserComponent,{data:chantier}).afterClosed().subscribe(_ =>{
     })
+  }
+  /** */
+  affectUserToSite(chantier:Chantier){
+    this.dialog.open(ChantierPersonnelComponent,{data:chantier}).afterClosed()
   }
 }
