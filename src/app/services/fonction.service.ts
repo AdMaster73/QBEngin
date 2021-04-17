@@ -25,7 +25,7 @@ export class FonctionService {
     return new Observable(subscriber => {
       this.GetFonctionList().subscribe(fonctions=>{
         subscriber.next({
-          total: fonctions.length,
+          total:fonctions.length,
           results: fonctions
         });
       })
@@ -46,7 +46,7 @@ export class FonctionService {
 			return actions.map(a => {
 				const data = a.payload.doc.data() as Fonction;
         const id = a.payload.doc.id;
-				return { id, ...data };
+				return {id , ...data};
 			});
 			})
 		);
