@@ -5,7 +5,6 @@ import { UserListComponent } from './user-list/user-list.component';
 import { NewUserComponent } from './new-user/new-user.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { SigninComponent } from './auth/signin/signin.component';
-import { AuthComponent } from './auth/auth.component';
 import { MainDashoardComponent } from './main-dashoard/main-dashoard.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { EnginListComponent } from './engin-list/engin-list.component';
@@ -13,8 +12,6 @@ import { CategorieListComponent } from './categorie-list/categorie-list.componen
 import { FournisseurListComponent } from './fournisseur-list/fournisseur-list.component';
 import { ChantierListComponent } from './chantier-list/chantier-list.component';
 import { AuthAdminGuardGuard } from './services/auth-admin-guard.guard';
-import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
-import { Role } from './models/User.model'
 import { NotFoundComponent } from './not-found/not-found-component';
 import { PointageListComponent } from './pointage-list/pointage-list.component';
 import { SettingsComponent } from './settings/settings.component';
@@ -24,6 +21,9 @@ import { RegionListComponent } from './region-list/region-list.component';
 import { PointageEnginComponent } from './pointage-list/pointage-engin/pointage-engin.component';
 import { ChauffeurListComponent } from './chauffeur-list/chauffeur-list.component';
 import { ChauffeurFonctionComponent } from './chauffeur-list/chauffeur-fonction/chauffeur-fonction.component';
+import { ChantierDetailsComponent } from './chantier-details/chantier-details.component';
+import { MouvementsComponent } from './mouvements/mouvements.component';
+import { PersonnelListComponent } from './personnel-list/personnel-list.component';
 
 const routes: Routes = [
   { path: 'sidenav', canActivate: [AuthGuardService], component: MainNavComponent,
@@ -48,6 +48,9 @@ const routes: Routes = [
         { path: 'fonction',component:ChauffeurFonctionComponent,canActivate:[AuthAdminGuardGuard]},
         { path: 'transfert/add',component:EncoursAddComponent,canActivate:[AuthGuardService]},
         { path: 'region',component:RegionListComponent,canActivate:[AuthGuardService]},
+        { path: 'charges',component:MouvementsComponent,canActivate:[AuthGuardService]},
+        { path: 'personnel',component:PersonnelListComponent,canActivate:[AuthGuardService]},
+        { path: 'site-details',component:ChantierDetailsComponent,canActivate:[AuthGuardService]},
         { path: '**', component: NotFoundComponent }
 
         ]},
