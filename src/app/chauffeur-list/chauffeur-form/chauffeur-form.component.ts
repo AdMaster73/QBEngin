@@ -2,7 +2,7 @@ import { Component, OnInit,Inject, ViewChild} from '@angular/core';
 import { MAT_DIALOG_DATA,MatDialogRef} from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators, FormControl, NgForm } from "@angular/forms";
 import { ChauffeurListComponent } from '../chauffeur-list.component';
-import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material';
+import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
 import   localeFr from '@angular/common/locales/fr';
 import { registerLocaleData } from '@angular/common';
 import { Fonction, FonctionClass, IFonctionResponse } from 'src/app/models/engin.model';
