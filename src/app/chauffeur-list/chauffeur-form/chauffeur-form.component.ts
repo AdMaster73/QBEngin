@@ -49,8 +49,8 @@ export class ChauffeurFormComponent implements OnInit {
       fonction: ['', Validators.required],
       id_fonction: [''],
       matricule: [''],
-      date_obtention: new FormControl(),
-      date_visite_yeux: new FormControl(),
+      date_obtention: [''],
+      date_visite_yeux: [''],
       type_permis: ['']
     });
     this.ChauffeurFormEdit.get('fonction')
