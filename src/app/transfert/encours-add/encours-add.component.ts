@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatRadioChange } from '@angular/material';
+import { MatRadioChange } from '@angular/material/radio';
 import { CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
