@@ -1,0 +1,53 @@
+<mat-card class="example-card">
+  <mat-card-header>
+    <mat-card-title>Site</mat-card-title>
+    <mat-card-subtitle>{{data.name}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+
+    <mat-accordion class="example-headers-align" multi>
+      <mat-expansion-panel>
+          <mat-expansion-panel-header>
+          <mat-panel-title>
+              Chantier :
+          </mat-panel-title>
+          <mat-panel-description>
+              {{data.name}}
+              <mat-icon>person_add</mat-icon>
+          </mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <!-- User Chantier -->
+          <mat-form-field class="example-chip-list">
+          <mat-chip-list #chipList aria-label="Fruit selection">
+              <mat-chip *ngFor="let personne of chantiers"
+                      [selectable]="selectable"
+                      [removable]="removable"
+                      (removed)="remove(personne)">
+                      ({{personne.f_name}}) {{personne.l_name}} - {{personne.matricule}}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+              </mat-chip>
+              <input placeholder="Nouvau Personne..."
+                      #chantierInput
+                      [formControl]="personneCtrl"
+                      [matAutocomplete]="auto"
+                      [matChipInputFor]="chipList"
+                      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                      (matChipInputTokenEnd)="add($event)">
+          </mat-chip-list>
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+              <mat-option *ngFor="let personne of (filteredPersonnes | async)" [value]="personne">
+              {{personne.f_name}}  {{personne.l_name}} - {{personne.matricule}}
+              </mat-option>
+          </mat-autocomplete>
+          </mat-form-field>
+
+      </mat-expansion-panel>
+      </mat-accordion>
+
+
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button mat-dialog-close>QUITTER</button>
+  </mat-card-actions>
+</mat-card>
