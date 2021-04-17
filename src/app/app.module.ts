@@ -1,4 +1,4 @@
-import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
+import { BrowserModule, DomSanitizer, HammerModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -7,14 +7,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule} from '@angular/material/form-field';
 import { MatIconModule, MatIconRegistry} from '@angular/material/icon';
 import { MatCardModule} from '@angular/material/card';
-import { MatButtonModule,
-	MatChipsModule,
-	MatExpansionModule,
-	MatDialogModule,
-	MatNativeDateModule,
-  MatSelectModule,
-  MatProgressSpinnerModule
-	} from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
 import { MatTabsModule} from '@angular/material/tabs';
 import { MatRadioModule} from '@angular/material/radio';
 import { MatCheckboxModule} from '@angular/material/checkbox';
@@ -302,7 +301,8 @@ firebase.initializeApp(environment.firebaseConfig);
 		apiKey: 'AIzaSyAgAdva88NetRz6vyCzpfaltzNM11FaFtw'
 	}),
 	AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule.enablePersistence()
+    AngularFirestoreModule.enablePersistence(),
+    HammerModule
   ],
   providers: [
 	AuthService,
