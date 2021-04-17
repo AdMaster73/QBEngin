@@ -128,6 +128,14 @@ import { ChauffeurDeleteComponent } from './chauffeur-list/chauffeur-delete/chau
 import { ChauffeurFonctionComponent } from './chauffeur-list/chauffeur-fonction/chauffeur-fonction.component';
 import { FonctionAddComponent } from './chauffeur-list/chauffeur-fonction/fonction-add/fonction-add.component';
 import { FonctionFormComponent } from './chauffeur-list/chauffeur-fonction/fonction-form/fonction-form.component';
+import { ChantierDetailsComponent } from './chantier-details/chantier-details.component';
+import { MouvementsComponent } from './mouvements/mouvements.component';
+import { PersonnelListComponent } from './personnel-list/personnel-list.component';
+import { PersonnelAddComponent } from './personnel-list/personnel-add/personnel-add.component';
+import { PersonnelFormComponent } from './personnel-list/personnel-form/personnel-form.component';
+import { PersonnelService } from './services/personnel.service';
+import { TypeOfContratService } from './services/type-of-contrat.service';
+import { ChantierPersonnelComponent } from './chantier-list/chantier-personnel/chantier-personnel.component';
 
 firebase.initializeApp(environment.firebaseConfig);
 
@@ -152,9 +160,9 @@ firebase.initializeApp(environment.firebaseConfig);
 	ListNfraisTableComponent,
 	CategorieListComponent,
 	CategorieAddComponent,
-  CategorieFormComponent,
-  RegionAddComponent,
-  RegionFormComponent,
+	CategorieFormComponent,
+	RegionAddComponent,
+	RegionFormComponent,
 	FournisseurListComponent,
 	FournisseurAddComponent,
 	FournisseurFormComponent,
@@ -201,17 +209,23 @@ firebase.initializeApp(environment.firebaseConfig);
 	ChauffeurDeleteComponent,
 	ChauffeurFonctionComponent,
 	FonctionAddComponent,
-	FonctionFormComponent
+	FonctionFormComponent,
+	ChantierDetailsComponent,
+	MouvementsComponent,
+	PersonnelListComponent,
+	PersonnelAddComponent,
+	PersonnelFormComponent,
+	ChantierPersonnelComponent
   ],
   entryComponents: [
 	BottomSheetOverviewExampleSheet,
 	EnginAddComponent,
 	EnginFormComponent,
 	CategorieAddComponent,
-  CategorieFormComponent,
-  RegionAddComponent,
-  RegionFormComponent,
-  EnginPositionComponent,
+	CategorieFormComponent,
+	RegionAddComponent,
+	RegionFormComponent,
+	EnginPositionComponent,
 	FournisseurAddComponent,
 	FournisseurFormComponent,
 	ChantierAddComponent,
@@ -220,8 +234,8 @@ firebase.initializeApp(environment.firebaseConfig);
 	UserFormComponent,
 	UserDeleteComponent,
 	ChantierDeleteComponent,
-  ChantierUserComponent,
-  EnginAccessoireComponent,
+	ChantierUserComponent,
+	EnginAccessoireComponent,
 	RolesAddComponent,
 	RolesDeleteComponent,
 	RolesFormComponent,
@@ -232,13 +246,16 @@ firebase.initializeApp(environment.firebaseConfig);
 	PermissionsFormComponent,
 	PermissionsDeleteComponent,
 	EncoursFormComponent,
-  EncoursDeleteComponent,
-  PointageAddComponent,
-  ChauffeurAddComponent,
-  ChauffeurFormComponent,
-  ChauffeurDeleteComponent,
-  FonctionAddComponent,
-  FonctionFormComponent
+	EncoursDeleteComponent,
+	PointageAddComponent,
+	ChauffeurAddComponent,
+	ChauffeurFormComponent,
+	ChauffeurDeleteComponent,
+	FonctionAddComponent,
+	FonctionFormComponent,
+	PersonnelAddComponent,
+	PersonnelFormComponent,
+	ChantierPersonnelComponent
   ],
   imports: [
     BrowserModule,
@@ -278,12 +295,12 @@ firebase.initializeApp(environment.firebaseConfig);
 	MatSelectModule,
 	MatTooltipModule,
 	MatStepperModule,
-  DragDropModule,
-  MatSnackBarModule,
-  MatProgressSpinnerModule,
-  AgmCoreModule.forRoot({
-    apiKey: 'AIzaSyAgAdva88NetRz6vyCzpfaltzNM11FaFtw'
-  }),
+	DragDropModule,
+	MatSnackBarModule,
+	MatProgressSpinnerModule,
+	AgmCoreModule.forRoot({
+		apiKey: 'AIzaSyAgAdva88NetRz6vyCzpfaltzNM11FaFtw'
+	}),
 	AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule.enablePersistence()
   ],
@@ -294,8 +311,10 @@ firebase.initializeApp(environment.firebaseConfig);
 	AngularFireAuth,
 	EnginService,
 	CategorieService,
+  	PersonnelService,
 	FournisseurService,
 	ChantierService,
+  	TypeOfContratService,
 	AngularFirestore,
 	AngularFireAuthGuard,
 	AuthTokenHttpInterceptorProvider,
