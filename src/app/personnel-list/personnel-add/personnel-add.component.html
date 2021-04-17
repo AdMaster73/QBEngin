@@ -1,0 +1,81 @@
+  <!-- Personnel form -->
+  <div class="example-container">
+    <form [formGroup]="PersonnelForm" (ngSubmit)="submitPersonnelForm()">
+      <button mat-icon-button color="primary" [disabled]="PersonnelForm.invalid" matTooltip="Nouvelle élement">
+        <mat-icon aria-label="Example icon-button with a heart icon">done_outline</mat-icon>
+      </button>
+      <button mat-icon-button color="accent" (click)="closeForm()" matTooltip="Annuler">
+        <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
+      </button>
+      <!-- Left block -->
+      <mat-card>
+        <mat-card-title>Ajouter une personne</mat-card-title>
+          <!-- Personnel f_name -->
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Nom</mat-label>
+            <input matInput placeholder="Nom" formControlName="f_name">
+            <mat-error *ngIf="handleError('f_name', 'required')">
+              Vous devez Entrer le <strong>Nom</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Personnel l_name -->
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Prénom</mat-label>
+            <input matInput placeholder="Prénom" formControlName="l_name">
+            <mat-error *ngIf="handleError('l_name', 'required')">
+              Vous devez Entrer le <strong>Prénom</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <!--DATE NAISSANCNE-->
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Date de naissance</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="date_naissance">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker touchUi #picker></mat-datepicker>
+          </mat-form-field>
+
+          <!--DATE AMBAUCHE-->
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Date d'ambauche</mat-label>
+            <input matInput [matDatepicker]="pickerA" formControlName="date_ambauche">
+            <mat-datepicker-toggle matSuffix [for]="pickerA"></mat-datepicker-toggle>
+            <mat-datepicker touchUi #pickerA></mat-datepicker>
+          </mat-form-field>
+
+
+          <!-- type_contrat -->
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Type de contrat</mat-label>
+            <input matInput #type_contrat
+            formControlName="type_contrat"
+            placeholder="Type de contrat"
+            aria-label="Type de contrat"
+            [matAutocomplete]="autoC">
+            <mat-autocomplete #autoC="matAutocomplete" [displayWith]="displayFn">
+              <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="20"></mat-spinner></mat-option>
+              <ng-container *ngIf="!isLoading">
+                <mat-option *ngFor="let typeContrat of filteredContrats" [value]="typeContrat">
+                  <span>{{typeContrat?.name}}</span>
+                </mat-option>
+              </ng-container>
+            </mat-autocomplete>
+            <mat-error *ngIf="handleError('type_contrat', 'required')">
+              Vous devez selectionnez la <strong>Type de contrat</strong>
+            </mat-error>
+          </mat-form-field>
+
+
+          <!-- Personnel duree_contrat -->
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Durée de Contrat</mat-label>
+            <input matInput type="number" placeholder="Durée de Contrat" formControlName="duree_contrat">
+            <mat-error *ngIf="handleError('duree_contrat', 'required')">
+              Vous devez Entrer la <strong>Durée de Contrat</strong>
+            </mat-error>
+          </mat-form-field>
+
+      </mat-card>
+    </form>
+  </div>
