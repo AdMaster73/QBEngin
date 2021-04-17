@@ -1,7 +1,10 @@
 import { Component, OnInit, ViewChild, NgModule } from '@angular/core';
 import { User } from 'firebase';
 import { UserService } from '../services/user.service';
-import { MatTableDataSource, MatSort, MatDialog, MAT_CHIPS_DEFAULT_OPTIONS} from '@angular/material';
+import { MAT_CHIPS_DEFAULT_OPTIONS } from '@angular/material/chips';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator} from '@angular/material/paginator';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { UserAddComponent } from './user-add/user-add.component';
