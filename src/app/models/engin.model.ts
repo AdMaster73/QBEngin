@@ -1,4 +1,3 @@
-
 export interface Engin {
     id: number;
     code: string;
@@ -55,7 +54,11 @@ export interface Engin {
     users?:string[],
     engins?:string[],
     localisation?:Localisation,
-    departement?:string
+    departement?:string,
+    personnel_pointed?:number,
+    month_pointed?:number,
+    year_pointed?:number,
+    fortnight_pointed?:number
   }
   export interface chantierUser{
     createdBy: string
@@ -233,6 +236,18 @@ export class FonctionClass {
     public name: string
     ) {}
 }
+export interface IUserResponse {
+  total:number,
+  results: User[];
+}
+export class UserClass {
+  constructor(
+    public uid : string,
+    public displayName: string,
+    public email: string,
+    public role: string
+    ) {}
+}
 export interface Mouvements{
   id:string,
   code_materiel:string,
@@ -262,6 +277,7 @@ export interface Personnel{
   duree_contrat?:number,
   num_tele?:string,
   updatetedAt?:Date,
+  minAmbauche?:Date,
   updatetedBy?:string,
   id_chantier?:string,
   heure_pp?:number,
@@ -270,7 +286,9 @@ export interface Personnel{
   isChecked?:boolean,
   pending?:number,
   id_pending?:string,
-  type_pointage?:string
+  type_pointage?:string,
+  deplacement?:boolean,
+  pointeur_uid?:string
 }
 
 export interface TypeOfContrat{

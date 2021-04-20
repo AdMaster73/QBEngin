@@ -1,20 +1,45 @@
 import { Injectable } from '@angular/core';
-import { Personnel, IPersonnelResponse } from '../models/engin.model';
+import { Personnel, IPersonnelResponse, User, IUserResponse } from '../models/engin.model';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { map, switchMap } from 'rxjs/operators';
 import firebase, { firestore } from 'firebase';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { combineLatest, Observable } from 'rxjs';
 import { ChantierService } from './chantier.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PersonnelService {
 
+  private baseUrl = 'https://us-central1-admater-a06e8.cloudfunctions.net/api/users'
 
-	constructor(private afs: AngularFirestore,private firebaseAuth: AngularFireAuth,public chantierService:ChantierService) {}
+	constructor(private afs: AngularFirestore,private firebaseAuth: AngularFireAuth,public chantierService:ChantierService,private http: HttpClient) {}
 
+  /*** */
+
+  get users$(): Observable<User[]> {
+    return this.http.get<{ users: User[] }>(`${this.baseUrl}`).pipe(
+      map(result => {
+        return result.users
+      })
+    )
+  }
+
+  	/*Retourner une liste des chantier */
+	GetUsersListSearch():Observable<IUserResponse> {
+    return new Observable(subscriber => {
+      this.users$.subscribe(users=>{
+        subscriber.next({
+          total: users.length,
+          results: users
+        });
+      })
+    });
+	}
+
+  /** */
   deleteChantierPersonnel(personnel: Personnel) {
     this.afs.doc('personnel/'+personnel.id).update({
 			id_chantier:firebase.firestore.FieldValue.delete()
@@ -41,16 +66,21 @@ export class PersonnelService {
 		})
   }
 	/* Créer une nouvelle Personnel */
-	AddPersonnel(personnel: Personnel){
+	AddPersonnel(personnel: Personnel){ 
+    let date_pointage = new Date()
+    date_pointage.setDate(date_pointage.getDate()-1)       
     let numberOfNow:number = new Date().getDate()
     var idPending : string = ""
     let year = new Date().getFullYear()
     let month = new Date().getDay()
+    let minAmbauche = personnel.minAmbauche
+    let uid_pointeur = personnel.pointeur_uid
+    let dateDiffAmbQuianzine:number = date_pointage.getDate()-minAmbauche.getDate()
     if(numberOfNow<10){
       idPending = year.toString()+'0'+month.toString()+'0'+numberOfNow
     }else{
       idPending = year.toString()+month.toString()+numberOfNow
-    }
+    }            
 		this.afs.collection('personnel').doc(personnel.id.toString()).set({
 			createdBy: this.firebaseAuth.auth.currentUser.uid,
 			createdAt: firestore.FieldValue.serverTimestamp(),
@@ -63,19 +93,39 @@ export class PersonnelService {
       pending:1,
       heure_pp:9,
       totalMois:0,
-      type_pointage:"",
+      last_day:date_pointage.getDate(),
+      type_pointage:personnel.type_pointage,
       id_pending:idPending,
+      deplacement:personnel.deplacement,
+      id_chantier:personnel.id_chantier,
       type_contrat:{
         id:eval(personnel.type_contrat.id.toString()),
         name:personnel.type_contrat.name
       },
       duree_contrat:personnel.duree_contrat,
       archive:0
-		},{merge:true})
-    return this.afs.collection('personnel/'+personnel.id+'/pending').doc(idPending).set({
-      uid:this.firebaseAuth.auth.currentUser.uid,
-      date_pending:firestore.FieldValue.serverTimestamp()      
-    })
+		},{merge:true})    
+    for (let index = minAmbauche.getDate(); index <= minAmbauche.getDate()+dateDiffAmbQuianzine; index++) {      
+      let id_pointage
+      if(minAmbauche.getDate()==1){
+        id_pointage = minAmbauche.getFullYear()+''+minAmbauche.getMonth()+1+'0'+index
+      }else{
+        id_pointage = minAmbauche.getFullYear()+''+minAmbauche.getMonth()+1+''+index
+      }      
+      this.afs.collection('personnel/'+personnel.id+'/pointage').doc(id_pointage).set(
+        {
+          id_chantier:personnel.id_chantier,
+          date_ep:new Date(),
+          date_p:new Date(minAmbauche.getFullYear(),minAmbauche.getMonth()+1,index),      
+          uid:uid_pointeur,
+          numero:index,
+          heure_p:0
+        },{merge:true})
+      }
+      return this.afs.collection('personnel/'+personnel.id+'/pending').doc(idPending).set({
+        uid:this.firebaseAuth.auth.currentUser.uid,
+        date_pending:firestore.FieldValue.serverTimestamp()      
+      })     
   }
 
   GetPersonnelListSearch():Observable<IPersonnelResponse> {
@@ -150,6 +200,7 @@ export class PersonnelService {
       duree_contrat:personnel.duree_contrat?personnel.duree_contrat:0,
       type_pointage:personnel.type_pointage,
       heure_pp:personnel.heure_pp,
+      deplacement:personnel.deplacement,
       fonction:{
         id:eval(personnel.fonction.id.toString()),
         name:personnel.fonction.name

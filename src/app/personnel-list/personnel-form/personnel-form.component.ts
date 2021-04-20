@@ -42,6 +42,7 @@ export class PersonnelFormComponent implements OnInit {
       l_name: ['', Validators.required],
       f_name:['', Validators.required],
       cin:new FormControl(),
+      deplacement:new FormControl(),
       date_naissance:new FormControl(),
       matricule:[''],
       date_ambauche:['',Validators.required],

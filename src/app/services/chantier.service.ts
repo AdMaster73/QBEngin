@@ -119,7 +119,11 @@ export class ChantierService {
 			name: chantier.name,
 			compte:chantier.compte,
 			archive:chantier.archive,
-			localisation:locationData
+			localisation:locationData,
+      personnel_pointed:0,
+      month_pointed:new Date().getMonth()+1,
+      year_pointed:new Date().getFullYear(),
+      fortnight_pointed:0
 		})
 	}
 

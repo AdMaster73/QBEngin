@@ -51,7 +51,7 @@
           <!--DATE NAISSANCNE-->
           <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>Date de naissance</mat-label>
-            <input matInput [matDatepicker]="picker" [max]="maxDate" formControlName="date_naissance">
+            <input matInput [matDatepicker]="picker" [max]="maxDate" [min]="minDate" formControlName="date_naissance">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker touchUi #picker></mat-datepicker>
           </mat-form-field>
@@ -59,7 +59,7 @@
           <!--DATE AMBAUCHE-->
           <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>Date d'ambauche</mat-label>
-            <input matInput [matDatepicker]="pickerA" [max]="maxDateAmb" formControlName="date_ambauche">
+            <input matInput [matDatepicker]="pickerA" [max]="maxDateAmb" [min]="minDateAmb" formControlName="date_ambauche">
             <mat-datepicker-toggle matSuffix [for]="pickerA"></mat-datepicker-toggle>
             <mat-datepicker touchUi #pickerA></mat-datepicker>
           </mat-form-field>
@@ -95,6 +95,65 @@
               Vous devez Entrer la <strong>Durée de Contrat</strong>
             </mat-error>
           </mat-form-field>
+
+          <!-- type_contrat -->
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Type Pointage</mat-label>
+            <mat-select formControlName="type_pointage">
+              <mat-option *ngFor="let typeP of ['Quinzainier','Mensuel']" [value]="typeP">
+                {{typeP}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+
+          <!-- affectation -->
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Affectation du site</mat-label>
+            <input matInput #affectation
+            formControlName="affectation"
+            placeholder="Affectation du site"
+            aria-label="Affectation du site"
+            [matAutocomplete]="autoA">
+            <mat-autocomplete #autoA="matAutocomplete" [displayWith]="displayFnA">
+              <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="20"></mat-spinner></mat-option>
+              <ng-container *ngIf="!isLoading">
+                <mat-option *ngFor="let affect of affectations" [value]="affect">
+                  <span>{{affect?.name}}</span>
+                </mat-option>
+              </ng-container>
+            </mat-autocomplete>
+            <mat-error *ngIf="handleError('affectation', 'required')">
+              Vous devez selectionnez le <strong>Site affecté</strong>
+            </mat-error>
+          </mat-form-field>
+          <input matInput class="invisible" formControlName="id_chantier">
+
+          <!-- uid -->
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Pointeur affecté</mat-label>
+            <input matInput #uid
+            formControlName="uid"
+            placeholder="Pointeur affecté"
+            aria-label="Pointeur affecté"
+            [matAutocomplete]="autoU">
+            <mat-autocomplete #autoU="matAutocomplete" [displayWith]="displayFnU">
+              <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="20"></mat-spinner></mat-option>
+              <ng-container *ngIf="!isLoading">
+                <mat-option *ngFor="let user of users" [value]="user">
+                  <span>{{user?.displayName}} -> {{user?.role}}</span>
+                </mat-option>
+              </ng-container>
+            </mat-autocomplete>
+            <mat-error *ngIf="handleError('uid', 'required')">
+              Vous devez selectionnez le <strong>Pointeur affecté</strong>
+            </mat-error>
+          </mat-form-field>
+          <input matInput class="invisible" formControlName="id_uid">
+
+
+          <!-- Deplaecment-->
+          <mat-slide-toggle formControlName="deplacement">Déplacement</mat-slide-toggle>
 
       </mat-card>
     </form>

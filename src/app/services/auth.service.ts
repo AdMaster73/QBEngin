@@ -8,6 +8,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import {  mergeMap, map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { User } from 'firebase';
+import { IUserResponse } from '../models/engin.model';
 
 export type CreateUserRequest = { displayName: string, password: string, email: string, role: string, phoneNumber: string }
 export type UpdateUserRequest = { uid: string } & CreateUserRequest

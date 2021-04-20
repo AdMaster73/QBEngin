@@ -105,7 +105,8 @@ export class PersonnelListComponent implements OnInit {
       totalMois:element.totalMois,
       last_day:element.last_day,
       isChecked:element.isChecked,
-      pending:element.pending
+      pending:element.pending,
+      deplacement:element.deplacement
     }}).afterClosed().subscribe(result => {
       if (result){
         this.personnelService.UpdatePersonnel(result)
